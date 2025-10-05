@@ -183,7 +183,7 @@ struct MoveView: View {
         
         
 
-        // A move's container style
+   
         .frame(width: 300)
         .padding(.horizontal, 20)
         .overlay(

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		827D6F872E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
+		827D6F882E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
+		827D6F892E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		828DC4092E5372610032083A /* furio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D32E5372610032083A /* furio.mp3 */; };
 		828DC40A2E5372610032083A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FF2E5372610032083A /* Info.plist */; };
 		828DC40C2E5372610032083A /* nanako.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D52E5372610032083A /* nanako.mp3 */; };
@@ -113,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		827D6F862E76592E00091652 /* AudioErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioErrors.swift; sourceTree = "<group>"; };
 		828DC3D32E5372610032083A /* furio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = furio.mp3; sourceTree = "<group>"; };
 		828DC3D42E5372610032083A /* gabagoo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gabagoo.mp3; sourceTree = "<group>"; };
 		828DC3D52E5372610032083A /* nanako.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nanako.mp3; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				828DC3D72E5372610032083A /* AudioPlayerModel.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
 				828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */,
+				827D6F862E76592E00091652 /* AudioErrors.swift */,
 			);
 			path = AudioPlayer;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				828DC4612E5372610032083A /* UploadRoutineView.swift in Sources */,
 				828DC4622E5372610032083A /* Routine.swift in Sources */,
 				828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */,
+				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
 				828DC4682E5372610032083A /* MoveView.swift in Sources */,
@@ -470,6 +476,7 @@
 				828DC41A2E5372610032083A /* UploadRoutineView.swift in Sources */,
 				828DC41B2E5372610032083A /* Routine.swift in Sources */,
 				828DC41D2E5372610032083A /* ChoreoBuilder.swift in Sources */,
+				827D6F872E76592E00091652 /* AudioErrors.swift in Sources */,
 				828DC41E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4202E5372610032083A /* ContentView.swift in Sources */,
 				828DC4212E5372610032083A /* MoveView.swift in Sources */,
@@ -500,6 +507,7 @@
 				828DC43A2E5372610032083A /* UploadRoutineView.swift in Sources */,
 				828DC43B2E5372610032083A /* Routine.swift in Sources */,
 				828DC43D2E5372610032083A /* ChoreoBuilder.swift in Sources */,
+				827D6F892E76592E00091652 /* AudioErrors.swift in Sources */,
 				828DC43E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4402E5372610032083A /* ContentView.swift in Sources */,
 				828DC4412E5372610032083A /* MoveView.swift in Sources */,

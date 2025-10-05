@@ -12,6 +12,8 @@ import SwiftUI
 import AVFoundation
 import SwiftData
 
+// TODO: Change the Design of the Routines
+
 
 struct ContentView: View {
   
@@ -27,7 +29,6 @@ struct ContentView: View {
         UITabBar.appearance().standardAppearance = appearance
         
     
-        
     }
     var body: some View {
         

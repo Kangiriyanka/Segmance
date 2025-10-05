@@ -8,6 +8,8 @@
 import SwiftUI
 import AVKit
 
+// TODO: FIX SLIDER and have better Drag 
+
 struct AudioPlayerView: View {
     
     
@@ -196,6 +198,8 @@ struct AudioPlayerView: View {
     }
                 
             }
+    
+    
     func ExpandedPlayerView(_ size: CGSize, _ safeArea: EdgeInsets) -> some View {
         VStack(spacing: 12) {
             Capsule()
