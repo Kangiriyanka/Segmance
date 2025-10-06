@@ -1,7 +1,5 @@
 //
 //  AudioPlayerModel.swift
-//  BluesMaker
-//
 //  Created by Kangiriyanka The Single Leaf on 2025/02/03.
 //
 
@@ -164,7 +162,6 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     
     // Function called when playback is finished.
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
         
         if !isLooping {
             isPlaying = false

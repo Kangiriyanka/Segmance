@@ -210,8 +210,8 @@ struct MoveView: View {
 
 #Preview {
     
-    
-    let move = Move(title: "Test", details: "Test", order: 1, type: "N")
+    let moveType = MoveType(name: "Juggling", abbreviation: "J")
+    let move = Move(title: "Test", details: "Test", order: 1, type: moveType )
     MoveView(deleteFunction: { _ in }, move: move )
     
     

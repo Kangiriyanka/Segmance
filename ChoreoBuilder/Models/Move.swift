@@ -14,10 +14,13 @@ class Move {
     
     var id: UUID = UUID()
     var title: String = ""
-    var type: String = MoveType.neutral.rawValue
+    var type: MoveType
     var details: String
     var parent: Part?
     var order: Int
+    
+    
+
 
  
     
@@ -26,14 +29,9 @@ class Move {
         return newMove
     }
  
-    enum MoveType: String, CaseIterable {
-        case neutral = "N"
-        case juggling = "J"
-        case transition = "T"
-        case dancing = "D"
-    }
+
     
-    init(title: String, details: String, order: Int, type: String) {
+    init(title: String, details: String, order: Int, type: MoveType) {
         
         self.title = title
         self.details = details
@@ -44,10 +42,10 @@ class Move {
     
     
     
-    static let example1 = Move(title: "Example Move", details: "This is an example move", order: 1, type: "N")
-    static let example2 = Move(title: "Example Move 2", details: "This is an example move 2", order: 2, type: "J")
-    static let example3 = Move(title: "Example Move 3", details: "This is an example move 3", order: 3, type: "J")
-    static let example4 = Move(title: "Example Move 4", details: "This is an example move 4", order: 3, type: "D")
+    static let example1 = Move(title: "Example Move", details: "This is an example move", order: 1, type: MoveType.init(name: "Juggling", abbreviation: "J"))
+    static let example2 = Move(title: "Example Move 2", details: "This is an example move 2", order: 2, type: MoveType.init(name: "Juggling", abbreviation: "J"))
+    static let example3 = Move(title: "Example Move 3", details: "This is an example move 3", order: 3, type: MoveType.init(name: "Dancing", abbreviation: "D"))
+    static let example4 = Move(title: "Example Move 4", details: "This is an example move 4", order: 4, type: MoveType.init(name: "Dancing", abbreviation: "J"))
         
         
         

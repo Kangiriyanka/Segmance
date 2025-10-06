@@ -6,22 +6,25 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct AddMoveView: View {
     var part: Part
+    
     @Environment(\.dismiss) var dismiss
     @State private var title: String = ""
-    @State private var type: Move.MoveType = .neutral
+    @State private var selectedType: MoveType?
+    @Query(sort: \MoveType.name) var moveTypes: [MoveType]
     
-    @State private var moveTypes: Move.MoveType = .juggling
+    
+    
     var body: some View {
         Form {
             Section("Move Name and Type") {
                 TextField("Enter a move name", text: $title)
                     .limitText($title, to: 20)
-                Picker("Type", selection: $type) {
-                    ForEach(Move.MoveType.allCases, id: \.self) { move in
-                        Text("\(move)")
+                Picker("Type", selection: $selectedType) {
+                    ForEach(moveTypes,  id: \.self) { type in
+                        Text(type.name)
                     }
                 }
                 
@@ -33,8 +36,13 @@ struct AddMoveView: View {
           
         }
     }
+    
     func addMove() {
-        part.moves.append(Move(title: title, details: "", order: part.moves.count + 1, type: type.rawValue))
+        if let selectedType = selectedType {
+            part.moves.append(Move(title: title, details: "", order: part.moves.count + 1, type: selectedType))
+            
+        }
+
     }
 }
 

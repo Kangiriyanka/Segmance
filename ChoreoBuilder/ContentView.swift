@@ -57,11 +57,8 @@ struct ContentView: View {
                         Label("Files", systemImage: "folder")
                     }
                 #endif
-                
-                
             }
         
-
     }
     
 
