@@ -19,4 +19,31 @@ class MoveType {
         self.name = name
         self.abbreviation = abbreviation
     }
+    
+    
+}
+
+
+
+extension MoveType {
+    @MainActor
+    static var previewContainer: ModelContainer {
+        do {
+            let container = try ModelContainer (for: Routine.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+            
+            var samples: [MoveType] {
+                [
+                    MoveType(name: "Juggling", abbreviation: "J"),
+                    MoveType(name: "Dancing", abbreviation: "D")
+                ]
+            }
+            samples.forEach {
+                container.mainContext.insert($0)
+            }
+            
+            return container
+        } catch {
+            fatalError("Failed to create the model container: \(error)")
+        }
+    }
 }

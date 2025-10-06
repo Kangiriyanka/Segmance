@@ -13,26 +13,84 @@ struct AddMoveView: View {
     @Environment(\.dismiss) var dismiss
     @State private var title: String = ""
     @State private var selectedType: MoveType?
+    @State private var isNew: Bool = false
+    @State private var newType: String = ""
+    @State private var abbreviation: String = ""
     @Query(sort: \MoveType.name) var moveTypes: [MoveType]
     
     
     
+    
     var body: some View {
-        Form {
-            Section("Move Name and Type") {
-                TextField("Enter a move name", text: $title)
+        VStack(alignment: .leading) {
+            Section("Move") {
+                
+                TextField("Move name", text: $title)
+                    .bubbleStyle()
                     .limitText($title, to: 20)
-                Picker("Type", selection: $selectedType) {
-                    ForEach(moveTypes,  id: \.self) { type in
-                        Text(type.name)
+                
+                HStack {
+                
+              
+                
+                
+            
+                    
+                    if isNew {
+                        
+                        Group {
+                            TextField("New type", text: $newType)
+                            
+                       
+                        }.bubbleStyle()
+                        
+                        
+                        
                     }
+                    
+                    else  {
+                        ForEach(moveTypes) { moveType in
+                            
+                            Button(moveType.name) {
+                                selectedType = moveType
+                            }
+                            .foregroundStyle(selectedType == moveType ? Color.blue : Color.accentColor)
+                            
+                            
+                        }
+                        
+                         
+                        
+                       
+                    }
+                    Spacer()
+                    Button("New") {
+                        
+                        isNew.toggle()
+                        
+                    }
+                   
                 }
                 
                 Button("Add") {
                     addMove()
                     dismiss()
                 }
+                .padding()
+                .overlay(
+                    Circle()
+                       
+                    
+                        .stroke(style: StrokeStyle(lineWidth:1))
+                )
+                
+               
+                .bold()
+              
+                
+               
             }
+          
           
         }
     }
@@ -42,13 +100,35 @@ struct AddMoveView: View {
             part.moves.append(Move(title: title, details: "", order: part.moves.count + 1, type: selectedType))
             
         }
+        
+        if isNew {
+            let newMoveType = MoveType(name: newType, abbreviation: abbreviation)
+            part.moves.append(Move(title: title, details: "", order: part.moves.count + 1, type: newMoveType))
+        }
 
+    }
+    
+    
+    private var newMove: some View {
+        
+        VStack {
+            TextField("Enter a new move type", text: $title)
+                .padding()
+            Button("Add") {
+                addMove()
+                dismiss()
+            }
+        }
     }
 }
 
 #Preview {
     
+    
+    let container = MoveType.previewContainer
     let sample = Part.firstPartExample
     AddMoveView(part: sample)
+        .modelContainer(container)
+    
   
 }
