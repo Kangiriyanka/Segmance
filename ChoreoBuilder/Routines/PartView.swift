@@ -168,7 +168,7 @@ struct PartView: View {
                     }
                     .sheet(isPresented: $showingAddMoveSheet){
                         AddMoveView(part: part)
-                            .presentationDetents([.fraction(0.3)])
+                            .presentationDetents([.fraction(0.4)])
                         
                     }
                     
@@ -199,13 +199,9 @@ struct PartView: View {
         
     }
     
+
     
-    
-    
-    
-    
-    
-    func deleteMove(id: UUID) -> () {
+    private func deleteMove(id: UUID) -> () {
         if let moveToDelete = part.moves.first(where: {$0.id == id}) {
             
             part.moves.removeAll{ $0.id == id }

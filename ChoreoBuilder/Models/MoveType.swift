@@ -34,7 +34,10 @@ extension MoveType {
             var samples: [MoveType] {
                 [
                     MoveType(name: "Juggling", abbreviation: "J"),
-                    MoveType(name: "Dancing", abbreviation: "D")
+                    MoveType(name: "Dancing", abbreviation: "D"),
+                    MoveType(name: "Transition", abbreviation: "T"),
+                    MoveType(name: "Rest", abbreviation: "R"),
+                    MoveType(name: "Power", abbreviation: "P")
                 ]
             }
             samples.forEach {

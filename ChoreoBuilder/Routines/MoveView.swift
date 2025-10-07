@@ -77,7 +77,7 @@ struct MoveView: View {
                 
                 VStack(alignment: .trailing) {
                     HStack {
-                        Text("\(move.type)")
+                        Text("\(move.type.abbreviation)")
                         
                             .frame(width: 40, height: 20)
             
