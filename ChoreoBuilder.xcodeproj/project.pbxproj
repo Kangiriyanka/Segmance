@@ -13,6 +13,9 @@
 		821391B62E947291003B79E1 /* Modiifers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821391B52E947291003B79E1 /* Modiifers.swift */; };
 		821391B72E947291003B79E1 /* Modiifers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821391B52E947291003B79E1 /* Modiifers.swift */; };
 		821391B82E947291003B79E1 /* Modiifers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821391B52E947291003B79E1 /* Modiifers.swift */; };
+		821392562E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
+		821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
+		821392582E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
 		827D6F872E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F882E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F892E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
@@ -124,6 +127,7 @@
 /* Begin PBXFileReference section */
 		821391B12E935F57003B79E1 /* MoveType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveType.swift; sourceTree = "<group>"; };
 		821391B52E947291003B79E1 /* Modiifers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modiifers.swift; sourceTree = "<group>"; };
+		821392552E95D206003B79E1 /* AllMoveTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoveTypesView.swift; sourceTree = "<group>"; };
 		827D6F862E76592E00091652 /* AudioErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioErrors.swift; sourceTree = "<group>"; };
 		828DC3D32E5372610032083A /* furio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = furio.mp3; sourceTree = "<group>"; };
 		828DC3D42E5372610032083A /* gabagoo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gabagoo.mp3; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				828DC3E82E5372610032083A /* MoveDropViewDelegate.swift */,
 				828DC3E92E5372610032083A /* MoveView.swift */,
 				828DC3EA2E5372610032083A /* OptionsView.swift */,
+				821392552E95D206003B79E1 /* AllMoveTypesView.swift */,
 				828DC3EB2E5372610032083A /* PartView.swift */,
 				828DC3EC2E5372610032083A /* RoutineContainerView.swift */,
 				828DC3ED2E5372610032083A /* RoutineView.swift */,
@@ -450,6 +455,7 @@
 				828DC45B2E5372610032083A /* OptionsView.swift in Sources */,
 				828DC45C2E5372610032083A /* UploadedFileView.swift in Sources */,
 				828DC45D2E5372610032083A /* DropViewDelegate.swift in Sources */,
+				821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */,
 				828DC45E2E5372610032083A /* RoutineView.swift in Sources */,
 				828DC45F2E5372610032083A /* FilesView.swift in Sources */,
 				828DC4612E5372610032083A /* UploadRoutineView.swift in Sources */,
@@ -483,6 +489,7 @@
 				828DC4142E5372610032083A /* OptionsView.swift in Sources */,
 				828DC4152E5372610032083A /* UploadedFileView.swift in Sources */,
 				828DC4162E5372610032083A /* DropViewDelegate.swift in Sources */,
+				821392562E95D206003B79E1 /* AllMoveTypesView.swift in Sources */,
 				828DC4172E5372610032083A /* RoutineView.swift in Sources */,
 				828DC4182E5372610032083A /* FilesView.swift in Sources */,
 				828DC41A2E5372610032083A /* UploadRoutineView.swift in Sources */,
@@ -516,6 +523,7 @@
 				828DC4342E5372610032083A /* OptionsView.swift in Sources */,
 				828DC4352E5372610032083A /* UploadedFileView.swift in Sources */,
 				828DC4362E5372610032083A /* DropViewDelegate.swift in Sources */,
+				821392582E95D206003B79E1 /* AllMoveTypesView.swift in Sources */,
 				828DC4372E5372610032083A /* RoutineView.swift in Sources */,
 				828DC4382E5372610032083A /* FilesView.swift in Sources */,
 				828DC43A2E5372610032083A /* UploadRoutineView.swift in Sources */,

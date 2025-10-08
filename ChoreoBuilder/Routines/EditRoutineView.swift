@@ -31,7 +31,7 @@ struct EditRoutineView: View {
                 Section("Arrange and rename parts") {
                     List {
                         ForEach($parts, id: \.id) { $part in
-                            TextField(" Enter a new part name", text: $part.title)
+                            TextField("Enter a new part name", text: $part.title)
                         }
                         .onMove(perform: move)
                     }

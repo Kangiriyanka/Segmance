@@ -11,6 +11,7 @@ import SwiftData
 struct OptionsView: View {
     
     @Query(sort: \Routine.title) var routines: [Routine]
+    
     @State private var exportFileURL: URL?
     @State private var isShowingExporter: Bool = false
     let exportTypes = ["HTML", "Markdown"]
@@ -29,6 +30,20 @@ struct OptionsView: View {
                         }
                     }
                 }
+                
+                Section("Manage Move Types") {
+                    
+                    NavigationLink(destination: AllMoveTypesView()) {
+                        VStack {
+                            Text("View all move types")
+                        }
+                    }
+                    
+                    
+                    
+                }
+                
+                
                 
                 
                 Section("Export Routines") {

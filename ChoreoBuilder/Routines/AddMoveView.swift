@@ -16,10 +16,7 @@ struct AddMoveView: View {
     @State private var isNew: Bool = false
     @State private var newType: String = ""
     @Query(sort: \MoveType.name) var moveTypes: [MoveType]
-    
-    
-    
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -40,6 +37,7 @@ struct AddMoveView: View {
                         if isNew {
                             Group {
                                 TextField("New type", text: $newType)
+                                    .limitText($newType, to: 15)
                             }
                             .bubbleStyle()
                             .transition(.opacity)
@@ -74,12 +72,7 @@ struct AddMoveView: View {
                     }
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
+
                     
                 }
             }
@@ -98,11 +91,7 @@ struct AddMoveView: View {
             .bold()
             .frame(maxWidth: .infinity)
                 
-                
-                
-            
-        
-        
+ 
           
         }
         .padding()
@@ -124,24 +113,11 @@ struct AddMoveView: View {
             }
         }
         
+    }
+    
     
 
-    }
     
-    
-    private var newMove: some View {
-        
-        VStack {
-            TextField("Enter a new move type", text: $newType)
-                .limitText($newType, to: 12)
-                .padding()
-            Button("Add") {
-                addMove()
-                dismiss()
-            }
-           
-        }
-    }
     
     private var typeCard: some View {
         
