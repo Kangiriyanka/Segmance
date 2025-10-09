@@ -77,34 +77,9 @@ struct MoveView: View {
                 
                 VStack(alignment: .trailing) {
                     HStack {
-                        Text("\(move.type.abbreviation)")
+                        moveMarker(width: 40, height: 20, text: move.type.abbreviation, color: Color.customPink)
                         
-                            .frame(width: 40, height: 20)
-            
-                            .background(RoundedRectangle(cornerRadius: 4.0)
-                                        
-                                .fill(Color.customPink.opacity(0.5))
-                                        
-                                .stroke(.black.opacity(0.3), lineWidth: 1)
-                                .shadow(radius: 2, x: 0, y: 1)
-                                        
-                            )
-                        Text("\(move.order)")
-                        
-                            .frame(width: 40, height: 20)
-                            .bold()
-                            .background(RoundedRectangle(cornerRadius: 4.0)
-                                        
-                                .fill(Color.customBlue.opacity(0.5))
-                                        
-                                .stroke(.black.opacity(0.3), lineWidth: 1)
-                                .shadow(radius: 2, x: 0, y: 1)
-                                        
-                            )
-                        
-                     
-                        
-                        
+                        moveMarker(width: 40, height: 20, text: String(move.order), color: Color.customBlue)
                         
                     }
                     .padding(5)
@@ -149,13 +124,7 @@ struct MoveView: View {
                
                 .frame(height: 150)
               
-                
-              
-                    
-                    
-                    
-                    
-                    
+
                     HStack {
                         
                         
@@ -198,10 +167,24 @@ struct MoveView: View {
         
     }
    
-    func updateMoveInfo(move: Move) {
+    private func updateMoveInfo(move: Move) {
         move.title = moveTitle
         
     }
+    
+    private func moveMarker(width: CGFloat, height: CGFloat, text: String, color: Color) -> some View {
+        
+        Text(text)
+        .frame(width: width, height: height)
+        .background(RoundedRectangle(cornerRadius: 4.0)
+                    
+            .fill(color.opacity(0.5))
+            .stroke(.black.opacity(0.3), lineWidth: 1)
+            .shadow(radius: 2, x: 0, y: 1)
+                    )
+    }
+    
+    
 }
 
 

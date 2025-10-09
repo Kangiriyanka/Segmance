@@ -41,7 +41,7 @@ struct AddMoveView: View {
                     
                     ZStack {
                         
-                        if isNew {
+                        if isNew || moveTypes.isEmpty {
                             Group {
                                 TextField("New type", text: $newType)
                                     .limitText($newType, to: 15)
@@ -123,7 +123,7 @@ struct AddMoveView: View {
     
     func addMove() {
         
-        if isNew {
+        if isNew  {
             let newMoveType = MoveType(name: newType, abbreviation: String(newType.first!) )
             part.moves.append(Move(title: title, details: "", order: part.moves.count + 1, type: newMoveType))
         }
