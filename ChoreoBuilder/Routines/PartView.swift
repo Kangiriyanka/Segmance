@@ -168,7 +168,7 @@ struct PartView: View {
                     }
                     .sheet(isPresented: $showingAddMoveSheet){
                         AddMoveView(part: part)
-                            .presentationDetents([.fraction(0.4)])
+                            .presentationDetents([.fraction(0.5)])
                         
                     }
                     

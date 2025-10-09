@@ -21,14 +21,21 @@ struct AddMoveView: View {
         VStack(alignment: .leading) {
             
             Text("New Move")
-                .font(.title3)
+                .font(.headline)
                 
                 TextField("Move name", text: $title)
                     .bubbleStyle()
                     .limitText($title, to: 20)
             
             VStack(alignment: .leading) {
-                Text("Type").font(.title3)
+                HStack {
+                    Text("Type").font(.headline)
+                    Button {
+                        isNew.toggle()
+                    } label: {
+                        Image(systemName: isNew ? "plus.circle" : "return")
+                    }
+                }
                 
                 HStack {
                     
@@ -49,52 +56,68 @@ struct AddMoveView: View {
                                             selectedType = moveType
                                         }
                                         .padding(8)
-                                        .foregroundStyle(selectedType == moveType ? Color.blue : Color.gray)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(selectedType == moveType ? Color.blue : Color.gray, lineWidth: 1)
+                                        .foregroundStyle(selectedType == moveType ? Color.white : Color.gray)
+                                        .fontWeight(.semibold)
+                                     
+                                        .background(
+                                            ZStack {
+                                                if selectedType == moveType {
+                                                    RoundedRectangle(cornerRadius: 8)
+                                                        .fill(Color.accentColor)
+                                                } else {
+                                                    RoundedRectangle(cornerRadius: 8)
+                                                        .stroke(Color.gray, lineWidth: 2)
+                                                }
+                                            }
                                         )
                                     }
                                 }
                             }
+                            .contentMargins(1)
                             .frame(height: 50)
                             .transition(.opacity)
                         }
                     }
+                    .frame(height: 50)
                     .animation(.easeInOut(duration: 0.3), value: isNew)
                     
                     Spacer()
                     
-                    Button(isNew ? "Back" : "New") {
-                        withAnimation {
-                            isNew.toggle()
-                        }
-                    }
+                   
                     
                     
 
                     
                 }
             }
+         
             .padding(.vertical)
-            Button("Add") {
+            
+            Button(action: {
                 addMove()
                 dismiss()
+            }) {
+                Text("Add")
+                    .frame(maxWidth: .infinity)
+                    .padding(5)
+                    .fontWeight(.semibold)
             }
+            .buttonStyle(.borderedProminent)
             .disabled(isDisabled())
-            .frame(width: 200)
-            .padding(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.accentColor, lineWidth: 1)
-            )
-            .bold()
-            .frame(maxWidth: .infinity)
+            .padding()
+            
+           
+          
+            
+           
                 
  
           
         }
         .padding()
+        .customBlueBackground()
+        .padding()
+       
         
     }
     
@@ -116,15 +139,6 @@ struct AddMoveView: View {
     }
     
     
-
-    
-    
-    private var typeCard: some View {
-        
-        VStack {
-            
-        }
-    }
     
     private func isDisabled() ->  Bool {
         

@@ -25,7 +25,6 @@ struct AllRoutinesView: View {
                     Text("Add your first routine by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
                 }
                 
-                
             }
             
             List {

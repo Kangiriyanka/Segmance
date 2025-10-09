@@ -223,11 +223,7 @@ struct UploadRoutineView: View {
             }
             
            
-            .background(RoundedRectangle(cornerRadius:10)
-                .fill(Color.customBlue.opacity(0.1))
-                .stroke(.black.opacity(0.3), lineWidth: 1)
-                .shadow(radius: 2, x: 0, y: 1))
-            
+            .customBlueBackground()
             
             
             

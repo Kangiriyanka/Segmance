@@ -44,9 +44,7 @@ struct RoutineContainerView: View {
                                 .bold()
                         }
                         .padding(.trailing, 10)
-                       
                         .frame(width: 300, height: 100, alignment: .trailing)
-                        
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                             
