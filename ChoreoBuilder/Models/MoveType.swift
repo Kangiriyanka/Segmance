@@ -21,7 +21,12 @@ class MoveType {
     }
     
     
+    static let example: MoveType = MoveType(name: "Juggling", abbreviation: "J")
+    
+    
 }
+
+
 
 
 

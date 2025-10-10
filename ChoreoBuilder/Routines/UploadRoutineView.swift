@@ -44,7 +44,7 @@ struct UploadRoutineView: View {
                     Text("Routine Details").font(.headline)
                     HStack {
                         
-#if targetEnvironment(simulator)
+                        #if targetEnvironment(simulator)
                         Button {
                             // Simulate appending a new file
                             let newFile = FileItem(URL: URL(filePath: "/dummy/path2"),
@@ -53,7 +53,7 @@ struct UploadRoutineView: View {
                         } label : {
                             Image(systemName: "plus")
                         }
-#endif
+                        #endif
                         
                         Spacer()
                         

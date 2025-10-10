@@ -14,6 +14,10 @@ struct EditRoutineView: View {
     @State private var title : String
     @State private var description : String
     @State private var parts: [Part]
+    @State private var errorTitle = ""
+    @State private var errorMessage =  ""
+    @State private var showingError: Bool = false
+    
   
    
     
@@ -52,15 +56,24 @@ struct EditRoutineView: View {
                     
                     Button("Save", systemImage: "checkmark.circle") {
                         
-                        routine.title = title
-                        routine.routineDescription = description
-                        routine.parts = parts
-                        dismiss()
+                        if validateDetails() {
+                            routine.title = title
+                            routine.routineDescription = description
+                            routine.parts = parts
+                            dismiss()
+                        }
+                       
+                        
+                    }
+                    .alert(errorTitle, isPresented: $showingError) { } message: {
+                        Text(errorMessage)
+                        
                         
                     }
                     
                     
                 }
+              
             }
         }
         
@@ -77,6 +90,43 @@ struct EditRoutineView: View {
         _description = .init(initialValue: routine.routineDescription)
         _parts = .init(initialValue: copiedParts)
     }
+    
+    private func validateDetails() -> Bool {
+        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmedTitle.isEmpty else {
+            inputError(title: "Title Error", message: "Title cannot be empty")
+            return false
+        }
+        
+        guard !trimmedDescription.isEmpty else {
+            inputError(title: "Description Error", message: "Description cannot be empty")
+            return false
+        }
+        
+        for part in parts {
+            let trimmedPartTitle = part.title.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmedPartTitle.isEmpty {
+                inputError(title: "Part Error", message: "Each part must have a title")
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    private func inputError(title: String, message: String) {
+        errorTitle = title
+        errorMessage = message
+        showingError = true
+    }
+        
+        
+        
+        
+        
+    
     
     
     /// Moves a part within the routine's parts array and updates their order accordingly.

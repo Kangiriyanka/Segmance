@@ -14,8 +14,10 @@ struct AllMoveTypesView: View {
     var body: some View {
         List(moveTypes) { type in
             
-            
-            Text(type.name)
+            NavigationLink(type.name){
+                MoveTypeView(moveType: type)
+            }
+          
             
         }
     }
