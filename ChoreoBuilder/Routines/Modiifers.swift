@@ -22,6 +22,7 @@ struct BubbleTextField: ViewModifier {
             
             .padding()
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black.opacity(0.8), lineWidth: 1))
+          
         
     }
     

@@ -11,7 +11,10 @@ struct MoveTypeView: View {
     
     @Bindable var moveType: MoveType
     var body: some View {
+        Text("Edit Name")
         TextField("Move name", text: $moveType.name)
+            .bubbleStyle()
+            .padding()
         
     }
 }

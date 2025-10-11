@@ -12,6 +12,7 @@ struct RoutineContainerView: View {
     
     @Environment(\.modelContext)  var modelContext
     @State private var showingUploadRoutineSheet: Bool = false
+    @State private var showingConfirmation: Bool = false
     @Query(sort: \Routine.title) var routines: [Routine]
     
     var body: some View {
@@ -54,11 +55,14 @@ struct RoutineContainerView: View {
                         )
                         
                         
+                        
+                        
                      
                         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 10))
                         .contextMenu {
                             Button(role: .destructive) {
-                                deleteRoutine(id: routine.id)
+                                showingConfirmation = true
+                             
                                 
                             } label: {
                                 Label("Delete Routine", systemImage: "trash")
@@ -67,6 +71,17 @@ struct RoutineContainerView: View {
                             
                             
                             
+                        }
+                        
+                        .confirmationDialog("Are you sure you want to delete this choreography?", isPresented: $showingConfirmation) {
+                            
+                            // You need to put a Button here, not just the function
+                            Button("Delete", role: .destructive) {
+                                deleteRoutine(id: routine.id)
+                            }
+                           
+                        } message: {
+                            Text("Are you sure you want to delete this  this choreography?")
                         }
                         .shadow(radius: 2, x:3 , y: 0)
                         

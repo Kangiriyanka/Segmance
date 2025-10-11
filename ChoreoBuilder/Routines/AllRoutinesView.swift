@@ -11,7 +11,7 @@ import SwiftData
 struct AllRoutinesView: View {
     
     @Environment(\.modelContext) var modelContext
-    @Query var routines : [Routine]
+    @Query var routines: [Routine]
     @State private var isPresentingConfirmed: Bool = false
     @State private var searchText = ""
     var body: some View {
@@ -31,10 +31,21 @@ struct AllRoutinesView: View {
                 ForEach(routines) { routine in
                     HStack {
                         NavigationLink(destination: EditRoutineView(routine: routine)) {
-                            Text("\(routine.title)")
-                            Spacer()
-                            Text("\(routine.parts.count)").foregroundStyle(.secondary)
+                            HStack {
+                                Text("\(routine.title)")
+                                
+                                Spacer()
+                                Text("\(routine.parts.count)")
+                                    .foregroundStyle(.secondary)
+                                    .padding(5)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.gray,style: StrokeStyle(lineWidth: 1))
+                                    )
+                            }
+                         
                         }
+                      
                         
                     }
                 }
@@ -44,20 +55,22 @@ struct AllRoutinesView: View {
             
             .navigationTitle("All Routines")
             .searchable(text: $searchText , placement: .navigationBarDrawer(displayMode: .always))
-            .toolbar {
-                
-                Button("Clear Routines",   systemImage: "trash", role: .destructive) {
-                    isPresentingConfirmed = true
-                }
-                .confirmationDialog("Are you sure?",
-                                    isPresented: $isPresentingConfirmed) {
-                    Button("Would you like to clear all routines?", role: .destructive) {
-                        deleteAllRoutines()
-                    }
-                }
-                
-           
-                }
+//            #if targetEnvironment(simulator)
+//            .toolbar {
+//                
+//                Button("Clear Routines",   systemImage: "trash", role: .destructive) {
+//                    isPresentingConfirmed = true
+//                }
+//                .confirmationDialog("Are you sure?",
+//                                    isPresented: $isPresentingConfirmed) {
+//                    Button("Would you like to clear all routines?", role: .destructive) {
+//                        deleteAllRoutines()
+//                    }
+//                }
+//                
+//           
+//                }
+//            #endif
                 
             }
     }
