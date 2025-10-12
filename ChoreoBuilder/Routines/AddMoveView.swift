@@ -33,7 +33,10 @@ struct AddMoveView: View {
                     Button {
                         isNew.toggle()
                     } label: {
+                        if !moveTypes.isEmpty {
                         Image(systemName: isNew ? "return" : "plus.circle")
+                        }
+                   
                     }
                 }
                 
@@ -121,9 +124,9 @@ struct AddMoveView: View {
         
     }
     
-    func addMove() {
+    private func addMove() {
         
-        if isNew  {
+        if isNew || moveTypes.isEmpty  {
             let newMoveType = MoveType(name: newType, abbreviation: String(newType.first!) )
             part.moves.append(Move(title: title, details: "", order: part.moves.count + 1, type: newMoveType))
         }
@@ -142,10 +145,13 @@ struct AddMoveView: View {
     
     private func isDisabled() ->  Bool {
         
-        if isNew {
+        if moveTypes.isEmpty  {
             
-            return  newType.isEmpty || title.isEmpty 
-            
+            return  newType.isEmpty || title.isEmpty
+        }
+        
+        else if isNew {
+            return newType.isEmpty || title.isEmpty
         }
         
         else {

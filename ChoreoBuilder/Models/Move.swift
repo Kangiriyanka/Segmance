@@ -14,7 +14,7 @@ class Move {
     
     var id: UUID = UUID()
     var title: String = ""
-    var type: MoveType
+    var type: MoveType?
     var details: String
     var parent: Part?
     var order: Int
@@ -25,7 +25,7 @@ class Move {
  
     // The copy is made to prevent permanent changes when the user changes details about the move
     func copy() -> Move {
-        let newMove = Move(title: self.title, details: self.details, order: self.order, type: self.type)
+        let newMove = Move(title: self.title, details: self.details, order: self.order, type: self.type!)
         return newMove
     }
  

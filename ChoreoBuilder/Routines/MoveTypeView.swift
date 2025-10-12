@@ -37,6 +37,8 @@ struct MoveTypeView: View {
         try? modelContext.save()
         dismiss()
         
+        
+        
     }
     
     

@@ -77,7 +77,7 @@ struct MoveView: View {
                 
                 VStack(alignment: .trailing) {
                     HStack {
-                        moveMarker(width: 40, height: 20, text: move.type.abbreviation, color: Color.customPink)
+                        moveMarker(width: 40, height: 20, text: move.type!.abbreviation, color: Color.customPink)
                         
                         moveMarker(width: 40, height: 20, text: String(move.order), color: Color.customBlue)
                         
