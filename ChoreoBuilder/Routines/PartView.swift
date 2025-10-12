@@ -21,7 +21,6 @@ struct PartView: View {
     @Namespace private var animation
 
 
-    
     var body: some View {
         
         

@@ -23,7 +23,7 @@ class Move {
 
 
  
-    
+    // The copy is made to prevent permanent changes when the user changes details about the move
     func copy() -> Move {
         let newMove = Move(title: self.title, details: self.details, order: self.order, type: self.type)
         return newMove

@@ -18,9 +18,6 @@ struct EditRoutineView: View {
     @State private var errorMessage =  ""
     @State private var showingError: Bool = false
     
-  
-   
-    
     var body: some View {
         NavigationStack {
             Form {
@@ -46,10 +43,10 @@ struct EditRoutineView: View {
                 }
                 
             }
-            .onAppear {
-                
-                parts = routine.parts.map { $0.copy() }.sorted { $0.order < $1.order }
-            }
+//            .onAppear {
+//                
+//                parts = routine.parts.map { $0.copy() }.sorted { $0.order < $1.order }
+//            }
             .navigationBarTitle("Edit \(routine.title)", displayMode: .inline )
             .toolbar {
                 ToolbarItem {
@@ -123,12 +120,7 @@ struct EditRoutineView: View {
     }
         
         
-        
-        
-        
-    
-    
-    
+
     /// Moves a part within the routine's parts array and updates their order accordingly.
     /// - Parameters:
     ///   - source: The index set representing the original index of the moved part.

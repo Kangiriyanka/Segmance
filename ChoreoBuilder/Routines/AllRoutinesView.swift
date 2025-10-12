@@ -43,8 +43,13 @@ struct AllRoutinesView: View {
                                             .stroke(Color.gray,style: StrokeStyle(lineWidth: 1))
                                     )
                             }
-                         
+                       
+                           
+                           
                         }
+                     
+                        
+                        
                       
                         
                     }

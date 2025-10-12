@@ -38,10 +38,9 @@ struct ContentView: View {
                 
                 
                 RoutineContainerView()
+                   
                     .tabItem {
                         Label("Routines", systemImage: "figure.dance")
-                        
-                        
                         
                     }
                 

@@ -33,7 +33,7 @@ struct AddMoveView: View {
                     Button {
                         isNew.toggle()
                     } label: {
-                        Image(systemName: isNew ? "plus.circle" : "return")
+                        Image(systemName: isNew ? "return" : "plus.circle")
                     }
                 }
                 

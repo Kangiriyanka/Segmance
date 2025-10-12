@@ -33,26 +33,24 @@ struct RoutineContainerView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(routines) { routine in
                     NavigationLink(destination: RoutineView(routine: routine).navigationBarBackButtonHidden(true)) {
-                        VStack(alignment: .trailing) {
-                            Text("\(routine.title)")
+                        VStack(alignment: .trailing, spacing: 4) {
+                            Text(routine.title)
                                 .font(.title3)
-                                .foregroundStyle(Color.white)
-                                .bold()
-                            Text("\(routine.routineDescription)")
-                                .foregroundStyle(.black)
-                                .font(.caption)
-                                .italic()
-                                .bold()
-                        }
-                        .padding(.trailing, 10)
-                        .frame(width: 300, height: 100, alignment: .trailing)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.white)
+                                .lineLimit(2)
                             
-                                .fill(Color.customBlue.gradient.opacity(0.8))
-                       
-                                 
-                        )
+                            Text(routine.routineDescription)
+                                .font(.caption)
+                                .foregroundStyle(.white.opacity(0.9))
+                                .lineLimit(3)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, minHeight: 100, alignment: .trailing)
+                        .background {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.customBlue.gradient)
+                        }
                         
                         
                         
@@ -98,6 +96,9 @@ struct RoutineContainerView: View {
                 
             }
             .padding()
+            .background(Color(.systemGroupedBackground).ignoresSafeArea())
+            
+            
        
             .navigationTitle("Routines")
             .navigationBarTitleDisplayMode(.inline)

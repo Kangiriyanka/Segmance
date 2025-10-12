@@ -15,6 +15,9 @@ class MoveType {
     var name: String
     var abbreviation: String
     
+    
+    @Relationship(deleteRule: .cascade, inverse: \Move.type) var moves: [Move] = []
+    
     init(name: String, abbreviation: String) {
         self.name = name
         self.abbreviation = abbreviation
