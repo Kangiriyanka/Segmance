@@ -12,7 +12,6 @@ import AVKit
 
 struct AudioPlayerView: View {
     
-    
     @State private var isPlaying: Bool = false
     @State private var partTitle: String
     @State private var playbackSpeed: Float = 1.0
@@ -23,6 +22,9 @@ struct AudioPlayerView: View {
     @State private var secondMarkerSelected = false
     @State private var audioPlayerManager: AudioPlayerModel
     @State private var offsetY: CGFloat = 0
+    @State private var isDragging: Bool = false
+    @State private var previewTime: Double = 0
+    @State private var thumbScale: CGFloat = 1.5
     @Namespace private var animation
     
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
@@ -72,7 +74,6 @@ struct AudioPlayerView: View {
                 
                 
                 CompactPlayerView().opacity(isExpanded ? 0 : 1 )
-                    
                 ExpandedPlayerView(size, safeArea)
                    
                     .opacity(isExpanded ? 1 : 0 )
@@ -119,14 +120,12 @@ struct AudioPlayerView: View {
         
         
         
-        .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in audioPlayerManager.updateProgress()
-        
-        }
+      
         
     }
       
    
-    func CompactPlayerView() -> some View {
+    private func CompactPlayerView() -> some View {
         
         
         GeometryReader { geometry in
@@ -198,9 +197,7 @@ struct AudioPlayerView: View {
     }
                 
             }
-    
-    
-    func ExpandedPlayerView(_ size: CGSize, _ safeArea: EdgeInsets) -> some View {
+    private func ExpandedPlayerView(_ size: CGSize, _ safeArea: EdgeInsets) -> some View {
         VStack(spacing: 12) {
             Capsule()
                 .fill(.white.secondary)
@@ -403,23 +400,67 @@ struct AudioPlayerView: View {
                         }
                         VStack {
                           
-                            Slider(value: Binding(get: {
-                                audioPlayerManager.currentTime
-                            }, set: { newValue in
-                                audioPlayerManager.seekAudio(to: newValue)
-                            }), in: 0...audioPlayerManager.totalTime,
-                                   onEditingChanged: { editing in
-                                
-                                
-                                
+                            // Replace your slider section with this custom slider:
+                            GeometryReader { geo in
+                                ZStack(alignment: .leading) {
+                                    // Track background
+                                    Capsule()
+                                        .fill(Color.white.opacity(0.3))
+                                        .frame(height: 4)
+                                    
+                                    // Progress fill
+                                    Capsule()
+                                        .fill(Color.white)
+                                        .frame(
+                                            width: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width,
+                                            height: 4
+                                        )
+                                    
+                                    // Thumb
+                                    Circle()
+                                        .fill(Color.white)
+                                        .frame(width: 12, height: 12)
+                                        .scaleEffect(thumbScale)
+                                        .shadow(color: .black.opacity(0.2), radius: 2)
+                                        .position(
+                                            x: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width,
+                                            y: geo.size.height / 2
+                                        )
+                                }
+                                .frame(height: 20)
+                                .contentShape(Rectangle())
+                                .gesture(
+                                    DragGesture(minimumDistance: 0)
+                                        .onChanged { value in
+                                            if !isDragging {
+                                                isDragging = true
+                                                withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
+                                                    thumbScale = 1.5
+                                                }
+                                            }
+                                            let progress = max(0, min(1, value.location.x / geo.size.width))
+                                            previewTime = progress * audioPlayerManager.totalTime
+                                        }
+                                        .onEnded { _ in
+                                            audioPlayerManager.seekAudio(to: previewTime)
+                                            withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
+                                                thumbScale = 1.0
+                                            }
+                                            isDragging = false
+                                        }
+                                )
                             }
-                            )
+                            .frame(height: 20)
+
+                            // Keep your timer update:
+                            .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
+                                if !isDragging {
+                                    audioPlayerManager.updateProgress()
+                                }
+                            }
                             
                           
-                         
-                            .animation(
-                                 audioPlayerManager.isPlaying  ? .smooth(duration: 0.2) : nil, value: audioPlayerManager.currentTime )
-                         
+                        
                             
                             HStack {
                                 Text(audioPlayerManager.timeString(time: audioPlayerManager.currentTime))

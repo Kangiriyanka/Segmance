@@ -56,6 +56,11 @@ struct ContentView: View {
                         Label("Files", systemImage: "folder")
                     }
                 #endif
+                
+                AudioClipperView()
+                    .tabItem {
+                        Label("Trimmer", systemImage: "scissors")
+                    }
             }
         
     }

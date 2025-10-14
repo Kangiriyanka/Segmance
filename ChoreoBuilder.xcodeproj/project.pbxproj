@@ -16,7 +16,9 @@
 		821392562E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
 		821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
 		821392582E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
-		8213925A2E988186003B79E1 /* MoveTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392592E988186003B79E1 /* MoveTypeView.swift */; };
+		821393392E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
+		8213933A2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
+		8213933B2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
 		827D6F872E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F882E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F892E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
@@ -129,7 +131,7 @@
 		821391B12E935F57003B79E1 /* MoveType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveType.swift; sourceTree = "<group>"; };
 		821391B52E947291003B79E1 /* Modiifers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modiifers.swift; sourceTree = "<group>"; };
 		821392552E95D206003B79E1 /* AllMoveTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoveTypesView.swift; sourceTree = "<group>"; };
-		821392592E988186003B79E1 /* MoveTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTypeView.swift; sourceTree = "<group>"; };
+		821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrimmerView.swift; sourceTree = "<group>"; };
 		827D6F862E76592E00091652 /* AudioErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioErrors.swift; sourceTree = "<group>"; };
 		828DC3D32E5372610032083A /* furio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = furio.mp3; sourceTree = "<group>"; };
 		828DC3D42E5372610032083A /* gabagoo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gabagoo.mp3; sourceTree = "<group>"; };
@@ -165,6 +167,35 @@
 		82DDAE662CFBF2F400AD0F60 /* ChoreoBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		821393362E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MoveTypeView.swift,
+			);
+			target = 82DDAE652CFBF2F400AD0F60 /* ChoreoBuilderTests */;
+		};
+		821393372E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MoveTypeView.swift,
+			);
+			target = 82DDAE6F2CFBF2F400AD0F60 /* ChoreoBuilderUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		821393352E9BEBDE003B79E1 /* MoveTypes */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				821393362E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderTests" target */,
+				821393372E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderUITests" target */,
+			);
+			path = MoveTypes;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		82DDAE532CFBF2F300AD0F60 /* Frameworks */ = {
@@ -205,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				828DC3D72E5372610032083A /* AudioPlayerModel.swift */,
+				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
 				828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */,
 				827D6F862E76592E00091652 /* AudioErrors.swift */,
@@ -257,7 +289,6 @@
 				828DC3EF2E5372610032083A /* UploadedFileView.swift */,
 				821391B52E947291003B79E1 /* Modiifers.swift */,
 				828DC3F02E5372610032083A /* UploadRoutineView.swift */,
-				821392592E988186003B79E1 /* MoveTypeView.swift */,
 			);
 			path = Routines;
 			sourceTree = "<group>";
@@ -277,6 +308,7 @@
 				828DC3FD2E5372610032083A /* ContentView.swift */,
 				828DC3FE2E5372610032083A /* FilesView.swift */,
 				828DC3FF2E5372610032083A /* Info.plist */,
+				821393352E9BEBDE003B79E1 /* MoveTypes */,
 			);
 			path = ChoreoBuilder;
 			sourceTree = "<group>";
@@ -314,6 +346,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				821393352E9BEBDE003B79E1 /* MoveTypes */,
+			);
 			name = ChoreoBuilder;
 			packageProductDependencies = (
 			);
@@ -334,6 +369,9 @@
 			dependencies = (
 				82DDAE682CFBF2F400AD0F60 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				821393352E9BEBDE003B79E1 /* MoveTypes */,
+			);
 			name = ChoreoBuilderTests;
 			packageProductDependencies = (
 			);
@@ -353,6 +391,9 @@
 			);
 			dependencies = (
 				82DDAE722CFBF2F400AD0F60 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				821393352E9BEBDE003B79E1 /* MoveTypes */,
 			);
 			name = ChoreoBuilderUITests;
 			packageProductDependencies = (
@@ -455,6 +496,7 @@
 				828DC4572E5372610032083A /* Part.swift in Sources */,
 				828DC4592E5372610032083A /* AudioPlayerView.swift in Sources */,
 				828DC45A2E5372610032083A /* ViewExtensions.swift in Sources */,
+				821393392E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
 				828DC45B2E5372610032083A /* OptionsView.swift in Sources */,
 				828DC45C2E5372610032083A /* UploadedFileView.swift in Sources */,
 				828DC45D2E5372610032083A /* DropViewDelegate.swift in Sources */,
@@ -465,7 +507,6 @@
 				828DC4622E5372610032083A /* Routine.swift in Sources */,
 				828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */,
 				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
-				8213925A2E988186003B79E1 /* MoveTypeView.swift in Sources */,
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
@@ -487,6 +528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8213933A2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
 				828DC4102E5372610032083A /* Part.swift in Sources */,
 				828DC4122E5372610032083A /* AudioPlayerView.swift in Sources */,
 				828DC4132E5372610032083A /* ViewExtensions.swift in Sources */,
@@ -521,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8213933B2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
 				828DC4302E5372610032083A /* Part.swift in Sources */,
 				828DC4322E5372610032083A /* AudioPlayerView.swift in Sources */,
 				828DC4332E5372610032083A /* ViewExtensions.swift in Sources */,
