@@ -24,7 +24,7 @@ struct AudioPlayerView: View {
     @State private var offsetY: CGFloat = 0
     @State private var isDragging: Bool = false
     @State private var previewTime: Double = 0
-    @State private var thumbScale: CGFloat = 1.5
+    @State private var dragCounter = 0
     @Namespace private var animation
     
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
@@ -378,108 +378,7 @@ struct AudioPlayerView: View {
                     
                 
                     
-                    GeometryReader { geometry in
-                        if audioPlayerManager.isCustomLooping {
-                            
-                            ZStack {
-                                Group {
-                                    Rectangle()
-                                        .fill(Color.customNavy)
-                                        .frame(width: 5, height: 20)
-                                    
-                                        .offset(x: audioPlayerManager.firstMark / audioPlayerManager.totalTime * geometry.size.width, y: -30 )
-                                    
-                                    
-                                    Rectangle()
-                                        .fill(Color.customNavy)
-                                        .frame(width: 5, height: 20)
-                                    
-                                        .offset(x: audioPlayerManager.secondMark / audioPlayerManager.totalTime * geometry.size.width, y: -30 )
-                                }
-                            }
-                        }
-                        VStack {
-                          
-                            // Replace your slider section with this custom slider:
-                            GeometryReader { geo in
-                                ZStack(alignment: .leading) {
-                                    // Track background
-                                    Capsule()
-                                        .fill(Color.white.opacity(0.3))
-                                        .frame(height: 4)
-                                    
-                                    // Progress fill
-                                    Capsule()
-                                        .fill(Color.white)
-                                        .frame(
-                                            width: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width,
-                                            height: 4
-                                        )
-                                    
-                                    // Thumb
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 12, height: 12)
-                                        .scaleEffect(thumbScale)
-                                        .shadow(color: .black.opacity(0.2), radius: 2)
-                                        .position(
-                                            x: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width,
-                                            y: geo.size.height / 2
-                                        )
-                                }
-                                .frame(height: 20)
-                                .contentShape(Rectangle())
-                                .gesture(
-                                    DragGesture(minimumDistance: 0)
-                                        .onChanged { value in
-                                            if !isDragging {
-                                                isDragging = true
-                                                withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
-                                                    thumbScale = 1.5
-                                                }
-                                            }
-                                            let progress = max(0, min(1, value.location.x / geo.size.width))
-                                            previewTime = progress * audioPlayerManager.totalTime
-                                        }
-                                        .onEnded { _ in
-                                            audioPlayerManager.seekAudio(to: previewTime)
-                                            withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
-                                                thumbScale = 1.0
-                                            }
-                                            isDragging = false
-                                        }
-                                )
-                            }
-                            .frame(height: 20)
-
-                            // Keep your timer update:
-                            .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
-                                if !isDragging {
-                                    audioPlayerManager.updateProgress()
-                                }
-                            }
-                            
-                          
-                        
-                            
-                            HStack {
-                                Text(audioPlayerManager.timeString(time: audioPlayerManager.currentTime))
-                                    .foregroundColor(.white)
-                                Spacer()
-                                Text(audioPlayerManager.timeString(time: audioPlayerManager.totalTime))
-                                    .foregroundColor(.white)
-                            }
-                            
-                            
-                            .accentColor(.white)
-                        }
-                       
-                        
-                        
-                    }
-                    
-                    .frame(height: 50)
-                    
+                   customSlider
                     
                     
                     
@@ -579,6 +478,117 @@ struct AudioPlayerView: View {
         .padding(15)
         .padding(.top, safeArea.top)
 
+    }
+    private var customSlider: some View {
+        // Custom Loop Tick Marks.
+        GeometryReader { geometry in
+            if audioPlayerManager.isCustomLooping {
+                
+                ZStack {
+                    Group {
+                        Rectangle()
+                            .fill(Color.customNavy)
+                            .frame(width: 5, height: 20)
+                            .offset(x: audioPlayerManager.firstMark / audioPlayerManager.totalTime * geometry.size.width, y: -30 )
+                        
+                        
+                        Rectangle()
+                            .fill(Color.customNavy)
+                            .frame(width: 5, height: 20)
+                            .offset(x: audioPlayerManager.secondMark / audioPlayerManager.totalTime * geometry.size.width, y: -30 )
+                    }
+                }
+            }
+            VStack {
+              
+              
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        // Progress Bar
+                        Capsule()
+                            .fill(Color.white.opacity(0.3))
+                            .frame(height: 4)
+                        
+                        // Current Time Progress
+                        Capsule()
+                            .fill(Color.white)
+                            .frame(
+                                width: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width,
+                                height: 4
+                            )
+                            .animation(isDragging ? nil : .linear(duration: 0.1), value: audioPlayerManager.currentTime)
+                            
+                        
+                        // Thumb
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 12, height: 12)
+                            .scaleEffect(isDragging ? 1.2: 1)
+                            .shadow(color: .black.opacity(0.2), radius: 2)
+                            .offset(
+                                                       x: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width
+                                                   )
+                           
+                    }
+                    .animation(isDragging ? nil : .linear(duration: 0.1), value: audioPlayerManager.currentTime)
+                    .frame(height: 20)
+                    .contentShape(Rectangle())
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { value in
+                                if !isDragging {
+                                    isDragging = true
+                                  
+                                  
+                                }
+                                let progress = max(0, min(1, value.location.x / geo.size.width))
+                                                          previewTime = progress * audioPlayerManager.totalTime
+                                                          
+                                                       
+                                                          dragCounter += 1
+                                                          if dragCounter % 2 == 0 {
+                                                              audioPlayerManager.seekAudio(to: previewTime)
+                                                          }
+                            }
+                            .onEnded { _ in
+                                audioPlayerManager.seekAudio(to: previewTime)
+                                withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
+                           
+                                }
+                                isDragging = false
+                                dragCounter = 0
+                            }
+                    )
+                }
+                // Frame of the whole slider
+                .frame(height: 20)
+                .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
+                    if !isDragging {
+                        audioPlayerManager.updateProgress()
+                    }
+                }
+                
+              
+            
+                
+                HStack {
+                    Text(audioPlayerManager.timeString(time: previewTime))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Text(audioPlayerManager.timeString(time: audioPlayerManager.totalTime))
+                        .foregroundColor(.white)
+                }
+                
+                
+                .accentColor(.white)
+            }
+           
+            
+            
+        }
+        
+        .frame(height: 50)
+        
     }
 
         
