@@ -8,7 +8,6 @@
 import SwiftUI
 import AVKit
 
-// TODO: FIX SLIDER and have better Drag 
 
 struct AudioPlayerView: View {
     
@@ -117,7 +116,13 @@ struct AudioPlayerView: View {
             .toolbar(isExpanded ? .hidden : .visible, for: .tabBar)
           
         }
-        
+        .alert("Error", isPresented: $audioPlayerManager.showError) {
+            Button("OK") {
+                audioPlayerManager.showError = false
+            }
+        } message: {
+            Text(audioPlayerManager.errorMessage ?? "Unknown error")
+        }
         
         
       
@@ -185,8 +190,7 @@ struct AudioPlayerView: View {
             Rectangle()
                 
                 .clipShape(.rect(cornerRadius: 3))
-                .animation(
-                    audioPlayerManager.isPlaying && audioPlayerManager.currentTime > 0.01 ? .easeIn(duration: 0.2) : nil, value: audioPlayerManager.currentTime )
+             
                 .frame(width: max(0,audioPlayerManager.currentTime / audioPlayerManager.totalTime * geometry.size.width) , height: 3)
             ,alignment: .topLeading
                 
@@ -503,60 +507,56 @@ struct AudioPlayerView: View {
               
               
                 GeometryReader { geo in
+                    let currentProgress = isDragging ? previewTime : audioPlayerManager.currentTime
+                    let progressWidth = currentProgress / audioPlayerManager.totalTime * geo.size.width
+                    
                     ZStack(alignment: .leading) {
-                        // Progress Bar
+                        // Background track
                         Capsule()
                             .fill(Color.white.opacity(0.3))
                             .frame(height: 4)
                         
-                        // Current Time Progress
+                        // Progress fill
                         Capsule()
                             .fill(Color.white)
-                            .frame(
-                                width: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width,
-                                height: 4
-                            )
-                            .animation(isDragging ? nil : .linear(duration: 0.1), value: audioPlayerManager.currentTime)
-                            
-                        
+                            .frame(width: progressWidth , height: 4)
+                       
                         // Thumb
                         Circle()
                             .fill(Color.white)
-                            .frame(width: 12, height: 12)
-                            .scaleEffect(isDragging ? 1.2: 1)
+                            .frame(width: 14, height: 14)
+                            
                             .shadow(color: .black.opacity(0.2), radius: 2)
-                            .offset(
-                                                       x: (isDragging ? previewTime : audioPlayerManager.currentTime) / audioPlayerManager.totalTime * geo.size.width
-                                                   )
                            
+                            .scaleEffect(isDragging ? 1.3: 1)
+                          
+                            .offset(x: progressWidth - 7)
+                           
+                            
                     }
-                    .animation(isDragging ? nil : .linear(duration: 0.1), value: audioPlayerManager.currentTime)
+                    
+                 
                     .frame(height: 20)
                     .contentShape(Rectangle())
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { value in
                                 if !isDragging {
-                                    isDragging = true
-                                  
-                                  
+                                    previewTime = audioPlayerManager.currentTime
                                 }
+                                isDragging = true
                                 let progress = max(0, min(1, value.location.x / geo.size.width))
-                                                          previewTime = progress * audioPlayerManager.totalTime
-                                                          
-                                                       
-                                                          dragCounter += 1
-                                                          if dragCounter % 2 == 0 {
-                                                              audioPlayerManager.seekAudio(to: previewTime)
-                                                          }
+                                previewTime = progress * audioPlayerManager.totalTime
+                               
                             }
                             .onEnded { _ in
                                 audioPlayerManager.seekAudio(to: previewTime)
-                                withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
-                           
+                                audioPlayerManager.updateProgress()
+                                withAnimation(.spring(duration: 0.2, bounce: 0)) {
+                                               isDragging = false
                                 }
-                                isDragging = false
-                                dragCounter = 0
+                             
+                               
                             }
                     )
                 }
@@ -565,6 +565,7 @@ struct AudioPlayerView: View {
                 .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
                     if !isDragging {
                         audioPlayerManager.updateProgress()
+                    
                     }
                 }
                 
@@ -572,7 +573,7 @@ struct AudioPlayerView: View {
             
                 
                 HStack {
-                    Text(audioPlayerManager.timeString(time: previewTime))
+                    Text(isDragging ? audioPlayerManager.timeString(time: previewTime) : audioPlayerManager.timeString(time: audioPlayerManager.currentTime))
                         .foregroundColor(.white)
                     Spacer()
                     Text(audioPlayerManager.timeString(time: audioPlayerManager.totalTime))

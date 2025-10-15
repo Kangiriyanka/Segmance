@@ -17,47 +17,46 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     var currentTime: TimeInterval = 0.0
     var audioFileURL: URL?
     var firstMark:  TimeInterval = 0.0
-    var secondMark: TimeInterval = 0.0 
+    var secondMark: TimeInterval = 0.0
+    var errorMessage: String?
+    var seekTime: TimeInterval = 5.0
+    var showError: Bool = false
     
     
     init(audioFileURL: URL) {
-    
         self.audioFileURL = audioFileURL
     }
-     func setupAudio() {
-       
-        
     
-         // Bluetooth Support
-         do {
-                 let audioSession = AVAudioSession.sharedInstance()
-             try audioSession.setCategory(.playback, mode: .default)
-                 try audioSession.setActive(true)
-             } catch {
-                 print("Failed to set up audio session: \(error)")
-             }
-        
-         do {
-             guard let audioFileUrl = audioFileURL else {
-                 print("Error: audioFileURL is nil")
-                 return
-             }
-             
-             audioPlayer = try AVAudioPlayer(contentsOf: audioFileUrl)
-             audioPlayer?.prepareToPlay()
-             audioPlayer?.enableRate = true
-             totalTime = audioPlayer?.duration ?? 0.0
-             audioPlayer?.delegate = self
-             
-         } catch {
-             print("Error initializing AVAudioPlayer: \(error.localizedDescription)")
-         }
+    /// 2 sources of errors: the audio session or an invalidURL
+    func setupAudio() {
+        do {
+            // Bluetooth Support
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playback, mode: .default)
+            try audioSession.setActive(true)
             
-      
+            // Audio Player
+            guard let audioFileUrl = audioFileURL else {
+                errorMessage = "Invalid audio file URL"
+                showError = true
+                return
+            }
+            
+            audioPlayer = try AVAudioPlayer(contentsOf: audioFileUrl)
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.enableRate = true
+            totalTime = audioPlayer?.duration ?? 0.0
+            audioPlayer?.delegate = self
+            
+        } catch {
+            // Take whatever error we throw and put it into our custom one
+            errorMessage = AudioPlayerError.initializationFailed(error).errorDescription
+            showError = true
+         
+        }
     }
         
-    
-    
+    /// Play the audio with a set delay.
     func playAudio() {
 
     
@@ -67,13 +66,14 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
            }
         
     }
-    
+    /// Pause the audio
     func pauseAudio() {
         audioPlayer?.pause()
         isPlaying = false
     
     }
     
+    /// Stop the audio and reset the time to 0
     func stopAudio() {
         audioPlayer?.stop()
         audioPlayer?.currentTime = 0.0
@@ -81,7 +81,7 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     }
     
     
-    
+    /// Loop
     func loop() {
         isLooping = true
     }
@@ -110,12 +110,12 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     }
     
     func seekForwards() {
-        audioPlayer?.currentTime += 5.0
+        audioPlayer?.currentTime += seekTime
     }
     
     func seekBackwards() {
         
-        audioPlayer?.currentTime -= 5.0
+        audioPlayer?.currentTime -= seekTime
     }
     
     
@@ -149,6 +149,7 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
           }
     }
     
+    
     func seekAudio(to time: TimeInterval) {
         audioPlayer?.currentTime = time
     }
@@ -160,16 +161,14 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     }
     
     
-    // Function called when playback is finished.
+    ///Function called when playback is finished.
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         
         if !isLooping {
             isPlaying = false
             
-            
         }
-        
-        if isLooping {
+        else {
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
                 self.audioPlayer?.play()
                }

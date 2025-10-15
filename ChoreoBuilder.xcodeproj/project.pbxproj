@@ -105,9 +105,6 @@
 		828DC47B2E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
 		828DC47C2E5372610032083A /* gabagoo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D42E5372610032083A /* gabagoo.mp3 */; };
 		828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
-		828DC47F2E539C7D0032083A /* OldAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */; };
-		828DC4802E539C7D0032083A /* OldAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */; };
-		828DC4812E539C7D0032083A /* OldAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,7 +159,6 @@
 		828DC3FD2E5372610032083A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		828DC3FE2E5372610032083A /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		828DC3FF2E5372610032083A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldAudioPlayerView.swift; sourceTree = "<group>"; };
 		82DDAE562CFBF2F300AD0F60 /* ChoreoBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreoBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE662CFBF2F400AD0F60 /* ChoreoBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,7 +234,6 @@
 				828DC3D72E5372610032083A /* AudioPlayerModel.swift */,
 				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
-				828DC47E2E539C7D0032083A /* OldAudioPlayerView.swift */,
 				827D6F862E76592E00091652 /* AudioErrors.swift */,
 			);
 			path = AudioPlayer;
@@ -513,7 +508,6 @@
 				828DC4682E5372610032083A /* MoveView.swift in Sources */,
 				821391B62E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4692E5372610032083A /* EditRoutineView.swift in Sources */,
-				828DC4802E539C7D0032083A /* OldAudioPlayerView.swift in Sources */,
 				828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC46C2E5372610032083A /* TextDocument.swift in Sources */,
 				828DC46D2E5372610032083A /* PartView.swift in Sources */,
@@ -548,7 +542,6 @@
 				828DC4212E5372610032083A /* MoveView.swift in Sources */,
 				821391B72E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4222E5372610032083A /* EditRoutineView.swift in Sources */,
-				828DC47F2E539C7D0032083A /* OldAudioPlayerView.swift in Sources */,
 				828DC4232E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4252E5372610032083A /* TextDocument.swift in Sources */,
 				828DC4262E5372610032083A /* PartView.swift in Sources */,
@@ -583,7 +576,6 @@
 				828DC4412E5372610032083A /* MoveView.swift in Sources */,
 				821391B82E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4422E5372610032083A /* EditRoutineView.swift in Sources */,
-				828DC4812E539C7D0032083A /* OldAudioPlayerView.swift in Sources */,
 				828DC4432E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4452E5372610032083A /* TextDocument.swift in Sources */,
 				828DC4462E5372610032083A /* PartView.swift in Sources */,
