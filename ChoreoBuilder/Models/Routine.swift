@@ -10,14 +10,12 @@ import SwiftData
 
 @Model
 class Routine {
-    
     var id: UUID = UUID()
     var title: String
     var routineDescription: String
     
     // Deleting the routine will delete its parts
     @Relationship(deleteRule: .cascade) var parts =  [Part]()
-    
     
     
     init (title: String, routineDescription: String) {
@@ -78,9 +76,6 @@ class Routine {
     
 }
     
-
-    
-
 
 extension Routine {
     @MainActor

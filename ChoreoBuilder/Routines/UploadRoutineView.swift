@@ -241,24 +241,23 @@ struct UploadRoutineView: View {
 
     
     // Returns True if the fields are not empty
-    func areFieldsFilled() -> Bool {
+    private func areFieldsFilled() -> Bool {
         
         return !routineTitle.isEmpty && !routineDescription.isEmpty
     }
     
-    func areFilesUploaded() -> Bool {
+    private func areFilesUploaded() -> Bool {
         return !selectedFiles.isEmpty
     }
     
     
-    func addRoutine() {
+    private func addRoutine() {
         let newRoutine = Routine(title: routineTitle, routineDescription: routineDescription)
         self.newRoutine = newRoutine
         
     }
     // Copy from given URLs from fileimporter to Documents Directory
-    func copyFileToDocuments(file: FileItem, order: Int) {
-        
+    private func copyFileToDocuments(file: FileItem, order: Int) {
         
         print("Preparing to copy \(file.URL)")
         // Initialize the File Manager

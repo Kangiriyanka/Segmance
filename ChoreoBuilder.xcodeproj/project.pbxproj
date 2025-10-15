@@ -41,14 +41,11 @@
 		828DC41D2E5372610032083A /* ChoreoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FC2E5372610032083A /* ChoreoBuilder.swift */; };
 		828DC41E2E5372610032083A /* AllRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E52E5372610032083A /* AllRoutinesView.swift */; };
 		828DC4202E5372610032083A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FD2E5372610032083A /* ContentView.swift */; };
-		828DC4212E5372610032083A /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E92E5372610032083A /* MoveView.swift */; };
 		828DC4222E5372610032083A /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E72E5372610032083A /* EditRoutineView.swift */; };
 		828DC4232E5372610032083A /* RoutineContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EC2E5372610032083A /* RoutineContainerView.swift */; };
 		828DC4252E5372610032083A /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EE2E5372610032083A /* TextDocument.swift */; };
 		828DC4262E5372610032083A /* PartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EB2E5372610032083A /* PartView.swift */; };
-		828DC4272E5372610032083A /* MoveDropViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E82E5372610032083A /* MoveDropViewDelegate.swift */; };
 		828DC4282E5372610032083A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DE2E5372610032083A /* Move.swift */; };
-		828DC42A2E5372610032083A /* AddMoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E42E5372610032083A /* AddMoveView.swift */; };
 		828DC42E2E5372610032083A /* AudioPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D72E5372610032083A /* AudioPlayerModel.swift */; };
 		828DC4302E5372610032083A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DF2E5372610032083A /* Part.swift */; };
 		828DC4322E5372610032083A /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D82E5372610032083A /* AudioPlayerView.swift */; };
@@ -63,14 +60,11 @@
 		828DC43D2E5372610032083A /* ChoreoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FC2E5372610032083A /* ChoreoBuilder.swift */; };
 		828DC43E2E5372610032083A /* AllRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E52E5372610032083A /* AllRoutinesView.swift */; };
 		828DC4402E5372610032083A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FD2E5372610032083A /* ContentView.swift */; };
-		828DC4412E5372610032083A /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E92E5372610032083A /* MoveView.swift */; };
 		828DC4422E5372610032083A /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E72E5372610032083A /* EditRoutineView.swift */; };
 		828DC4432E5372610032083A /* RoutineContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EC2E5372610032083A /* RoutineContainerView.swift */; };
 		828DC4452E5372610032083A /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EE2E5372610032083A /* TextDocument.swift */; };
 		828DC4462E5372610032083A /* PartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EB2E5372610032083A /* PartView.swift */; };
-		828DC4472E5372610032083A /* MoveDropViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E82E5372610032083A /* MoveDropViewDelegate.swift */; };
 		828DC4482E5372610032083A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DE2E5372610032083A /* Move.swift */; };
-		828DC44A2E5372610032083A /* AddMoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E42E5372610032083A /* AddMoveView.swift */; };
 		828DC44E2E5372610032083A /* AudioPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D72E5372610032083A /* AudioPlayerModel.swift */; };
 		828DC4502E5372610032083A /* furio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D32E5372610032083A /* furio.mp3 */; };
 		828DC4512E5372610032083A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FF2E5372610032083A /* Info.plist */; };
@@ -91,14 +85,11 @@
 		828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FC2E5372610032083A /* ChoreoBuilder.swift */; };
 		828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E52E5372610032083A /* AllRoutinesView.swift */; };
 		828DC4672E5372610032083A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FD2E5372610032083A /* ContentView.swift */; };
-		828DC4682E5372610032083A /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E92E5372610032083A /* MoveView.swift */; };
 		828DC4692E5372610032083A /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E72E5372610032083A /* EditRoutineView.swift */; };
 		828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EC2E5372610032083A /* RoutineContainerView.swift */; };
 		828DC46C2E5372610032083A /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EE2E5372610032083A /* TextDocument.swift */; };
 		828DC46D2E5372610032083A /* PartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EB2E5372610032083A /* PartView.swift */; };
-		828DC46E2E5372610032083A /* MoveDropViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E82E5372610032083A /* MoveDropViewDelegate.swift */; };
 		828DC46F2E5372610032083A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DE2E5372610032083A /* Move.swift */; };
-		828DC4712E5372610032083A /* AddMoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E42E5372610032083A /* AddMoveView.swift */; };
 		828DC4752E5372610032083A /* AudioPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D72E5372610032083A /* AudioPlayerModel.swift */; };
 		828DC4772E5372610032083A /* furio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D32E5372610032083A /* furio.mp3 */; };
 		828DC47A2E5372610032083A /* nanako.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D52E5372610032083A /* nanako.mp3 */; };
@@ -140,12 +131,9 @@
 		828DC3DF2E5372610032083A /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
 		828DC3E02E5372610032083A /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		828DC3E22E5372610032083A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		828DC3E42E5372610032083A /* AddMoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoveView.swift; sourceTree = "<group>"; };
 		828DC3E52E5372610032083A /* AllRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutinesView.swift; sourceTree = "<group>"; };
 		828DC3E62E5372610032083A /* DropViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropViewDelegate.swift; sourceTree = "<group>"; };
 		828DC3E72E5372610032083A /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
-		828DC3E82E5372610032083A /* MoveDropViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveDropViewDelegate.swift; sourceTree = "<group>"; };
-		828DC3E92E5372610032083A /* MoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveView.swift; sourceTree = "<group>"; };
 		828DC3EA2E5372610032083A /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		828DC3EB2E5372610032083A /* PartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartView.swift; sourceTree = "<group>"; };
 		828DC3EC2E5372610032083A /* RoutineContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineContainerView.swift; sourceTree = "<group>"; };
@@ -165,14 +153,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		821393362E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderTests" target */ = {
+		82B230AC2EA027DA00EEFE6A /* Exceptions for "Moves" folder in "ChoreoBuilderTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				MoveTypeView.swift,
 			);
 			target = 82DDAE652CFBF2F400AD0F60 /* ChoreoBuilderTests */;
 		};
-		821393372E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderUITests" target */ = {
+		82B230AD2EA027DA00EEFE6A /* Exceptions for "Moves" folder in "ChoreoBuilderUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				MoveTypeView.swift,
@@ -182,13 +170,13 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		821393352E9BEBDE003B79E1 /* MoveTypes */ = {
+		82B230AB2EA027C800EEFE6A /* Moves */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				821393362E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderTests" target */,
-				821393372E9BEBF1003B79E1 /* Exceptions for "MoveTypes" folder in "ChoreoBuilderUITests" target */,
+				82B230AC2EA027DA00EEFE6A /* Exceptions for "Moves" folder in "ChoreoBuilderTests" target */,
+				82B230AD2EA027DA00EEFE6A /* Exceptions for "Moves" folder in "ChoreoBuilderUITests" target */,
 			);
-			path = MoveTypes;
+			path = Moves;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -269,12 +257,9 @@
 		828DC3F12E5372610032083A /* Routines */ = {
 			isa = PBXGroup;
 			children = (
-				828DC3E42E5372610032083A /* AddMoveView.swift */,
 				828DC3E52E5372610032083A /* AllRoutinesView.swift */,
 				828DC3E62E5372610032083A /* DropViewDelegate.swift */,
 				828DC3E72E5372610032083A /* EditRoutineView.swift */,
-				828DC3E82E5372610032083A /* MoveDropViewDelegate.swift */,
-				828DC3E92E5372610032083A /* MoveView.swift */,
 				828DC3EA2E5372610032083A /* OptionsView.swift */,
 				821392552E95D206003B79E1 /* AllMoveTypesView.swift */,
 				828DC3EB2E5372610032083A /* PartView.swift */,
@@ -303,7 +288,7 @@
 				828DC3FD2E5372610032083A /* ContentView.swift */,
 				828DC3FE2E5372610032083A /* FilesView.swift */,
 				828DC3FF2E5372610032083A /* Info.plist */,
-				821393352E9BEBDE003B79E1 /* MoveTypes */,
+				82B230AB2EA027C800EEFE6A /* Moves */,
 			);
 			path = ChoreoBuilder;
 			sourceTree = "<group>";
@@ -342,7 +327,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				821393352E9BEBDE003B79E1 /* MoveTypes */,
+				82B230AB2EA027C800EEFE6A /* Moves */,
 			);
 			name = ChoreoBuilder;
 			packageProductDependencies = (
@@ -365,7 +350,7 @@
 				82DDAE682CFBF2F400AD0F60 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				821393352E9BEBDE003B79E1 /* MoveTypes */,
+				82B230AB2EA027C800EEFE6A /* Moves */,
 			);
 			name = ChoreoBuilderTests;
 			packageProductDependencies = (
@@ -388,7 +373,7 @@
 				82DDAE722CFBF2F400AD0F60 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				821393352E9BEBDE003B79E1 /* MoveTypes */,
+				82B230AB2EA027C800EEFE6A /* Moves */,
 			);
 			name = ChoreoBuilderUITests;
 			packageProductDependencies = (
@@ -505,15 +490,12 @@
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
-				828DC4682E5372610032083A /* MoveView.swift in Sources */,
 				821391B62E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4692E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC46C2E5372610032083A /* TextDocument.swift in Sources */,
 				828DC46D2E5372610032083A /* PartView.swift in Sources */,
-				828DC46E2E5372610032083A /* MoveDropViewDelegate.swift in Sources */,
 				828DC46F2E5372610032083A /* Move.swift in Sources */,
-				828DC4712E5372610032083A /* AddMoveView.swift in Sources */,
 				828DC4752E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,15 +521,12 @@
 				821391B22E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC41E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4202E5372610032083A /* ContentView.swift in Sources */,
-				828DC4212E5372610032083A /* MoveView.swift in Sources */,
 				821391B72E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4222E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4232E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4252E5372610032083A /* TextDocument.swift in Sources */,
 				828DC4262E5372610032083A /* PartView.swift in Sources */,
-				828DC4272E5372610032083A /* MoveDropViewDelegate.swift in Sources */,
 				828DC4282E5372610032083A /* Move.swift in Sources */,
-				828DC42A2E5372610032083A /* AddMoveView.swift in Sources */,
 				828DC42E2E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,15 +552,12 @@
 				821391B42E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC43E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4402E5372610032083A /* ContentView.swift in Sources */,
-				828DC4412E5372610032083A /* MoveView.swift in Sources */,
 				821391B82E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4422E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4432E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4452E5372610032083A /* TextDocument.swift in Sources */,
 				828DC4462E5372610032083A /* PartView.swift in Sources */,
-				828DC4472E5372610032083A /* MoveDropViewDelegate.swift in Sources */,
 				828DC4482E5372610032083A /* Move.swift in Sources */,
-				828DC44A2E5372610032083A /* AddMoveView.swift in Sources */,
 				828DC44E2E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,6 +28,7 @@ class Part {
         
     }
     
+    /// A function to copy a Part before modifying it.
     func copy() -> Part {
         let newPart = Part(title: self.title, fileName: self.fileName, order: self.order)
         newPart.moves = self.moves.map { $0.copy() }

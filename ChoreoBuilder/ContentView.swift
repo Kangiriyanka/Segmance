@@ -1,18 +1,7 @@
-//
-//  ContentView.swift
-//  BluesMaker
-//
-//  Created by Kangiriyanka The Single Leaf on 2024/11/30.
-//
-
-
-
 
 import SwiftUI
 import AVFoundation
 import SwiftData
-
-// TODO: Change the Design of the Routines
 
 
 struct ContentView: View {
@@ -24,15 +13,12 @@ struct ContentView: View {
         appearance.stackedLayoutAppearance = itemAppearance
         appearance.inlineLayoutAppearance = itemAppearance
         appearance.compactInlineLayoutAppearance = itemAppearance
-
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
         
-    
     }
     var body: some View {
         
- 
       
             TabView {
                 
@@ -44,10 +30,17 @@ struct ContentView: View {
                         
                     }
                 
+                AudioClipperView()
+                    .tabItem {
+                        Label("Trimmer", systemImage: "scissors")
+                    }
+                
                 OptionsView()
                     .tabItem {
                         Label("Settings", systemImage: "gear")
                     }
+                
+                
                 
                 
                 #if targetEnvironment(simulator)
@@ -57,10 +50,7 @@ struct ContentView: View {
                     }
                 #endif
                 
-                AudioClipperView()
-                    .tabItem {
-                        Label("Trimmer", systemImage: "scissors")
-                    }
+               
             }
         
     }

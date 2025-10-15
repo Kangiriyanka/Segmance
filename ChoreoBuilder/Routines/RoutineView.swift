@@ -30,11 +30,9 @@ struct RoutineView: View {
             .scrollIndicators(.never)
         }
            
-         
             
         }
        
-    
 }
 
 #Preview {

@@ -23,8 +23,7 @@ struct PartView: View {
 
     var body: some View {
         
-        
-       
+    
             ZStack {
                
                 
