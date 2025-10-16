@@ -85,7 +85,7 @@ struct MoveView: View {
                     .padding(5)
                 
                 }
-             
+                
 
                 .font(.headline)
        
@@ -94,6 +94,7 @@ struct MoveView: View {
               
             }
             .frame(width: 300, height: 30)
+          
             .padding(.horizontal, 10)
             .padding(.vertical, 15)
          
@@ -150,11 +151,14 @@ struct MoveView: View {
             
         }
         
+       
+        
         
 
    
         .frame(width: 300)
         .padding(.horizontal, 20)
+        .background(Color.customWhite.opacity(0.8))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.black.opacity(0.4), lineWidth: 4)

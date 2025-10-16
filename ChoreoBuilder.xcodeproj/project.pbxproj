@@ -96,6 +96,12 @@
 		828DC47B2E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
 		828DC47C2E5372610032083A /* gabagoo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D42E5372610032083A /* gabagoo.mp3 */; };
 		828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
+		82B230AF2EA070C900EEFE6A /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B230AE2EA070C900EEFE6A /* Backgrounds.swift */; };
+		82B230B02EA070C900EEFE6A /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B230AE2EA070C900EEFE6A /* Backgrounds.swift */; };
+		82B230B12EA070C900EEFE6A /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B230AE2EA070C900EEFE6A /* Backgrounds.swift */; };
+		82B230D32EA095C800EEFE6A /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B230D22EA095C800EEFE6A /* Diamond.swift */; };
+		82B230D42EA095C800EEFE6A /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B230D22EA095C800EEFE6A /* Diamond.swift */; };
+		82B230D52EA095C800EEFE6A /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B230D22EA095C800EEFE6A /* Diamond.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +153,8 @@
 		828DC3FD2E5372610032083A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		828DC3FE2E5372610032083A /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		828DC3FF2E5372610032083A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82B230AE2EA070C900EEFE6A /* Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
+		82B230D22EA095C800EEFE6A /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		82DDAE562CFBF2F300AD0F60 /* ChoreoBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreoBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE662CFBF2F400AD0F60 /* ChoreoBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +272,8 @@
 				821392552E95D206003B79E1 /* AllMoveTypesView.swift */,
 				828DC3EB2E5372610032083A /* PartView.swift */,
 				828DC3EC2E5372610032083A /* RoutineContainerView.swift */,
+				82B230D22EA095C800EEFE6A /* Diamond.swift */,
+				82B230AE2EA070C900EEFE6A /* Backgrounds.swift */,
 				828DC3ED2E5372610032083A /* RoutineView.swift */,
 				828DC3EE2E5372610032083A /* TextDocument.swift */,
 				828DC3EF2E5372610032083A /* UploadedFileView.swift */,
@@ -487,12 +497,14 @@
 				828DC4622E5372610032083A /* Routine.swift in Sources */,
 				828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */,
 				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
+				82B230D42EA095C800EEFE6A /* Diamond.swift in Sources */,
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
 				821391B62E947291003B79E1 /* Modiifers.swift in Sources */,
 				828DC4692E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */,
+				82B230B12EA070C900EEFE6A /* Backgrounds.swift in Sources */,
 				828DC46C2E5372610032083A /* TextDocument.swift in Sources */,
 				828DC46D2E5372610032083A /* PartView.swift in Sources */,
 				828DC46F2E5372610032083A /* Move.swift in Sources */,
@@ -518,7 +530,9 @@
 				828DC41B2E5372610032083A /* Routine.swift in Sources */,
 				828DC41D2E5372610032083A /* ChoreoBuilder.swift in Sources */,
 				827D6F872E76592E00091652 /* AudioErrors.swift in Sources */,
+				82B230D32EA095C800EEFE6A /* Diamond.swift in Sources */,
 				821391B22E935F57003B79E1 /* MoveType.swift in Sources */,
+				82B230B02EA070C900EEFE6A /* Backgrounds.swift in Sources */,
 				828DC41E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4202E5372610032083A /* ContentView.swift in Sources */,
 				821391B72E947291003B79E1 /* Modiifers.swift in Sources */,
@@ -549,7 +563,9 @@
 				828DC43B2E5372610032083A /* Routine.swift in Sources */,
 				828DC43D2E5372610032083A /* ChoreoBuilder.swift in Sources */,
 				827D6F892E76592E00091652 /* AudioErrors.swift in Sources */,
+				82B230D52EA095C800EEFE6A /* Diamond.swift in Sources */,
 				821391B42E935F57003B79E1 /* MoveType.swift in Sources */,
+				82B230AF2EA070C900EEFE6A /* Backgrounds.swift in Sources */,
 				828DC43E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4402E5372610032083A /* ContentView.swift in Sources */,
 				821391B82E947291003B79E1 /* Modiifers.swift in Sources */,

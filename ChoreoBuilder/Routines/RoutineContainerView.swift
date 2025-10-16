@@ -14,14 +14,7 @@ struct RoutineContainerView: View {
     @State private var showingUploadRoutineSheet: Bool = false
     @State private var showingConfirmation: Bool = false
     @Query(sort: \Routine.title) var routines: [Routine]
-    private var backgroundGradient: RadialGradient {
-        RadialGradient(
-            colors: [Color.customBlue.opacity(0.3), Color.customBlue.opacity(0.5) ],
-            center: .topLeading,
-            startRadius: 200,
-            endRadius: 500
-        )
-    }
+ 
     
     var body: some View {
         
@@ -43,9 +36,10 @@ struct RoutineContainerView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(routines) { routine in
-                    NavigationLink(destination: RoutineView(routine: routine)) {
+                    NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden(true) ) {
                         
                         RoutineCardView(routine: routine)
+                            .navigationBarBackButtonHidden(true)
                         .contextMenu {
                             Button(role: .destructive) {
                                 showingConfirmation = true
@@ -102,10 +96,19 @@ struct RoutineContainerView: View {
                     Button {
                         showingUploadRoutineSheet.toggle()
                     } label: {
-                        
                         Image(systemName: "figure.dance")
-                        
-                        
+                            .font(.system(size: 18, weight: .semibold))
+                           
+                            .padding(10)
+                            .background(
+                                Circle()
+                                    .fill(Color.customWhite.opacity(0.8))
+                            )
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.customNavy.opacity(0.2), lineWidth: 1)
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 3, y: 2)
                     }
                 }
                 
@@ -159,6 +162,7 @@ struct RoutineContainerView: View {
     
 }
 
+
 struct RoutineCardView: View {
     let routine: Routine
 
@@ -166,27 +170,57 @@ struct RoutineCardView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
                 Image(systemName: "music.note")
-               
+                    .foregroundStyle(Color.accentColor)
+                    .font(.system(size: 16, weight: .semibold))
                 
                 Text(routine.title)
                     .font(.headline.weight(.semibold))
+                
+                Spacer()
             }
 
             Text(routine.routineDescription)
                 .font(.subheadline)
-             
                 .lineLimit(2)
+                .foregroundStyle(Color.customNavy.opacity(0.8))
             
             Spacer()
         }
         .foregroundStyle(Color.customNavy)
-        .padding(16)
+        .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: 110)
-        .background(Color.customWhite.opacity(0.9))
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.customNavy.opacity(0.1), lineWidth: 1))
+        .background(
+                GeometryReader { geo in
+                    ZStack {
+                        Color.customWhite.opacity(0.9)
+                        
+                        Diamond()
+                            .fill(Color.customNavy.opacity(0.3))
+                            .frame(width: 40, height: 40)
+                            .position(
+                                x: geo.size.width * 0.85,
+                                y: geo.size.height * 0.4
+                            )
+                        
+                        Diamond()
+                            .fill(Color.customNavy.opacity(0.1))
+                            .frame(width: 40, height: 40)
+                            .position(
+                                x: geo.size.width * 0.9,
+                                y: geo.size.height * 0.45
+                            )
+                    }
+                }
+            )
+             
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.customNavy.opacity(0.8), lineWidth: 3)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(radius: 6, y: 3)
+       
+        
+        .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
     }
 }
 

@@ -4,11 +4,15 @@ import AVFoundation
 import SwiftData
 
 
+
 struct ContentView: View {
   
     init() {
         let itemAppearance = UITabBarItemAppearance()
         let appearance = UITabBarAppearance()
+        appearance.backgroundColor = UIColor(
+            Color.customNavy.opacity(0.9)
+              )
         appearance.backgroundEffect = UIBlurEffect(style: .systemThickMaterial)
         appearance.stackedLayoutAppearance = itemAppearance
         appearance.inlineLayoutAppearance = itemAppearance
@@ -29,11 +33,13 @@ struct ContentView: View {
                         Label("Routines", systemImage: "figure.dance")
                         
                     }
+                 
                 
                 AudioClipperView()
                     .tabItem {
                         Label("Trimmer", systemImage: "scissors")
                     }
+               
                 
                 OptionsView()
                     .tabItem {
@@ -52,6 +58,7 @@ struct ContentView: View {
                 
                
             }
+     
         
     }
     

@@ -25,6 +25,8 @@ struct PartView: View {
         
     
             ZStack {
+                
+                backgroundGradient.ignoresSafeArea(.all)
                
                 
                 VStack {
@@ -190,8 +192,11 @@ struct PartView: View {
                 
                 
                 
+                
             }
+           
         
+           
         
         
         

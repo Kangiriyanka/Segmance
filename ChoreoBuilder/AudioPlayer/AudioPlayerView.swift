@@ -43,7 +43,7 @@ struct AudioPlayerView: View {
                         .fill(
                             LinearGradient(
                                 gradient: Gradient(colors: [
-                                    Color.customBlue
+                                    Color.white
                                 ]),
                                 startPoint: .top,
                                 endPoint: .bottom
@@ -54,8 +54,7 @@ struct AudioPlayerView: View {
                         .fill(
                             LinearGradient(
                                 gradient: Gradient(colors: [
-                                    Color.customBlue,
-                                    Color.customBlue
+                                    Color.customWhite.opacity(0.5)
                                 ]),
                                 startPoint: .top,
                                 endPoint: .bottom
