@@ -98,12 +98,10 @@ struct UploadRoutineView: View {
                 
             }
             .padding()
-          
+           
+                .background(shadowOutline)
             
-            .background(RoundedRectangle(cornerRadius:10)
-                .fill(Color.customBlue.opacity(0.1))
-                .stroke(.black.opacity(0.3), lineWidth: 1)
-                .shadow(radius: 2, x: 0, y: 1))
+            
             
             .fileImporter(isPresented: $isImporting, allowedContentTypes: [.audio], allowsMultipleSelection: true) { result in
                 
@@ -221,9 +219,8 @@ struct UploadRoutineView: View {
                 }
                 
             }
-            
-           
-            .customBlueBackground()
+            .background(shadowOutline)
+         
             
             
             
@@ -235,7 +232,8 @@ struct UploadRoutineView: View {
        
         .frame(width: 370)
         .padding()
-        .background(backgroundGradient)
+     
+        
     }
        
        
@@ -261,7 +259,6 @@ struct UploadRoutineView: View {
     // Copy from given URLs from fileimporter to Documents Directory
     private func copyFileToDocuments(file: FileItem, order: Int) {
         
-        print("Preparing to copy \(file.URL)")
         // Initialize the File Manager
         let fileManager = FileManager.default
         

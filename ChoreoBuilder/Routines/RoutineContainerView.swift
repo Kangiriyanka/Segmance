@@ -63,7 +63,7 @@ struct RoutineContainerView: View {
                             }
                            
                         } message: {
-                            Text("Are you sure you want to delete thischoreography?")
+                            Text("Are you sure you want to delete this choreography?")
                         }
                    
                         
@@ -117,6 +117,7 @@ struct RoutineContainerView: View {
         
         .sheet(isPresented: $showingUploadRoutineSheet) {
             UploadRoutineView()
+                .background(backgroundGradient.opacity(0.9))
         }
     }
     

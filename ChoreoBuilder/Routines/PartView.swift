@@ -169,10 +169,19 @@ struct PartView: View {
                         
                     }
                     .sheet(isPresented: $showingAddMoveSheet){
-                        AddMoveView(part: part)
-                            .presentationDetents([.fraction(0.5)])
+                        ZStack {
+                            backgroundGradient
+                                .ignoresSafeArea()
+
+                            AddMoveView(part: part)
+                                .padding()
+                        }
+                           
+                        .presentationDetents([.fraction(0.5)])
                         
                     }
+                   
+                    
                     
                     
                     

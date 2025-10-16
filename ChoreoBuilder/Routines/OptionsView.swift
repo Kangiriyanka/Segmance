@@ -70,6 +70,12 @@ struct OptionsView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(
+                backgroundGradient
+                )
+          
+            
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }

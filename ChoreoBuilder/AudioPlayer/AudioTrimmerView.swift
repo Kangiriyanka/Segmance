@@ -6,12 +6,15 @@ struct AudioClipperView: View {
     @State private var showingFilePicker = false
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 25) {
-                }
-            }
+        GeometryReader { geo in 
+        
+            
         }
+            .background(
+                backgroundGradient
+                )
+        
+        
         
     }
 }

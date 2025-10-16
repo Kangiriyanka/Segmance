@@ -32,15 +32,22 @@ var cardBackground: some View {
     }
 }
 
+var shadowOutline: some View {
+    RoundedRectangle(cornerRadius: 10)
+        .stroke(Color.black.opacity(0.3), lineWidth: 1)
+        .shadow(radius: 2, x: 0, y: 2)
+    
+}
+
 var playerBackground: RadialGradient {
     RadialGradient(
         colors: [
-            Color.customBlue   // center glow
+            Color.customNavy
             
         ],
         center: .topLeading,
-        startRadius: 50,   // start a bit away from corner
-        endRadius: 600     // fade smoothly over larger area
+        startRadius: 50,
+        endRadius: 600
     )
 }
 

@@ -18,7 +18,7 @@ struct AddMoveView: View {
     @Query(sort: \MoveType.name) var moveTypes: [MoveType]
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 5) {
             
             Text("New Move")
                 .font(.headline)
@@ -28,7 +28,7 @@ struct AddMoveView: View {
                     .limitText($title, to: 20)
             
             VStack(alignment: .leading) {
-                HStack {
+                HStack(spacing: 5){
                     Text("Type").font(.headline)
                     Button {
                         isNew.toggle()
@@ -59,7 +59,7 @@ struct AddMoveView: View {
                                             selectedType = moveType
                                         }
                                         .padding(8)
-                                        .foregroundStyle(selectedType == moveType ? Color.white : Color.gray)
+                                        .foregroundStyle(selectedType == moveType ? Color.white : Color.gray.opacity(0.5))
                                         .fontWeight(.semibold)
                                      
                                         .background(
@@ -67,9 +67,10 @@ struct AddMoveView: View {
                                                 if selectedType == moveType {
                                                     RoundedRectangle(cornerRadius: 8)
                                                         .fill(Color.accentColor)
+                                                        .stroke(Color.customNavy.opacity(0.8), lineWidth: 1)
                                                 } else {
                                                     RoundedRectangle(cornerRadius: 8)
-                                                        .stroke(Color.gray, lineWidth: 2)
+                                                        .stroke(Color.customNavy.opacity(0.8), lineWidth: 1)
                                                 }
                                             }
                                         )
@@ -117,9 +118,9 @@ struct AddMoveView: View {
  
           
         }
-        .padding()
-        .background(backgroundGradient)
-        .padding()
+       
+        
+    
        
         
     }
