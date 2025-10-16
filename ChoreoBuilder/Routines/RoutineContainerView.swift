@@ -14,6 +14,7 @@ struct RoutineContainerView: View {
     @State private var showingUploadRoutineSheet: Bool = false
     @State private var showingConfirmation: Bool = false
     @Query(sort: \Routine.title) var routines: [Routine]
+    @Environment(\.colorScheme) var colorScheme
  
     
     var body: some View {
@@ -99,16 +100,7 @@ struct RoutineContainerView: View {
                         Image(systemName: "figure.dance")
                             .font(.system(size: 18, weight: .semibold))
                            
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(Color.customWhite.opacity(0.8))
-                            )
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.customNavy.opacity(0.2), lineWidth: 1)
-                            )
-                            .shadow(color: .black.opacity(0.1), radius: 3, y: 2)
+                         
                     }
                 }
                 
@@ -170,56 +162,46 @@ struct RoutineCardView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
                 Image(systemName: "music.note")
-                    .foregroundStyle(Color.accentColor)
+                    
                     .font(.system(size: 16, weight: .semibold))
                 
                 Text(routine.title)
                     .font(.headline.weight(.semibold))
+                    .foregroundStyle(Color.mainText)
+                    
                 
                 Spacer()
             }
 
             Text(routine.routineDescription)
                 .font(.subheadline)
+                .foregroundStyle(Color.mainText).opacity(0.5)
+                .foregroundStyle(.secondary)
                 .lineLimit(2)
-                .foregroundStyle(Color.customNavy.opacity(0.8))
+            
+                
             
             Spacer()
         }
-        .foregroundStyle(Color.customNavy)
+        
+   
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
                 GeometryReader { geo in
                     ZStack {
-                        Color.customWhite.opacity(0.9)
+                       cardBackground
                         
-                        Diamond()
-                            .fill(Color.customNavy.opacity(0.3))
-                            .frame(width: 40, height: 40)
-                            .position(
-                                x: geo.size.width * 0.85,
-                                y: geo.size.height * 0.4
-                            )
-                        
-                        Diamond()
-                            .fill(Color.customNavy.opacity(0.1))
-                            .frame(width: 40, height: 40)
-                            .position(
-                                x: geo.size.width * 0.9,
-                                y: geo.size.height * 0.45
-                            )
+                      
                     }
                 }
             )
-             
+        // For the borders
         .overlay(
             RoundedRectangle(cornerRadius: 16)
                 .stroke(Color.customNavy.opacity(0.8), lineWidth: 3)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
-       
-        
         .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
     }
 }

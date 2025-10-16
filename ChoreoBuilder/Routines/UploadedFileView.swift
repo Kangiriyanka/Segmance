@@ -24,7 +24,10 @@ struct UploadedFileView : View {
                 .limitText($partName, to: partCharacterCount)
                
                 .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black.opacity(0.8), lineWidth: 1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.customNavy.opacity(0.8), lineWidth: 1)
+                )
         }
         
         .padding()

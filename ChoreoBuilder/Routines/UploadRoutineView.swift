@@ -232,8 +232,10 @@ struct UploadRoutineView: View {
             
             
         }
+       
         .frame(width: 370)
         .padding()
+        .background(backgroundGradient)
     }
        
        

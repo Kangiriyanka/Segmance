@@ -73,6 +73,7 @@ struct MoveView: View {
             HStack{
                 TextField("Enter a move title", text: $move.title)
                     .limitText($move.title, to: moveTitleLimit)
+                    .foregroundStyle(Color.mainText)
                 Spacer()
                 
                 VStack(alignment: .trailing) {
@@ -158,7 +159,7 @@ struct MoveView: View {
    
         .frame(width: 300)
         .padding(.horizontal, 20)
-        .background(Color.customWhite.opacity(0.8))
+        .background(cardBackground)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.black.opacity(0.4), lineWidth: 4)
@@ -178,8 +179,10 @@ struct MoveView: View {
     
     private func moveMarker(width: CGFloat, height: CGFloat, text: String, color: Color) -> some View {
         
-        Text(text)
+        Text(text) .foregroundStyle(Color.mainText)
+        
         .frame(width: width, height: height)
+        
         .background(RoundedRectangle(cornerRadius: 4.0)
                     
             .fill(color.opacity(0.5))

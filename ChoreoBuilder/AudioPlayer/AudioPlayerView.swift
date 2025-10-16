@@ -40,26 +40,13 @@ struct AudioPlayerView: View {
             ZStack(alignment: .top) {
                 ZStack {
                     Rectangle()
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.white
-                                ]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
+                        .fill(playerBackground)
+                    
                         
                     Rectangle()
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.customWhite.opacity(0.5)
-                                ]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
+                        .fill(playerBackground)
+                            
+                        
                         
                         .opacity(isExpanded ? 1 : 0)
                     
@@ -67,7 +54,7 @@ struct AudioPlayerView: View {
                 .clipShape(.rect(cornerRadius: isExpanded ? 45 : 3))
                 .frame(height: isExpanded ? nil : 60)
                 .shadow(color: .primary.opacity(0.05), radius: 5, x: 5, y:5)
-                .shadow(color: .primary.opacity(0.1), radius: 5, x: -5, y:-5)
+               
                
                 
                 

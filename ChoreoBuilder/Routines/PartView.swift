@@ -49,6 +49,7 @@ struct PartView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
+                                    .foregroundStyle(.accent)
                             }
                             
                             
@@ -63,6 +64,7 @@ struct PartView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
+                                    .foregroundStyle(.accent)
                             }
                          
                         }

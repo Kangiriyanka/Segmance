@@ -118,7 +118,7 @@ struct AddMoveView: View {
           
         }
         .padding()
-        .customBlueBackground()
+        .background(backgroundGradient)
         .padding()
        
         
