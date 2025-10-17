@@ -24,3 +24,8 @@ struct Diamond: Shape {
         return path
     }
 }
+
+
+
+
+

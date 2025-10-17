@@ -26,7 +26,7 @@ struct UploadedFileView : View {
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.customNavy.opacity(0.8), lineWidth: 1)
+                        .stroke(Color.customNavy.opacity(0.9), lineWidth: 1)
                 )
         }
         

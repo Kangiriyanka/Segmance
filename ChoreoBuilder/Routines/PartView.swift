@@ -49,7 +49,7 @@ struct PartView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
-                                    .foregroundStyle(.accent)
+                                    .foregroundStyle(Color.mainText.opacity(0.8))
                             }
                             
                             
@@ -60,11 +60,12 @@ struct PartView: View {
                                     showingAddMoveSheet.toggle()
                                 }
                             } label: {
-                                Image(systemName: "plus")
+                                Image(systemName: "plus.circle")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
-                                    .foregroundStyle(.accent)
+                                    .foregroundStyle(Color.mainText.opacity(0.8))
+                                   
                             }
                          
                         }

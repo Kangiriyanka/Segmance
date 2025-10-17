@@ -53,7 +53,7 @@ struct AudioPlayerView: View {
                 }
                 .clipShape(.rect(cornerRadius: isExpanded ? 45 : 3))
                 .frame(height: isExpanded ? nil : 60)
-                .shadow(color: .primary.opacity(0.05), radius: 5, x: 5, y:5)
+               
                
                
                 
@@ -317,30 +317,7 @@ struct AudioPlayerView: View {
                         
                         if showMarkers {
                             
-                            ZStack {
-                                Group {
-                                    if !firstMarkerSelected {
-                                        Button("Select A Mark") {
-                                            firstMarkerSelected = true
-                                            audioPlayerManager.firstMark = audioPlayerManager.currentTime
-                                        }
-                                        
-                                        
-                                    } else if !secondMarkerSelected {
-                                        Button("Select B Mark") {
-                                            secondMarkerSelected = true
-                                            audioPlayerManager.secondMark = audioPlayerManager.currentTime
-                                            audioPlayerManager.isCustomLooping = true
-                                            showMarkers = false
-                                        }
-                                        
-                                        
-                                    }
-                                }
-                                .padding(3)
-                                .background(Color.customNavy.opacity(0.8))
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                            }
+                           markerSelection
                             
                         
                         }
@@ -470,24 +447,11 @@ struct AudioPlayerView: View {
 
     }
     private var customSlider: some View {
-        // Custom Loop Tick Marks.
         GeometryReader { geometry in
             if audioPlayerManager.isCustomLooping {
                 
-                ZStack {
-                    Group {
-                        Rectangle()
-                            .fill(Color.customNavy)
-                            .frame(width: 5, height: 20)
-                            .offset(x: audioPlayerManager.firstMark / audioPlayerManager.totalTime * geometry.size.width, y: -30 )
-                        
-                        
-                        Rectangle()
-                            .fill(Color.customNavy)
-                            .frame(width: 5, height: 20)
-                            .offset(x: audioPlayerManager.secondMark / audioPlayerManager.totalTime * geometry.size.width, y: -30 )
-                    }
-                }
+                markers(audioPlayerManager.firstMark / audioPlayerManager.totalTime * geometry.size.width, audioPlayerManager.secondMark / audioPlayerManager.totalTime * geometry.size.width)
+               
             }
             VStack {
               
@@ -575,6 +539,55 @@ struct AudioPlayerView: View {
         }
         
         .frame(height: 50)
+        
+    }
+    
+    
+    /// MARK: Marker Buttons  to set  Custom Loop
+    private var markerSelection:  some View {
+        ZStack {
+            Group {
+                if !firstMarkerSelected {
+                    Button("Select A Mark") {
+                        firstMarkerSelected = true
+                        audioPlayerManager.firstMark = audioPlayerManager.currentTime
+                    }
+                    
+                    
+                } else if !secondMarkerSelected {
+                    Button("Select B Mark") {
+                        secondMarkerSelected = true
+                        audioPlayerManager.secondMark = audioPlayerManager.currentTime
+                        audioPlayerManager.isCustomLooping = true
+                        showMarkers = false
+                    }
+                    
+                    
+                }
+            }
+            .padding(3)
+            .background(Color.customNavy.opacity(0.8))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+    }
+    
+    /// MARK: Marker selectors
+    private func markers(_ m1: CGFloat , _ m2: CGFloat) -> some View {
+        
+        ZStack {
+            Group {
+                Rectangle()
+                    .fill(Color.customNavy)
+                    .frame(width: 5, height: 20)
+                    .offset(x: m1, y: -30 )
+                
+                
+                Rectangle()
+                    .fill(Color.customNavy)
+                    .frame(width: 5, height: 20)
+                    .offset(x: m2, y: -30 )
+            }
+        }
         
     }
 

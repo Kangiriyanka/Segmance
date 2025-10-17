@@ -34,7 +34,7 @@ struct AddMoveView: View {
                         isNew.toggle()
                     } label: {
                         if !moveTypes.isEmpty {
-                        Image(systemName: isNew ? "return" : "plus.circle")
+                        Image(systemName: isNew ? "return" : "plus.circle") .foregroundStyle(Color.mainText.opacity(0.8))
                         }
                    
                     }
@@ -107,6 +107,7 @@ struct AddMoveView: View {
                     .fontWeight(.semibold)
             }
             .buttonStyle(.borderedProminent)
+            .background(shadowOutline)
             .disabled(isDisabled())
             .padding()
             

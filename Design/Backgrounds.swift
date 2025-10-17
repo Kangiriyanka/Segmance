@@ -42,7 +42,10 @@ var shadowOutline: some View {
 var playerBackground: RadialGradient {
     RadialGradient(
         colors: [
-            Color.customNavy
+            Color(red: 0.10, green: 0.22, blue: 0.45),
+            Color(red: 0.10, green: 0.22, blue: 0.44),
+            Color(red: 0.10, green: 0.22, blue: 0.43),
+            Color(red: 0.10, green: 0.22, blue: 0.42),
             
         ],
         center: .topLeading,
@@ -50,8 +53,6 @@ var playerBackground: RadialGradient {
         endRadius: 600
     )
 }
-
-
 
 struct Backgrounds: View {
     var body: some View {
