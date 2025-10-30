@@ -5,6 +5,10 @@ import SwiftData
 
 
 
+/// TO-DOS:
+///
+/// Implement a more appealing light theme
+/// Timer 
 struct ContentView: View {
   
     init() {

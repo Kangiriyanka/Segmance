@@ -39,14 +39,14 @@ struct FilesView: View {
     
     
     
-    func deleteAllModels() {
+    private func deleteAllModels() {
         do {
             try modelContext.delete(model: Routine.self)
         } catch {
             print("Failed to delete all routines")
         }
     }
-    func clearDocumentsDirectory() {
+    private func clearDocumentsDirectory() {
         
         let fileManager = FileManager.default
         
