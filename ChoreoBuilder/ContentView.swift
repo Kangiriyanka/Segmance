@@ -8,14 +8,14 @@ import SwiftData
 /// TO-DOS:
 ///
 /// Implement a more appealing light theme
-/// Timer 
+
 struct ContentView: View {
   
     init() {
         let itemAppearance = UITabBarItemAppearance()
         let appearance = UITabBarAppearance()
         appearance.backgroundColor = UIColor(
-            Color.customNavy.opacity(0.9)
+            Color.customLB.opacity(0.9)
               )
         appearance.backgroundEffect = UIBlurEffect(style: .systemThickMaterial)
         appearance.stackedLayoutAppearance = itemAppearance
@@ -76,4 +76,14 @@ struct ContentView: View {
    
     ContentView()
         .modelContainer(preview)
+    
+}
+
+#Preview {
+    let preview = Routine.preview
+   
+    ContentView()
+        .modelContainer(preview)
+        .preferredColorScheme(.dark)
+    
 }

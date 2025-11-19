@@ -59,7 +59,6 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     /// Play the audio with a set delay.
     func playAudio() {
 
-    
         isPlaying = true
         DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
             self.audioPlayer?.play()

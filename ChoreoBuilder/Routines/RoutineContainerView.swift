@@ -80,6 +80,7 @@ struct RoutineContainerView: View {
                 
             }
             .padding()
+            // MARK: Screen Background
             .background(
                backgroundGradient
             )
@@ -200,7 +201,7 @@ struct RoutineCardView: View {
         // For the borders
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.customNavy.opacity(0.8), lineWidth: 3)
+                .stroke(Color.gray.opacity(0.8), lineWidth: 3)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .black.opacity(0.08), radius: 4, y: 2)

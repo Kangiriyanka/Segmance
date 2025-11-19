@@ -67,10 +67,10 @@ struct AddMoveView: View {
                                                 if selectedType == moveType {
                                                     RoundedRectangle(cornerRadius: 8)
                                                         .fill(Color.accentColor)
-                                                        .stroke(Color.customNavy.opacity(0.8), lineWidth: 1)
+                                                        .stroke(Color.blue.opacity(0.8), lineWidth: 1)
                                                 } else {
                                                     RoundedRectangle(cornerRadius: 8)
-                                                        .stroke(Color.customNavy.opacity(0.8), lineWidth: 1)
+                                                        .stroke(Color.blue.opacity(0.8), lineWidth: 1)
                                                 }
                                             }
                                         )

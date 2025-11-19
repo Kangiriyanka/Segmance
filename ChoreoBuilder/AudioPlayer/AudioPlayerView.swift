@@ -28,8 +28,8 @@ struct AudioPlayerView: View {
     
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
     let delayOptions: [Float] = [15,10,5,2,1,0]
-  
-
+    
+    
     var body: some View {
         
         GeometryReader {
@@ -42,25 +42,25 @@ struct AudioPlayerView: View {
                     Rectangle()
                         .fill(playerBackground)
                     
-                        
+                    
                     Rectangle()
                         .fill(playerBackground)
-                            
-                        
-                        
+                    
+                    
+                    
                         .opacity(isExpanded ? 1 : 0)
                     
                 }
                 .clipShape(.rect(cornerRadius: isExpanded ? 45 : 3))
                 .frame(height: isExpanded ? nil : 60)
-               
-               
-               
+                
+                
+                
                 
                 
                 CompactPlayerView().opacity(isExpanded ? 0 : 1 )
                 ExpandedPlayerView(size, safeArea)
-                   
+                
                     .opacity(isExpanded ? 1 : 0 )
                 
                 
@@ -77,8 +77,8 @@ struct AudioPlayerView: View {
                     .onChanged { value in
                         guard isExpanded else { return }
                         if value.startLocation.y < size.height / 4 {
-                        let translation = max(value.translation.height, 0)
-                        offsetY = translation
+                            let translation = max(value.translation.height, 0)
+                            offsetY = translation
                         }
                     }
                     .onEnded { value in
@@ -100,7 +100,7 @@ struct AudioPlayerView: View {
             )
             .ignoresSafeArea()
             .toolbar(isExpanded ? .hidden : .visible, for: .tabBar)
-          
+            
         }
         .alert("Error", isPresented: $audioPlayerManager.showError) {
             Button("OK") {
@@ -111,82 +111,82 @@ struct AudioPlayerView: View {
         }
         
         
-      
+        
         
     }
-      
-   
+    
+    
     private func CompactPlayerView() -> some View {
         
         
         GeometryReader { geometry in
-        HStack(spacing: 20) {
-            Text(partTitle)
+            HStack(spacing: 20) {
+                Text(partTitle)
+                
+                    .font(.headline)
+                Spacer()
+                
+                Image(systemName: "backward.end.fill")
+                    .symbolRenderingMode(.monochrome)
+                    .font(.system(size: 15))
+                    .foregroundStyle(.black)
+                    .onTapGesture {
+                        audioPlayerManager.seekBackwards()
+                        
+                    }
+                
+                
+                
+                Image(systemName: audioPlayerManager.isPlaying ? "pause.fill" : "play.fill")
+                    .symbolRenderingMode(.monochrome)
+                    .font(.system(size: 20))
+                    .foregroundStyle(.black)
+                
+                    .onTapGesture {
+                        
+                        audioPlayerManager.isPlaying ? audioPlayerManager.pauseAudio() : audioPlayerManager.playAudio()
+                        
+                        
+                    }
+                
+                
+                
+                Image(systemName: "forward.end.fill")
+                    .symbolRenderingMode(.monochrome)
+                    .font(.system(size: 15))
+                    .foregroundStyle(.black)
+                    .onTapGesture {
+                        audioPlayerManager.seekForwards()
+                        
+                    }
+                
+                
+                
+            }
             
-                .font(.headline)
-            Spacer()
-            
-            Image(systemName: "backward.end.fill")
-                .symbolRenderingMode(.monochrome)
-                .font(.system(size: 15))
-                .foregroundStyle(.black)
-                .onTapGesture {
-                    audioPlayerManager.seekBackwards()
-                    
+            .padding()
+            .contentShape(.rect)
+            .onTapGesture {
+                withAnimation(.smooth(duration: 0.3, extraBounce: 0)) {
+                    isExpanded = true
                 }
-            
-            
-            
-            Image(systemName: audioPlayerManager.isPlaying ? "pause.fill" : "play.fill")
-                .symbolRenderingMode(.monochrome)
-                .font(.system(size: 20))
-                .foregroundStyle(.black)
-            
-                .onTapGesture {
-                    
-                    audioPlayerManager.isPlaying ? audioPlayerManager.pauseAudio() : audioPlayerManager.playAudio()
-                    
-                    
-                }
-            
-            
-            
-            Image(systemName: "forward.end.fill")
-                .symbolRenderingMode(.monochrome)
-                .font(.system(size: 15))
-                .foregroundStyle(.black)
-                .onTapGesture {
-                    audioPlayerManager.seekForwards()
-                    
-                }
-            
+            }
+            .overlay(
+                
+                Rectangle()
+                
+                    .clipShape(.rect(cornerRadius: 3))
+                
+                    .frame(width: max(0,audioPlayerManager.currentTime / audioPlayerManager.totalTime * geometry.size.width) , height: 3)
+                ,alignment: .topLeading
+                
+                
+            )
             
             
         }
         
-        .padding()
-        .contentShape(.rect)
-        .onTapGesture {
-            withAnimation(.smooth(duration: 0.3, extraBounce: 0)) {
-                isExpanded = true
-            }
-        }
-        .overlay(
-          
-            Rectangle()
-                
-                .clipShape(.rect(cornerRadius: 3))
-             
-                .frame(width: max(0,audioPlayerManager.currentTime / audioPlayerManager.totalTime * geometry.size.width) , height: 3)
-            ,alignment: .topLeading
-                
-                             
-            )
-            
-           
     }
-                
-            }
     private func ExpandedPlayerView(_ size: CGSize, _ safeArea: EdgeInsets) -> some View {
         VStack(spacing: 12) {
             Capsule()
@@ -199,157 +199,152 @@ struct AudioPlayerView: View {
             
             VStack (spacing: 15) {
                 
-                 
-                    HStack {
+                
+                HStack {
+                    
+                    Text(partTitle)
+                        .padding(.bottom, 30)
+                        .font(.title)
+                        .bold()
+                    
+                    
+                    
+                }
+                
+                
+                
+                VStack {
+                    
+                    
+                    
+                    HStack(spacing: 25) {
                         
-                        Text(partTitle)
-                            .padding(.bottom, 30)
-                            .font(.title)
-                            .bold()
-                            
-                            
                         
-                    }
                         
-        
-              
-                    VStack {
-                     
-                            
-                            
-                            HStack(spacing: 25) {
+                        
+                        
+                        Image(systemName: "repeat")
+                            .symbolRenderingMode(.monochrome)
+                            .font(.system(size: 25))
+                            .foregroundStyle( audioPlayerManager.isCustomLooping ? Color.white : Color.black)
+                            .onTapGesture {
+                                showMarkers.toggle()
+                                firstMarkerSelected = false
+                                secondMarkerSelected = false
+                                
+                            }
+                            .onLongPressGesture {
+                                showMarkers = false
+                                audioPlayerManager.isCustomLooping = false
+                                audioPlayerManager.firstMark = 0
+                                audioPlayerManager.secondMark = 0
+                                firstMarkerSelected = false
+                                secondMarkerSelected = false
+                            }
+                            .overlay(
+                                Text("AB")
+                                    .foregroundStyle(audioPlayerManager.isCustomLooping ? Color.routineCard : .white)
+                                    .font(.caption)
                                 
                                 
                                 
+                                , alignment: .bottomTrailing
                                 
+                            )
+                        Image(systemName: "backward.end.fill")
+                            .symbolRenderingMode(.monochrome)
+                            .font(.system(size: 25))
+                            .foregroundStyle(.black)
+                            .onTapGesture {
+                                audioPlayerManager.seekBackwards()
                                 
-                                Image(systemName: "repeat")
-                                    .symbolRenderingMode(.monochrome)
-                                    .font(.system(size: 25))
-                                    .foregroundStyle( audioPlayerManager.isCustomLooping ? Color.white : Color.black)
-                                    .onTapGesture {
-                                        showMarkers.toggle()
-                                        firstMarkerSelected = false
-                                        secondMarkerSelected = false
-                                        
-                                    }
-                                    .onLongPressGesture {
-                                        showMarkers = false
-                                        audioPlayerManager.isCustomLooping = false
-                                        audioPlayerManager.firstMark = 0
-                                        audioPlayerManager.secondMark = 0
-                                        firstMarkerSelected = false
-                                        secondMarkerSelected = false
-                                    }
-                                    .overlay(
-                                        Text("AB")
-                                            .foregroundStyle(audioPlayerManager.isCustomLooping ? Color.customNavy : .white)
-                                            .font(.caption)
-                                        
-                                        
-                                        
-                                        , alignment: .bottomTrailing
-                                        
-                                    )
-                                Image(systemName: "backward.end.fill")
-                                    .symbolRenderingMode(.monochrome)
-                                    .font(.system(size: 25))
-                                    .foregroundStyle(.black)
-                                    .onTapGesture {
-                                        audioPlayerManager.seekBackwards()
-                                        
-                                    }
+                            }
+                        
+                        Image(systemName: audioPlayerManager.isPlaying  ? "pause.fill" : "play.fill")
+                            .symbolRenderingMode(.monochrome)
+                            .font(.system(size: 35))
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(.black)
+                        
+                            .onTapGesture {
                                 
-                                Image(systemName: audioPlayerManager.isPlaying  ? "pause.fill" : "play.fill")
-                                    .symbolRenderingMode(.monochrome)
-                                    .font(.system(size: 35))
-                                    .frame(width: 30, height: 30)
-                                    .foregroundStyle(.black)
-                                
-                                    .onTapGesture {
-                                        
-                                        audioPlayerManager.isPlaying ? audioPlayerManager.pauseAudio() : audioPlayerManager.playAudio()
-                                        
-                                        
-                                    }
-                                
-                                Image(systemName: "forward.end.fill")
-                                    .symbolRenderingMode(.monochrome)
-                                    .font(.system(size: 25))
-                                    .foregroundStyle(.black)
-                                    .onTapGesture {
-                                        audioPlayerManager.seekForwards()
-                                        
-                                    }
-                                
-                                
-                                
-                                
-                                
-                                Image(systemName: audioPlayerManager.isLooping ? "repeat" : "repeat")
-                                    .symbolRenderingMode(.monochrome)
-                                    .font(.system(size: 25))
-                                    .foregroundStyle(audioPlayerManager.isLooping ? Color.white : Color.black)
-                                    .onTapGesture {
-                                        audioPlayerManager.isLooping ? audioPlayerManager.stopLoop() : audioPlayerManager.loop()
-                                    }
-                                
-                                
-                                
-                                
-                                
-                                
+                                audioPlayerManager.isPlaying ? audioPlayerManager.pauseAudio() : audioPlayerManager.playAudio()
                                 
                                 
                             }
-                            .padding()
-                            .frame(width: 300)
-                            
                         
-                      
+                        Image(systemName: "forward.end.fill")
+                            .symbolRenderingMode(.monochrome)
+                            .font(.system(size: 25))
+                            .foregroundStyle(.black)
+                            .onTapGesture {
+                                audioPlayerManager.seekForwards()
+                                
+                            }
                         
                         
-                            
                         
-                    }
-                
-                    VStack {
                         
-                        if showMarkers {
-                            
-                           markerSelection
-                            
                         
-                        }
+                        Image(systemName: audioPlayerManager.isLooping ? "repeat" : "repeat")
+                            .symbolRenderingMode(.monochrome)
+                            .font(.system(size: 25))
+                            .foregroundStyle(audioPlayerManager.isLooping ? Color.white : Color.black)
+                            .onTapGesture {
+                                audioPlayerManager.isLooping ? audioPlayerManager.stopLoop() : audioPlayerManager.loop()
+                            }
+                        
                     
+                        
                     }
+                    .padding()
+                    .frame(width: 300)
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                }
                 
-              
+                VStack {
+                    
+                    if showMarkers {
+                        
+                        markerSelection
+                        
+                        
+                    }
+                    
+                }
+                
+                
                 
                 .foregroundStyle(.white)
                 .font(.title2)
                 .frame(height: 20)
                 
                 
-                    
                 
-               
-               
-              
-             
                 
-             
-              
+                
+                
+                
+                
+                
+                
+                
                 
                 VStack(spacing: 20){
                     
-                
-                    
-                   customSlider
                     
                     
+                    customSlider
                     
-                  
+                    
+                    
+                    
                 }
                 
                 HStack(spacing: 20) {
@@ -377,7 +372,7 @@ struct AudioPlayerView: View {
                             
                             VStack(spacing: 10) {
                                 Image(systemName: "powersleep")
-                               
+                                
                                 
                                 
                                 Text("\(delay, specifier: "%g ")")
@@ -386,7 +381,7 @@ struct AudioPlayerView: View {
                         .bold()
                         .foregroundStyle(.white)
                         .font(.title2)
-                            
+                        
                         
                     }
                     Spacer()
@@ -398,12 +393,9 @@ struct AudioPlayerView: View {
                                 Text("\(speedRate, specifier: "%g")" ).tag(speedRate)
                             }
                             
-                            
                         }
                         
-                        
                         .onChange(of: playbackSpeed) {
-                            
                             audioPlayerManager.changeSpeedRate(playbackSpeed)
                             
                         }
@@ -414,50 +406,53 @@ struct AudioPlayerView: View {
                             
                             VStack(spacing: 10) {
                                 Image(systemName: "hare")
-                              
+
                                 Text(String(format: "%g", playbackSpeed))
                             }
                         }
                         .bold()
                         .foregroundStyle(.white)
                         .font(.title2)
-                
-                            
+                        
+                        
                         
                         
                     }
                     
                     
-                  
                     
                     
                     
-                 
+                    
+                    
                 }
                 
                 
             }
-           
+            
             Spacer()
         }
         
-       
+        
         .padding(15)
         .padding(.top, safeArea.top)
-
+        
     }
     private var customSlider: some View {
         GeometryReader { geometry in
             if audioPlayerManager.isCustomLooping {
                 
                 markers(audioPlayerManager.firstMark / audioPlayerManager.totalTime * geometry.size.width, audioPlayerManager.secondMark / audioPlayerManager.totalTime * geometry.size.width)
-               
+                
             }
             VStack {
-              
-              
+                
+                
                 GeometryReader { geo in
                     let currentProgress = isDragging ? previewTime : audioPlayerManager.currentTime
+                    // Watch out for division by 0
+                    // You'll get an invalid frame dimension
+                    // Susceptible to error
                     let progressWidth = currentProgress / audioPlayerManager.totalTime * geo.size.width
                     
                     ZStack(alignment: .leading) {
@@ -470,22 +465,22 @@ struct AudioPlayerView: View {
                         Capsule()
                             .fill(Color.white)
                             .frame(width: progressWidth , height: 4)
-                       
+                        
                         // Thumb
                         Circle()
                             .fill(Color.white)
                             .frame(width: 14, height: 14)
-                            
+                        
                             .shadow(color: .black.opacity(0.2), radius: 2)
-                           
+                        
                             .scaleEffect(isDragging ? 1.3: 1)
-                          
+                        
                             .offset(x: progressWidth - 7)
-                           
-                            
+                        
+                        
                     }
                     
-                 
+                    
                     .frame(height: 20)
                     .contentShape(Rectangle())
                     .gesture(
@@ -497,16 +492,16 @@ struct AudioPlayerView: View {
                                 isDragging = true
                                 let progress = max(0, min(1, value.location.x / geo.size.width))
                                 previewTime = progress * audioPlayerManager.totalTime
-                               
+                                
                             }
                             .onEnded { _ in
                                 audioPlayerManager.seekAudio(to: previewTime)
                                 audioPlayerManager.updateProgress()
                                 withAnimation(.spring(duration: 0.2, bounce: 0)) {
-                                               isDragging = false
+                                    isDragging = false
                                 }
-                             
-                               
+                                
+                                
                             }
                     )
                 }
@@ -515,12 +510,12 @@ struct AudioPlayerView: View {
                 .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
                     if !isDragging {
                         audioPlayerManager.updateProgress()
-                    
+                        
                     }
                 }
                 
-              
-            
+                
+                
                 
                 HStack {
                     Text(isDragging ? audioPlayerManager.timeString(time: previewTime) : audioPlayerManager.timeString(time: audioPlayerManager.currentTime))
@@ -533,7 +528,7 @@ struct AudioPlayerView: View {
                 
                 .accentColor(.white)
             }
-           
+            
             
             
         }
@@ -566,7 +561,7 @@ struct AudioPlayerView: View {
                 }
             }
             .padding(3)
-            .background(Color.customNavy.opacity(0.8))
+            .background(Color.routineCard.opacity(0.8))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
@@ -577,21 +572,29 @@ struct AudioPlayerView: View {
         ZStack {
             Group {
                 Rectangle()
-                    .fill(Color.customNavy)
+                    .fill(Color.routineCard)
                     .frame(width: 5, height: 20)
                     .offset(x: m1, y: -30 )
                 
                 
                 Rectangle()
-                    .fill(Color.customNavy)
+                    .fill(Color.routineCard)
                     .frame(width: 5, height: 20)
                     .offset(x: m2, y: -30 )
             }
         }
         
     }
-
+    
+    
+    private func countDownTimer() -> some View {
         
+        ZStack {
+            Text("\(Int(audioPlayerManager.delay))")
+                .font(.system(size: 20, weight: .bold, design: .default))
+                .foregroundColor(.white)
+        }
+    }
     
     init(audioFileURL: URL, partTitle: String) {
        

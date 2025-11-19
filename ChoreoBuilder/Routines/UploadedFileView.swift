@@ -22,12 +22,9 @@ struct UploadedFileView : View {
             TextField("", text: $partName)
      
                 .limitText($partName, to: partCharacterCount)
+                .bubbleStyle()
                
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.customNavy.opacity(0.9), lineWidth: 1)
-                )
+            
         }
         
         .padding()

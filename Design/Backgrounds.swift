@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 
+
+
+
+
 // Start radius is the inner glow
 // End radius is the reach
 var backgroundGradient: RadialGradient {
@@ -25,12 +29,15 @@ var backgroundGradient: RadialGradient {
 
 var cardBackground: some View {
     Group {
-        Color.customNavy
-            .opacity(0.5)
+        Color.routineCard
+           
          
         
     }
 }
+
+
+
 
 var shadowOutline: some View {
     RoundedRectangle(cornerRadius: 10)
@@ -54,6 +61,9 @@ var playerBackground: RadialGradient {
     )
 }
 
+
+// -----------DEMOS------------------ //
+
 struct Backgrounds: View {
     var body: some View {
         VStack {
@@ -72,8 +82,30 @@ struct Backgrounds: View {
     
     
 }
-#Preview {
+
+struct DarkBackgrounds: View {
+    var body: some View {
+        VStack {
+            Text("Deku Palace")
+        }
+        .frame(width: 800, height: 600)
+            .background(backgroundGradient)
+        
+        VStack {
+            Text("Kakariko Village")
+            
+        }
+        .frame(width: 800, height: 600)
+        .background(cardBackground)
+    }
     
-    Backgrounds()
+    
+}
+#Preview {
+    TabView {
+        Backgrounds()
+        DarkBackgrounds().preferredColorScheme(.dark)
+    }
+    .tabViewStyle(.page)
     
 }

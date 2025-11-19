@@ -46,6 +46,8 @@ struct FilesView: View {
             print("Failed to delete all routines")
         }
     }
+    
+    
     private func clearDocumentsDirectory() {
         
         let fileManager = FileManager.default

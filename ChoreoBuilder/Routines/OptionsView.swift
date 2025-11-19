@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+
 struct OptionsView: View {
     
     @Query(sort: \Routine.title) var routines: [Routine]
@@ -22,55 +23,71 @@ struct OptionsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Manage Routines") {
-                    
-                    NavigationLink(destination: AllRoutinesView()) {
-                        VStack {
-                            Text("View all routines")
+                
+                Group {
+                    Section("Manage Routines") {
+                        
+                        NavigationLink(destination: AllRoutinesView()) {
+                            VStack {
+                                Text("View all routines")
+                            }
+                           
+                            
+                            
                         }
-                    }
-                }
-                
-                Section("Manage Move Types") {
-                    
-                    NavigationLink(destination: AllMoveTypesView()) {
-                        VStack {
-                            Text("View all move types")
-                        }
-                    }
-                    
-                    
-                    
-                }
-                
-                
-                
-                
-                Section("Export Routines") {
-                    Picker("Choose an export type", selection: $exportType) {
-                        ForEach(exportTypes, id: \.self) {
-                            Text($0)
-                        }
+                        .bubbleStyle()
+                        
+                        
                         
                     }
-                    Button("Export Routines") {
-                        isShowingExporter = true
+                    
+                    
+                    
+                    
+                    Section("Manage Move Types") {
+                        
+                        NavigationLink(destination: AllMoveTypesView()) {
+                            VStack {
+                                Text("View all move types")
+                            }
+                        }
+                        .bubbleStyle()
+                        
+                        
+                        
                     }
-                    .fileExporter(
-                        isPresented: $isShowingExporter,
-                        document: TextDocument(text: exportType == "Markdown" ? exportRoutinesToMarkdown(routines) : exportRoutinesToHTML(routines)),
-                        contentType: exportType == "Markdown" ? .plainText  : .html
-                    ) { result in
-                        switch result {
-                        case .success(let url):
-                            print("Saved to \(url)")
-                        case .failure(let error):
-                            print(error.localizedDescription)
+                    
+                    
+                    
+                    Section("Export Routines") {
+                        Picker("Choose an export type", selection: $exportType) {
+                            ForEach(exportTypes, id: \.self) {
+                                Text($0)
+                            }
+                            
+                        }
+                        Button("Export Routines") {
+                            isShowingExporter = true
+                        }
+                        .fileExporter(
+                            isPresented: $isShowingExporter,
+                            document: TextDocument(text: exportType == "Markdown" ? exportRoutinesToMarkdown(routines) : exportRoutinesToHTML(routines)),
+                            contentType: exportType == "Markdown" ? .plainText  : .html
+                        ) { result in
+                            switch result {
+                            case .success(let url):
+                                print("Saved to \(url)")
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
                         }
                     }
                 }
+                
+                .listRowBackground(Color.clear)
             }
             .scrollContentBackground(.hidden)
+         
             .background(
                 backgroundGradient
                 )
