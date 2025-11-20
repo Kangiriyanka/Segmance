@@ -98,6 +98,7 @@ struct PartView: View {
                                     
                                     
                                 }
+                                
                                 VStack(spacing: 50){
                                     
                                     ForEach(moves) { move in

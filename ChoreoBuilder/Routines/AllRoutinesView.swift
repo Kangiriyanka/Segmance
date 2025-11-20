@@ -40,13 +40,16 @@ struct AllRoutinesView: View {
                                     .padding(5)
                                     .overlay(
                                         Circle()
-                                            .stroke(Color.gray,style: StrokeStyle(lineWidth: 1))
+                                            .stroke(Color.accent,style: StrokeStyle(lineWidth: 1))
                                     )
                             }
                        
                            
                            
                         }
+                        
+                        .bubbleStyle()
+                       
                      
                         
                         
@@ -54,11 +57,19 @@ struct AllRoutinesView: View {
                         
                     }
                 }
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
                 
             }
            
             
             .navigationTitle("All Routines")
+            .scrollContentBackground(.hidden)
+         
+            .background(
+                backgroundGradient
+                )
+          
             .searchable(text: $searchText , placement: .navigationBarDrawer(displayMode: .always))
 //            #if targetEnvironment(simulator)
 //            .toolbar {

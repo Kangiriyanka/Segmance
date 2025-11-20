@@ -18,8 +18,8 @@ import SwiftUI
 var backgroundGradient: RadialGradient {
     RadialGradient(
         colors: [
-            Color.customBlue.opacity(0.4),
-            Color.customBlue.opacity(0.3)
+            Color.customBlue.opacity(0.9),
+            Color.customBlue.opacity(0.7)
         ],
         center: .topLeading,
         startRadius: 10,
@@ -28,12 +28,10 @@ var backgroundGradient: RadialGradient {
 }
 
 var cardBackground: some View {
-    Group {
+    
         Color.routineCard
            
-         
-        
-    }
+    
 }
 
 

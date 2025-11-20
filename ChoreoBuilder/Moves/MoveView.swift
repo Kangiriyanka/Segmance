@@ -160,10 +160,7 @@ struct MoveView: View {
         .frame(width: 300)
         .padding(.horizontal, 20)
         .background(cardBackground)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.black.opacity(0.4), lineWidth: 4)
-        )
+        .customBorderStyle()
         .clipShape(RoundedRectangle(cornerRadius: 10))
 
      

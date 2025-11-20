@@ -190,21 +190,13 @@ struct RoutineCardView: View {
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
-                GeometryReader { geo in
-                    ZStack {
-                       cardBackground
+              
+            cardBackground
+                       
                         
-                      
-                    }
-                }
+                
             )
-        // For the borders
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.gray.opacity(0.8), lineWidth: 3)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+        .customBorderStyle()
     }
 }
 

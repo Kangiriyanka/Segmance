@@ -17,11 +17,14 @@ struct BubbleTextField: ViewModifier {
 
     func body(content: Content) -> some View {
         
-        
         content
-            
-            .padding()
-            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black.opacity(0.8), lineWidth: 1))
+        .padding()
+           .background(Color.black.opacity(0.05))
+           .overlay(
+               RoundedRectangle(cornerRadius: 12)
+                   .stroke(Color.black.opacity(0.2), lineWidth: 1)
+           )
+           .clipShape(RoundedRectangle(cornerRadius: 12))
           
         
     }
@@ -43,6 +46,21 @@ struct CustomBlueBackground: ViewModifier {
 }
 
 
+struct CustomBorderStyle: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content
+        
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.black.opacity(0.2), lineWidth: 2)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+    }
+}
+
+
 
 
 
@@ -56,6 +74,10 @@ extension View {
     
     func customBlueBackground() -> some View  {
         modifier(CustomBlueBackground())
+    }
+    
+    func customBorderStyle() -> some View {
+        modifier(CustomBorderStyle())
     }
 }
 

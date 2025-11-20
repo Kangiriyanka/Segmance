@@ -24,29 +24,41 @@ struct EditRoutineView: View {
                 
                 Section("Edit title and description") {
                     
-                    TextField("Title and description", text: $title)
-                    TextField("description", text: $description)
+                    Group {
+                        TextField("Title and description", text: $title)
+                        TextField("description", text: $description)
+                    }
+                    .bubbleStyle()
                     
                 }
+                .listRowBackground(Color.clear)
+               
+                
                 
                 Section("Arrange and rename parts") {
                     List {
                         ForEach($parts, id: \.id) { $part in
                             TextField("Enter a new part name", text: $part.title)
+                                .bubbleStyle()
                         }
+                        
                         .onMove(perform: move)
                     }
+                    .listRowBackground(Color.clear)
                    
-                   
+                    
+                    
                     
                     
                 }
                 
             }
-//            .onAppear {
-//                
-//                parts = routine.parts.map { $0.copy() }.sorted { $0.order < $1.order }
-//            }
+            
+            
+            //            .onAppear {
+            //
+            //                parts = routine.parts.map { $0.copy() }.sorted { $0.order < $1.order }
+            //            }
             .navigationBarTitle("Edit \(routine.title)", displayMode: .inline )
             .toolbar {
                 ToolbarItem {
@@ -59,7 +71,7 @@ struct EditRoutineView: View {
                             routine.parts = parts
                             dismiss()
                         }
-                       
+                        
                         
                     }
                     .alert(errorTitle, isPresented: $showingError) { } message: {
@@ -70,9 +82,16 @@ struct EditRoutineView: View {
                     
                     
                 }
-              
+                
             }
+            .scrollContentBackground(.hidden)
+            .background(
+                backgroundGradient
+                )
+            
         }
+        
+        
         
     }
     

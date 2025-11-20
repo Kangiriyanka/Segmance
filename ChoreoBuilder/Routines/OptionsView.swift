@@ -65,10 +65,13 @@ struct OptionsView: View {
                                 Text($0)
                             }
                             
+                            
                         }
+                        
                         Button("Export Routines") {
                             isShowingExporter = true
                         }
+                        .bubbleStyle()
                         .fileExporter(
                             isPresented: $isShowingExporter,
                             document: TextDocument(text: exportType == "Markdown" ? exportRoutinesToMarkdown(routines) : exportRoutinesToHTML(routines)),

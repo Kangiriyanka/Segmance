@@ -24,9 +24,17 @@ struct AllMoveTypesView: View {
             NavigationLink(type.name){
                 MoveTypeView(moveType: type)
             }
+            .bubbleStyle()
           
             
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
+        .scrollContentBackground(.hidden)
+        .background(
+            backgroundGradient
+            )
+        
     }
 }
 
