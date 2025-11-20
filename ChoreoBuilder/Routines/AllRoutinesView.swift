@@ -17,76 +17,65 @@ struct AllRoutinesView: View {
     var body: some View {
         NavigationStack {
             
-            if routines.isEmpty {
-               
-                ContentUnavailableView {
-                    Label("No routines added", systemImage: "music.quarternote.3")
-                } description: {
-                    Text("Add your first routine by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
+            Group {
+                if routines.isEmpty {
+                    
+                    ContentUnavailableView {
+                        Label("No routines added", systemImage: "music.quarternote.3")
+                    } description: {
+                        Text("Add your first routine by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
+                    }
+                    
                 }
-                
-            }
-            
-            List {
-                ForEach(routines) { routine in
-                    HStack {
-                        NavigationLink(destination: EditRoutineView(routine: routine)) {
+                else {
+                    List {
+                        ForEach(routines) { routine in
                             HStack {
-                                Text("\(routine.title)")
+                                NavigationLink(destination: EditRoutineView(routine: routine)) {
+                                    HStack {
+                                        Text("\(routine.title)")
+                                        
+                                        Spacer()
+                                        Text("\(routine.parts.count)")
+                                            .foregroundStyle(.secondary)
+                                            .padding(5)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.accent,style: StrokeStyle(lineWidth: 1))
+                                            )
+                                    }
+                                    
+                                    
+                                    
+                                }
                                 
-                                Spacer()
-                                Text("\(routine.parts.count)")
-                                    .foregroundStyle(.secondary)
-                                    .padding(5)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.accent,style: StrokeStyle(lineWidth: 1))
-                                    )
+                                .bubbleStyle()
+                                
+                                
+                                
+                                
+                                
+                                
                             }
-                       
-                           
-                           
                         }
-                        
-                        .bubbleStyle()
-                       
-                     
-                        
-                        
-                      
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
                         
                     }
                 }
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
-                
             }
+                .navigationTitle("All Routines")
+                .scrollContentBackground(.hidden)
+             
+                .background(
+                    backgroundGradient
+                    )
+              
+                .searchable(text: $searchText , placement: .navigationBarDrawer(displayMode: .always))
            
             
-            .navigationTitle("All Routines")
-            .scrollContentBackground(.hidden)
-         
-            .background(
-                backgroundGradient
-                )
-          
-            .searchable(text: $searchText , placement: .navigationBarDrawer(displayMode: .always))
-//            #if targetEnvironment(simulator)
-//            .toolbar {
-//                
-//                Button("Clear Routines",   systemImage: "trash", role: .destructive) {
-//                    isPresentingConfirmed = true
-//                }
-//                .confirmationDialog("Are you sure?",
-//                                    isPresented: $isPresentingConfirmed) {
-//                    Button("Would you like to clear all routines?", role: .destructive) {
-//                        deleteAllRoutines()
-//                    }
-//                }
-//                
-//           
-//                }
-//            #endif
+           
+
                 
             }
     }

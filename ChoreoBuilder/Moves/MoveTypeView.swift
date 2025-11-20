@@ -16,48 +16,64 @@ struct MoveTypeView: View {
     @State private var isPresentingConfirm: Bool = false
     
     var body: some View {
-        
-        NavigationStack {
-            Text("Edit Type Name")
-            TextField("Type name", text: $typeName)
-                .bubbleStyle()
-                .padding()
+        ZStack {
             
-            
-          
-            .toolbar {
+            NavigationStack {
                 
-                Button("Save") {
-                    moveType.name = typeName
-                    dismiss()
-                }
-                .buttonStyle(.borderedProminent)
+                Text("Edit Type Name")
+                TextField("Type name", text: $typeName)
+                    .bubbleStyle()
+                    .padding()
                 
                 
-            }
-            
-            .toolbar {
                 
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button("Delete", systemImage: "trash", role: .destructive) {
-                            isPresentingConfirm = true
+                    .toolbar {
+                        
+                        Button("Save") {
+                            moveType.name = typeName
+                            dismiss()
                         }
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
+                        .buttonStyle(.borderedProminent)
+                        
+                        
                     }
-                    .confirmationDialog("Deleting this move type will delete all related moves. Are you sure?", isPresented: $isPresentingConfirm) {
-                         Button("Delete this move type permanently", role: .destructive) {
-                             deleteMoveType()
-                         }
-                     }
-                }
+                
+                    .toolbar {
+                        
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Menu {
+                                Button("Delete", systemImage: "trash", role: .destructive) {
+                                    isPresentingConfirm = true
+                                }
+                            } label: {
+                                Image(systemName: "ellipsis.circle")
+                            }
+                            .confirmationDialog("Deleting this move type will delete all related moves. Are you sure?", isPresented: $isPresentingConfirm) {
+                                Button("Delete this move type permanently", role: .destructive) {
+                                    deleteMoveType()
+                                }
+                            }
+                        }
+                    }
+                
+                
             }
-        
+
+            .navigationBarTitleDisplayMode(.inline)
+            .scrollContentBackground(.hidden)
+            .background(
+                backgroundGradient
+            )
         }
+
+
+       
+        
+        
         
     }
+    
     
     
     

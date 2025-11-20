@@ -12,34 +12,45 @@ struct AllMoveTypesView: View {
     
     @Query(sort: \MoveType.name) var moveTypes: [MoveType]
     var body: some View {
-        if moveTypes.isEmpty {
-            ContentUnavailableView {
-                Label("No move types exist", systemImage: "music.quarternote.3")
-            } description: {
-                Text("Create a type when you add moves to your routine \(Image(systemName: "figure.dance")) button.").padding([.top], 5)
+        Group {
+            if moveTypes.isEmpty {
+                ContentUnavailableView {
+                    Label("No move types yet", systemImage: "music.quarternote.3")
+                } description: {
+                    Text("Create a type when you add moves to your routine using the \(Image(systemName: "figure.dance")) button.")
+                        .padding(.top, 5)
+                }
+            } else {
+                List(moveTypes) { type in
+                    NavigationLink {
+                        MoveTypeView(moveType: type)
+                    } label: {
+                        Text(type.name)
+                    }
+                    .bubbleStyle()
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                }
             }
-        }
-        List(moveTypes) { type in
-            
-            NavigationLink(type.name){
-                MoveTypeView(moveType: type)
-            }
-            .bubbleStyle()
-          
-            
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
         }
         .scrollContentBackground(.hidden)
         .background(
             backgroundGradient
-            )
-        
+        )
     }
+    
 }
 
 #Preview {
     let container = MoveType.previewContainer
     AllMoveTypesView()
         .modelContainer(container)
+}
+
+
+// No moves
+#Preview {
+
+    AllMoveTypesView()
+    
 }
