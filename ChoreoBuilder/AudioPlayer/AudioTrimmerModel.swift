@@ -17,6 +17,9 @@ class AudioTrimmerModel: NSObject {
     var errorMessage: String?
     var audioURL: URL?
     var isPlaying: Bool = false
+    var selectionStart: Double = 0
+    var selectionEnd: Double = 0
+    var waveform: [Float] = Array(repeating: 0.5, count: 100)
     
     // The difference between the AudioPlayerModel and AudioTrimmer is that we already know the URL attached when we upload a routine.
     func setupAudio(url: URL?) {

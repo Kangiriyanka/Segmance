@@ -28,6 +28,22 @@ struct AudioTrimmerView: View {
                             .font(.system(size: 80))
                     }
                 }
+                
+                Canvas { context, size in
+                    let barWidth = size.width / CGFloat(audioTrimmerManager.waveform.count)
+                    
+                    for (index, value) in audioTrimmerManager.waveform.enumerated() {
+                        let barHeight = CGFloat(value) * size.height
+                        let x = CGFloat(index) * barWidth
+                        let y = (size.height - barHeight) / 2
+                        
+                        let rect = CGRect(x: x, y: y, width: barWidth - 1, height: barHeight)
+                        context.fill(Path(rect), with: .color(.blue))
+                    }
+                }
+                
+                .frame(height: 200)
+                .background(Color.black.opacity(0.3))
             }  // ← Close VStack
             .fileImporter(isPresented: $isImporting, allowedContentTypes: [.audio], allowsMultipleSelection: false) { result in
                 

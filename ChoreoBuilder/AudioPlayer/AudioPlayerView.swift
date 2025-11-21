@@ -24,6 +24,12 @@ struct AudioPlayerView: View {
     @State private var isDragging: Bool = false
     @State private var previewTime: Double = 0
     @State private var dragCounter = 0
+    @State private var timeRemaining: Int = 0
+    @State private var squareProgress: CGFloat = 1.0
+    
+    
+    
+   
     @Namespace private var animation
     
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
@@ -364,6 +370,7 @@ struct AudioPlayerView: View {
                         .onChange(of: delay) {
                             
                             audioPlayerManager.changeDelay(delay)
+                            timeRemaining = Int(delay)
                             
                         }
                     } label: {
@@ -425,6 +432,12 @@ struct AudioPlayerView: View {
                     
                     
                     
+                }
+                
+                ZStack {
+                    if timeRemaining > 0 && audioPlayerManager.isPlaying {
+                        countDownTimer
+                    }
                 }
                 
                 
@@ -530,6 +543,10 @@ struct AudioPlayerView: View {
             }
             
             
+              
+            
+            
+            
             
         }
         
@@ -587,12 +604,31 @@ struct AudioPlayerView: View {
     }
     
     
-    private func countDownTimer() -> some View {
+    private var countDownTimer: some View {
+        let delayTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
         
-        ZStack {
-            Text("\(Int(audioPlayerManager.delay))")
-                .font(.system(size: 20, weight: .bold, design: .default))
-                .foregroundColor(.white)
+        return ZStack {
+            
+            // Animated square stroke
+            Rectangle()
+                
+            
+            // Countdown text
+            Text("\(timeRemaining)")
+                .font(.system(size: 40, weight: .bold))
+                .foregroundColor(.red)
+        }
+        .onReceive(delayTimer) { _ in
+            if timeRemaining > 0 && audioPlayerManager.isPlaying {
+                
+                // Restart the square animation
+                squareProgress = 0
+                withAnimation(.easeOut(duration: 0.3)) {
+                    squareProgress = 1
+                }
+                
+                timeRemaining -= 1
+            }
         }
     }
     
