@@ -60,14 +60,18 @@ struct AudioPlayerView: View {
                 .frame(height: isExpanded ? nil : 60)
                 
                 
+                ZStack(alignment: .top) {
+                    if isExpanded {
+                        ExpandedPlayerView(size, safeArea)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    } else {
+                        CompactPlayerView()
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                }
+                .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isExpanded)
                 
-                
-                
-                CompactPlayerView().opacity(isExpanded ? 0 : 1 )
-                ExpandedPlayerView(size, safeArea)
-                
-                    .opacity(isExpanded ? 1 : 0 )
-                
+               
                 
                 
             }
@@ -128,6 +132,7 @@ struct AudioPlayerView: View {
             HStack(spacing: 20) {
                 
                 SlidingText(text: partTitle)
+            
                     // Don't need onChange, I add this to reset the animation.
                     .id(isExpanded)
                 Spacer()
@@ -210,6 +215,7 @@ struct AudioPlayerView: View {
                 HStack {
                     
                     Text(partTitle)
+                        
                         .padding(.bottom, 30)
                         .font(.title)
                         .bold()
