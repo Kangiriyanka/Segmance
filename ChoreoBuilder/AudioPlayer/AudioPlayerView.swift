@@ -26,11 +26,10 @@ struct AudioPlayerView: View {
     @State private var dragCounter = 0
     @State private var timeRemaining: Int = 0
     @State private var squareProgress: CGFloat = 1.0
-    
-    
-    
-   
     @Namespace private var animation
+    
+    
+
     
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
     let delayOptions: [Float] = [15,10,5,2,1,0]
@@ -127,9 +126,10 @@ struct AudioPlayerView: View {
         
         GeometryReader { geometry in
             HStack(spacing: 20) {
-                Text(partTitle)
                 
-                    .font(.headline)
+                SlidingText(text: partTitle)
+                    // Don't need onChange, I add this to reset the animation.
+                    .id(isExpanded)
                 Spacer()
                 
                 Image(systemName: "backward.end.fill")
@@ -169,11 +169,12 @@ struct AudioPlayerView: View {
                 
                 
             }
+           
             
             .padding()
             .contentShape(.rect)
             .onTapGesture {
-                withAnimation(.smooth(duration: 0.3, extraBounce: 0)) {
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8, blendDuration: 0)) {
                     isExpanded = true
                 }
             }
@@ -216,7 +217,7 @@ struct AudioPlayerView: View {
                     
                     
                 }
-                
+              
                 
                 
                 VStack {
@@ -621,7 +622,7 @@ struct AudioPlayerView: View {
         .onReceive(delayTimer) { _ in
             if timeRemaining > 0 && audioPlayerManager.isPlaying {
                 
-                // Restart the square animation
+                AudioServicesPlaySystemSound(1103)
                 squareProgress = 0
                 withAnimation(.easeOut(duration: 0.3)) {
                     squareProgress = 1
@@ -648,7 +649,7 @@ struct AudioPlayerView: View {
 
 #Preview {
     let URL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
-    AudioPlayerView(audioFileURL: URL, partTitle: "Part 1 " )
+    AudioPlayerView(audioFileURL: URL, partTitle: "Part 1 Hello My name is monkey Jones Jones heahhahajfdjfdsjf " )
    
 }
 

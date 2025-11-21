@@ -62,15 +62,16 @@ struct AddMoveView: View {
                                         .foregroundStyle(selectedType == moveType ? Color.white : Color.gray.opacity(0.5))
                                         .fontWeight(.semibold)
                                      
+                                     
                                         .background(
                                             ZStack {
                                                 if selectedType == moveType {
-                                                    RoundedRectangle(cornerRadius: 8)
+                                                    RoundedRectangle(cornerRadius: 12)
                                                         .fill(Color.accentColor)
-                                                        .stroke(Color.blue.opacity(0.8), lineWidth: 1)
+                                                        .stroke(Color.black.opacity(0.2), lineWidth: 1)
                                                 } else {
-                                                    RoundedRectangle(cornerRadius: 8)
-                                                        .stroke(Color.blue.opacity(0.8), lineWidth: 1)
+                                                    RoundedRectangle(cornerRadius: 12)
+                                                        .stroke(Color.black.opacity(0.2), lineWidth: 1)
                                                 }
                                             }
                                         )
@@ -107,7 +108,7 @@ struct AddMoveView: View {
                     .fontWeight(.semibold)
             }
             .buttonStyle(.borderedProminent)
-            .background(shadowOutline)
+            
             .disabled(isDisabled())
             .padding()
             

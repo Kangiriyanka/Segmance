@@ -44,7 +44,7 @@ struct AudioTrimmerView: View {
                 
                 .frame(height: 200)
                 .background(Color.black.opacity(0.3))
-            }  // ← Close VStack
+            }
             .fileImporter(isPresented: $isImporting, allowedContentTypes: [.audio], allowsMultipleSelection: false) { result in
                 
                 switch result {

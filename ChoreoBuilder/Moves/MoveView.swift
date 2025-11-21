@@ -109,6 +109,7 @@ struct MoveView: View {
                         .font(.system(size: 16))
                         .lineSpacing(5)
                         .padding(1)
+                        .textInputAutocapitalization(.never)
                         .scrollContentBackground(.hidden)
                         .background {
                             RoundedRectangle(cornerRadius: 10)

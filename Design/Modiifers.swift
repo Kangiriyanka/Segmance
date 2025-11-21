@@ -18,13 +18,16 @@ struct BubbleTextField: ViewModifier {
     func body(content: Content) -> some View {
         
         content
+        
         .padding()
+        
            .background(Color.routineCard)
            .overlay(
                RoundedRectangle(cornerRadius: 12)
                    .stroke(Color.black.opacity(0.2), lineWidth: 1)
            )
            .clipShape(RoundedRectangle(cornerRadius: 12))
+           .textInputAutocapitalization(.never)
           
         
     }
