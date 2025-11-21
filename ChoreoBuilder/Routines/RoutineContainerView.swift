@@ -124,9 +124,7 @@ struct RoutineContainerView: View {
                         
                     }
                 }
-            } .background(
-                backgroundGradient
-            )
+            } 
             
             .sheet(isPresented: $showingUploadRoutineSheet) {
                 UploadRoutineView()

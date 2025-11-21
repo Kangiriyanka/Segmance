@@ -93,6 +93,9 @@
 		828DC47B2E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
 		828DC47C2E5372610032083A /* gabagoo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D42E5372610032083A /* gabagoo.mp3 */; };
 		828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
+		82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
+		82DD58202ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
+		82DD58212ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +146,7 @@
 		828DC3FD2E5372610032083A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		828DC3FE2E5372610032083A /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		828DC3FF2E5372610032083A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrimmerModel.swift; sourceTree = "<group>"; };
 		82DDAE562CFBF2F300AD0F60 /* ChoreoBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreoBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE662CFBF2F400AD0F60 /* ChoreoBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +187,11 @@
 		82B230E62EA167BF00EEFE6A /* Design */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Design;
+			sourceTree = "<group>";
+		};
+		82DD58162ECFCBFA0009972E /* Errors */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -227,6 +236,7 @@
 			children = (
 				828DC3D72E5372610032083A /* AudioPlayerModel.swift */,
 				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
+				82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
 				827D6F862E76592E00091652 /* AudioErrors.swift */,
 			);
@@ -292,6 +302,7 @@
 				828DC3FC2E5372610032083A /* ChoreoBuilder.swift */,
 				828DC3FD2E5372610032083A /* ContentView.swift */,
 				828DC3FE2E5372610032083A /* FilesView.swift */,
+				82DD58162ECFCBFA0009972E /* Errors */,
 				828DC3FF2E5372610032083A /* Info.plist */,
 				82B230AB2EA027C800EEFE6A /* Moves */,
 				82B1FA312ECF7E9E00B69BAB /* Debug */,
@@ -337,6 +348,7 @@
 				82B1FA312ECF7E9E00B69BAB /* Debug */,
 				82B230AB2EA027C800EEFE6A /* Moves */,
 				82B230E62EA167BF00EEFE6A /* Design */,
+				82DD58162ECFCBFA0009972E /* Errors */,
 			);
 			name = ChoreoBuilder;
 			packageProductDependencies = (
@@ -362,6 +374,7 @@
 				82B1FA312ECF7E9E00B69BAB /* Debug */,
 				82B230AB2EA027C800EEFE6A /* Moves */,
 				82B230E62EA167BF00EEFE6A /* Design */,
+				82DD58162ECFCBFA0009972E /* Errors */,
 			);
 			name = ChoreoBuilderTests;
 			packageProductDependencies = (
@@ -387,6 +400,7 @@
 				82B1FA312ECF7E9E00B69BAB /* Debug */,
 				82B230AB2EA027C800EEFE6A /* Moves */,
 				82B230E62EA167BF00EEFE6A /* Design */,
+				82DD58162ECFCBFA0009972E /* Errors */,
 			);
 			name = ChoreoBuilderUITests;
 			packageProductDependencies = (
@@ -503,6 +517,7 @@
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
+				82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
 				828DC4692E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC46C2E5372610032083A /* TextDocument.swift in Sources */,
@@ -533,6 +548,7 @@
 				821391B22E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC41E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4202E5372610032083A /* ContentView.swift in Sources */,
+				82DD58202ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
 				828DC4222E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4232E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4252E5372610032083A /* TextDocument.swift in Sources */,
@@ -563,6 +579,7 @@
 				821391B42E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC43E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4402E5372610032083A /* ContentView.swift in Sources */,
+				82DD58212ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
 				828DC4422E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4432E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4452E5372610032083A /* TextDocument.swift in Sources */,

@@ -47,10 +47,9 @@ var shadowOutline: some View {
 var playerBackground: RadialGradient {
     RadialGradient(
         colors: [
-            Color(red: 0.10, green: 0.22, blue: 0.45),
-            Color(red: 0.10, green: 0.22, blue: 0.44),
-            Color(red: 0.10, green: 0.22, blue: 0.43),
-            Color(red: 0.10, green: 0.22, blue: 0.42),
+            Color.player.opacity(0.9),
+            Color.player.opacity(0.8)
+          
             
         ],
         center: .topLeading,

@@ -6,8 +6,9 @@ import SwiftData
 
 
 /// TO-DOS:
-///
-/// Implement a more appealing light theme
+/// 1. Delay countdown
+/// 2. Custom Loop Toggle
+/// 3. Audio Trimmer
 
 struct ContentView: View {
   
@@ -39,7 +40,7 @@ struct ContentView: View {
                     }
                  
                 
-                AudioClipperView()
+                AudioTrimmerView()
                     .tabItem {
                         Label("Trimmer", systemImage: "scissors")
                     }

@@ -19,7 +19,7 @@ struct BubbleTextField: ViewModifier {
         
         content
         .padding()
-           .background(Color.black.opacity(0.05))
+           .background(Color.routineCard)
            .overlay(
                RoundedRectangle(cornerRadius: 12)
                    .stroke(Color.black.opacity(0.2), lineWidth: 1)

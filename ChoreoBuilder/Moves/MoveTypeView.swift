@@ -61,7 +61,7 @@ struct MoveTypeView: View {
             }
 
             .navigationBarTitleDisplayMode(.inline)
-            .scrollContentBackground(.hidden)
+            
             .background(
                 backgroundGradient
             )
