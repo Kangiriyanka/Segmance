@@ -27,6 +27,8 @@ struct AudioPlayerView: View {
     @State private var squareProgress: CGFloat = 1.0
     @Namespace private var animation
     
+  
+    
     
 
     
@@ -604,26 +606,39 @@ struct AudioPlayerView: View {
     
     private var countdownTimer: some View {
         ZStack {
-            Rectangle()
-                .trim(from: 0, to: squareProgress)
-                .stroke(Color.red, lineWidth: 6)
-                .rotationEffect(.degrees(-90))
+           
+            Circle()
+                .stroke(Color.accent.opacity(0.2), lineWidth: 4)
 
+         
+            Circle()
+                .trim(from: 0, to: squareProgress)
+                .stroke(Color.accent, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .shadow(color: .accent.opacity(0.3), radius: 8)
+
+            // Remaining seconds
             Text("\(audioPlayerManager.countdownRemaining)")
-                .font(.largeTitle).bold()
+                .font(.system(.title, design: .rounded).monospacedDigit())
                 .foregroundColor(.mainText)
         }
-            .opacity(audioPlayerManager.isCountingDown ? 1 : 0)
-            .onChange(of: audioPlayerManager.countdownRemaining) { oldValue, newValue in
-                if audioPlayerManager.isCountingDown && oldValue != newValue {
-                    AudioServicesPlaySystemSound(1103)
-                    squareProgress = 0
-                    withAnimation(.easeOut(duration: 0.3)) {
-                        squareProgress = 1
-                    }
-                }
+        .frame(width: 150, height: 150)
+        .opacity((audioPlayerManager.isCountingDown && audioPlayerManager.countdownRemaining > 0) ? 1 : 0)
+        .scaleEffect(audioPlayerManager.isCountingDown ? 1 : 0.8)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: audioPlayerManager.isCountingDown)
+        .onChange(of: audioPlayerManager.countdownRemaining) { oldValue, newValue in
+            guard newValue > 0 else { return }
+            AudioServicesPlaySystemSound(1103)
+            squareProgress = 0
+            withAnimation(.easeOut(duration: 0.3)) {
+                squareProgress = 1
             }
-      
+        }
+        .onChange(of: audioPlayerManager.isCountingDown) { _, active in
+            if !active {
+                squareProgress = 1
+            }
+        }
     }
 
    

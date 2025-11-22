@@ -63,13 +63,14 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     func playAudio() {
             isPlaying = true
             
+            
             if delay > 0 {
                 countdownRemaining = Int(delay)
                 isCountingDown = true
                 startCountdown()
             }
             
-            // Create cancellable task
+            
             let task = DispatchWorkItem { [weak self] in
                 self?.audioPlayer?.play()
             }
