@@ -24,7 +24,6 @@ struct AudioPlayerView: View {
     @State private var isDragging: Bool = false
     @State private var previewTime: Double = 0
     @State private var dragCounter = 0
-    @State private var timeRemaining: Int = 0
     @State private var squareProgress: CGFloat = 1.0
     @Namespace private var animation
     
@@ -69,7 +68,7 @@ struct AudioPlayerView: View {
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                     }
                 }
-                .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isExpanded)
+                .animation(.spring(response: 0.55, dampingFraction: 0.85), value: isExpanded)
                 
                
                 
@@ -156,8 +155,6 @@ struct AudioPlayerView: View {
                     .onTapGesture {
                         
                         audioPlayerManager.isPlaying ? audioPlayerManager.pauseAudio() : audioPlayerManager.playAudio()
-                        
-                        
                     }
                 
                 
@@ -179,7 +176,7 @@ struct AudioPlayerView: View {
             .padding()
             .contentShape(.rect)
             .onTapGesture {
-                withAnimation(.spring(response: 0.4, dampingFraction: 0.8, blendDuration: 0)) {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 0)) {
                     isExpanded = true
                 }
             }
@@ -375,9 +372,8 @@ struct AudioPlayerView: View {
                         
                         
                         .onChange(of: delay) {
-                            
                             audioPlayerManager.changeDelay(delay)
-                            timeRemaining = Int(delay)
+                          
                             
                         }
                     } label: {
@@ -441,12 +437,7 @@ struct AudioPlayerView: View {
                     
                 }
                 
-                ZStack {
-                    if timeRemaining > 0 && audioPlayerManager.isPlaying {
-                        countDownTimer
-                    }
-                }
-                
+                countdownTimer
                 
             }
             
@@ -611,33 +602,32 @@ struct AudioPlayerView: View {
     }
     
     
-    private var countDownTimer: some View {
-        let delayTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-        
-        return ZStack {
-            
-            // Animated square stroke
+    private var countdownTimer: some View {
+        ZStack {
             Rectangle()
-                
-            
-            // Countdown text
-            Text("\(timeRemaining)")
-                .font(.system(size: 40, weight: .bold))
-                .foregroundColor(.red)
+                .trim(from: 0, to: squareProgress)
+                .stroke(Color.red, lineWidth: 6)
+                .rotationEffect(.degrees(-90))
+
+            Text("\(audioPlayerManager.countdownRemaining)")
+                .font(.largeTitle).bold()
+                .foregroundColor(.mainText)
         }
-        .onReceive(delayTimer) { _ in
-            if timeRemaining > 0 && audioPlayerManager.isPlaying {
-                
-                AudioServicesPlaySystemSound(1103)
-                squareProgress = 0
-                withAnimation(.easeOut(duration: 0.3)) {
-                    squareProgress = 1
+            .opacity(audioPlayerManager.isCountingDown ? 1 : 0)
+            .onChange(of: audioPlayerManager.countdownRemaining) { oldValue, newValue in
+                if audioPlayerManager.isCountingDown && oldValue != newValue {
+                    AudioServicesPlaySystemSound(1103)
+                    squareProgress = 0
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        squareProgress = 1
+                    }
                 }
-                
-                timeRemaining -= 1
             }
-        }
+      
     }
+
+   
+   
     
     init(audioFileURL: URL, partTitle: String) {
        

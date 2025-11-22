@@ -12,6 +12,9 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     var isPlaying: Bool = false
     var isLooping: Bool = false
     var isCustomLooping: Bool  = false
+    var isCountingDown: Bool = false
+    private var delayedPlayTask: DispatchWorkItem?
+    var countdownRemaining: Int = 0
     var delay: Float = 0.0
     var totalTime: TimeInterval = 0.0
     var currentTime: TimeInterval = 0.0
@@ -58,19 +61,52 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         
     /// Play the audio with a set delay.
     func playAudio() {
-
-        isPlaying = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
-            self.audioPlayer?.play()
-           }
+            isPlaying = true
+            
+            if delay > 0 {
+                countdownRemaining = Int(delay)
+                isCountingDown = true
+                startCountdown()
+            }
+            
+            // Create cancellable task
+            let task = DispatchWorkItem { [weak self] in
+                self?.audioPlayer?.play()
+            }
+            delayedPlayTask = task
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay), execute: task)
+        }
         
-    }
-    /// Pause the audio
-    func pauseAudio() {
-        audioPlayer?.pause()
-        isPlaying = false
+        func pauseAudio() {
+            delayedPlayTask?.cancel()  
+            delayedPlayTask = nil
+            audioPlayer?.pause()
+            isPlaying = false
+            isCountingDown = false
+            countdownRemaining = 0
+        }
     
+    func startCountdown() {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self, self.isCountingDown else {
+                timer.invalidate()
+                return
+            }
+            
+            
+            self.countdownRemaining -= 1
+            if self.countdownRemaining <= 0 {
+                self.isCountingDown = false
+                timer.invalidate()
+            }
+        }
     }
+        
+        
+        
+        
+   
     
     /// Stop the audio and reset the time to 0
     func stopAudio() {
