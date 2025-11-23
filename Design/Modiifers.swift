@@ -75,7 +75,7 @@ struct CustomLoopCircle: ViewModifier {
                     Ellipse()
                         .fill(Color.routineCard)
                 )
-            .shadow(radius: 2, y: 2)
+            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
             .offset(x: 7)
     }
 }

@@ -27,6 +27,7 @@ struct UploadRoutineView: View {
     @State private var selectedFiles: [FileItem] = []
     @State private var draggedFile: FileItem?
     @State private var characterLimit: Int = 25
+    
     @FocusState private var isFocused: Bool
     @State private var scrollTarget: UUID?
     @FocusState private var focusedFileID: UUID?

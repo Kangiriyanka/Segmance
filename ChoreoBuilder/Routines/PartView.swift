@@ -151,6 +151,7 @@ struct PartView: View {
                             .onTapGesture {
                                 focusedMoveID = nil
                             }
+                            .scrollDismissesKeyboard(.immediately)
                            
                             .onChange(of: focusedMoveID) { _, newValue in
                                 
@@ -177,8 +178,10 @@ struct PartView: View {
 
                             AddMoveView(part: part)
                                 .padding()
+                               
                         }
                            
+                        .ignoresSafeArea(.keyboard, edges: .bottom)
                         .presentationDetents([.fraction(0.5)])
                         
                     }

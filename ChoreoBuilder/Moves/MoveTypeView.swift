@@ -20,52 +20,69 @@ struct MoveTypeView: View {
             
             NavigationStack {
                 
-                Text("Edit Type Name")
-                TextField("Type name", text: $typeName)
-                    .bubbleStyle()
+                ScrollView {
+                    
+                    VStack {
+                        
+                        HStack {
+                            Text("Edit Type ").font(.headline)
+                            Spacer()
+                          
+                            
+                        }
+                        TextField("Type name", text: $typeName)
+                            .bubbleStyle()
+                            
+                           
+                     
+                    }
                     .padding()
-                
-                
-                
-                    .toolbar {
-                        
-                        Button("Save") {
-                            moveType.name = typeName
-                            dismiss()
-                        }
-                        .buttonStyle(.borderedProminent)
-                        
-                        
-                    }
-                
-                    .toolbar {
-                        
-                        
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Menu {
-                                Button("Delete", systemImage: "trash", role: .destructive) {
-                                    isPresentingConfirm = true
+                      
+                    
+                    
+                     
+                        .toolbar {
+                            
+                            ToolbarItem {
+                                Button {
+                                    moveType.name = typeName
+                                    dismiss()
+                                } label: {
+                                    Image(systemName: "checkmark.circle")
                                 }
-                            } label: {
-                                Image(systemName: "ellipsis.circle")
+                                
                             }
-                            .confirmationDialog("Deleting this move type will delete all related moves. Are you sure?", isPresented: $isPresentingConfirm) {
-                                Button("Delete this move type permanently", role: .destructive) {
-                                    deleteMoveType()
+                            
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Menu {
+                                    Button("Delete", systemImage: "trash", role: .destructive) {
+                                        isPresentingConfirm = true
+                                    }
+                                } label: {
+                                    Image(systemName: "ellipsis.circle")
+                                }
+                                .confirmationDialog("Deleting this move type will delete all related moves. Are you sure?", isPresented: $isPresentingConfirm) {
+                                    Button("Delete this move type permanently", role: .destructive) {
+                                        deleteMoveType()
+                                    }
                                 }
                             }
                         }
-                    }
+                }
                 
                 
             }
 
+           
             .navigationBarTitleDisplayMode(.inline)
-            
             .background(
                 backgroundGradient
             )
+       
+            
+         
         }
+        
 
 
        

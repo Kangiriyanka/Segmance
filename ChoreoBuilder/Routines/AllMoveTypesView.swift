@@ -11,33 +11,58 @@ import SwiftData
 struct AllMoveTypesView: View {
     
     @Query(sort: \MoveType.name) var moveTypes: [MoveType]
+    @State private var searchText: String = ""
+    var filteredMoveTypes: [MoveType] {
+               if searchText.isEmpty {
+                   return moveTypes
+               }
+        return moveTypes.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+    }
+    
+    
+    
     var body: some View {
-        Group {
-            if moveTypes.isEmpty {
-                ContentUnavailableView {
-                    Label("No move types yet", systemImage: "music.quarternote.3")
-                } description: {
-                    Text("Create a type when you add moves to your routine using the \(Image(systemName: "figure.dance")) button.")
-                        .padding(.top, 5)
-                }
-            } else {
-                List(moveTypes) { type in
-                    NavigationLink {
-                        MoveTypeView(moveType: type)
-                    } label: {
-                        Text(type.name)
+            NavigationStack {
+
+                VStack(spacing: 0) {
+
+                    // Your custom search bar at the top
+                    CustomSearchBar(
+                        text: $searchText,
+                        placeholder: "Search move types"
+                    )
+                    .padding()
+                 
+
+                    Group {
+                        if filteredMoveTypes.isEmpty {
+                            ContentUnavailableView {
+                                Label("No move types found", systemImage: "music.quarternote.3")
+                            } description: {
+                                Text("Create a type when you add moves to your routine using the \(Image(systemName: "figure.dance")) button.")
+                                    .padding(.top, 5)
+                            }
+                        } else {
+                            List(filteredMoveTypes) { type in
+                                NavigationLink {
+                                    MoveTypeView(moveType: type)
+                                } label: {
+                                    Text(type.name)
+                                }
+                                .bubbleStyle()
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                            }
+                        }
                     }
-                    .bubbleStyle()
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
                 }
+
+                .navigationTitle("Move Types")
+                .navigationBarTitleDisplayMode(.inline)
+                .scrollContentBackground(.hidden)
+                .background(backgroundGradient)
             }
         }
-        .scrollContentBackground(.hidden)
-        .background(
-            backgroundGradient
-        )
-    }
     
 }
 
