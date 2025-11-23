@@ -11,6 +11,7 @@ import SwiftUI
 extension Animation {
     
     static let organicFastBounce: Animation = .spring(response: 0.32, dampingFraction: 0.80, blendDuration: 0.2)
+    static let smoothReorder = Animation.spring(response: 0.25, dampingFraction: 0.75)
     
     
     

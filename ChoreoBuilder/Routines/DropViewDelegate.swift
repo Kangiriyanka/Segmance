@@ -29,7 +29,7 @@ struct DropViewDelegate<Item: Identifiable & Equatable>: DropDelegate {
             if let fromIndex {
                 let toIndex = items.firstIndex(of: destinationItem)
                 if let toIndex, fromIndex != toIndex {
-                    withAnimation {
+                    withAnimation(Animation.smoothReorder) {
                         self.items.move(
                             fromOffsets: IndexSet(integer: fromIndex),
                             toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)

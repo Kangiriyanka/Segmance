@@ -165,30 +165,38 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     
     func updateProgress() {
         guard let player = audioPlayer else {
-            currentTime = 0.0
+            currentTime = 0
             return
         }
-        
-   
+
         currentTime = player.currentTime
-       
-        if isCustomLooping {
-              if firstMark > secondMark {
-                  swap(&firstMark, &secondMark)  // Ensure firstMark is always before secondMark
-              }
-              
-              // When we reach the second mark, pause and seek to the first mark.
-              if currentTime >= secondMark {
-                  player.pause()  // Pause the player
-                  seekAudio(to: firstMark)  // Go back to the first mark
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {  // Small delay to allow the seek to complete
-                      player.play()  // Resume playing
-                  }
-              } else if currentTime < firstMark {
-             
-                  seekAudio(to: firstMark + 0.1 )
-              }
-          }
+
+        guard isCustomLooping else { return }
+
+        // Always enforce correct ordering
+        if firstMark > secondMark {
+            swap(&firstMark, &secondMark)
+        }
+
+        // Before loop start → jump forward
+        if currentTime < firstMark {
+            seekAudio(to: firstMark + 0.1)
+            return
+        }
+
+        // Past loop end → loop back
+        if currentTime >= secondMark {
+            player.pause()
+            seekAudio(to: firstMark)
+
+            resetCountdown()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 + TimeInterval(delay)) {
+                player.play()
+            }
+
+            return
+        }
     }
     
     
@@ -240,6 +248,13 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
+    func resetCountdown() {
+        if delay > 0 {
+            countdownRemaining = Int(delay)
+            isCountingDown = true
+            startCountdown()
+        }
+    }
     
     ///Function called when playback is finished.
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -247,14 +262,10 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         if !isLooping {
             isPlaying = false
             
-            
         }
+       
         else {
-            if delay > 0 {
-                countdownRemaining = Int(delay)
-                isCountingDown = true
-                startCountdown()
-            }
+            resetCountdown()
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
                 self.audioPlayer?.play()
                }

@@ -29,7 +29,7 @@ struct MoveDropViewDelegate: DropDelegate {
               let toIndex = originalArray.firstIndex(where: { $0.id == destinationMove.id }),
               fromIndex != toIndex else { return }
         
-        withAnimation {
+        withAnimation(Animation.smoothReorder){
   
             originalArray.move(
                 fromOffsets: IndexSet(integer: fromIndex),
