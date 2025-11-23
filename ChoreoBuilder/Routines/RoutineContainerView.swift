@@ -18,6 +18,15 @@ struct RoutineContainerView: View {
     @Query(sort: \Routine.title) var routines: [Routine]
     @Environment(\.colorScheme) var colorScheme
     
+    var filteredRoutines: [Routine] {
+               if searchText.isEmpty {
+                   return routines
+               }
+        return routines.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+    }
+    
+    
+    
  
     
     var body: some View {
@@ -49,10 +58,10 @@ struct RoutineContainerView: View {
               
                 
                 Group {
-                    if routines.isEmpty {
+                    if filteredRoutines.isEmpty {
                         
                         ContentUnavailableView {
-                            Label("No routines added", systemImage: "music.quarternote.3")
+                            Label("No routines found", systemImage: "music.quarternote.3")
                         } description: {
                             Text("Add your first routine by tapping the \(Image(systemName: "figure.dance")) button.").padding([.top], 5)
                         }
@@ -64,7 +73,7 @@ struct RoutineContainerView: View {
                     else {
                         
                         ScrollView(.vertical, showsIndicators: false) {
-                            ForEach(routines) { routine in
+                            ForEach(filteredRoutines) { routine in
                                 NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden(true) ) {
                                     
                                     RoutineCardView(routine: routine)

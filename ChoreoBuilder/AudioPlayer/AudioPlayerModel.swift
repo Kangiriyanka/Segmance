@@ -247,8 +247,14 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         if !isLooping {
             isPlaying = false
             
+            
         }
         else {
+            if delay > 0 {
+                countdownRemaining = Int(delay)
+                isCountingDown = true
+                startCountdown()
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
                 self.audioPlayer?.play()
                }

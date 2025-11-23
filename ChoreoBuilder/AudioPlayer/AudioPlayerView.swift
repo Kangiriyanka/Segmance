@@ -624,7 +624,7 @@ struct AudioPlayerView: View {
 
             
             Text("\(audioPlayerManager.countdownRemaining)")
-                .font(.largeTitle.monospacedDigit())
+                .font(.system(size: 50))
                 .foregroundColor(.accent)
                 .bold()
         }
