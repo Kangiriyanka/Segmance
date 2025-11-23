@@ -12,7 +12,10 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     var isPlaying: Bool = false
     var isLooping: Bool = false
     var isCustomLooping: Bool  = false
+    var showMarkers: Bool = false
     var isCountingDown: Bool = false
+    var firstMarkerSelected = false
+    var secondMarkerSelected = false
     private var delayedPlayTask: DispatchWorkItem?
     var countdownRemaining: Int = 0
     var delay: Float = 0.0
@@ -119,12 +122,15 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     
     /// Loop
     func loop() {
-        isLooping = true
+        if !isCustomLooping {
+            isLooping = true
+        }
     }
     
     func startCustomLoop() {
         
         isCustomLooping = true
+       
 
     }
     func stopLoop() {
@@ -188,6 +194,44 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     
     func seekAudio(to time: TimeInterval) {
         audioPlayer?.currentTime = time
+    }
+    
+    /// MARK: Custom Loop Logic
+    
+    func setFirstMarker() {
+        firstMarkerSelected = true
+        firstMark = currentTime
+    }
+    
+    func setSecondMarker() {
+        
+        secondMarkerSelected = true
+        secondMark = currentTime
+        isCustomLooping = true
+        if !isPlaying {
+            isPlaying = true
+        }
+        isLooping = false
+        showMarkers = false
+        
+    }
+    
+    func toggleMarkers() {
+       
+        showMarkers.toggle()
+        firstMarkerSelected = false
+        secondMarkerSelected = false
+       
+      
+    }
+    
+    func cancelCustomLoop() {
+        showMarkers = false
+        isCustomLooping = false
+        firstMark = 0
+        secondMark = 0
+        firstMarkerSelected = false
+        secondMarkerSelected = false
     }
     
     func timeString(time: TimeInterval) -> String {

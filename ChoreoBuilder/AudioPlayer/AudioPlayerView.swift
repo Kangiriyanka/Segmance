@@ -17,8 +17,7 @@ struct AudioPlayerView: View {
     @State private var delay: Float = 0.0
     @State private var isExpanded = false
     @State private var showMarkers = false
-    @State private var firstMarkerSelected = false
-    @State private var secondMarkerSelected = false
+  
     @State private var audioPlayerManager: AudioPlayerModel
     @State private var offsetY: CGFloat = 0
     @State private var isDragging: Bool = false
@@ -208,20 +207,23 @@ struct AudioPlayerView: View {
             
             
             
-            VStack (spacing: 15) {
+            VStack (spacing: 20) {
                 
                 
-                HStack {
+                ZStack(alignment: .top) {
+                   
+                     
                     
                     Text(partTitle)
                         
-                        .padding(.bottom, 30)
-                        .font(.title)
-                        .bold()
-                    
-                    
+                        
+                        .font(.title2)
+                        .fontWeight(.medium)
+
                     
                 }
+              
+            
               
                 
                 
@@ -240,29 +242,25 @@ struct AudioPlayerView: View {
                             .font(.system(size: 25))
                             .foregroundStyle( audioPlayerManager.isCustomLooping ? Color.white : Color.black)
                             .onTapGesture {
-                                showMarkers.toggle()
-                                firstMarkerSelected = false
-                                secondMarkerSelected = false
+                                audioPlayerManager.toggleMarkers()
+                                
                                 
                             }
                             .onLongPressGesture {
-                                showMarkers = false
-                                audioPlayerManager.isCustomLooping = false
-                                audioPlayerManager.firstMark = 0
-                                audioPlayerManager.secondMark = 0
-                                firstMarkerSelected = false
-                                secondMarkerSelected = false
+                                audioPlayerManager.cancelCustomLoop()
                             }
                             .overlay(
-                                Text("AB")
-                                    .foregroundStyle(audioPlayerManager.isCustomLooping ? Color.routineCard : .white)
-                                    .font(.caption)
+                                Text(audioPlayerManager.isCustomLooping ? "Hold" :"AB")
+                                    
+                                    
+                                    .customCircle()
                                 
                                 
                                 
                                 , alignment: .bottomTrailing
                                 
                             )
+                          
                         Image(systemName: "backward.end.fill")
                             .symbolRenderingMode(.monochrome)
                             .font(.system(size: 25))
@@ -322,7 +320,7 @@ struct AudioPlayerView: View {
                 
                 VStack {
                     
-                    if showMarkers {
+                    if audioPlayerManager.showMarkers {
                         
                         markerSelection
                         
@@ -439,9 +437,11 @@ struct AudioPlayerView: View {
                     
                 }
                 
-                countdownTimer
-                
+                                
             }
+            .overlay(countdownTimer(width: 150, height: 150) .offset(y: -200), alignment: .top)
+           
+           
             
             Spacer()
         }
@@ -449,6 +449,8 @@ struct AudioPlayerView: View {
         
         .padding(15)
         .padding(.top, safeArea.top)
+        
+        
         
     }
     private var customSlider: some View {
@@ -559,27 +561,29 @@ struct AudioPlayerView: View {
     private var markerSelection:  some View {
         ZStack {
             Group {
-                if !firstMarkerSelected {
-                    Button("Select A Mark") {
-                        firstMarkerSelected = true
-                        audioPlayerManager.firstMark = audioPlayerManager.currentTime
+                if !audioPlayerManager.firstMarkerSelected {
+                    Button {
+                        audioPlayerManager.setFirstMarker()
+                    } label: {
+                        Text("Select A Mark").foregroundStyle(.mainText)
+                            .fontWeight(.medium)
                     }
                     
                     
-                } else if !secondMarkerSelected {
-                    Button("Select B Mark") {
-                        secondMarkerSelected = true
-                        audioPlayerManager.secondMark = audioPlayerManager.currentTime
-                        audioPlayerManager.isCustomLooping = true
-                        showMarkers = false
+                } else if !audioPlayerManager.secondMarkerSelected {
+                    Button {
+                        audioPlayerManager.setSecondMarker()
+                    }label: {
+                        Text("Select B Mark").foregroundStyle(.mainText)
+                            .fontWeight(.medium)
                     }
                     
                     
                 }
             }
-            .padding(3)
-            .background(Color.routineCard.opacity(0.8))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .frame(height: 10)
+            .bubbleStyle()
+            .shadow( radius: 1, y:1  )
         }
     }
     
@@ -588,49 +592,56 @@ struct AudioPlayerView: View {
         
         ZStack {
             Group {
-                Rectangle()
-                    .fill(Color.routineCard)
-                    .frame(width: 5, height: 20)
+                
+                LoopMarker()
                     .offset(x: m1, y: -30 )
                 
+              
                 
-                Rectangle()
-                    .fill(Color.routineCard)
-                    .frame(width: 5, height: 20)
+                LoopMarker()
                     .offset(x: m2, y: -30 )
             }
+          
         }
         
     }
     
     
-    private var countdownTimer: some View {
+    
+    
+    private func countdownTimer(width: CGFloat , height: CGFloat) ->  some View {
+       
         ZStack {
            
             Circle()
-                .stroke(Color.accent.opacity(0.2), lineWidth: 4)
+                .stroke(Color.accent.opacity(0.1), lineWidth: 5)
+                .fill(Color.accent.opacity(0.1))
 
          
             Circle()
                 .trim(from: 0, to: squareProgress)
                 .stroke(Color.accent, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                // --> faces this way by default
                 .rotationEffect(.degrees(-90))
                 .shadow(color: .accent.opacity(0.3), radius: 8)
 
-            // Remaining seconds
+            
             Text("\(audioPlayerManager.countdownRemaining)")
-                .font(.system(.title, design: .rounded).monospacedDigit())
-                .foregroundColor(.mainText)
+                .font(.largeTitle.monospacedDigit())
+                .foregroundColor(.accent)
+                .bold()
         }
-        .frame(width: 150, height: 150)
+        .frame(width: width, height: height)
+        
+        
         .opacity((audioPlayerManager.isCountingDown && audioPlayerManager.countdownRemaining > 0) ? 1 : 0)
-        .scaleEffect(audioPlayerManager.isCountingDown ? 1 : 0.8)
-        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: audioPlayerManager.isCountingDown)
+        .scaleEffect(audioPlayerManager.isCountingDown ? 1 : 0.7)
+        .animation(.spring(response: 0.2, dampingFraction: 0.7), value: audioPlayerManager.isCountingDown)
         .onChange(of: audioPlayerManager.countdownRemaining) { oldValue, newValue in
             guard newValue > 0 else { return }
-            AudioServicesPlaySystemSound(1103)
+            AudioServicesPlaySystemSound(1104)
             squareProgress = 0
-            withAnimation(.easeOut(duration: 0.3)) {
+            withAnimation {
                 squareProgress = 1
             }
         }
@@ -660,7 +671,7 @@ struct AudioPlayerView: View {
 
 #Preview {
     let URL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
-    AudioPlayerView(audioFileURL: URL, partTitle: "Part 1 Hello My name is monkey Jones Jones heahhahajfdjfdsjf " )
+    AudioPlayerView(audioFileURL: URL, partTitle: "The Initial Start " )
    
 }
 

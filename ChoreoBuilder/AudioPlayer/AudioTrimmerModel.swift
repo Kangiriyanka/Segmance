@@ -17,6 +17,7 @@ class AudioTrimmerModel: NSObject {
     var errorMessage: String?
     var audioURL: URL?
     var isPlaying: Bool = false
+   
     var selectionStart: Double = 0
     var selectionEnd: Double = 0
     var waveform: [Float] = Array(repeating: 0.5, count: 100)

@@ -63,6 +63,33 @@ struct CustomBorderStyle: ViewModifier {
     }
 }
 
+struct CustomLoopCircle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .fixedSize()
+        
+            .font(.caption2)
+            .padding(3)
+          
+            .background(
+                    Ellipse()
+                        .fill(Color.routineCard)
+                )
+            .shadow(radius: 2, y: 2)
+            .offset(x: 7)
+    }
+}
+
+
+#Preview {
+    
+    @Previewable @State var a: Bool = false
+    Text(a ? "Hold" : "AB" )
+        .customCircle()
+    
+    Button("Toggle") {a.toggle()}
+}
+
 
 
 
@@ -81,6 +108,11 @@ extension View {
     
     func customBorderStyle() -> some View {
         modifier(CustomBorderStyle())
+    }
+    
+    func customCircle() -> some View {
+        
+        modifier(CustomLoopCircle())
     }
 }
 
