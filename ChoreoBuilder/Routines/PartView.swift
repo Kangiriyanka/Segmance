@@ -41,7 +41,7 @@ struct PartView: View {
                         
                         HStack(spacing: 20) {
                             Button {
-                                withAnimation {
+                                withAnimation(Animation.organicFastBounce) {
                                     audioPlayerPresented.toggle()
                                 }
                             } label: {

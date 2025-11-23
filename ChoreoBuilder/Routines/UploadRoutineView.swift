@@ -40,7 +40,7 @@ struct UploadRoutineView: View {
         // User enters the routine title and description
         // Imports the relevant audio files for the routine.
         VStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading,  spacing: 13) {
                 HStack {
                     Text("Routine Details").font(.headline)
                     HStack {
@@ -203,7 +203,7 @@ struct UploadRoutineView: View {
                         Spacer().frame(height: 1)
                         
                     }
-                   
+                    .scrollIndicators(.hidden)
                     .clipped()
                     .onChange(of: focusedFileID) { _, newValue in
                         
@@ -220,7 +220,9 @@ struct UploadRoutineView: View {
                 }
                 
             }
+            
             .background(shadowOutline)
+            .offset(y: 15)
          
             
             

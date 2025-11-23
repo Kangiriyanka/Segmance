@@ -26,13 +26,9 @@ struct AudioPlayerView: View {
     @State private var squareProgress: CGFloat = 1.0
     @Namespace private var animation
     
-  
-    
-    
 
-    
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
-    let delayOptions: [Float] = [15,10,5,2,1,0]
+    let delayOptions: [Float] = [15,10,5,3,1,0]
     
     
     var body: some View {
@@ -60,6 +56,7 @@ struct AudioPlayerView: View {
                 .frame(height: isExpanded ? nil : 60)
                 
                 
+                // This was added to prevent
                 ZStack(alignment: .top) {
                     if isExpanded {
                         ExpandedPlayerView(size, safeArea)
@@ -69,7 +66,7 @@ struct AudioPlayerView: View {
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                     }
                 }
-                .animation(.spring(response: 0.55, dampingFraction: 0.85), value: isExpanded)
+                .animation(Animation.organicFastBounce, value: isExpanded)
                 
                
                 
@@ -177,7 +174,7 @@ struct AudioPlayerView: View {
             .padding()
             .contentShape(.rect)
             .onTapGesture {
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 0)) {
+                withAnimation(.spring(response: 0.1, dampingFraction: 1.0)) {
                     isExpanded = true
                 }
             }
@@ -639,7 +636,7 @@ struct AudioPlayerView: View {
         .animation(.spring(response: 0.2, dampingFraction: 0.7), value: audioPlayerManager.isCountingDown)
         .onChange(of: audioPlayerManager.countdownRemaining) { oldValue, newValue in
             guard newValue > 0 else { return }
-            AudioServicesPlaySystemSound(1104)
+            AudioServicesPlaySystemSound(1103)
             squareProgress = 0
             withAnimation {
                 squareProgress = 1

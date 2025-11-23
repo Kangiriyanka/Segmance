@@ -25,7 +25,7 @@ struct EditRoutineView: View {
     
     var body: some View {
         VStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 13) {
                 HStack {
                     Text("Routine Details").font(.headline)
                     Spacer()
@@ -91,6 +91,8 @@ struct EditRoutineView: View {
                         
                         Spacer().frame(height: 1)
                     }
+                   
+                    .scrollIndicators(.hidden)
                     .clipped()
                     .onChange(of: focusedPartID) { _, newValue in
                         if let id = newValue {
@@ -104,6 +106,7 @@ struct EditRoutineView: View {
                 }
             }
             .background(shadowOutline)
+            .offset(y: 15)
         }
        
         .frame(width: 370)

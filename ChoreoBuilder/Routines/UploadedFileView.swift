@@ -26,8 +26,9 @@ struct UploadedFileView : View {
                
             
         }
+        .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
         
-        .padding()
+        
     }
 }
 
