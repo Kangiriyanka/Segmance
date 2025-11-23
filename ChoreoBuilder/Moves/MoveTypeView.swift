@@ -24,12 +24,7 @@ struct MoveTypeView: View {
                     
                     VStack {
                         
-                        HStack {
-                            Text("Edit Type ").font(.headline)
-                            Spacer()
-                          
-                            
-                        }
+                      
                         TextField("Type name", text: $typeName)
                             .bubbleStyle()
                             
@@ -70,11 +65,13 @@ struct MoveTypeView: View {
                         }
                 }
                 
+                .navigationTitle("Edit \(moveType.name)")
+                .navigationBarTitleDisplayMode(.inline)
                 
             }
 
            
-            .navigationBarTitleDisplayMode(.inline)
+         
             .background(
                 backgroundGradient
             )

@@ -39,17 +39,20 @@ struct PartView: View {
                         
                         Spacer()
                         
-                        HStack(spacing: 20) {
+                        HStack(spacing: 5) {
                             Button {
                                 withAnimation(Animation.organicFastBounce) {
                                     audioPlayerPresented.toggle()
                                 }
                             } label: {
                                 Image(systemName: "music.quarternote.3")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundStyle(Color.mainText.opacity(0.8))
+                                    .foregroundColor(.mainText)
+                                    .frame(maxHeight: 30)
+                                    .padding()
+                                    .background(
+                                        Circle()
+                                            .fill(Color.routineCard)
+                                    )
                             }
                             
                             
@@ -61,10 +64,13 @@ struct PartView: View {
                                 }
                             } label: {
                                 Image(systemName: "plus.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundStyle(Color.mainText.opacity(0.8))
+                                    .foregroundColor(.mainText)
+                                    .frame(maxHeight: 30)
+                                    .padding()
+                                    .background(
+                                        Circle()
+                                            .fill(Color.routineCard)
+                                    )
                                    
                             }
                          

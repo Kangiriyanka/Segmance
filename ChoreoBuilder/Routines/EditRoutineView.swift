@@ -24,99 +24,110 @@ struct EditRoutineView: View {
     @FocusState private var focusedPartID: UUID?
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading, spacing: 13) {
-                HStack {
-                    Text("Routine Details").font(.headline)
-                    Spacer()
-                    Button {
-                        if validateDetails() {
-                            routine.title = title
-                            routine.routineDescription = description
-                            routine.parts = parts
-                            dismiss()
-                        }
-                    } label: {
-                        Image(systemName: "checkmark.circle")
-                    }
-                    .bold()
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.regular)
-                }
-                
-                Divider()
-                TextField("Enter the routine title", text: $title)
-                    .limitText($title, to: characterLimit)
-                    .focused($isFocused)
-                
-                Divider()
-                TextField("Enter a short description", text: $description)
-                    .limitText($description, to: characterLimit)
-                    .focused($isFocused)
-            }
-            .padding()
-            .background(shadowOutline)
-         
-       
-            
+        NavigationStack {
             VStack {
-                HStack {
-                    Text("Arrange & Rename Parts").font(.headline)
-                    Spacer()
+                VStack(alignment: .leading, spacing: 13) {
+                    HStack {
+                        Text("Routine Details").font(.headline)
+                        Spacer()
+                        Button {
+                            if validateDetails() {
+                                routine.title = title
+                                routine.routineDescription = description
+                                routine.parts = parts
+                                dismiss()
+                            }
+                        } label: {
+                            Image(systemName: "checkmark.circle")
+                        }
+                        .bold()
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.regular)
+                    }
+                    
+                    Divider()
+                    TextField("Enter the routine title", text: $title)
+                        .limitText($title, to: characterLimit)
+                        .focused($isFocused)
+                    
+                    Divider()
+                    TextField("Enter a short description", text: $description)
+                        .limitText($description, to: characterLimit)
+                        .focused($isFocused)
                 }
                 .padding()
+                .background(shadowOutline)
                 
-                Divider()
                 
-                ScrollViewReader { proxy in
-                    ScrollView {
-                        if parts.isEmpty {
-                            ContentUnavailableView {
-                                Label("No parts", systemImage: "music.note")
-                            } description: {
-                                Text("This routine has no parts").padding([.top], 5)
-                            }
-                        }
-                        
-                        ForEach($parts) { $part in
-                            UploadedFileView(partName: $part.title)
-                                .id(part.id)
-                                .focused($focusedPartID, equals: part.id)
-                                .onDrag {
-                                    draggedPart = part
-                                    return NSItemProvider()
-                                }
-                                .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: part, items: $parts, draggedItem: $draggedPart))
-                        }
-                        
-                        Spacer().frame(height: 1)
+                
+                VStack {
+                    HStack {
+                        Text("Arrange & Rename Parts").font(.headline)
+                        Spacer()
                     }
-                   
-                    .scrollIndicators(.hidden)
-                    .clipped()
-                    .onChange(of: focusedPartID) { _, newValue in
-                        if let id = newValue {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                withAnimation {
-                                    proxy.scrollTo(id, anchor: .center)
+                    .padding()
+                    
+                    Divider()
+                    
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            if parts.isEmpty {
+                                ContentUnavailableView {
+                                    Label("No parts", systemImage: "music.note")
+                                } description: {
+                                    Text("This routine has no parts").padding([.top], 5)
+                                }
+                            }
+                            
+                            ForEach($parts) { $part in
+                                UploadedFileView(partName: $part.title)
+                                    .id(part.id)
+                                    .focused($focusedPartID, equals: part.id)
+                                    .onDrag {
+                                        draggedPart = part
+                                        return NSItemProvider()
+                                    }
+                                    .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: part, items: $parts, draggedItem: $draggedPart))
+                            }
+                            
+                            Spacer().frame(height: 1)
+                        }
+                        
+                        .scrollIndicators(.hidden)
+                        .clipped()
+                        .onChange(of: focusedPartID) { _, newValue in
+                            if let id = newValue {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation {
+                                        proxy.scrollTo(id, anchor: .center)
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                .background(shadowOutline)
+                .offset(y: 15)
             }
-            .background(shadowOutline)
-            .offset(y: 15)
-        }
+            
+            .frame(width: 370)
+            
+            .padding()
+            .background(backgroundGradient)
+            .alert(errorTitle, isPresented: $showingError) {
+            } message: {
+                Text(errorMessage)
+            }
+            
+            
+            .navigationTitle("Edit \(routine.title)")
+            .navigationBarTitleDisplayMode(.inline)
+                
+            }
        
-        .frame(width: 370)
        
-        .padding()
-        .background(backgroundGradient)
-        .alert(errorTitle, isPresented: $showingError) {
-        } message: {
-            Text(errorMessage)
-        }
+        
+        
     }
     
     init(routine: Routine) {

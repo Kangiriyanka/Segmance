@@ -46,22 +46,44 @@ struct AllRoutinesView: View {
                     else {
                         List {
                             ForEach(filteredRoutines) { routine in
-                                HStack {
-                                    NavigationLink(destination: EditRoutineView(routine: routine)) {
+                           
+                                    
+                                   
                                         HStack {
-                                            Text("\(routine.title)")
+                                            
+                                            
+                                            
+                                                Image(systemName: "music.note")
+                                                
+                                                    .foregroundStyle(.accent)
+                                                    .font(.system(size: 12, weight: .semibold))
+                                                
+                                                Text("\(routine.title)")
+                                                    .font(.headline.weight(.semibold))
+                                                    .foregroundStyle(Color.mainText)
+                                                
+                                                
+                                                Spacer()
+                                            
                                             
                                             Spacer()
                                             Text("\(routine.parts.count)")
                                                 .frame(width: 20, height: 20)
+                                            
                                                 .customCircle()
+                                                .padding(5)
                                             
                                         }
+                                        
+                                            .background(
+                                              NavigationLink("", destination: EditRoutineView(routine: routine))
+                                                .opacity(0)
+                                        )
                                     
                                         
                                         
                                         
-                                    }
+                                    
                                     
                                     .bubbleStyle()
                                     
@@ -70,7 +92,7 @@ struct AllRoutinesView: View {
                                     
                                     
                                     
-                                }
+                                
                             }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)

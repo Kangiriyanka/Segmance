@@ -18,93 +18,173 @@ struct OptionsView: View {
     let exportTypes = ["HTML", "Markdown"]
     @State private var exportType = "Markdown"
     
-    
-    
     var body: some View {
         NavigationStack {
             List {
                 
                 Group {
-                    Section("Manage Routines") {
+                    Section {
                         
-                        NavigationLink(destination: AllRoutinesView()) {
-                            VStack {
+                        
+                        HStack {
+                            HStack(spacing: 10) {
+                                Image(systemName: "circle.fill")
+                                
+                                    .foregroundStyle(.accent)
+                                    .font(.system(size: 8, weight: .semibold))
+                                
                                 Text("View all routines")
+                                    .font(.headline.weight(.semibold))
+                                    .foregroundStyle(Color.mainText)
+                                
+                                
+                                Spacer()
                             }
-                           
+                            
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bubbleStyle()
+                        .background(
+                            NavigationLink("", destination: AllRoutinesView())
+                                .opacity(0)
+                        )
+                        
+                        HStack {
+                            Image(systemName: "circle.fill")
+                            
+                                .foregroundStyle(.accent)
+                                .font(.system(size: 8, weight: .semibold))
+                            
+                            Text("View all move types")
+                                .font(.headline.weight(.semibold))
+                                .foregroundStyle(Color.mainText)
+                            
+                            
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bubbleStyle()
+                        
+                        .background(
+                            NavigationLink("", destination: AllMoveTypesView())
+                                .opacity(0)
+                        )
+                        
+                        HStack {
+                            
+                            Image(systemName: "circle.fill")
+                                .foregroundStyle(.accent)
+                                .font(.system(size: 8, weight: .semibold))
+                            
+                            Text("Export Format")
+                                .font(.headline.weight(.semibold))
+                                .foregroundStyle(Color.mainText)
+                            
+                            
+                            Picker("", selection: $exportType) {
+                                ForEach(exportTypes, id: \.self) { Text($0) }
+                            }
+                            
                             
                             
                         }
                         .bubbleStyle()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
                         
-                        
+                    } header: {
+                        HStack {
+                            Text("General")
+                            Spacer()
+                            exportButton
+                        }
                     }
                     
-                    
-                    
-                    
-                    Section("Manage Move Types") {
+                    Section {
                         
-                        NavigationLink(destination: AllMoveTypesView()) {
-                            VStack {
-                                Text("View all move types")
-                            }
-                        }
-                        .bubbleStyle()
-                        
-                        
-                        
-                    }
-                    
-                    
-                    
-                    Section("Export Routines") {
-                        Picker("Choose an export type", selection: $exportType) {
-                            ForEach(exportTypes, id: \.self) {
-                                Text($0)
+                        HStack {
+                            HStack(spacing: 10) {
+                                Image(systemName: "circle.fill")
+                                
+                                    .foregroundStyle(.accent)
+                                    .font(.system(size: 8, weight: .semibold))
+                                
+                                Text("About Choreobuilder")
+                                    .font(.headline.weight(.semibold))
+                                    .foregroundStyle(Color.mainText)
+                                
+                                
+                                Spacer()
                             }
                             
-                            
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bubbleStyle()
+                        .background(
+                            NavigationLink("", destination: AboutView())
+                                .opacity(0)
+                        )
+                        
+                        
+                        
+                        
+                    } header: {
+                        
+                        HStack {
+                            Text("About")
+                            Spacer()
+                        
                         }
                         
-                        Button("Export Routines") {
-                            isShowingExporter = true
-                        }
-                        .bubbleStyle()
-                        .fileExporter(
-                            isPresented: $isShowingExporter,
-                            document: TextDocument(text: exportType == "Markdown" ? exportRoutinesToMarkdown(routines) : exportRoutinesToHTML(routines)),
-                            contentType: exportType == "Markdown" ? .plainText  : .html
-                        ) { result in
-                            switch result {
-                            case .success(let url):
-                                print("Saved to \(url)")
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                            }
-                        }
+                        
+                        
                     }
                 }
                 
+            
+                
+                
+                
+                
                 .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
-         
-            .background(
-                backgroundGradient
-                )
-          
-            
+            .background(backgroundGradient)
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-}
     
-
+    private var exportButton: some View {
+        Button {
+            isShowingExporter = true
+        } label: {
+            Image(systemName: "square.and.arrow.up")
+                .foregroundColor(.mainText)
+                .frame(maxHeight: 30)
+                .padding()
+                .background(
+                    Circle()
+                        .fill(Color.routineCard)
+                )
+        }
+        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
+        .fileExporter(
+            isPresented: $isShowingExporter,
+            document: TextDocument(text: exportType == "Markdown" ? exportRoutinesToMarkdown(routines) : exportRoutinesToHTML(routines)),
+            contentType: exportType == "Markdown" ? .plainText : .html
+        ) { result in
+            switch result {
+            case .success(let url):
+                print("Saved to \(url)")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func exportRoutinesToHTML(_ routines: [Routine]) -> String {
-        
         var export = ""
         
         for routine in routines {
@@ -123,10 +203,8 @@ struct OptionsView: View {
         
         return export
     }
+    
     func exportRoutinesToMarkdown(_ routines: [Routine]) -> String {
-        
-        
-        
         var export = ""
         
         for routine in routines {
@@ -144,17 +222,11 @@ struct OptionsView: View {
         }
         
         return export
-        
     }
-    
-
-       
-    
-
+}
 
 #Preview {
     let container = Routine.preview
     OptionsView()
         .modelContainer(container)
-        
 }

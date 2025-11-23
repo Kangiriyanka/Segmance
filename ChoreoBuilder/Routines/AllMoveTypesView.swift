@@ -44,12 +44,19 @@ struct AllMoveTypesView: View {
                             }
                         } else {
                             List(filteredMoveTypes) { type in
-                                NavigationLink {
-                                    MoveTypeView(moveType: type)
-                                } label: {
+                                
+                                HStack {
                                     Text(type.name)
                                 }
-                                .bubbleStyle()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                    .bubbleStyle()
+                                            .background(
+                                              NavigationLink("", destination: MoveTypeView(moveType: type))
+                                                .opacity(0)
+                                        )
+                             
+                                
+                              
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
                             }

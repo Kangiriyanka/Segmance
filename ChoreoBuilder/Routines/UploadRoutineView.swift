@@ -63,7 +63,7 @@ struct UploadRoutineView: View {
                         } label: {
                             
                             
-                            Image(systemName: "square.and.arrow.up")
+                            Image(systemName: "square.and.arrow.down")
                                 .bold()
                             
                             

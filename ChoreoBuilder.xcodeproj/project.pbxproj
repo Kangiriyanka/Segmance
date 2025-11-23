@@ -96,6 +96,9 @@
 		82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
 		82DD58202ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
 		82DD58212ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
+		82E757162ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
+		82E757172ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
+		82E757182ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +153,7 @@
 		82DDAE562CFBF2F300AD0F60 /* ChoreoBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreoBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE662CFBF2F400AD0F60 /* ChoreoBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E757152ED3906B0086F880 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -279,6 +283,7 @@
 				828DC3EA2E5372610032083A /* OptionsView.swift */,
 				821392552E95D206003B79E1 /* AllMoveTypesView.swift */,
 				828DC3EB2E5372610032083A /* PartView.swift */,
+				82E757152ED3906B0086F880 /* AboutView.swift */,
 				828DC3EC2E5372610032083A /* RoutineContainerView.swift */,
 				828DC3ED2E5372610032083A /* RoutineView.swift */,
 				828DC3EE2E5372610032083A /* TextDocument.swift */,
@@ -516,6 +521,7 @@
 				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
+				82E757162ED3906B0086F880 /* AboutView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
 				82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
 				828DC4692E5372610032083A /* EditRoutineView.swift in Sources */,
@@ -533,6 +539,7 @@
 			files = (
 				8213933A2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
 				828DC4102E5372610032083A /* Part.swift in Sources */,
+				82E757172ED3906B0086F880 /* AboutView.swift in Sources */,
 				828DC4122E5372610032083A /* AudioPlayerView.swift in Sources */,
 				828DC4132E5372610032083A /* ViewExtensions.swift in Sources */,
 				828DC4142E5372610032083A /* OptionsView.swift in Sources */,
@@ -564,6 +571,7 @@
 			files = (
 				8213933B2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
 				828DC4302E5372610032083A /* Part.swift in Sources */,
+				82E757182ED3906B0086F880 /* AboutView.swift in Sources */,
 				828DC4322E5372610032083A /* AudioPlayerView.swift in Sources */,
 				828DC4332E5372610032083A /* ViewExtensions.swift in Sources */,
 				828DC4342E5372610032083A /* OptionsView.swift in Sources */,
