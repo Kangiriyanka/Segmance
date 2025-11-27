@@ -102,6 +102,28 @@ struct OptionsView: View {
                     
                     Section {
                         
+                        
+                        HStack(spacing: 10) {
+                            Image(systemName: "circle.fill")
+                            
+                                .foregroundStyle(.accent)
+                                .font(.system(size: 8, weight: .semibold))
+                            
+                            Text("Usage Guide")
+                                .font(.headline.weight(.semibold))
+                                .foregroundStyle(Color.mainText)
+                            
+                            Spacer()
+                        }
+                        
+                        
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bubbleStyle()
+                        .background(
+                            NavigationLink("", destination: UsageGuideView())
+                                .opacity(0)
+                        )
+                        
                         HStack {
                             HStack(spacing: 10) {
                                 Image(systemName: "circle.fill")
@@ -112,7 +134,6 @@ struct OptionsView: View {
                                 Text("About Choreobuilder")
                                     .font(.headline.weight(.semibold))
                                     .foregroundStyle(Color.mainText)
-                                
                                 
                                 Spacer()
                             }
@@ -128,12 +149,14 @@ struct OptionsView: View {
                         
                         
                         
+                        
+                        
                     } header: {
                         
                         HStack {
                             Text("About")
                             Spacer()
-                        
+                            
                         }
                         
                         
@@ -141,7 +164,7 @@ struct OptionsView: View {
                     }
                 }
                 
-            
+                
                 
                 
                 
@@ -223,6 +246,7 @@ struct OptionsView: View {
         
         return export
     }
+    
 }
 
 #Preview {

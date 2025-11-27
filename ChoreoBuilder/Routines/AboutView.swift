@@ -16,18 +16,9 @@ struct AboutView: View {
    var body: some View {
        ScrollView {
            VStack(alignment: .leading, spacing: 24) {
+           
                
-               VStack(alignment: .leading, spacing: 12) {
-                   Text("How to use")
-                       .font(.headline)
-                       .fontWeight(.semibold)
-                   
-                   Text("Upload parts of a song you want to practice with. With every part, you can take notes and practice the respective audio of that song.")
-                       .font(.body)
-                       .lineSpacing(2)
-               }
-               
-               Divider()
+             
                
                VStack(alignment: .leading, spacing: 12) {
                    Text("About ChoreoBuilder")
@@ -67,6 +58,7 @@ struct AboutView: View {
                        .foregroundStyle(Color.mainText)
                        .bubbleStyle()
                    }
+                   .padding()
                    .frame(maxWidth: .infinity )
                 
                    

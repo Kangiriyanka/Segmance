@@ -41,6 +41,7 @@ struct CustomSearchBar: View {
            
                 HStack {
                     Image(systemName: "magnifyingglass")
+                        .font(.system(size: 20, weight: .semibold))
                         .foregroundColor(.gray)
                         .matchedGeometryEffect(id: "icon", in: animation)
                     

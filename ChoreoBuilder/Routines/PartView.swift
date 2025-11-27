@@ -47,12 +47,14 @@ struct PartView: View {
                             } label: {
                                 Image(systemName: "music.quarternote.3")
                                     .foregroundColor(.mainText)
-                                    .frame(maxHeight: 30)
+                                    .font(.system(size: 20, weight: .semibold))
                                     .padding()
                                     .background(
                                         Circle()
                                             .fill(Color.routineCard)
                                     )
+                                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
+                                    
                             }
                             
                             
@@ -65,12 +67,13 @@ struct PartView: View {
                             } label: {
                                 Image(systemName: "plus.circle")
                                     .foregroundColor(.mainText)
-                                    .frame(maxHeight: 30)
+                                    .font(.system(size: 20, weight: .semibold))
                                     .padding()
                                     .background(
                                         Circle()
                                             .fill(Color.routineCard)
                                     )
+                                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
                                    
                             }
                          
@@ -91,7 +94,7 @@ struct PartView: View {
                     
                     VStack {
                         
-                        
+                    
                         ScrollViewReader { proxy in
                             ScrollView(showsIndicators: false) {
                                 
@@ -153,7 +156,7 @@ struct PartView: View {
                               
                                
                             }
-                            
+                            .contentMargins(.bottom, 50, for: .scrollContent)
                             .onTapGesture {
                                 focusedMoveID = nil
                             }

@@ -41,10 +41,13 @@ struct RoutineContainerView: View {
 
                     CustomSearchBar(
                         text: $searchText,
-                        placeholder: "Search for a choreography"
+                        placeholder: "Search choreographies"
                     )
+                  
+                    
 
                     addRoutineButton
+                      
                 }
                 .offset(y: -20)
                 .sheet(isPresented: $showingUploadRoutineSheet) {
@@ -160,7 +163,8 @@ struct RoutineContainerView: View {
             Image(systemName: "figure.dance")
               
                 .foregroundColor(.mainText)
-                .frame(maxHeight: 30)
+                .font(.system(size: 20, weight: .semibold))
+              
                 .padding()
                 .background(
                     Circle()

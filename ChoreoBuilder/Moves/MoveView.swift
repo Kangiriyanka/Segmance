@@ -60,10 +60,18 @@ struct MoveView: View {
     @State private var moveTitleLimit =  30
     @State private var characterLimit = 200
     @State private var showMoveType = false
+    
+    
     @FocusState private var isFocused: Bool
     var deleteFunction : (UUID) -> ()
 
     @Bindable var move: Move
+    
+    var moveTypeText: String {
+        
+        showMoveType ? move.type!.name : move.type!.abbreviation
+        
+    }
     var body: some View {
         
         
@@ -77,15 +85,31 @@ struct MoveView: View {
                 Spacer()
                 
                 VStack(alignment: .trailing) {
+                    
+                    
+                    
                     HStack {
-                        moveMarker(width: 40, height: 20, text: move.type!.abbreviation, color: Color.customPink)
+                       
+                        moveMarker(width: showMoveType ? 120 : 40, height: 20, text: moveTypeText, color: Color.customPink)
+                            .onTapGesture {
+                                 
+                                    showMoveType.toggle()
+                                
+                                
+                            }
+                    
+                            .transition(.slide)
+                            .animation(.organicFastBounce, value: showMoveType)
+                            
                         
                         moveMarker(width: 40, height: 20, text: String(move.order), color: Color.customBlue)
                         
                     }
-                    .padding(5)
+                   
+                    
                 
                 }
+                
                 
 
                 .font(.headline)
@@ -94,6 +118,7 @@ struct MoveView: View {
                 
               
             }
+            
             .frame(width: 300, height: 30)
           
             .padding(.horizontal, 10)
@@ -204,3 +229,4 @@ struct MoveView: View {
     
     
 }
+

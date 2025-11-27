@@ -39,6 +39,7 @@ struct UploadRoutineView: View {
         
         // User enters the routine title and description
         // Imports the relevant audio files for the routine.
+        
         VStack {
             VStack(alignment: .leading,  spacing: 13) {
                 HStack {

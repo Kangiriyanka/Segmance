@@ -99,6 +99,9 @@
 		82E757162ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
 		82E757172ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
 		82E757182ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
+		82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
+		82E7574B2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
+		82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +157,7 @@
 		82DDAE662CFBF2F400AD0F60 /* ChoreoBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E757152ED3906B0086F880 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		82E757492ED8F90C0086F880 /* UsageGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageGuideView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -289,6 +293,7 @@
 				828DC3EE2E5372610032083A /* TextDocument.swift */,
 				828DC3EF2E5372610032083A /* UploadedFileView.swift */,
 				828DC3F02E5372610032083A /* UploadRoutineView.swift */,
+				82E757492ED8F90C0086F880 /* UsageGuideView.swift */,
 			);
 			path = Routines;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				828DC46C2E5372610032083A /* TextDocument.swift in Sources */,
 				828DC46D2E5372610032083A /* PartView.swift in Sources */,
 				828DC46F2E5372610032083A /* Move.swift in Sources */,
+				82E7574B2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
 				828DC4752E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +567,7 @@
 				828DC4252E5372610032083A /* TextDocument.swift in Sources */,
 				828DC4262E5372610032083A /* PartView.swift in Sources */,
 				828DC4282E5372610032083A /* Move.swift in Sources */,
+				82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
 				828DC42E2E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,6 +600,7 @@
 				828DC4452E5372610032083A /* TextDocument.swift in Sources */,
 				828DC4462E5372610032083A /* PartView.swift in Sources */,
 				828DC4482E5372610032083A /* Move.swift in Sources */,
+				82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
 				828DC44E2E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
