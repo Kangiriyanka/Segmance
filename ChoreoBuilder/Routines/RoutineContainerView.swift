@@ -80,6 +80,7 @@ struct RoutineContainerView: View {
                                 NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden(true) ) {
                                     
                                     RoutineCardView(routine: routine)
+                                        .padding(.vertical, 10)
                                         .navigationBarBackButtonHidden(true)
                                         .contextMenu {
                                             Button(role: .destructive) {

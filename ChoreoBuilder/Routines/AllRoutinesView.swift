@@ -98,6 +98,7 @@ struct AllRoutinesView: View {
                             .listRowSeparator(.hidden)
                             
                         }
+                        .offset(y: -20)
                     }
                 }
                 
@@ -111,6 +112,7 @@ struct AllRoutinesView: View {
                 
                 
             }
+        
             .navigationTitle("All Routines")
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)

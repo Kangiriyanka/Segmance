@@ -60,10 +60,12 @@ struct AllMoveTypesView: View {
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
                             }
+                            .offset(y: -20)
                         }
                     }
                 }
 
+                
                 .navigationTitle("Move Types")
                 .navigationBarTitleDisplayMode(.inline)
                 .scrollContentBackground(.hidden)
