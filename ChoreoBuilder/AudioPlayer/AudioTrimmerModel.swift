@@ -11,7 +11,6 @@ import AVFoundation
 import Accelerate
 
 
-
 @Observable
 class AudioTrimmerModel: NSObject {
     
@@ -26,6 +25,8 @@ class AudioTrimmerModel: NSObject {
     var duration: Double? {
         audioPlayer?.duration
     }
+    
+    var clippedURLs: [URL] = []
     
     // The difference between the AudioPlayerModel and AudioTrimmer is that we already know the URL attached when we upload a routine.
     func setupAudio(url: URL?) {
@@ -68,6 +69,60 @@ class AudioTrimmerModel: NSObject {
             isPlaying.toggle()
         }
     
+    
+    func clipSelection(startFraction: CGFloat, endFraction: CGFloat) async throws -> URL {
+        guard let url = audioURL, let duration = audioPlayer?.duration else {
+            throw AudioClipError.invalidAudioURLOrDuration
+        }
+        
+        let start = Double(startFraction) * duration
+        let end = Double(endFraction) * duration
+        let startString = formatTime(start)
+        let endString = formatTime(end)
+                                       
+        let startTime = CMTime(seconds: start, preferredTimescale: 600)
+        let endTime = CMTime(seconds: end, preferredTimescale: 600)
+        let timeRange = CMTimeRange(start: startTime, end: endTime)
+
+        let asset = AVURLAsset(url: url)
+        
+       
+        
+        let outputURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("\(startString)___\(endString)" + ".m4a")
+        
+        // Delete old file if it exists—otherwise export would fail
+        try? FileManager.default.removeItem(at: outputURL)
+        
+        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
+            throw AudioClipError.failedToCreateExportSession
+        }
+        
+        exportSession.timeRange = timeRange
+        try await exportSession.export(to: outputURL, as: .m4a)
+        
+        clippedURLs.append(outputURL)
+        return outputURL
+    }
+    
+    // Delete the file and remove it from the array.
+    func removeURL(url: URL) {
+        // Remove the file if it still exists
+        try? FileManager.default.removeItem(at: url)
+        
+        // Remove from the list in memory
+        clippedURLs.removeAll { $0 == url }
+    }
+    
+    func formatTime(_ seconds: Double) -> String {
+        let mins = Int(seconds) / 60
+        let secs = Int(seconds) % 60
+        return String(format: "%02d:%02d", mins, secs)
+    }
+    
+    
+    
+  
     
    
    

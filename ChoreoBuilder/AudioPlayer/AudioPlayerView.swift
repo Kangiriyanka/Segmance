@@ -79,6 +79,7 @@ struct AudioPlayerView: View {
             .ignoresSafeArea()
             .offset(y: offsetY).animation(.smooth(duration: 0.3), value: offsetY)
             .gesture(
+                // To dismiss the expanded player
                 DragGesture()
                     .onChanged { value in
                         guard isExpanded else { return }
