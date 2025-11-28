@@ -27,6 +27,7 @@ class AudioTrimmerModel: NSObject {
     }
     
     var clippedURLs: [URL] = []
+    var amplitudes: [CGFloat] = []
     
     // The difference between the AudioPlayerModel and AudioTrimmer is that we already know the URL attached when we upload a routine.
     func setupAudio(url: URL?) {
@@ -44,6 +45,7 @@ class AudioTrimmerModel: NSObject {
             }
             
             audioURL = audioFileURL
+           
             audioPlayer = try AVAudioPlayer(contentsOf: audioFileURL)
             audioPlayer?.prepareToPlay()
             
@@ -70,6 +72,10 @@ class AudioTrimmerModel: NSObject {
         }
     
     
+    func seekAudio(to time: TimeInterval) {
+        audioPlayer?.currentTime = time
+    }
+    
     func clipSelection(startFraction: CGFloat, endFraction: CGFloat) async throws -> URL {
         guard let url = audioURL, let duration = audioPlayer?.duration else {
             throw AudioClipError.invalidAudioURLOrDuration
@@ -91,6 +97,11 @@ class AudioTrimmerModel: NSObject {
         let outputURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("\(startString)___\(endString)" + ".m4a")
         
+        // Don't clip the same part
+        guard !clippedURLs.contains(outputURL) else {
+            throw AudioClipError.sameClip
+        }
+        
         // Delete old file if it exists—otherwise export would fail
         try? FileManager.default.removeItem(at: outputURL)
         
@@ -105,6 +116,8 @@ class AudioTrimmerModel: NSObject {
         return outputURL
     }
     
+    
+    
     // Delete the file and remove it from the array.
     func removeURL(url: URL) {
         // Remove the file if it still exists
@@ -114,11 +127,17 @@ class AudioTrimmerModel: NSObject {
         clippedURLs.removeAll { $0 == url }
     }
     
+    
+    
     func formatTime(_ seconds: Double) -> String {
         let mins = Int(seconds) / 60
         let secs = Int(seconds) % 60
         return String(format: "%02d:%02d", mins, secs)
     }
+    
+    
+    
+    
     
     
     

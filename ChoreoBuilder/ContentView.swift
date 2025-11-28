@@ -42,7 +42,7 @@ struct ContentView: View {
                 
                 AudioTrimmerView()
                     .tabItem {
-                        Label("Trimmer", systemImage: "scissors")
+                        Label("Clipper", systemImage: "scissors")
                     }
                
                 

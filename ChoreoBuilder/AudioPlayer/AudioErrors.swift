@@ -33,5 +33,7 @@ enum AudioPlayerError: LocalizedError {
 enum AudioClipError: Error {
     case invalidAudioURLOrDuration
     case failedToCreateExportSession
+    case failedToClip
     case waveError
+    case sameClip
 }

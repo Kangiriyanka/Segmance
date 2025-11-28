@@ -105,9 +105,11 @@
 		82E757522ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
 		82E757532ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
 		82E757542ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
-		82E757562ED9458E0086F880 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* WaveformView.swift */; };
-		82E757572ED9458E0086F880 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* WaveformView.swift */; };
-		82E757582ED9458E0086F880 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* WaveformView.swift */; };
+		82E757562ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
+		82E757572ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
+		82E757582ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
+		82E7584B2EDA0F750086F880 /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 82E7584A2EDA0F750086F880 /* DSWaveformImage */; };
+		82E7584D2EDA0F750086F880 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 82E7584C2EDA0F750086F880 /* DSWaveformImageViews */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,7 +167,7 @@
 		82E757152ED3906B0086F880 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		82E757492ED8F90C0086F880 /* UsageGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageGuideView.swift; sourceTree = "<group>"; };
 		82E757512ED92AC50086F880 /* TimelineBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBar.swift; sourceTree = "<group>"; };
-		82E757552ED9458E0086F880 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		82E757552ED9458E0086F880 /* AudioWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWaveformView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -217,6 +219,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82E7584B2EDA0F750086F880 /* DSWaveformImage in Frameworks */,
+				82E7584D2EDA0F750086F880 /* DSWaveformImageViews in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +258,7 @@
 				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
 				82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
-				82E757552ED9458E0086F880 /* WaveformView.swift */,
+				82E757552ED9458E0086F880 /* AudioWaveformView.swift */,
 				82E757512ED92AC50086F880 /* TimelineBar.swift */,
 				827D6F862E76592E00091652 /* AudioErrors.swift */,
 			);
@@ -372,6 +376,8 @@
 			);
 			name = ChoreoBuilder;
 			packageProductDependencies = (
+				82E7584A2EDA0F750086F880 /* DSWaveformImage */,
+				82E7584C2EDA0F750086F880 /* DSWaveformImageViews */,
 			);
 			productName = BluesMaker;
 			productReference = 82DDAE562CFBF2F300AD0F60 /* ChoreoBuilder.app */;
@@ -462,6 +468,9 @@
 			);
 			mainGroup = 82DDAE4D2CFBF2F300AD0F60;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 82DDAE572CFBF2F300AD0F60 /* Products */;
 			projectDirPath = "";
@@ -527,7 +536,7 @@
 				828DC45B2E5372610032083A /* OptionsView.swift in Sources */,
 				828DC45C2E5372610032083A /* UploadedFileView.swift in Sources */,
 				828DC45D2E5372610032083A /* DropViewDelegate.swift in Sources */,
-				82E757562ED9458E0086F880 /* WaveformView.swift in Sources */,
+				82E757562ED9458E0086F880 /* AudioWaveformView.swift in Sources */,
 				821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */,
 				828DC45E2E5372610032083A /* RoutineView.swift in Sources */,
 				828DC45F2E5372610032083A /* FilesView.swift in Sources */,
@@ -581,7 +590,7 @@
 				828DC4262E5372610032083A /* PartView.swift in Sources */,
 				828DC4282E5372610032083A /* Move.swift in Sources */,
 				82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
-				82E757572ED9458E0086F880 /* WaveformView.swift in Sources */,
+				82E757572ED9458E0086F880 /* AudioWaveformView.swift in Sources */,
 				828DC42E2E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,7 +625,7 @@
 				828DC4462E5372610032083A /* PartView.swift in Sources */,
 				828DC4482E5372610032083A /* Move.swift in Sources */,
 				82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
-				82E757582ED9458E0086F880 /* WaveformView.swift in Sources */,
+				82E757582ED9458E0086F880 /* AudioWaveformView.swift in Sources */,
 				828DC44E2E5372610032083A /* AudioPlayerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -939,6 +948,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmrschmidt/DSWaveformImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		82E7584A2EDA0F750086F880 /* DSWaveformImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImage;
+		};
+		82E7584C2EDA0F750086F880 /* DSWaveformImageViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImageViews;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 82DDAE4E2CFBF2F300AD0F60 /* Project object */;
 }
