@@ -2,51 +2,54 @@ import SwiftUI
 import AVFoundation
 
 
-// Step 1: Import the Audio File
-// Step 2: Attach it to the AudioPlayerModel
-
+import SwiftUI
+import AVFoundation
 
 struct AudioTrimmerView: View {
     
-    
     @State private var isImporting: Bool = false
-    @State private var audioTrimmerManager:  AudioTrimmerModel = AudioTrimmerModel()
+    @State private var audioTrimmerManager: AudioTrimmerModel = AudioTrimmerModel()
+    @State private var trimRanges: [(start: Double, end: Double)] = []
     
     var body: some View {
-        GeometryReader { geo in
-            VStack(spacing: 30) {  // ← Add this
-                Button("Upload your audio file") {
-                    isImporting = true
-                }
-                
-                if let url = audioTrimmerManager.audioURL {
-                    Text("Loaded: \(url.lastPathComponent)")
-                        .foregroundColor(.gray)
-                    
-                    Button(action: { audioTrimmerManager.togglePlayPause() }) {
-                        Image(systemName: audioTrimmerManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .font(.system(size: 80))
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 30) {
+                    Button("Upload your audio file") {
+                        isImporting = true
                     }
-                }
-                
-                Canvas { context, size in
-                    let barWidth = size.width / CGFloat(audioTrimmerManager.waveform.count)
+                    .bubbleStyle()
                     
-                    for (index, value) in audioTrimmerManager.waveform.enumerated() {
-                        let barHeight = CGFloat(value) * size.height
-                        let x = CGFloat(index) * barWidth
-                        let y = (size.height - barHeight) / 2
+                    if let url = audioTrimmerManager.audioURL,
+                       let duration = audioTrimmerManager.duration {
                         
-                        let rect = CGRect(x: x, y: y, width: barWidth - 1, height: barHeight)
-                        context.fill(Path(rect), with: .color(.blue))
+                        Text("Loaded: \(url.lastPathComponent)")
+                            .foregroundColor(.gray)
+                        
+                        Text("Duration: \(formatTime(duration))")
+                        
+                        Button {
+                            audioTrimmerManager.togglePlayPause()
+                        } label: {
+                            Image(systemName: audioTrimmerManager.isPlaying
+                                  ? "pause.circle.fill"
+                                  : "play.circle.fill")
+                                .font(.system(size: 80))
+                            
+                        }
+                      
                     }
                 }
-                
-                .frame(height: 200)
-                .background(Color.black.opacity(0.3))
+                .padding()
             }
-            .fileImporter(isPresented: $isImporting, allowedContentTypes: [.audio], allowsMultipleSelection: false) { result in
-                
+            .frame(maxWidth: .infinity)
+            .background(backgroundGradient)
+           
+            .fileImporter(
+                isPresented: $isImporting,
+                allowedContentTypes: [.audio],
+                allowsMultipleSelection: false
+            ) { result in
                 switch result {
                 case .success(let urls):
                     if let audioURL = urls.first {
@@ -56,20 +59,29 @@ struct AudioTrimmerView: View {
                     print("Error: \(err.localizedDescription)")
                 }
             }
+            
+            .navigationTitle("Trimmer")
+            .navigationBarTitleDisplayMode(.inline)
+           
         }
-        .background(backgroundGradient)
+       
+  
+        
+       
     }
     
-    
-   
-    
-    
-    
-    
+    func formatTime(_ seconds: Double) -> String {
+        let mins = Int(seconds) / 60
+        let secs = Int(seconds) % 60
+        return String(format: "%02d:%02d", mins, secs)
+    }
 }
 
 #Preview {
-   
     AudioTrimmerView()
 }
 
+#Preview {
+    
+    AudioTrimmerView()
+}

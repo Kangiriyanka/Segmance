@@ -102,6 +102,9 @@
 		82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
 		82E7574B2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
 		82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
+		82E757522ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
+		82E757532ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
+		82E757542ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +161,7 @@
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E757152ED3906B0086F880 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		82E757492ED8F90C0086F880 /* UsageGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageGuideView.swift; sourceTree = "<group>"; };
+		82E757512ED92AC50086F880 /* TimelineBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -246,6 +250,7 @@
 				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
 				82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
+				82E757512ED92AC50086F880 /* TimelineBar.swift */,
 				827D6F862E76592E00091652 /* AudioErrors.swift */,
 			);
 			path = AudioPlayer;
@@ -522,6 +527,7 @@
 				828DC45F2E5372610032083A /* FilesView.swift in Sources */,
 				828DC4612E5372610032083A /* UploadRoutineView.swift in Sources */,
 				828DC4622E5372610032083A /* Routine.swift in Sources */,
+				82E757532ED92AC50086F880 /* TimelineBar.swift in Sources */,
 				828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */,
 				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
@@ -565,6 +571,7 @@
 				828DC4222E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4232E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4252E5372610032083A /* TextDocument.swift in Sources */,
+				82E757522ED92AC50086F880 /* TimelineBar.swift in Sources */,
 				828DC4262E5372610032083A /* PartView.swift in Sources */,
 				828DC4282E5372610032083A /* Move.swift in Sources */,
 				82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
@@ -598,6 +605,7 @@
 				828DC4422E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4432E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4452E5372610032083A /* TextDocument.swift in Sources */,
+				82E757542ED92AC50086F880 /* TimelineBar.swift in Sources */,
 				828DC4462E5372610032083A /* PartView.swift in Sources */,
 				828DC4482E5372610032083A /* Move.swift in Sources */,
 				82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,

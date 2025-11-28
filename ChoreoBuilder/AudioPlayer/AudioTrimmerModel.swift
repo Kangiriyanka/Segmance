@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 import AVFoundation
+import Accelerate
+
+
 
 @Observable
 class AudioTrimmerModel: NSObject {
@@ -17,10 +20,12 @@ class AudioTrimmerModel: NSObject {
     var errorMessage: String?
     var audioURL: URL?
     var isPlaying: Bool = false
-   
+    var showWaveError: Bool = false
     var selectionStart: Double = 0
     var selectionEnd: Double = 0
-    var waveform: [Float] = Array(repeating: 0.5, count: 100)
+    var duration: Double? {
+        audioPlayer?.duration
+    }
     
     // The difference between the AudioPlayerModel and AudioTrimmer is that we already know the URL attached when we upload a routine.
     func setupAudio(url: URL?) {
@@ -40,6 +45,7 @@ class AudioTrimmerModel: NSObject {
             audioURL = audioFileURL
             audioPlayer = try AVAudioPlayer(contentsOf: audioFileURL)
             audioPlayer?.prepareToPlay()
+            
            
             
         } catch {
@@ -61,10 +67,13 @@ class AudioTrimmerModel: NSObject {
             
             isPlaying.toggle()
         }
-   
-   
     
     
+   
+   
+   
+
     
  
 }
+

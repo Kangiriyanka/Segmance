@@ -11,6 +11,7 @@ enum AudioPlayerError: LocalizedError {
     case fileNotFound
     case initializationFailed(Error)
     case seekOutOfBounds(TimeInterval)
+    case waveError
     
     var errorDescription: String? {
         switch self {
@@ -21,6 +22,10 @@ enum AudioPlayerError: LocalizedError {
             return "Failed to load audio: \(error.localizedDescription)"
         case .seekOutOfBounds(let time):
             return "Cannot seek to \(Int(time))s"
+        
+        
+        case .waveError:
+            return "Could generate audio waves"
         }
     }
 }
