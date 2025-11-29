@@ -19,6 +19,7 @@ struct BubbleTextField: ViewModifier {
         
         content
         
+        
         .padding()
         
            .background(Color.routineCard)

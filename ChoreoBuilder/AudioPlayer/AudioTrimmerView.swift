@@ -36,10 +36,18 @@ import AVFoundation
                 ScrollView {
                     VStack(spacing: 30) {
                         
-                        Button("Upload your audio file") {
+                        Button {
                             isImporting = true
+                        } label: {
+                            Image(systemName: "square.and.arrow.down")
+                                .font(.system(size: 40, weight: .semibold))
+                                .frame(width: 75, height: 75)
+                            
+                                
                         }
-                        .bubbleStyle()
+                        .buttonStyle(PressableButtonStyle())
+                       
+                        
                         
                         if let url = audioTrimmerManager.audioURL {
                             

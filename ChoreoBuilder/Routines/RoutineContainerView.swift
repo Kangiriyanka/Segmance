@@ -43,6 +43,7 @@ struct RoutineContainerView: View {
                         text: $searchText,
                         placeholder: "Search choreographies"
                     )
+                 
                   
                     
 
@@ -119,6 +120,8 @@ struct RoutineContainerView: View {
                                     
                                     
                                 }
+                                .buttonStyle(.plain)
+                                .buttonStyle(NavButtonStyle())
                                 
                                 
                                 
@@ -126,6 +129,7 @@ struct RoutineContainerView: View {
                             
                             
                         }
+                        .contentMargins(.bottom, 50, for: .scrollContent)
                     
                         
                         
@@ -163,16 +167,10 @@ struct RoutineContainerView: View {
         } label: {
             Image(systemName: "figure.dance")
               
-                .foregroundColor(.mainText)
-                .font(.system(size: 20, weight: .semibold))
-              
-                .padding()
-                .background(
-                    Circle()
-                        .fill(Color.routineCard)
-                )
+             
         }
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
+        .buttonStyle(PressableButtonStyle())
+       
         
     }
 
@@ -215,12 +213,14 @@ struct RoutineContainerView: View {
 
 struct RoutineCardView: View {
     let routine: Routine
+    @State private var isPressed: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
                 Image(systemName: "music.note")
                     
+                    .foregroundStyle(.accent).opacity(0.8)
                     .font(.system(size: 16, weight: .semibold))
                 
                 Text(routine.title)
@@ -242,9 +242,11 @@ struct RoutineCardView: View {
             Spacer()
         }
         
-   
+        .scaleEffect(isPressed ? 0.95 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
+      
         .background(
               
             cardBackground

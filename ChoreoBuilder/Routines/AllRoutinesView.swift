@@ -53,10 +53,10 @@ struct AllRoutinesView: View {
                                             
                                             
                                             
-                                                Image(systemName: "music.note")
-                                                
-                                                    .foregroundStyle(.accent)
-                                                    .font(.system(size: 12, weight: .semibold))
+                                            Image(systemName: "circle.fill")
+                                            
+                                                .foregroundStyle(.accent).opacity(0.7)
+                                                .font(.system(size: 8, weight: .semibold))
                                                 
                                                 Text("\(routine.title)")
                                                     .font(.headline.weight(.semibold))
@@ -66,12 +66,7 @@ struct AllRoutinesView: View {
                                                 Spacer()
                                             
                                             
-                                            Spacer()
-                                            Text("\(routine.parts.count)")
-                                                .frame(width: 20, height: 20)
-                                            
-                                                .customCircle()
-                                                .padding(5)
+                                           
                                             
                                         }
                                         

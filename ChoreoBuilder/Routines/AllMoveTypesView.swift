@@ -46,6 +46,10 @@ struct AllMoveTypesView: View {
                             List(filteredMoveTypes) { type in
                                 
                                 HStack {
+                                    Image(systemName: "circle.fill")
+                                    
+                                        .foregroundStyle(.accent).opacity(0.7)
+                                        .font(.system(size: 8, weight: .semibold))
                                     Text(type.name)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)

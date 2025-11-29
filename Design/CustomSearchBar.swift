@@ -29,14 +29,15 @@ struct CustomSearchBar: View {
                             .fontWeight(.semibold)
                             .matchedGeometryEffect(id: "icon", in: animation)
                     }
-                    .padding()
-                    .background(
-                        Capsule()
-                            .fill(Color.routineCard)
-                            .matchedGeometryEffect(id: "background", in: animation)
-                    )
+                   
+                  
                  
                 }
+                .buttonStyle(PressableButtonStyle())
+                .matchedGeometryEffect(id: "background", in: animation)
+                
+                
+            
             } else {
            
                 HStack {
@@ -62,6 +63,7 @@ struct CustomSearchBar: View {
                             .foregroundColor(.accent)
                             .font(.system(size: 14, weight: .semibold))
                     }
+                    
                    
                 }
                 .padding()
@@ -74,7 +76,7 @@ struct CustomSearchBar: View {
             }
         }
         .padding()
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
+       
         .frame(maxWidth: .infinity, maxHeight: 30, alignment: .trailing)
     }
 }

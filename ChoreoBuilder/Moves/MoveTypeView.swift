@@ -93,12 +93,12 @@ struct MoveTypeView: View {
     
     private func deleteMoveType() {
         
+        
         moveType.moves.forEach { modelContext.delete($0) }
         modelContext.delete(moveType)
         try? modelContext.save()
         dismiss()
-        
-        
+      
         
     }
     

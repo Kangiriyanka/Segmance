@@ -40,9 +40,8 @@ struct EditRoutineView: View {
                         } label: {
                             Image(systemName: "checkmark.circle")
                         }
-                        .bold()
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.regular)
+                        .buttonStyle(PressableButtonStyle())
+                     
                     }
                     
                     Divider()

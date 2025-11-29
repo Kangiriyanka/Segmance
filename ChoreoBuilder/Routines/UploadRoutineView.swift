@@ -65,21 +65,16 @@ struct UploadRoutineView: View {
                             
                             
                             Image(systemName: "square.and.arrow.down")
-                                .bold()
-                            
-                            
-                            
-                            
-                            
-                        }    .bold()
-                            .buttonStyle(.borderedProminent)
-                            .controlSize(.regular)
-                        
-                        
-                        
-                        
-                        
-                        
+                             
+                             
+                              
+
+                        }
+                       
+                        .buttonStyle(PressableButtonStyle())
+                      
+                           
+
                         
                     }
                 }
@@ -141,18 +136,18 @@ struct UploadRoutineView: View {
                             dismiss()
                         } label: {
                             
-                            Image(systemName: "plus")
+                            Image(systemName: "plus.circle")
+                            
+                           
+                            
                             
                             
                         }
-                        
-                        
-                        
-                        
-                        .bold()
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.regular)
                         .disabled(!areFilesUploaded() || !areFieldsFilled())
+                        .buttonStyle(PressableButtonStyle())
+                     
+                        
+                
                     }
                     
                     
