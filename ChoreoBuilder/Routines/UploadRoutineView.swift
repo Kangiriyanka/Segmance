@@ -143,8 +143,10 @@ struct UploadRoutineView: View {
                             
                             
                         }
+                        // Using a custom button style requires to pass the disabled state
+                        // to the custom button style
                         .disabled(!areFilesUploaded() || !areFieldsFilled())
-                        .buttonStyle(PressableButtonStyle())
+                        .buttonStyle(PressableButtonStyle(isDisabled: !areFilesUploaded() || !areFieldsFilled()))
                      
                         
                 

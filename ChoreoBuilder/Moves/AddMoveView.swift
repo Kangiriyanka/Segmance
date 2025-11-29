@@ -103,11 +103,13 @@ struct AddMoveView: View {
                 dismiss()
             }) {
                 Image(systemName: "plus.circle")
+                    .font(Font.system(size: 30))
                     .frame(maxWidth: .infinity)
                     .padding(5)
+                    
                     .fontWeight(.semibold)
             }
-            .buttonStyle(PressableButtonStyle())
+            .buttonStyle(PressableButtonStyle(isDisabled: isDisabled()))
             
             .disabled(isDisabled())
             .padding()
