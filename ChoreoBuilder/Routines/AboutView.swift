@@ -25,10 +25,12 @@ struct AboutView: View {
                        .font(.headline)
                        .fontWeight(.semibold)
                    
-                   Text("ChoreoBuilder was built for anyone who wants to have an easy time creating and practicing choreographies. ")
+                   Text("ChoreoBuilder was built for anyone who wants to have an easy time creating and practicing choreographies. In broader terms, it was built  ")
                        .font(.body)
                        .lineSpacing(2)
                }
+               .padding()
+               .background(shadowOutline)
                
                Divider()
                
@@ -37,18 +39,10 @@ struct AboutView: View {
                        .font(.headline)
                        .fontWeight(.semibold)
 
-                   Text("If you like the app, please rate it and leave a review.")
+                   Text("If you like the app, please rate it and leave a review.\n\nFor support or feature requests, you can e-mail me: joseph.farah100@gmail.com")
                        .font(.footnote)
                        .foregroundStyle(.secondary)
-
-                   Text("For support or feature requests, you can e-mail me:")
-                       .font(.footnote)
-                       .foregroundStyle(.secondary)
-
-                   Link("joseph.farah100@gmail.com",
-                        destination: URL(string: "mailto:joseph.farah100@gmail.com")!)
-                       .font(.footnote)
-                       .foregroundStyle(.blue)
+                   
                    
                    
                    HStack {
@@ -65,6 +59,9 @@ struct AboutView: View {
                   
                   
                }
+               
+               .padding()
+               .background(shadowOutline)
                
                
            }

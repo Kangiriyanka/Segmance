@@ -109,7 +109,9 @@ struct AddMoveView: View {
                     
                     .fontWeight(.semibold)
             }
+            
             .buttonStyle(PressableButtonStyle(isDisabled: isDisabled()))
+            .contentShape(Rectangle())
             
             .disabled(isDisabled())
             .padding()
@@ -122,9 +124,7 @@ struct AddMoveView: View {
  
           
         }
-       
-        
-    
+  
        
         
     }

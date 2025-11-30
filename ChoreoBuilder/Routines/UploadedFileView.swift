@@ -23,6 +23,7 @@ struct UploadedFileView : View {
      
                 .limitText($partName, to: partCharacterCount)
                 .bubbleStyle()
+            
                
             
         }

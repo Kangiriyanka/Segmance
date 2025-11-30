@@ -28,7 +28,12 @@ struct EditRoutineView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 13) {
                     HStack {
-                        Text("Routine Details").font(.headline)
+                        HStack(spacing: 6) {
+                            Image(systemName: "note.text")
+                                .foregroundStyle(.accent).opacity(0.7)
+                                .font(.system(size: 16, weight: .semibold))
+                            Text("Routine Details").font(.headline)
+                        }
                         Spacer()
                         Button {
                             if validateDetails() {
@@ -46,11 +51,13 @@ struct EditRoutineView: View {
                     
                     Divider()
                     TextField("Enter the routine title", text: $title)
+                        .bubbleStyle()
                         .limitText($title, to: characterLimit)
                         .focused($isFocused)
                     
-                    Divider()
+                  
                     TextField("Enter a short description", text: $description)
+                        .bubbleStyle()
                         .limitText($description, to: characterLimit)
                         .focused($isFocused)
                 }
@@ -60,10 +67,14 @@ struct EditRoutineView: View {
                 
                 
                 VStack {
-                    HStack {
-                        Text("Arrange & Rename Parts").font(.headline)
+                    HStack(spacing: 6) {
+                        Image(systemName: "rectangle.stack")
+                            .foregroundStyle(.accent).opacity(0.7)
+                            .font(.system(size: 16, weight: .semibold))
+                        Text("Arrange and rename parts").font(.headline)
                         Spacer()
                     }
+                 
                     .padding()
                     
                     Divider()
@@ -110,8 +121,8 @@ struct EditRoutineView: View {
             }
             
             .frame(width: 370)
-            
-            .padding()
+            .padding(.horizontal, 30)
+            .padding(.vertical, 35)
             .background(backgroundGradient)
             .alert(errorTitle, isPresented: $showingError) {
             } message: {
@@ -144,19 +155,19 @@ struct EditRoutineView: View {
         let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard !trimmedTitle.isEmpty else {
-            inputError(title: "Title Error", message: "Title cannot be empty")
+            inputError(title: "Title Error", message: "Title cannot be empty.")
             return false
         }
         
         guard !trimmedDescription.isEmpty else {
-            inputError(title: "Description Error", message: "Description cannot be empty")
+            inputError(title: "Description Error", message: "Description cannot be empty.")
             return false
         }
         
         for part in parts {
             let trimmedPartTitle = part.title.trimmingCharacters(in: .whitespacesAndNewlines)
             if trimmedPartTitle.isEmpty {
-                inputError(title: "Part Error", message: "Each part must have a title")
+                inputError(title: "Part Error", message: "Each part must have a title.")
                 return false
             }
         }

@@ -28,6 +28,9 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     var seekTime: TimeInterval = 5.0
     var showError: Bool = false
     
+    // You need this to destroy the countdown timer every time you pause.
+    private var countdownTimer: Timer?
+    
     
     init(audioFileURL: URL) {
         self.audioFileURL = audioFileURL
@@ -38,7 +41,7 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         do {
             // Bluetooth Support
             let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playback, mode: .default)
+            try audioSession.setCategory(.playback, mode: .default, options: [.mixWithOthers])
             try audioSession.setActive(true)
             
             // Audio Player
@@ -85,6 +88,8 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         func pauseAudio() {
             delayedPlayTask?.cancel()  
             delayedPlayTask = nil
+            countdownTimer?.invalidate()
+            countdownTimer = nil
             audioPlayer?.pause()
             isPlaying = false
             isCountingDown = false
@@ -92,17 +97,28 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         }
     
     func startCountdown() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            guard let self = self, self.isCountingDown else {
+        // Invalidate any existing timer first
+        countdownTimer?.invalidate()
+        
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self else {
                 timer.invalidate()
                 return
             }
             
+            if self.countdownRemaining > 0 {
+                self.countdownRemaining -= 1
+                
+              
+                if self.countdownRemaining > 0 {
+                    AudioServicesPlaySystemSound(1103)
+                }
+            }
             
-            self.countdownRemaining -= 1
             if self.countdownRemaining <= 0 {
                 self.isCountingDown = false
                 timer.invalidate()
+                self.countdownTimer = nil
             }
         }
     }

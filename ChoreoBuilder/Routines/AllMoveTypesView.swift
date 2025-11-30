@@ -31,6 +31,7 @@ struct AllMoveTypesView: View {
                         text: $searchText,
                         placeholder: "Search move types"
                     )
+                   
                     .padding()
                  
 
@@ -43,38 +44,50 @@ struct AllMoveTypesView: View {
                                     .padding(.top, 5)
                             }
                         } else {
-                            List(filteredMoveTypes) { type in
-                                
-                                HStack {
-                                    Image(systemName: "circle.fill")
-                                    
-                                        .foregroundStyle(.accent).opacity(0.7)
-                                        .font(.system(size: 8, weight: .semibold))
-                                    Text(type.name)
+                          
+                            
+                            ScrollView {
+                                LazyVStack(spacing: 16) {
+                                    ForEach(filteredMoveTypes) { type in
+                                        NavigationLink(destination: MoveTypeView(moveType: type)) {
+                                            HStack {
+                                                Image(systemName: "circle.fill")
+                                                    .foregroundStyle(.accent.opacity(0.7))
+                                                    .font(.system(size: 8, weight: .semibold))
+
+                                                Text(type.name)
+                                                    .font(.headline.weight(.semibold))
+                                                    .foregroundStyle(Color.mainText)
+
+                                                Spacer()
+                                            }
+                                            .bubbleStyle()
+                                        }
+                                        .buttonStyle(NavButtonStyle())
+                                    }
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                    .bubbleStyle()
-                                            .background(
-                                              NavigationLink("", destination: MoveTypeView(moveType: type))
-                                                .opacity(0)
-                                        )
-                             
-                                
-                              
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
+                                .padding()
                             }
-                            .offset(y: -20)
+                        
+                            
+                            
+                           
+                          
+                         
                         }
                     }
+                   
                 }
+                
 
                 
                 .navigationTitle("Move Types")
                 .navigationBarTitleDisplayMode(.inline)
                 .scrollContentBackground(.hidden)
                 .background(backgroundGradient)
+                
             }
+            .ignoresSafeArea(.keyboard)
         }
     
 }

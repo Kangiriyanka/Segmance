@@ -43,7 +43,12 @@ struct UploadRoutineView: View {
         VStack {
             VStack(alignment: .leading,  spacing: 13) {
                 HStack {
-                    Text("Routine Details").font(.headline)
+                    HStack(spacing: 6) {
+                        Image(systemName: "note.text")
+                            .foregroundStyle(.accent).opacity(0.7)
+                            .font(.system(size: 16, weight: .semibold))
+                        Text("Routine Details").font(.headline)
+                    }
                     HStack {
                         
                         #if targetEnvironment(simulator)
@@ -82,13 +87,15 @@ struct UploadRoutineView: View {
                 
                 
                 
-                Divider()
+      
                 TextField("Enter the routine title", text: $routineTitle)
+                    .bubbleStyle()
                     .limitText($routineTitle, to: characterLimit)
                     .focused($isFocused)
                 
-                Divider()
+              
                 TextField("Enter a short description", text: $routineDescription)
+                    .bubbleStyle()
                     .limitText($routineDescription, to: characterLimit)
                     .focused($isFocused)
                 
@@ -116,9 +123,17 @@ struct UploadRoutineView: View {
             }
             
             
+            
+            
             VStack {
                 HStack {
-                    Text("Arrange & Rename Parts").font(.headline)
+                    HStack(spacing: 6) {
+    
+                            Image(systemName: "rectangle.stack")
+                                .foregroundStyle(.accent).opacity(0.7)
+                                .font(.system(size: 16, weight: .semibold))
+                        Text("Arrange & Rename Parts").font(.headline)
+                    }
                     Spacer()
                     HStack {
                         
@@ -166,7 +181,7 @@ struct UploadRoutineView: View {
                             ContentUnavailableView {
                                 Label("No uploaded music files", systemImage: "music.note")
                             } description: {
-                                Text("Once you enter a routine title and description, you can upload music files to create your own routine").padding([.top], 5)
+                                Text("Once you enter a title and description, you can upload music files. ").padding([.top], 5)
                             }
                         }
                         
@@ -181,6 +196,7 @@ struct UploadRoutineView: View {
                                     
                                     
                                 )
+                               
                                 .id(file.id)
                                 .focused($focusedFileID, equals: file.id)
         
@@ -190,6 +206,7 @@ struct UploadRoutineView: View {
                                 }
                                 
                                 .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: file, items: $selectedFiles, draggedItem: $draggedFile))
+                           
                                 
                                 
                             }
@@ -197,7 +214,7 @@ struct UploadRoutineView: View {
                            selectedFiles = selectedFiles.sorted(by: {$0.fileTitle < $1.fileTitle})
                         }
                             
-                        
+                        // For the focused view to work.
                         Spacer().frame(height: 1)
                         
                     }
@@ -219,6 +236,7 @@ struct UploadRoutineView: View {
                 
             }
             
+           
             .background(shadowOutline)
             .offset(y: 15)
          
@@ -232,7 +250,8 @@ struct UploadRoutineView: View {
         }
        
         .frame(width: 370)
-        .padding()
+        .padding(.horizontal, 30)
+        .padding(.vertical, 50)
      
         
     }
@@ -283,12 +302,12 @@ struct UploadRoutineView: View {
             do {
                 if !fileManager.fileExists(atPath: destinationURL.path) {
                     try fileManager.copyItem(at: file.URL, to: destinationURL)
-                    print("File copied to: \(destinationURL.path)")
+                   
                 } else {
-                    print("File already exists at: \(destinationURL.path)")
+                   
                 }
             }   catch {
-                print("Error copying file: \(error.localizedDescription)")
+             
             }
             
             // Add that audio file destination to our newly created Routine
@@ -300,7 +319,7 @@ struct UploadRoutineView: View {
         }
         
         else {
-            print("Failed to obtain access to the security-scoped resource")
+           return
         }
         
         

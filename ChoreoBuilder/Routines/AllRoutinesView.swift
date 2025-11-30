@@ -11,7 +11,7 @@ import SwiftData
 struct AllRoutinesView: View {
     
     @Environment(\.modelContext) var modelContext
-    @Query var routines: [Routine]
+    @Query(sort: \Routine.title) var routines: [Routine]
     @State private var isPresentingConfirmed: Bool = false
     @State private var searchText = ""
     
@@ -19,7 +19,8 @@ struct AllRoutinesView: View {
                if searchText.isEmpty {
                    return routines
                }
-        return routines.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+        return routines.filter { $0.title.localizedCaseInsensitiveContains(searchText)
+            }
     }
     
     
@@ -44,56 +45,31 @@ struct AllRoutinesView: View {
                         
                     }
                     else {
-                        List {
-                            ForEach(filteredRoutines) { routine in
-                           
-                                    
-                                   
+                        ScrollView {
+                            LazyVStack(spacing: 16) {
+                                ForEach(filteredRoutines) { routine in
+                                    NavigationLink(destination: EditRoutineView(routine: routine)) {
                                         HStack {
-                                            
-                                            
-                                            
                                             Image(systemName: "circle.fill")
-                                            
-                                                .foregroundStyle(.accent).opacity(0.7)
+                                                .foregroundStyle(.accent.opacity(0.7))
                                                 .font(.system(size: 8, weight: .semibold))
-                                                
-                                                Text("\(routine.title)")
-                                                    .font(.headline.weight(.semibold))
-                                                    .foregroundStyle(Color.mainText)
-                                                
-                                                
-                                                Spacer()
-                                            
-                                            
-                                           
-                                            
+
+                                            Text(routine.title)
+                                                .font(.headline.weight(.semibold))
+                                                .foregroundStyle(Color.mainText)
+
+                                            Spacer()
                                         }
-                                        
-                                            .background(
-                                              NavigationLink("", destination: EditRoutineView(routine: routine))
-                                                .opacity(0)
-                                        )
-                                    
-                                        
-                                        
-                                        
-                                    
-                                    
-                                    .bubbleStyle()
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                
+                                        .bubbleStyle()
+                                    }
+                                    .buttonStyle(NavButtonStyle())
+                                }
                             }
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                            
+                            .padding()
                         }
-                        .offset(y: -20)
+                      
+                   
+                     
                     }
                 }
                 
@@ -108,11 +84,13 @@ struct AllRoutinesView: View {
                 
             }
         
+            
             .navigationTitle("All Routines")
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)
             .background(backgroundGradient)
         }
+        .ignoresSafeArea(.keyboard)
        
         
    

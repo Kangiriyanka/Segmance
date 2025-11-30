@@ -69,6 +69,7 @@ struct MoveTypeView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 
             }
+            .ignoresSafeArea(.keyboard)
 
            
          

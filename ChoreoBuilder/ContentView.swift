@@ -5,10 +5,7 @@ import SwiftData
 
 
 
-/// TO-DOS:
-/// 1. Delay countdown
-/// 2. Custom Loop Toggle
-/// 3. Audio Trimmer
+
 
 struct ContentView: View {
   

@@ -1,4 +1,3 @@
-
 //
 //  CustomSearchBar.swift
 //  Drawgress
@@ -42,8 +41,8 @@ struct CustomSearchBar: View {
            
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.gray)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.gray.opacity(0.5))
                         .matchedGeometryEffect(id: "icon", in: animation)
                     
                     TextField(placeholder, text: $text)
@@ -79,4 +78,8 @@ struct CustomSearchBar: View {
        
         .frame(maxWidth: .infinity, maxHeight: 30, alignment: .trailing)
     }
+}
+
+#Preview {
+    CustomSearchBar(text: .constant("Test"))
 }

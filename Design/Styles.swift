@@ -13,10 +13,10 @@ import SwiftUI
 struct NavButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.8 : 1)
-            .opacity(configuration.isPressed ? 0.5 : 1)
+            .scaleEffect(configuration.isPressed ? 0.9 : 1)
+            .opacity(configuration.isPressed ? 0.9 : 1)
         
-            .animation(.spring(response: 0.4, dampingFraction: 0.5), value: configuration.isPressed)
+            .animation(.organicFastBounce, value: configuration.isPressed)
     }
 }
 
@@ -37,7 +37,7 @@ struct PressableButtonStyle: ButtonStyle {
                     .fill(Color.routineCard)
                 
             )
-            .font(.system(size: 20, weight: .semibold))
+            .font(.system(size: 16, weight: .semibold))
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
             .scaleEffect(configuration.isPressed ? scale : 1)
             .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))

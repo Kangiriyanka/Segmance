@@ -16,6 +16,7 @@ class Part {
     var fileName: String
     var parent: Routine?
     var order: Int
+    @Attribute(.unique) var videoAssetID: String?
     @Relationship(deleteRule: .cascade) var moves =  [Move]()
     
     var location: URL? {

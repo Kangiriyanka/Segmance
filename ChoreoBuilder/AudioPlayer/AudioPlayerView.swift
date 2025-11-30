@@ -33,6 +33,8 @@ struct AudioPlayerView: View {
     
     var body: some View {
         
+        
+        
         GeometryReader {
             let size = $0.size
             let safeArea = $0.safeAreaInsets
@@ -60,6 +62,7 @@ struct AudioPlayerView: View {
                 ZStack(alignment: .top) {
                     if isExpanded {
                         ExpandedPlayerView(size, safeArea)
+                     
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                     } else {
                         CompactPlayerView()
@@ -106,9 +109,11 @@ struct AudioPlayerView: View {
                     }
             )
             .ignoresSafeArea()
-            .toolbar(isExpanded ? .hidden : .visible, for: .tabBar)
+          
             
         }
+     
+        .toolbar(isExpanded ? .hidden : .visible, for: .tabBar)
         .alert("Error", isPresented: $audioPlayerManager.showError) {
             Button("OK") {
                 audioPlayerManager.showError = false
@@ -445,8 +450,10 @@ struct AudioPlayerView: View {
         }
         
         
+        
         .padding(15)
         .padding(.top, safeArea.top)
+        
         
         
         
@@ -549,6 +556,8 @@ struct AudioPlayerView: View {
             
             
         }
+      
+          
         
         .frame(height: 50)
         
@@ -630,25 +639,22 @@ struct AudioPlayerView: View {
                 .bold()
         }
         .frame(width: width, height: height)
-        
-        
         .opacity((audioPlayerManager.isCountingDown && audioPlayerManager.countdownRemaining > 0) ? 1 : 0)
         .scaleEffect(audioPlayerManager.isCountingDown ? 1 : 0.7)
         .animation(.spring(response: 0.2, dampingFraction: 0.7), value: audioPlayerManager.isCountingDown)
         .onChange(of: audioPlayerManager.countdownRemaining) { oldValue, newValue in
-            guard newValue > 0 else { return }
-            AudioServicesPlaySystemSound(1103)
-            squareProgress = 0
-            withAnimation {
-                squareProgress = 1
+            if newValue > 0 && newValue < oldValue {
+                squareProgress = 0
+                withAnimation {
+                    squareProgress = 1
+                }
             }
         }
         .onChange(of: audioPlayerManager.isCountingDown) { _, active in
             if !active {
                 squareProgress = 1
             }
-        }
-    }
+        }    }
 
    
    

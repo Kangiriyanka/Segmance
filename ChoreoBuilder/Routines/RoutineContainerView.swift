@@ -26,8 +26,7 @@ struct RoutineContainerView: View {
     }
     
     
-    
- 
+
     
     var body: some View {
         
@@ -43,6 +42,7 @@ struct RoutineContainerView: View {
                         text: $searchText,
                         placeholder: "Search choreographies"
                     )
+                    .contentShape(Rectangle())
                  
                   
                     
@@ -78,11 +78,12 @@ struct RoutineContainerView: View {
                         
                         ScrollView(.vertical, showsIndicators: false) {
                             ForEach(filteredRoutines) { routine in
-                                NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden(true) ) {
+                                NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden() ) {
                                     
                                     RoutineCardView(routine: routine)
                                         .padding(.vertical, 10)
-                                        .navigationBarBackButtonHidden(true)
+                                    
+                                       
                                         .contextMenu {
                                             Button(role: .destructive) {
                                                 routinePendingDeletion = routine
@@ -97,7 +98,7 @@ struct RoutineContainerView: View {
                                             
                                             
                                         }
-                                    
+                                     
                                         .confirmationDialog("Are you sure you want to delete this choreography?", isPresented: $showingConfirmation) {
                                             
                                             Button("Delete", role: .destructive) {
@@ -119,9 +120,9 @@ struct RoutineContainerView: View {
                                     
                                     
                                     
-                                }
-                                .buttonStyle(.plain)
-                                .buttonStyle(NavButtonStyle())
+                                }   .buttonStyle(NavButtonStyle())
+                        
+                             
                                 
                                 
                                 
@@ -153,11 +154,13 @@ struct RoutineContainerView: View {
             )
             
             .navigationTitle("Routines")
+            .ignoresSafeArea(.keyboard)
             .navigationBarTitleDisplayMode(.inline)
           
             
            
         }
+     
     }
     
     
@@ -170,6 +173,7 @@ struct RoutineContainerView: View {
              
         }
         .buttonStyle(PressableButtonStyle())
+        .contentShape(Rectangle())
        
         
     }
@@ -213,48 +217,43 @@ struct RoutineContainerView: View {
 
 struct RoutineCardView: View {
     let routine: Routine
-    @State private var isPressed: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
-                Image(systemName: "music.note")
-                    
-                    .foregroundStyle(.accent).opacity(0.8)
-                    .font(.system(size: 16, weight: .semibold))
+        HStack(spacing: 12) {
+        
+            ZStack {
+                Circle()
+                    .fill(Color.accent.opacity(0.15))
+                    .frame(width: 40, height: 40)
                 
+                Image(systemName: "music.note")
+                    .foregroundStyle(.accent)
+                    .font(.system(size: 20, weight: .semibold))
+            }
+            
+            VStack(alignment: .leading, spacing: 6) {
                 Text(routine.title)
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(Color.mainText)
-                    
                 
-                Spacer()
+                Text(routine.routineDescription)
+                    .font(.footnote)
+                    .foregroundStyle(Color.mainText.opacity(0.6))
+                    .lineLimit(2)
+                
+              
             }
-
-            Text(routine.routineDescription)
-                .font(.subheadline)
-                .foregroundStyle(Color.mainText).opacity(0.5)
-                .foregroundStyle(.secondary)
-                .lineLimit(2)
-            
-                
             
             Spacer()
+            
+         
         }
-        
-        .scaleEffect(isPressed ? 0.95 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
-        .padding()
+        .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-      
-        .background(
-              
-            cardBackground
-                       
-                        
-                
-            )
+        .background(cardBackground)
         .customBorderStyle()
+        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+     
     }
 }
 
@@ -271,7 +270,6 @@ struct RoutineCardView: View {
     
     RoutineContainerView()
        
-    
     
 }
 

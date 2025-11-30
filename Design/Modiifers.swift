@@ -27,6 +27,7 @@ struct BubbleTextField: ViewModifier {
                RoundedRectangle(cornerRadius: 12)
                    .stroke(Color.black.opacity(0.2), lineWidth: 1)
            )
+           .buttonStyle(PlainButtonStyle())
            .clipShape(RoundedRectangle(cornerRadius: 12))
            .textInputAutocapitalization(.never)
           
