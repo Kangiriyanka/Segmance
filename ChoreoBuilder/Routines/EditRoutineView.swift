@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EditRoutineView: View {
     
     @Bindable var routine: Routine
+    @Query var routines: [Routine]
     @Environment(\.dismiss) private var dismiss
     @State private var title: String
     @State private var description: String
@@ -19,6 +21,8 @@ struct EditRoutineView: View {
     @State private var showingError: Bool = false
     @State private var characterLimit: Int = 25
     @State private var draggedPart: Part?
+    @State private var isPresentingConfirm: Bool = false
+    @Environment(\.modelContext)  var modelContext
     
     @FocusState private var isFocused: Bool
     @FocusState private var focusedPartID: UUID?
@@ -46,7 +50,7 @@ struct EditRoutineView: View {
                             Image(systemName: "checkmark.circle")
                         }
                         .buttonStyle(PressableButtonStyle())
-                     
+                        
                     }
                     
                     Divider()
@@ -55,7 +59,7 @@ struct EditRoutineView: View {
                         .limitText($title, to: characterLimit)
                         .focused($isFocused)
                     
-                  
+                    
                     TextField("Enter a short description", text: $description)
                         .bubbleStyle()
                         .limitText($description, to: characterLimit)
@@ -74,7 +78,7 @@ struct EditRoutineView: View {
                         Text("Arrange and rename parts").font(.headline)
                         Spacer()
                     }
-                 
+                    
                     .padding()
                     
                     Divider()
@@ -132,8 +136,26 @@ struct EditRoutineView: View {
             
             .navigationTitle("Edit \(routine.title)")
             .navigationBarTitleDisplayMode(.inline)
-                
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                            isPresentingConfirm = true
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                    .confirmationDialog("Deleting this routine will erase all of its content. Are you sure?", isPresented: $isPresentingConfirm) {
+                        Button("Delete this routine permanently", role: .destructive) {
+                            deleteRoutine(id: routine.id)
+                        }
+                    }
+                }
             }
+            
+            
+            
+        }
        
        
         
@@ -148,6 +170,33 @@ struct EditRoutineView: View {
         _title = .init(initialValue: routine.title)
         _description = .init(initialValue: routine.routineDescription)
         _parts = .init(initialValue: copiedParts.sorted { $0.order < $1.order })
+    }
+    
+    private func deleteRoutine(id: UUID) {
+        
+        let fileManager = FileManager.default
+        if let routineToDelete = routines.first(where: { $0.id == id }) {
+            routineToDelete.parts.forEach
+            { part in
+                
+                if let partURL = part.location {
+                    do {
+                        try fileManager.removeItem(at: partURL)
+                        
+                    } catch {
+                        print("Error: \(error)")
+                    }
+                    
+                }
+                
+            }
+            modelContext.delete(routineToDelete)
+        }
+        dismiss()
+        
+        
+        
+        
     }
     
     private func validateDetails() -> Bool {

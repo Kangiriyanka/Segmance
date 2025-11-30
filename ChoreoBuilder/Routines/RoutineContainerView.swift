@@ -78,58 +78,18 @@ struct RoutineContainerView: View {
                         
                         ScrollView(.vertical, showsIndicators: false) {
                             ForEach(filteredRoutines) { routine in
-                                NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden() ) {
-                                    
+                                NavigationLink(destination: RoutineView(routine: routine)
+                                                .navigationBarBackButtonHidden()) {
                                     RoutineCardView(routine: routine)
                                         .padding(.vertical, 10)
-                                    
                                        
-                                        .contextMenu {
-                                            Button(role: .destructive) {
-                                                routinePendingDeletion = routine
-                                                showingConfirmation = true
-                                                
-                                                
-                                            } label: {
-                                                Label("Delete Routine", systemImage: "trash")
-                                                
-                                            }
-                                            
-                                            
-                                            
-                                        }
-                                     
-                                        .confirmationDialog("Are you sure you want to delete this choreography?", isPresented: $showingConfirmation) {
-                                            
-                                            Button("Delete", role: .destructive) {
-                                                if let routine = routinePendingDeletion {
-                                                    deleteRoutine(id: routine.id)
-                                                    routinePendingDeletion = nil
-                                                }
-                                            }
-                                            Button("Cancel", role: .cancel) {
-                                                routinePendingDeletion = nil
-                                            }
-                                            
-                                        } message: {
-                                            Text("Are you sure you want to delete this choreography?")
-                                        }
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                }   .buttonStyle(NavButtonStyle())
-                        
-                             
-                                
-                                
-                                
+                                }
+                                                .buttonStyle(NavButtonStyle())
+                                               
+                               
                             }
-                            
-                            
                         }
+                       
                         .contentMargins(.bottom, 50, for: .scrollContent)
                     
                         
@@ -179,31 +139,7 @@ struct RoutineContainerView: View {
     }
 
     
-    private func deleteRoutine(id: UUID) {
-        
-        let fileManager = FileManager.default
-        if let routineToDelete = routines.first(where: { $0.id == id }) {
-            routineToDelete.parts.forEach
-            { part in
-                
-                if let partURL = part.location {
-                    do {
-                        try fileManager.removeItem(at: partURL)
-                        
-                    } catch {
-                        print("Error: \(error)")
-                    }
-                    
-                }
-                
-            }
-            modelContext.delete(routineToDelete)
-        }
-        
-        
-        
-        
-    }
+   
     
 
     
@@ -248,11 +184,12 @@ struct RoutineCardView: View {
             
          
         }
+        
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(cardBackground)
         .customBorderStyle()
-        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+        
      
     }
 }

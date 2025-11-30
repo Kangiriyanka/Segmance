@@ -10,7 +10,7 @@ struct ExportView: View {
     
     var body: some View {
             VStack(spacing: 12) {
-                Text("Export format").font(.subheadline).foregroundStyle(.secondary)
+                Text(" Format").font(.subheadline).foregroundStyle(.accent).fontWeight(.semibold)
                 Picker("", selection: $exportType) {
                     ForEach(exportTypes, id: \.self) { Text($0) }
                 }

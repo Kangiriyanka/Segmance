@@ -129,49 +129,45 @@ struct OptionsView: View {
                     
                     // MARK: - EXPORT
                     
-                    Section {
-                        HStack(spacing: 10) {
-                            
-                            HStack(spacing: 10) {
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(.accent).opacity(0.7)
-                                    .font(.system(size: 8, weight: .semibold))
-                                
+                 
+                        Section {
+                            Button {
+                                isExporting = true
+                            } label: {
+                                HStack(spacing: 10) {
+                                    Image(systemName: "circle.fill")
+                                        .foregroundStyle(.accent)
+                                        .opacity(0.7)
+                                        .font(.system(size: 8, weight: .semibold))
+
+                                    Text("Export")
+                                        .font(.headline.weight(.semibold))
+                                        .foregroundStyle(Color.mainText)
+
+                                    Spacer()
+                                }
+                                .bubbleStyle()
+                            }
+                            .buttonStyle(NavButtonStyle())
+
+                        } header: {
+                            HStack {
                                 Text("Export")
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(Color.mainText)
-                                
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                    .textCase(.uppercase)
+
                                 Spacer()
                             }
-                            .bubbleStyle()
-                        }
-                        .onTapGesture {
-                            isExporting = true
+                            .padding(.bottom, 4)
                         }
                         
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    } header: {
-                        HStack {
-                            Text("Export")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                                .textCase(.uppercase)
-                            
-                            Spacer()
-                        }
-                        
-                        .padding(.bottom, 4)
-                    }
+                   
                     
                     
                 }
+                .buttonStyle(NavButtonStyle())
                 .sheet(isPresented: $isExporting) {
                     
                     ZStack {
@@ -188,7 +184,7 @@ struct OptionsView: View {
                     
                 }
            
-                .buttonStyle(NavButtonStyle())
+            
                 .padding(.horizontal)
             }
             .contentMargins(.top, 8, for: .scrollContent)

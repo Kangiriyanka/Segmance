@@ -156,15 +156,16 @@ struct PartView: View {
                   
                         Image(systemName: "play.circle")
                        
-                            .contextMenu {
-                                Button(role: .destructive) {
-                                    part.videoAssetID = nil
-                                } label: {
-                                    Label("Remove Video", systemImage: "trash")
-                                }
-                            }
+                            
                            
                     
+                }
+                .contextMenu {
+                    Button(role: .destructive) {
+                        part.videoAssetID = nil
+                    } label: {
+                        Label("Remove Video", systemImage: "trash")
+                    }
                 }
                 .buttonStyle(PressableButtonStyle())
                 .contentShape(Rectangle())

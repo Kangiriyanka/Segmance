@@ -60,8 +60,9 @@ struct CustomBorderStyle: ViewModifier {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color.black.opacity(0.2), lineWidth: 2)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 16))
             .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+           
     }
 }
 
