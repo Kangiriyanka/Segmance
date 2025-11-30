@@ -33,7 +33,7 @@ struct OptionsView: View {
                                     .foregroundStyle(.accent).opacity(0.7)
                                     .font(.system(size: 8, weight: .semibold))
                                 
-                                Text("View all routines")
+                                Text("View all choreographies")
                                     .font(.headline.weight(.semibold))
                                     .foregroundStyle(Color.mainText)
                                 
@@ -61,10 +61,8 @@ struct OptionsView: View {
                         
                     } header: {
                         HStack {
-                            Text("General")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                                .textCase(.uppercase)
+                            Text("Library")
+                                .customHeader()
                             
                             Spacer()
                         }
@@ -104,7 +102,7 @@ struct OptionsView: View {
                                     .foregroundStyle(.accent).opacity(0.7)
                                     .font(.system(size: 8, weight: .semibold))
                                 
-                                Text("About Choreobuilder")
+                                Text("About ChoreoBuilder")
                                     .font(.headline.weight(.semibold))
                                     .foregroundStyle(Color.mainText)
                                 
@@ -115,10 +113,8 @@ struct OptionsView: View {
                         
                     } header: {
                         HStack {
-                            Text("About")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                                .textCase(.uppercase)
+                            Text("Support")
+                                .customHeader()
                             
                             Spacer()
                         }
@@ -152,11 +148,8 @@ struct OptionsView: View {
 
                         } header: {
                             HStack {
-                                Text("Export")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                                    .textCase(.uppercase)
-
+                                Text("Data ")
+                                    .customHeader()
                                 Spacer()
                             }
                             .padding(.bottom, 4)

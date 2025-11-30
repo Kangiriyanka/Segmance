@@ -113,7 +113,7 @@ struct RoutineContainerView: View {
                 backgroundGradient
             )
             
-            .navigationTitle("Routines")
+            .navigationTitle("Choreographies")
             .ignoresSafeArea(.keyboard)
             .navigationBarTitleDisplayMode(.inline)
           

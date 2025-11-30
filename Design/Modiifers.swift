@@ -10,6 +10,16 @@ import SwiftUI
 
 
 
+struct CustomHeader: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        
+        content
+            .font(.headline)
+            .fontWeight(.semibold)
+            .foregroundStyle(.secondary).italic()
+    }
+}
 
 
 struct BubbleTextField: ViewModifier {
@@ -103,6 +113,10 @@ struct CustomLoopCircle: ViewModifier {
 extension View {
     func bubbleStyle() -> some View  {
         modifier(BubbleTextField())
+    }
+    
+    func customHeader() -> some View  {
+        modifier(CustomHeader())
     }
     
     func customBlueBackground() -> some View  {

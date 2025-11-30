@@ -75,7 +75,7 @@ struct PartView: View {
         
         VStack {
             
-            Text("\(part.order). \(part.title)").font(.subheadline).padding()
+            Text("\(part.order). \(part.title)").customHeader().padding()
             actionButtons
         }
       
@@ -110,6 +110,7 @@ struct PartView: View {
                                 .id(move.id)
                                 .focused($focusedMoveID, equals: move.id)
                                 .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 10))
+                                .contentShape(Circle())
                                 .contextMenu {
                                     Button(role: .destructive) {
                                         deleteMove(id: move.id)

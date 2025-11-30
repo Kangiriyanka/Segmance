@@ -48,3 +48,34 @@ struct PressableButtonStyle: ButtonStyle {
           
     }
 }
+
+
+struct ReviewButtonStyle: ButtonStyle {
+    var scale: CGFloat = 0.9
+    var opacity: Double = 0.85
+    var isDisabled: Bool? = nil
+
+    func makeBody(configuration: Configuration) -> some View {
+        let disabled = isDisabled ?? false
+        configuration.label
+           
+            .padding()
+            .background(
+                
+                RoundedRectangle(cornerRadius: 16)
+                
+                    .fill(Color.accent.opacity(0.6))
+                
+            )
+           
+            .font(.system(size: 16, weight: .bold))
+            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
+            .scaleEffect(configuration.isPressed ? scale : 1)
+            .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))
+            .foregroundStyle(.mainText)
+            .opacity(configuration.isPressed ? opacity : 1)
+            .animation(.spring(response: 0.3, dampingFraction: 0.4), value: configuration.isPressed)
+            .foregroundColor(.mainText)
+          
+    }
+}

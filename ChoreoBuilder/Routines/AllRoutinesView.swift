@@ -84,8 +84,8 @@ struct AllRoutinesView: View {
                 
             }
         
-            
-            .navigationTitle("All Routines")
+            // Idea: maybe extract all common text into a single file.
+            .navigationTitle("All Choreographies")
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)
             .background(backgroundGradient)

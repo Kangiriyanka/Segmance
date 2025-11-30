@@ -32,7 +32,7 @@ struct ContentView: View {
                 RoutineContainerView()
                    
                     .tabItem {
-                        Label("Routines", systemImage: "figure.dance")
+                        Label("Choreographies", systemImage: "figure.dance")
                         
                     }
                  

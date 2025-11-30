@@ -9,6 +9,8 @@ import SwiftUI
 
 
 
+
+
 struct SlidingText: View {
     let text: String
     let speed: Double = 30

@@ -18,7 +18,7 @@ struct AudioTrimmerView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 30) {
-                    if audioTrimmerManager.audioURL == nil {
+                    ZStack {
                         // Large centered upload button
                         Button(action: { isImporting = true }) {
                             Image(systemName: "square.and.arrow.down")
@@ -27,7 +27,11 @@ struct AudioTrimmerView: View {
                         }
                         .buttonStyle(PressableButtonStyle())
                         .matchedGeometryEffect(id: "uploadButton", in: buttonAnimation)
-                    } else {
+                        .opacity(audioTrimmerManager.audioURL == nil ? 1 : 0)
+                        .scaleEffect(audioTrimmerManager.audioURL == nil ? 1 : 0.4)
+                    }
+                    
+                    if audioTrimmerManager.audioURL != nil {
                         audioControls
                         clipsSection
                     }
@@ -46,7 +50,9 @@ struct AudioTrimmerView: View {
         ) { result in
             guard case .success(let urls) = result,
                   let audioURL = urls.first else { return }
-            audioTrimmerManager.setupAudio(url: audioURL)
+            withAnimation {
+                audioTrimmerManager.setupAudio(url: audioURL)
+            }
         }
     }
     
@@ -101,7 +107,6 @@ struct AudioTrimmerView: View {
     }
     
     private var clipsSection: some View {
-        
         VStack {
             HStack {
                 Spacer()
