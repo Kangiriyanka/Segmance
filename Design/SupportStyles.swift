@@ -28,6 +28,21 @@ func infoCard(title: String, description: String, spacing: CGFloat) -> some View
     
     
 }
+func usageTitle(title: String, ) -> some View {
+    VStack(alignment: .leading) {
+       
+            Text(title)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundStyle(.secondary).italic()
+            
+       
+        
+     
+    }
+    
+    
+}
 
 
 
