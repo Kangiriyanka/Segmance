@@ -22,6 +22,12 @@ struct PartView: View {
     @State private var videoURL: URL?
     @State private var showingVideoPlayer = false
     @State private var isLoadingVideo = false
+    @Binding private var playerExpanded: Bool
+    
+    init(part: Part, playerExpanded: Binding<Bool>) {
+        self._part = State(initialValue: part)
+        self._playerExpanded = playerExpanded
+    }
 
     var body: some View {
         ZStack {
@@ -33,12 +39,15 @@ struct PartView: View {
             }
             
             if audioPlayerPresented, let partURL = part.location {
-                AudioPlayerView(audioFileURL: partURL, partTitle: part.title)
+                AudioPlayerView(audioFileURL: partURL, partTitle: part.title, isExpanded: $playerExpanded)
+                   
                     .offset(y: audioPlayerPresented ? 0 : 400)
                     .opacity(audioPlayerPresented ? 1 : 0)
                     .transition(.blurReplace)
             }
         }
+       
+
         .sheet(isPresented: $showingAddMoveSheet) {
             ZStack {
                 backgroundGradient.ignoresSafeArea()
@@ -244,5 +253,8 @@ struct PartView: View {
 
 #Preview {
     let part = Part.firstPartExample
-    PartView(part: part)
+    TabView {
+       
+        PartView(part: part, playerExpanded: .constant(true))
+    }
 }

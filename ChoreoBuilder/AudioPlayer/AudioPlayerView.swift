@@ -15,7 +15,7 @@ struct AudioPlayerView: View {
     @State private var partTitle: String
     @State private var playbackSpeed: Float = 1.0
     @State private var delay: Float = 0.0
-    @State private var isExpanded = false
+    @Binding private var isExpanded: Bool
     @State private var showMarkers = false
   
     @State private var audioPlayerManager: AudioPlayerModel
@@ -58,11 +58,11 @@ struct AudioPlayerView: View {
                 .frame(height: isExpanded ? nil : 60)
                 
                 
-                // This was added to prevent
+            
                 ZStack(alignment: .top) {
                     if isExpanded {
                         ExpandedPlayerView(size, safeArea)
-                     
+                 
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                     } else {
                         CompactPlayerView()
@@ -113,7 +113,7 @@ struct AudioPlayerView: View {
             
         }
      
-        .toolbar(isExpanded ? .hidden : .visible, for: .tabBar)
+      
         .alert("Error", isPresented: $audioPlayerManager.showError) {
             Button("OK") {
                 audioPlayerManager.showError = false
@@ -659,11 +659,13 @@ struct AudioPlayerView: View {
    
    
     
-    init(audioFileURL: URL, partTitle: String) {
+    init(audioFileURL: URL, partTitle: String, isExpanded: Binding<Bool>) {
        
         self.partTitle = partTitle
+        self._isExpanded = isExpanded
         self.audioPlayerManager = AudioPlayerModel(audioFileURL: audioFileURL)
         self.audioPlayerManager.setupAudio()
+       
         
         
     }
@@ -675,7 +677,7 @@ struct AudioPlayerView: View {
 
 #Preview {
     let URL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
-    AudioPlayerView(audioFileURL: URL, partTitle: "The Initial Start " )
+    AudioPlayerView(audioFileURL: URL, partTitle: "The Initial Start ", isExpanded: .constant(true) )
    
 }
 
