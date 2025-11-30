@@ -44,6 +44,7 @@ struct PartView: View {
                     .offset(y: audioPlayerPresented ? 0 : 400)
                     .opacity(audioPlayerPresented ? 1 : 0)
                     .transition(.blurReplace)
+                    .zIndex(10)
             }
         }
        
@@ -75,88 +76,7 @@ struct PartView: View {
         VStack {
             
             Text("\(part.order). \(part.title)").font(.subheadline).padding()
-            HStack {
-                
-                
-                
-                
-                PhotosPicker(
-                    selection: Binding(
-                        get: { nil },
-                        set: { item in
-                            Task {
-                                if let id = item?.itemIdentifier {
-                                    part.videoAssetID = id
-                                }
-                            }
-                        }
-                    ),
-                    matching: .videos,
-                    photoLibrary: .shared()
-                ) {
-                    Image(systemName: "film")
-                }
-                
-                .buttonStyle(PressableButtonStyle())
-                .contentShape(Rectangle())
-                
-                if part.videoAssetID != nil {
-                    Button {
-                        guard let id = part.videoAssetID, !isLoadingVideo else { return }
-                        isLoadingVideo = true
-                        fetchVideoURL(from: id) { url in
-                            isLoadingVideo = false
-                            if let url = url {
-                                videoURL = url
-                                showingVideoPlayer = true
-                            }
-                        }
-                    } label: {
-                        if isLoadingVideo {
-                            ProgressView().controlSize(.small)
-                        } else {
-                            Image(systemName: "play.circle").font(.title2)
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        part.videoAssetID = nil
-                                    } label: {
-                                        Label("Remove Video", systemImage: "trash")
-                                    }
-                                }
-                                .buttonStyle(PressableButtonStyle())
-                        }
-                    }
-                    .buttonStyle(PressableButtonStyle())
-                    .contentShape(Rectangle())
-                    .disabled(isLoadingVideo)
-                }
-                
-                HStack(spacing: 5) {
-                    Button {
-                        withAnimation(Animation.organicFastBounce) {
-                            audioPlayerPresented.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "music.quarternote.3")
-                    }
-                    .buttonStyle(PressableButtonStyle())
-                    .contentShape(Rectangle())
-                    
-                    Button {
-                        withAnimation {
-                            showingAddMoveSheet.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "plus.circle")
-                    }
-                    .buttonStyle(PressableButtonStyle())
-                    .contentShape(Rectangle())
-                }
-                .foregroundStyle(.black)
-                .frame(width: 100, height: 40)
-                .padding(5)
-            }
-            .frame(maxWidth: .infinity)
+            actionButtons
         }
       
         .padding()
@@ -216,6 +136,88 @@ struct PartView: View {
                 }
             }
         }
+    }
+    
+    private var actionButtons: some View {
+        HStack {
+            
+            if part.videoAssetID != nil {
+                Button {
+                    guard let id = part.videoAssetID, !isLoadingVideo else { return }
+                    isLoadingVideo = true
+                    fetchVideoURL(from: id) { url in
+                        isLoadingVideo = false
+                        if let url = url {
+                            videoURL = url
+                            showingVideoPlayer = true
+                        }
+                    }
+                } label: {
+                  
+                        Image(systemName: "play.circle")
+                       
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    part.videoAssetID = nil
+                                } label: {
+                                    Label("Remove Video", systemImage: "trash")
+                                }
+                            }
+                           
+                    
+                }
+                .buttonStyle(PressableButtonStyle())
+                .contentShape(Rectangle())
+                .disabled(isLoadingVideo)
+            }
+            // Video picker
+            PhotosPicker(
+                selection: Binding(
+                    get: { nil },
+                    set: { item in
+                        Task {
+                            if let id = item?.itemIdentifier {
+                                part.videoAssetID = id
+                            }
+                        }
+                    }
+                ),
+                matching: .videos,
+                photoLibrary: .shared()
+            ) {
+                Image(systemName: "film")
+            }
+            .buttonStyle(PressableButtonStyle())
+            .contentShape(Rectangle())
+
+            // Play video button if video exists
+           
+
+            // Audio and add buttons
+            HStack(spacing: 5) {
+                Button {
+                    withAnimation(Animation.organicFastBounce) {
+                        audioPlayerPresented.toggle()
+                    }
+                } label: {
+                    Image(systemName: "music.quarternote.3")
+                }
+
+                Button {
+                    withAnimation {
+                        showingAddMoveSheet.toggle()
+                    }
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+            }
+            .buttonStyle(PressableButtonStyle())
+            .contentShape(Rectangle())
+            .foregroundStyle(.black)
+            .frame(width: 100, height: 40)
+            .padding(5)
+        }
+        .frame(maxWidth: .infinity)
     }
     
     private func deleteMove(id: UUID) {
