@@ -30,7 +30,8 @@ struct SimpleDSWaveformView: View {
         ) { shape in
             shape.stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round))
         } placeholder: {
-            Text("Loading waveform...").background(.black)
+            Text("Loading waveform...")
+                .padding()
         }
         
         
@@ -43,8 +44,10 @@ struct SimpleDSWaveformView: View {
 struct AudioWaveformView: View {
     @Binding var startHandle: CGFloat
     @Binding var endHandle: CGFloat
+    @State private var previewTime : Double = 0
     var trimmer: AudioTrimmerModel?
-    @State private var progress: Double = .random(in: 0...1)
+    
+    
     
     
   
@@ -71,21 +74,24 @@ struct AudioWaveformView: View {
                     // Start handle
                     HandleView(height: geo.size.height)
                         .position(x: startHandle * geo.size.width, y: geo.size.height / 2)
-                        .gesture(
+                        .highPriorityGesture(
                             DragGesture()
                                 .onChanged { value in
-                                    startHandle = min(max(0, value.location.x / geo.size.width), endHandle - 0.01)
+                                    startHandle = min(max(0, min(1,value.location.x / geo.size.width)), endHandle - 0.01)
+                                    previewTime = (trimmer?.duration ?? 1 ) * startHandle
                                 }
-//                                .onEnded(
-//                                    trimmer?.seekAudio(to: Double(startHandle * CGFloat(trimmer!.duration)))
-//                                    
-//                                )
-                        )
+                            
+                                .onEnded { _ in
+                                    trimmer?.seekAudio(to: previewTime)
+                                }
+
+                    )
+                
                     
                     // End handle
                     HandleView(height: geo.size.height)
                         .position(x: endHandle * geo.size.width, y: geo.size.height / 2)
-                        .gesture(
+                        .highPriorityGesture(
                             DragGesture()
                                 .onChanged { value in
                                     endHandle = max(min(1, value.location.x / geo.size.width), startHandle + 0.01)
@@ -93,7 +99,7 @@ struct AudioWaveformView: View {
                         )
                 }
             }
-            .frame(height: 60)
+            .frame(height: 100)
             
             // Time labels
             HStack {

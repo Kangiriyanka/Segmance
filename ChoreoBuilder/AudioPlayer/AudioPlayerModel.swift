@@ -9,6 +9,7 @@ import AVKit
 @Observable
 class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     private var audioPlayer: AVAudioPlayer?
+    private var tickPlayer: AVAudioPlayer?
     var isPlaying: Bool = false
     var isLooping: Bool = false
     var isCustomLooping: Bool  = false
@@ -97,7 +98,7 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         }
     
     func startCountdown() {
-        // Invalidate any existing timer first
+        // Invalidate any existing timer first (Prevents the user from spamming)
         countdownTimer?.invalidate()
         
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
@@ -111,7 +112,8 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
                 
               
                 if self.countdownRemaining > 0 {
-                    AudioServicesPlaySystemSound(1103)
+                    // Use a bundle instead
+                    playTick()
                 }
             }
             
@@ -289,6 +291,19 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         
        
         
+    }
+    
+    
+    func playTick() {
+        let URL = Bundle.main.url(forResource: "snap", withExtension: "wav")!
+        
+        do {
+            tickPlayer = try AVAudioPlayer(contentsOf: URL)
+            tickPlayer?.prepareToPlay()
+            tickPlayer?.play()
+        } catch {
+            print("Failed to play tick sound:", error)
+        }
     }
     
     

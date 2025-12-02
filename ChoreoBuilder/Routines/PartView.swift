@@ -12,7 +12,7 @@ import AVKit
 
 struct PartView: View {
     
-    @State  var part: Part
+    @State var part: Part
     var moves: [Move] { part.moves.sorted { $0.order < $1.order }}
     @State private var audioPlayerPresented = false
     @State private var showingAddMoveSheet = false
@@ -110,7 +110,7 @@ struct PartView: View {
                                 .id(move.id)
                                 .focused($focusedMoveID, equals: move.id)
                                 .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 10))
-                                .contentShape(Circle())
+                             
                                 .contextMenu {
                                     Button(role: .destructive) {
                                         deleteMove(id: move.id)

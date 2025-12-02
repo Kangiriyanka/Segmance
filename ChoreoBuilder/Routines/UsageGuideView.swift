@@ -197,6 +197,7 @@ func infoButtonCard<T: View>(
                     .font(.footnote)
             }
         }
+        .frame(maxWidth: .infinity)
         .padding()
         .background(cardBackground)
         .customBorderStyle()

@@ -47,7 +47,7 @@ struct UploadRoutineView: View {
                         Image(systemName: "note.text")
                             .foregroundStyle(.accent).opacity(0.7)
                             .font(.system(size: 16, weight: .semibold))
-                        Text("Routine Details").font(.headline)
+                        Text("Details").font(.headline)
                     }
                     HStack {
                         
@@ -132,7 +132,7 @@ struct UploadRoutineView: View {
                             Image(systemName: "rectangle.stack")
                                 .foregroundStyle(.accent).opacity(0.7)
                                 .font(.system(size: 16, weight: .semibold))
-                        Text("Arrange & Rename Parts").font(.headline)
+                        Text("Rename & Arrange").font(.headline)
                     }
                     Spacer()
                     HStack {
@@ -297,6 +297,7 @@ struct UploadRoutineView: View {
         
         let accessGranted = file.URL.startAccessingSecurityScopedResource()
         // Copy the file to the Documents directory
+        // Note that for the trimmer, you don't have to copy the file to the URL, you'd have to use defer.
         
         if accessGranted {
             do {

@@ -36,4 +36,5 @@ enum AudioClipError: Error {
     case failedToClip
     case waveError
     case sameClip
+    case alreadyClipping
 }

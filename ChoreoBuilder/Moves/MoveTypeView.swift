@@ -18,6 +18,8 @@ struct MoveTypeView: View {
     @State private var errorMessage = ""
     @State private var showingError: Bool = false
     @State private var characterLimit: Int = 25
+    // Crash source: When deleting this could be a problem.
+    @State private var originalType: String
     
     @FocusState private var isFocused: Bool
     
@@ -60,7 +62,8 @@ struct MoveTypeView: View {
                         }
                     }
                 }
-                .navigationTitle("Edit \(moveType.name)")
+                // Crash source: Don't access the variable
+                .navigationTitle("Edit \(originalType)")
                 .navigationBarTitleDisplayMode(.inline)
             }
             .ignoresSafeArea(.keyboard)
@@ -75,6 +78,7 @@ struct MoveTypeView: View {
     init(moveType: MoveType) {
         self.moveType = moveType
         _typeName = .init(initialValue: moveType.name)
+        _originalType = .init(initialValue: moveType.name)
     }
     
     private func validateTypeName() -> Bool {

@@ -16,6 +16,9 @@
 		821393392E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
 		8213933A2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
 		8213933B2E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
+		822245CA2EDE1CBA001B70AA /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 822245C92EDE1CBA001B70AA /* snap.wav */; };
+		822245CB2EDE1CBA001B70AA /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 822245C92EDE1CBA001B70AA /* snap.wav */; };
+		822245CC2EDE1CBA001B70AA /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 822245C92EDE1CBA001B70AA /* snap.wav */; };
 		827D6F872E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F882E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F892E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
@@ -136,6 +139,7 @@
 		821391B12E935F57003B79E1 /* MoveType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveType.swift; sourceTree = "<group>"; };
 		821392552E95D206003B79E1 /* AllMoveTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoveTypesView.swift; sourceTree = "<group>"; };
 		821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrimmerView.swift; sourceTree = "<group>"; };
+		822245C92EDE1CBA001B70AA /* snap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = snap.wav; sourceTree = "<group>"; };
 		827D6F862E76592E00091652 /* AudioErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioErrors.swift; sourceTree = "<group>"; };
 		828DC3D32E5372610032083A /* furio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = furio.mp3; sourceTree = "<group>"; };
 		828DC3D42E5372610032083A /* gabagoo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gabagoo.mp3; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 			children = (
 				828DC3D32E5372610032083A /* furio.mp3 */,
 				828DC3D42E5372610032083A /* gabagoo.mp3 */,
+				822245C92EDE1CBA001B70AA /* snap.wav */,
 				828DC3D52E5372610032083A /* nanako.mp3 */,
 			);
 			path = "Audio Files";
@@ -493,6 +498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822245CB2EDE1CBA001B70AA /* snap.wav in Resources */,
 				828DC4772E5372610032083A /* furio.mp3 in Resources */,
 				828DC47A2E5372610032083A /* nanako.mp3 in Resources */,
 				828DC47B2E5372610032083A /* Assets.xcassets in Resources */,
@@ -505,6 +511,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822245CC2EDE1CBA001B70AA /* snap.wav in Resources */,
 				828DC4092E5372610032083A /* furio.mp3 in Resources */,
 				828DC40A2E5372610032083A /* Info.plist in Resources */,
 				828DC40C2E5372610032083A /* nanako.mp3 in Resources */,
@@ -518,6 +525,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822245CA2EDE1CBA001B70AA /* snap.wav in Resources */,
 				828DC4502E5372610032083A /* furio.mp3 in Resources */,
 				828DC4512E5372610032083A /* Info.plist in Resources */,
 				828DC4532E5372610032083A /* nanako.mp3 in Resources */,
@@ -789,6 +797,7 @@
 				DEVELOPMENT_TEAM = PWG234D888;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app supports bluetooth";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth is only used to connect to nearby supported devices for selected features. No data is collected.";
@@ -828,6 +837,7 @@
 				DEVELOPMENT_TEAM = PWG234D888;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app supports bluetooth";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth is only used to connect to nearby supported devices for selected features. No data is collected.";

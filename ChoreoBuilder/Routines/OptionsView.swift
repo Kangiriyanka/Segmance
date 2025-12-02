@@ -33,7 +33,7 @@ struct OptionsView: View {
                                     .foregroundStyle(.accent).opacity(0.7)
                                     .font(.system(size: 8, weight: .semibold))
                                 
-                                Text("View all choreographies")
+                                Text("My choreographies")
                                     .font(.headline.weight(.semibold))
                                     .foregroundStyle(Color.mainText)
                                 
@@ -50,7 +50,7 @@ struct OptionsView: View {
                                     .foregroundStyle(.accent).opacity(0.7)
                                     .font(.system(size: 8, weight: .semibold))
                                 
-                                Text("View all move types")
+                                Text("My move types")
                                     .font(.headline.weight(.semibold))
                                     .foregroundStyle(Color.mainText)
                                 

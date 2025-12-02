@@ -36,7 +36,7 @@ struct EditRoutineView: View {
                             Image(systemName: "note.text")
                                 .foregroundStyle(.accent).opacity(0.7)
                                 .font(.system(size: 16, weight: .semibold))
-                            Text("Routine Details").font(.headline)
+                            Text("Details").font(.headline)
                         }
                         Spacer()
                         Button {
@@ -75,7 +75,7 @@ struct EditRoutineView: View {
                         Image(systemName: "rectangle.stack")
                             .foregroundStyle(.accent).opacity(0.7)
                             .font(.system(size: 16, weight: .semibold))
-                        Text("Arrange and rename parts").font(.headline)
+                        Text("Rename & Arrange").font(.headline)
                         Spacer()
                     }
                     
@@ -145,8 +145,8 @@ struct EditRoutineView: View {
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
-                    .confirmationDialog("Deleting this routine will erase all of its content. Are you sure?", isPresented: $isPresentingConfirm) {
-                        Button("Delete this routine permanently", role: .destructive) {
+                    .confirmationDialog("Deleting this choreography will erase all of its content. Are you sure?", isPresented: $isPresentingConfirm) {
+                        Button("Delete permanently", role: .destructive) {
                             deleteRoutine(id: routine.id)
                         }
                     }

@@ -12,26 +12,23 @@ struct MyDisclosureStyle: DisclosureGroupStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack {
             Button {
-                withAnimation(.spring(duration: 0.3)) {
+                withAnimation(.organicFastBounce) {
                     configuration.isExpanded.toggle()
                 }
             } label: {
                 HStack {
                 
-                  
-                    Spacer()
-                                     Text("")
-                        .padding()
-                                         .foregroundColor(.accentColor)
-                                         .font(.caption.lowercaseSmallCaps())
-                                         .animation(nil, value: configuration.isExpanded)
-                    Spacer()
+               
+                      
+                    Text("")
                       
                         
                      
                 }
+           
                 // Tapping anywhere on the divider
-                .frame(maxWidth: .infinity, maxHeight: 20)
+                .frame(maxWidth: .infinity, maxHeight: 30)
+                .contentShape(.rect)
                 
         
                 
@@ -44,7 +41,7 @@ struct MyDisclosureStyle: DisclosureGroupStyle {
                     .transition(.blurReplace)
             }
         }
-        .contentShape(Rectangle())
+     
         .offset(y: -15)
         
         
@@ -68,9 +65,11 @@ struct MoveView: View {
     @Bindable var move: Move
     
     var moveTypeText: String {
-        
-        showMoveType ? move.type!.name : move.type!.abbreviation
-        
+        if let type = move.type {
+            return showMoveType ? type.name : type.abbreviation
+        } else {
+            return ""
+        }
     }
     var body: some View {
         
@@ -97,6 +96,8 @@ struct MoveView: View {
                                 
                                 
                             }
+                          
+                            .contentShape(Rectangle())
                     
                             .transition(.slide)
                             .animation(.organicFastBounce, value: showMoveType)
@@ -127,8 +128,9 @@ struct MoveView: View {
             Divider()
             DisclosureGroup("") {
                 
-                
+               
                 VStack {
+                    
                     TextEditor(text: $move.details)
                         .frame(maxHeight: .infinity)
                         .font(.system(size: 16))
@@ -141,7 +143,7 @@ struct MoveView: View {
                                 .fill(Color.customBlue.opacity(0.1))
                                 .stroke(.black.opacity(0.7), lineWidth: 1)
                         }
-                       
+                        
                         .focused($isFocused)
                         .submitLabel(.done)
                         .disableAutocorrection(true)
@@ -149,7 +151,7 @@ struct MoveView: View {
                         .limitText($move.details, to: characterLimit)
                 }
                
-               
+                .padding(5)
                 .frame(height: 150)
               
 
@@ -167,8 +169,12 @@ struct MoveView: View {
                     
   
             }
-            .frame(maxWidth: .infinity)
+           
+  
+            
             .disclosureGroupStyle(MyDisclosureStyle())
+            
+         
             
             
             
