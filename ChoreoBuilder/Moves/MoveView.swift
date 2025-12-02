@@ -104,6 +104,14 @@ struct MoveView: View {
                             
                         
                         moveMarker(width: 40, height: 20, text: String(move.order), color: Color.customBlue)
+                            .contentShape(RoundedRectangle(cornerRadius: 4.0))
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    deleteFunction(move.id)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         
                     }
                    
@@ -189,7 +197,7 @@ struct MoveView: View {
         
 
    
-        .frame(width: 300)
+        .frame(width: UIScreen.main.bounds.width - 75)
         .padding(.horizontal, 20)
         .background(cardBackground)
         .customBorderStyle()

@@ -12,16 +12,18 @@ import Accelerate
 
 @Observable
 class AudioTrimmerModel: NSObject {
-    
+
     private var audioPlayer: AVAudioPlayer?
     private var currentExportSession: AVAssetExportSession?
+    
     var showError: Bool = false
     var errorMessage: String?
     var audioURL: URL?
     var isPlaying: Bool = false
-    var showWaveError: Bool = false
-    var selectionStart: Double = 0
-    var selectionEnd: Double = 0
+    
+    /// Start and end of the selection in seconds
+    var selectionStart: TimeInterval = 0
+    var selectionEnd: TimeInterval = 1
     
     var duration: TimeInterval? {
         audioPlayer?.duration
@@ -29,8 +31,6 @@ class AudioTrimmerModel: NSObject {
     
     var clippedURLs: [URL] = []
 
-    
-    // The difference between the AudioPlayerModel and AudioTrimmer is that we already know the URL attached when we upload a routine.
     func setupAudio(url: URL?) {
         guard let audioFileURL = url else {
             errorMessage = "Invalid audio file"
@@ -38,84 +38,82 @@ class AudioTrimmerModel: NSObject {
             return
         }
         
-        // Start accessing security-scoped resource
         guard audioFileURL.startAccessingSecurityScopedResource() else {
             errorMessage = "Failed to access audio file"
             showError = true
             return
         }
         
-        // Run the function before it exits.
-        defer {
-            audioFileURL.stopAccessingSecurityScopedResource()
-        }
+        defer { audioFileURL.stopAccessingSecurityScopedResource() }
         
-        // Copy file to temp directory for unrestricted access
         let tempURL = FileManager.default.temporaryDirectory
             .appendingPathComponent(UUID().uuidString)
             .appendingPathExtension(audioFileURL.pathExtension)
         
         do {
-           
             try FileManager.default.copyItem(at: audioFileURL, to: tempURL)
             
-            // Bluetooth Support
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playback, mode: .default)
             try audioSession.setActive(true)
             
-            // Audio Player with copied file
             audioURL = tempURL
             audioPlayer = try AVAudioPlayer(contentsOf: tempURL)
             audioPlayer?.prepareToPlay()
             
+            // Initialize selection to full track
+            selectionStart = 0
+            selectionEnd = audioPlayer?.duration ?? 0
+            
         } catch {
             errorMessage = AudioPlayerError.initializationFailed(error).errorDescription
             showError = true
-            // Clean up temp file if setup failed
             try? FileManager.default.removeItem(at: tempURL)
         }
     }
     
     func togglePlayPause() {
-        if isPlaying {
-            audioPlayer?.pause()
-        } else {
-            audioPlayer?.play()
-        }
-        
+        guard audioPlayer != nil else { return }
+        if isPlaying { audioPlayer?.pause() } else { audioPlayer?.play() }
         isPlaying.toggle()
     }
     
     func stop() {
         audioPlayer?.stop()
+        isPlaying = false
     }
     
     func seekAudio(to time: TimeInterval) {
-        audioPlayer?.currentTime = time
+        guard let duration = audioPlayer?.duration else { return }
+        audioPlayer?.currentTime = max(0, min(time, duration))
     }
     
-    func seekInterval(_ seekTime: TimeInterval) {
-        audioPlayer?.currentTime += seekTime
-    }
     
-    func clipSelection(startFraction: CGFloat, endFraction: CGFloat) async throws {
+    func seekInterval(_ seekTime: TimeInterval, updateHandles: ((TimeInterval, TimeInterval) -> Void)? = nil) {
+        guard let duration = audioPlayer?.duration else { return }
         
+        let newTime = max(0, min((audioPlayer?.currentTime ?? 0) + seekTime, duration))
+        audioPlayer?.currentTime = newTime
+        
+        // If the current time is inside selection, just update end of selection
+        let clampedTime = max(selectionStart, min(newTime, selectionEnd))
+        
+        updateHandles?(selectionStart, clampedTime)
+    }
+    
+    func clipSelection(startTime: TimeInterval, endTime: TimeInterval) async throws {
         guard let url = audioURL, let duration = audioPlayer?.duration else {
             throw AudioClipError.invalidAudioURLOrDuration
         }
         
-      
+        let start = max(0, min(startTime, duration))
+        let end = max(0, min(endTime, duration))
         
-        defer {
-            currentExportSession = nil
-        }
+        guard end > start else { return }
         
-        let start = Double(startFraction) * duration
-        let end = Double(endFraction) * duration
-        let startTime = CMTime(seconds: start, preferredTimescale: 600)
-        let endTime = CMTime(seconds: end, preferredTimescale: 600)
-        let timeRange = CMTimeRange(start: startTime, end: endTime)
+        let startCM = CMTime(seconds: start, preferredTimescale: 600)
+        let endCM = CMTime(seconds: end, preferredTimescale: 600)
+        let timeRange = CMTimeRange(start: startCM, end: endCM)
         
         let outputURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("\(formatTime(start))_\(formatTime(end)).m4a")
@@ -133,52 +131,44 @@ class AudioTrimmerModel: NSObject {
             throw AudioClipError.failedToCreateExportSession
         }
         
-        // Cancel current export session
         currentExportSession = exportSession
-        
         exportSession.timeRange = timeRange
         try await exportSession.export(to: outputURL, as: .m4a)
         
         clippedURLs.append(outputURL)
     }
     
-    // Delete the file and remove it from the array.
     func removeURL(url: URL) {
-        // Remove the file if it still exists
         try? FileManager.default.removeItem(at: url)
-        
-        // Remove from the list in memory
         clippedURLs.removeAll { $0 == url }
     }
     
-    func formatTime(_ seconds: Double) -> String {
+    func formatTime(_ seconds: TimeInterval) -> String {
         let mins = Int(seconds) / 60
         let secs = Int(seconds) % 60
         return String(format: "%02d:%02d", mins, secs)
     }
     
     func cleanup() {
-           stop()
-           audioPlayer = nil
-           isPlaying = false
-           
-
-           currentExportSession?.cancelExport()
-           currentExportSession = nil
-           
-           // Delete temp audio file
-           if let url = audioURL {
-               try? FileManager.default.removeItem(at: url)
-           }
-           
-           // Delete all clipped files
-           for url in clippedURLs {
-               try? FileManager.default.removeItem(at: url)
-           }
-           
-           audioURL = nil
-           clippedURLs.removeAll()
-       }
+        stop()
+        audioPlayer = nil
+        
+        currentExportSession?.cancelExport()
+        currentExportSession = nil
+        
+        if let url = audioURL {
+            try? FileManager.default.removeItem(at: url)
+        }
+        
+        for url in clippedURLs {
+            try? FileManager.default.removeItem(at: url)
+        }
+        
+        audioURL = nil
+        clippedURLs.removeAll()
+        selectionStart = 0
+        selectionEnd = 0
+    }
     
     deinit {
         cleanup()

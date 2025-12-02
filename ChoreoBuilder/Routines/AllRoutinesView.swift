@@ -38,9 +38,9 @@ struct AllRoutinesView: View {
                     if filteredRoutines.isEmpty {
                         
                         ContentUnavailableView {
-                            Label("No routines found", systemImage: "music.quarternote.3")
+                            Label("No choreographies found", systemImage: "music.quarternote.3")
                         } description: {
-                            Text("Add your first routine by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
+                            Text("Add your first one by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
                         }
                         
                     }

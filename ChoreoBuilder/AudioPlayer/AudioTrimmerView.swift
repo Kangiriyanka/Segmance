@@ -5,13 +5,14 @@ struct AudioTrimmerView: View {
     
     @State private var isImporting = false
     @State private var audioTrimmerManager = AudioTrimmerModel()
-    @State private var startHandle: CGFloat = 0
-    @State private var endHandle: CGFloat = 1
+    @State private var startHandle: Double = 0
+    @State private var endHandle: Double = 1
     @State private var clipStatus: ClipStatus = .idle
     @State private var isLoadingAudio = false
+    @State private var clipTask: Task<Void, Never>?
     @Namespace private var uploadSpace
     
-    let seekTimes: [CGFloat] = [1,5,10,30,60]
+
     enum ClipStatus {
         case idle, clipping, duplicate
     }
@@ -19,7 +20,7 @@ struct AudioTrimmerView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 30) {
+               
                     if audioTrimmerManager.audioURL == nil {
                       
                         emptyStateButton
@@ -27,17 +28,20 @@ struct AudioTrimmerView: View {
                        
                     }
                     
-                  
-                    
-                    if audioTrimmerManager.audioURL != nil {
-                        Divider()
+                    else {
+                       
                         audioControls
+                        AudioWaveformView(
+                            startTime: $startHandle,
+                            endTime: $endHandle,
+                            trimmer: audioTrimmerManager)
+                        
                         clipsSection
                     }
-                }
-                .padding()
+                
+               
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
             .background(backgroundGradient.ignoresSafeArea())
             .navigationTitle("Trimmer")
             .navigationBarTitleDisplayMode(.inline)
@@ -53,8 +57,9 @@ struct AudioTrimmerView: View {
             guard audioURL.startAccessingSecurityScopedResource() else { return }
             
             withAnimation(.easeInOut) {
-                audioTrimmerManager.cleanup()
+               
                 audioTrimmerManager.setupAudio(url: audioURL)
+               
             }
         }
     }
@@ -62,72 +67,46 @@ struct AudioTrimmerView: View {
   
     
     @ViewBuilder
+    /// TempComment:  HStack of Audio Controls, shouldn't cause any issues.
     private var audioControls: some View {
-        if let url = audioTrimmerManager.audioURL {
-            VStack(spacing: 20) {
-                Text(url.lastPathComponent)
-                    .foregroundColor(.secondary)
-                    .font(.caption)
-                    .lineLimit(1)
-                    .truncationMode(.middle)
-                    .frame(maxWidth: .infinity)
+    
+            HStack {
                 
-                if isLoadingAudio {
-                    ProgressView("Drawing waveform...")
-                        .frame(height: 60)
-                } else {
-                    AudioWaveformView(
-                        startHandle: $startHandle,
-                        endHandle: $endHandle,
-                        trimmer: audioTrimmerManager
-                    )
+                
+                
+                Button(action: { isImporting = true }) {
+                    Image(systemName: "square.and.arrow.down")
+                        .font(.system(size: 20, weight: .semibold))
+                        .matchedGeometryEffect(id: "audioImport", in: uploadSpace)
                 }
                 
-                ScrollView {
-                    LazyHStack {
-                        Menu {
-                            ForEach(seekTimes, id: \.self) { seconds in
-                                Button("+ \(Int(seconds))s") {
-                                    audioTrimmerManager.seekInterval(seconds)
-                                }
-                                Button("- \(Int(seconds))s") {
-                                    audioTrimmerManager.seekInterval(seconds)
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "gobackward")
-                                .font(.system(size: 20, weight: .semibold))
-                        }
-                        
-                    
-                        
-                        Button(action: { isImporting = true }) {
-                            Image(systemName: "square.and.arrow.down")
-                                .font(.system(size: 20, weight: .semibold))
-                                .matchedGeometryEffect(id: "audioImport", in: uploadSpace)
-                        }
-                        
-                        Button(action: audioTrimmerManager.togglePlayPause) {
-                            Image(systemName: audioTrimmerManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                                .font(.system(size: 20, weight: .semibold))
-                        }
-                        
-                        Button(action: clipAudio) {
-                            Image(systemName: "scissors")
-                                .font(.system(size: 20, weight: .semibold))
-                        }
-                        
-                        Button(action: resetEverything) {
-                            Image(systemName: "trash")
-                                .font(.system(size: 20, weight: .semibold))
-                        }
-                    }
+                Button(action: audioTrimmerManager.togglePlayPause) {
+                    Image(systemName: audioTrimmerManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.system(size: 20, weight: .semibold))
                 }
-                .buttonStyle(PressableButtonStyle())
-                .padding(.vertical)
+                
+                Button(action: clipAudio) {
+                    Image(systemName: "scissors")
+                        .font(.system(size: 20, weight: .semibold))
+                }
+                
+                Button(action: resetEverything) {
+                    Image(systemName: "trash")
+                        .font(.system(size: 20, weight: .semibold))
+                }
+                
             }
-        }
+            .padding()
+            
+            .buttonStyle(PressableButtonStyle())
+            
+        
     }
+                  
+             
+
+
+      
     
     private var clipsSection: some View {
         VStack(spacing: 15) {
@@ -145,11 +124,12 @@ struct AudioTrimmerView: View {
                     .foregroundColor(.secondary)
                     .font(.subheadline)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 30)
+                  
             } else {
                 clipsList
             }
         }
+        .padding()
     }
     
     private var emptyStateButton: some View {
@@ -166,7 +146,7 @@ struct AudioTrimmerView: View {
         .padding()
     }
     
-
+    // Enum to switch views.
     private var statusView: some View {
         Group {
             switch clipStatus {
@@ -223,28 +203,37 @@ struct AudioTrimmerView: View {
         }
     }
     
+
     private func clipAudio() {
-        Task {
-            withAnimation(.easeInOut) {
-                clipStatus = .clipping
-            }
+        // Cancel any existing task
+        clipTask?.cancel()
+        
+        clipTask = Task {
+            clipStatus = .clipping
             
             do {
+            
                 try await audioTrimmerManager.clipSelection(
-                    startFraction: startHandle,
-                    endFraction: endHandle
+                    startTime: startHandle,
+                    endTime: endHandle
                 )
-                withAnimation(.easeInOut) {
-                    clipStatus = .idle
-                }
+                
+                // Success
+                clipStatus = .idle
+                
             } catch {
-                withAnimation(.easeInOut) {
-                    clipStatus = .duplicate
-                }
-                try? await Task.sleep(for: .seconds(2))
-                withAnimation(.easeInOut) {
+                // If task was cancelled, just reset
+                if Task.isCancelled {
                     clipStatus = .idle
+                    return
                 }
+                
+                // Otherwise show duplicate error
+                clipStatus = .duplicate
+                
+                // Reset after 1 second
+                try? await Task.sleep(for: .seconds(1))
+                clipStatus = .idle
             }
         }
     }
@@ -264,5 +253,12 @@ func formatTime(_ seconds: CGFloat) -> String {
 }
 
 #Preview {
+    let URL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
+    let manager: AudioTrimmerModel = AudioTrimmerModel()
     AudioTrimmerView()
+        .onAppear {
+          
+            manager.setupAudio(url: URL)
+        }
+    
 }

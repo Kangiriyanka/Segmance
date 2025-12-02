@@ -29,8 +29,8 @@ struct MoveDropViewDelegate: DropDelegate {
               let toIndex = originalArray.firstIndex(where: { $0.id == destinationMove.id }),
               fromIndex != toIndex else { return }
         
-        withAnimation(Animation.smoothReorder){
-  
+        // Remove withAnimation here: just update the data, let the view handle the animation.
+
             originalArray.move(
                 fromOffsets: IndexSet(integer: fromIndex),
                 toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)
@@ -38,11 +38,7 @@ struct MoveDropViewDelegate: DropDelegate {
             
             updateOrderNumbers()
             
-         
-            
-        
-         
-        }
+      
     }
     
     private func updateOrderNumbers() {

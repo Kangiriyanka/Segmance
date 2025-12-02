@@ -111,14 +111,9 @@ struct PartView: View {
                                 .focused($focusedMoveID, equals: move.id)
                                 .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 10))
                              
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        deleteMove(id: move.id)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
-                                }
+                               
                         }
+                        .animation(.smoothReorder, value: moves)
                     }
                 }
             }

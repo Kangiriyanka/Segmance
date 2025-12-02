@@ -44,6 +44,13 @@ var shadowOutline: some View {
     
 }
 
+var trimmerOutline: some View {
+    RoundedRectangle(cornerRadius: 10)
+        .stroke(Color.black.opacity(0.3), lineWidth: 2)
+        .shadow(radius: 2, x: 0, y: 2)
+    
+}
+
 var playerBackground: RadialGradient {
     RadialGradient(
         colors: [
