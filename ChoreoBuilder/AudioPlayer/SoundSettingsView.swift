@@ -23,24 +23,29 @@ struct SoundSettingsView: View {
    
    
     var body: some View {
-        
-        Text("Choose the countdown sound ")
-        Picker("Sound", selection: Binding(
-            get: { CountdownSound(rawValue: countdownSound) ?? .snap },
-            // Don't need onChange
-            set: { newValue in
-                countdownSound = newValue.rawValue
-                audioPlayerManager.playTick()
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("Choose the countdown sound ").customHeader()
+                Picker("Sound", selection: Binding(
+                    get: { CountdownSound(rawValue: countdownSound) ?? .snap },
+                    // Don't need onChange
+                    set: { newValue in
+                        countdownSound = newValue.rawValue
+                        audioPlayerManager.playTick()
+                    }
+                )) {
+                    ForEach(CountdownSound.allCases, id: \.self) {
+                        Text($0.rawValue.capitalized)
+                            .tag($0)
+                    }
+                }
+                
+                
+                .pickerStyle(.segmented)
             }
-        )) {
-            ForEach(CountdownSound.allCases, id: \.self) {
-                Text($0.rawValue.capitalized)
-                    .tag($0)
-            }
+            .padding()
         }
-     
-       
-        .pickerStyle(.segmented)
+        .background(backgroundGradient)
         
     }
     

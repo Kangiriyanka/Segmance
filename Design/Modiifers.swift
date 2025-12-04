@@ -13,11 +13,13 @@ import SwiftUI
 struct CustomHeader: ViewModifier {
     
     func body(content: Content) -> some View {
-        
         content
             .font(.headline)
             .fontWeight(.semibold)
-            .foregroundStyle(.secondary).italic()
+            .foregroundStyle(.secondary)
+            .tracking(0.2)
+            .italic()
+            .opacity(0.85)
     }
 }
 
@@ -101,6 +103,8 @@ struct CustomLoopCircle: ViewModifier {
         .customCircle()
     
     Button("Toggle") {a.toggle()}
+    
+    Text("Hi").customHeader()
 }
 
 
@@ -132,5 +136,6 @@ extension View {
         modifier(CustomLoopCircle())
     }
 }
+
 
 

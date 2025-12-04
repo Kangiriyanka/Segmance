@@ -122,8 +122,8 @@ struct UsageGuideView: View {
                     
                     
                     Image(systemName: "repeat")
-                        .symbolRenderingMode(.monochrome)
-                        .font(.system(size: 26))
+                        .foregroundStyle(.mainText)
+                        .font(.system(size: 20))
                         .foregroundStyle(isCustomLooping ? Color.white : Color.black)
                        
                      
@@ -131,7 +131,7 @@ struct UsageGuideView: View {
                             Text(isCustomLooping ? "Hold" :"AB")
                                 
                                 
-                                .customCircle()
+                                .customCircle().scaleEffect(0.8)
                             
                             
                             
@@ -147,6 +147,7 @@ struct UsageGuideView: View {
                         
                         VStack(spacing: 10) {
                             Image(systemName: "powersleep")
+                                .font(.system(size: 20))
                                 .foregroundStyle(.mainText)
                             
                             

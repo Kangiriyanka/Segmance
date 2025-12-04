@@ -14,9 +14,7 @@ func infoCard(title: String, description: String, spacing: CGFloat) -> some View
     VStack(alignment: .leading, spacing: spacing) {
        
             Text(title)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundStyle(.secondary).italic()
+                .customHeader()
             
             Text(description)
                 .padding()
@@ -32,16 +30,29 @@ func usageTitle(title: String, ) -> some View {
     VStack(alignment: .leading) {
        
             Text(title)
-                .font(.subheadline)
+                .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.secondary).italic()
-            
-       
-        
-     
+
     }
     
     
+}
+
+func navText(title: String, image: String) -> some View {
+    
+    HStack(spacing: 10) {
+        Image(systemName: image)
+            .foregroundStyle(.accent).opacity(0.7)
+            .font(.system(size: 8, weight: .semibold))
+        
+        Text(title)
+            .font(.headline.weight(.semibold))
+            .foregroundStyle(Color.mainText)
+        
+        Spacer()
+    }
+    .bubbleStyle()
 }
 
 

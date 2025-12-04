@@ -41,6 +41,8 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         UserDefaults.standard.string(forKey: "countdownSound") ?? "tick"
     }
     
+    
+    
     // You need this to destroy the countdown timer every time you pause.
     private var countdownTimer: Timer?
     

@@ -19,15 +19,15 @@ struct AboutView: View {
             VStack(alignment: .leading, spacing: 20) {
                 infoCard(
                     title: "Why ChoreoBuilder?",
-                    description: "ChoreoBuilder offers a simple and organized way of segmenting music into manageable parts to brainstorm and practice choreographies enjoyably.",
+                    description: "ChoreoBuilder offers a simple and organized way of segmenting songs into manageable parts to brainstorm and practice choreographies enjoyably.",
                     spacing: 12
                 )
                 
                 BubbleSeparator()
                 
                 infoCard(
-                    title: "What's a choreography?",
-                    description: "In this app, a choreography is a sequence of movements that brings your performance to life.",
+                    title: "What is a choreography?",
+                    description: "In this app, a choreography is any creative sequence of movements that bring your artistic performance to life.",
                     spacing: 12
                 )
                 
@@ -48,9 +48,7 @@ struct AboutView: View {
             
             VStack(alignment: .leading){
                 Text("Support")
-                    .font(.headline)
-                    .foregroundStyle(.secondary).italic()
-                    .fontWeight(.semibold)
+                    .customHeader()
                 
                 Text("Enjoying the app? Rate it, reach out personally for support or request features.")
                     .padding()

@@ -28,35 +28,14 @@ struct OptionsView: View {
                         NavigationLink {
                             AllRoutinesView()
                         } label: {
-                            HStack(spacing: 10) {
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(.accent).opacity(0.7)
-                                    .font(.system(size: 8, weight: .semibold))
-                                
-                                Text("My choreographies")
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(Color.mainText)
-                                
-                                Spacer()
-                            }
-                            .bubbleStyle()
+                            navText(title: "Choreographies", image: "circle.fill")
                         }
                         
                         NavigationLink {
                             AllMoveTypesView()
                         } label: {
-                            HStack(spacing: 10) {
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(.accent).opacity(0.7)
-                                    .font(.system(size: 8, weight: .semibold))
-                                
-                                Text("My move types")
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(Color.mainText)
-                                
-                                Spacer()
-                            }
-                            .bubbleStyle()
+                            navText(title: "Move Types", image: "circle.fill")
+                          
                         }
                         
                     } header: {
@@ -78,18 +57,7 @@ struct OptionsView: View {
                         NavigationLink {
                             UsageGuideView()
                         } label: {
-                            HStack(spacing: 10) {
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(.accent).opacity(0.7)
-                                    .font(.system(size: 8, weight: .semibold))
-                                
-                                Text("Usage Guide")
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(Color.mainText)
-                                
-                                Spacer()
-                            }
-                            .bubbleStyle()
+                            navText(title: "Usage Guide", image: "circle.fill")
                         }
                         
                         
@@ -97,18 +65,7 @@ struct OptionsView: View {
                         NavigationLink {
                             AboutView()
                         } label: {
-                            HStack(spacing: 10) {
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(.accent).opacity(0.7)
-                                    .font(.system(size: 8, weight: .semibold))
-                                
-                                Text("About ChoreoBuilder")
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(Color.mainText)
-                                
-                                Spacer()
-                            }
-                            .bubbleStyle()
+                            navText(title: "About", image: "circle.fill")
                         }
                         
                     } header: {
@@ -131,37 +88,14 @@ struct OptionsView: View {
                             NavigationLink {
                                 SoundSettingsView()
                             } label: {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "circle.fill")
-                                        .foregroundStyle(.accent).opacity(0.7)
-                                        .font(.system(size: 8, weight: .semibold))
-                                    
-                                    Text("Sound settings")
-                                        .font(.headline.weight(.semibold))
-                                        .foregroundStyle(Color.mainText)
-                                    
-                                    Spacer()
-                                }
-                                .bubbleStyle()
+                                navText(title: "Sound Settings", image: "circle.fill")
                             }
                             
                             
                             Button {
                                 isExporting = true
                             } label: {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "circle.fill")
-                                        .foregroundStyle(.accent)
-                                        .opacity(0.7)
-                                        .font(.system(size: 8, weight: .semibold))
-
-                                    Text("Export")
-                                        .font(.headline.weight(.semibold))
-                                        .foregroundStyle(Color.mainText)
-
-                                    Spacer()
-                                }
-                                .bubbleStyle()
+                                navText(title: "Export", image: "circle.fill")
                             }
                             .buttonStyle(NavButtonStyle())
 
