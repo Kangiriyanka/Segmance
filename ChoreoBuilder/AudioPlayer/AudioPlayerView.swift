@@ -528,6 +528,7 @@ struct AudioPlayerView: View {
                 // Frame of the whole slider
                 .frame(height: 20)
                 .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
+                    
                     if !isDragging {
                         audioPlayerManager.updateProgress()
                         
@@ -538,10 +539,10 @@ struct AudioPlayerView: View {
                 
                 
                 HStack {
-                    Text(isDragging ? audioPlayerManager.timeString(time: previewTime) : audioPlayerManager.timeString(time: audioPlayerManager.currentTime))
+                    Text(isDragging ? timeString(time: previewTime) : timeString(time: audioPlayerManager.currentTime))
                         .foregroundColor(.white)
                     Spacer()
-                    Text(audioPlayerManager.timeString(time: audioPlayerManager.totalTime))
+                    Text(timeString(time: audioPlayerManager.totalTime))
                         .foregroundColor(.white)
                 }
                 

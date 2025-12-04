@@ -18,7 +18,7 @@ struct AboutView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 infoCard(
-                    title: "What does ChoreoBuilder do?",
+                    title: "Why ChoreoBuilder?",
                     description: "ChoreoBuilder offers a simple and organized way of segmenting music into manageable parts to brainstorm and practice choreographies enjoyably.",
                     spacing: 12
                 )
@@ -27,7 +27,7 @@ struct AboutView: View {
                 
                 infoCard(
                     title: "What's a choreography?",
-                    description: "In this app, a choreography is defined as an organized sequence of movements used to express yourself through performance art.",
+                    description: "In this app, a choreography is a sequence of movements that brings your performance to life.",
                     spacing: 12
                 )
                 
@@ -52,7 +52,7 @@ struct AboutView: View {
                     .foregroundStyle(.secondary).italic()
                     .fontWeight(.semibold)
                 
-                Text("Enjoying the app? Rate it, reach out for support or request features.")
+                Text("Enjoying the app? Rate it, reach out personally for support or request features.")
                     .padding()
                     .background(cardBackground)
                     .customBorderStyle()
@@ -92,7 +92,7 @@ struct AboutView: View {
                 Spacer()
                 ForEach(0..<3, id: \.self) { _ in
                     Circle()
-                        .fill(.accent)
+                        .fill(.accent).opacity(0.7)
                         .frame(width: 8, height: 8)
                         .shadow(color: .black.opacity(0.15), radius: 2)
                 }

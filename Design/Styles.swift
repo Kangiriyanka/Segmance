@@ -30,19 +30,21 @@ struct MiniAudioButtonStyle: ButtonStyle {
         let disabled = isDisabled ?? false
         configuration.label
             .frame(width: 30)
-            .padding(5)
+            .padding(3)
             .background(RoundedRectangle(cornerRadius: 4.0)
                         
                 .fill(color.opacity(0.5))
                 .stroke(.black.opacity(0.3), lineWidth: 1)
                 .shadow(radius: 2, x: 0, y: 1)
-                        )
+                
+            )
         
            
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
             .scaleEffect(configuration.isPressed ? scale : 1)
             .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))
             .foregroundStyle(.mainText)
+            .font(.caption)
             .opacity(configuration.isPressed ? opacity : 1)
             .animation(.spring(response: 0.3, dampingFraction: 0.4), value: configuration.isPressed)
           
@@ -88,25 +90,24 @@ struct ReviewButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         let disabled = isDisabled ?? false
         configuration.label
-           
             .padding()
             .background(
-                
                 RoundedRectangle(cornerRadius: 16)
-                
-                    .fill(Color.accent.opacity(0.6))
-                
+                    .fill(
+                        RadialGradient(
+                            colors: [.accent.opacity(0.8), .accent],
+                            center: .topLeading,
+                            startRadius: 20,
+                            endRadius: 90
+                        )
+                    )
             )
-           
             .font(.system(size: 16, weight: .bold))
+            .foregroundStyle(.mainText)
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
             .scaleEffect(configuration.isPressed ? scale : 1)
             .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))
-            .foregroundStyle(.mainText)
-            .opacity(configuration.isPressed ? opacity : 1)
             .animation(.spring(response: 0.3, dampingFraction: 0.4), value: configuration.isPressed)
-            .foregroundColor(.mainText)
-          
     }
 }
 
@@ -114,4 +115,7 @@ struct ReviewButtonStyle: ButtonStyle {
     
     Button("+1"){}
         .buttonStyle(MiniAudioButtonStyle(color: .customPink))
+    Divider()
+    Button("Review"){}
+        .buttonStyle(ReviewButtonStyle())
 }

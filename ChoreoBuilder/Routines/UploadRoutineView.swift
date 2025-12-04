@@ -88,7 +88,7 @@ struct UploadRoutineView: View {
                 
                 
       
-                TextField("Enter the routine title", text: $routineTitle)
+                TextField("Enter a title", text: $routineTitle)
                     .bubbleStyle()
                     .limitText($routineTitle, to: characterLimit)
                     .focused($isFocused)
@@ -179,10 +179,8 @@ struct UploadRoutineView: View {
                         if selectedFiles.isEmpty {
                             
                             ContentUnavailableView {
-                                Label("No uploaded music files", systemImage: "music.note")
-                            } description: {
-                                Text("Once you enter a title and description, you can upload music files. ").padding([.top], 5)
-                            }
+                                Label("No uploaded audio files", systemImage: "music.note")
+                            } 
                         }
                         
                         

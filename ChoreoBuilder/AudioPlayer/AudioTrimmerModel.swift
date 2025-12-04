@@ -13,13 +13,14 @@ import Accelerate
 @Observable
 class AudioTrimmerModel: NSObject {
 
-    private var audioPlayer: AVAudioPlayer?
+    var audioPlayer: AVAudioPlayer?
     private var currentExportSession: AVAssetExportSession?
     
     var showError: Bool = false
     var errorMessage: String?
     var audioURL: URL?
     var isPlaying: Bool = false
+    var originalFilename: String?
     
     /// Start and end of the selection in seconds
     var selectionStart: TimeInterval = 0
@@ -46,6 +47,7 @@ class AudioTrimmerModel: NSObject {
         
         defer { audioFileURL.stopAccessingSecurityScopedResource() }
         
+        originalFilename = String(audioFileURL.deletingPathExtension().lastPathComponent.prefix(6))
         let tempURL = FileManager.default.temporaryDirectory
             .appendingPathComponent(UUID().uuidString)
             .appendingPathExtension(audioFileURL.pathExtension)
@@ -115,8 +117,13 @@ class AudioTrimmerModel: NSObject {
         let endCM = CMTime(seconds: end, preferredTimescale: 600)
         let timeRange = CMTimeRange(start: startCM, end: endCM)
         
+        
+        let base = (originalFilename ?? "Clip")
+      
+       
         let outputURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("\(formatTime(start))_\(formatTime(end)).m4a")
+            .appendingPathComponent("\(base)_\(formatTime(start))_\(formatTime(end)).m4a")
+        
         
         guard !clippedURLs.contains(outputURL) else {
             throw AudioClipError.sameClip
@@ -172,5 +179,11 @@ class AudioTrimmerModel: NSObject {
     
     deinit {
         cleanup()
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
+        isPlaying = false
+
     }
 }

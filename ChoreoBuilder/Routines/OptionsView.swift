@@ -127,6 +127,25 @@ struct OptionsView: View {
                     
                  
                         Section {
+                            
+                            NavigationLink {
+                                SoundSettingsView()
+                            } label: {
+                                HStack(spacing: 10) {
+                                    Image(systemName: "circle.fill")
+                                        .foregroundStyle(.accent).opacity(0.7)
+                                        .font(.system(size: 8, weight: .semibold))
+                                    
+                                    Text("Sound settings")
+                                        .font(.headline.weight(.semibold))
+                                        .foregroundStyle(Color.mainText)
+                                    
+                                    Spacer()
+                                }
+                                .bubbleStyle()
+                            }
+                            
+                            
                             Button {
                                 isExporting = true
                             } label: {
@@ -148,7 +167,7 @@ struct OptionsView: View {
 
                         } header: {
                             HStack {
-                                Text("Data ")
+                                Text("Extras")
                                     .customHeader()
                                 Spacer()
                             }
@@ -196,5 +215,5 @@ struct OptionsView: View {
 #Preview {
     let container = Routine.preview
     OptionsView()
-        .modelContainer(container)
+//        .modelContainer(container)
 }

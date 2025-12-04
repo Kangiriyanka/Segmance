@@ -10,6 +10,14 @@ import DSWaveformImageViews
 import DSWaveformImage
 
 
+// Extremely cool. 
+extension Comparable {
+    
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        return min(max(self, range.lowerBound), range.upperBound)
+    }
+}
+
 
 struct SimpleDSWaveformView: View {
     let audioURL: URL
@@ -76,6 +84,22 @@ struct AudioWaveformView: View {
                             )
                             .offset(x: startFraction * geo.size.width)
                         
+                        let playheadFraction = CGFloat(previewTime / duration)
+                        
+                        
+                       
+                        Needle(width: 2, height: geo.size.height, color: .yellow)
+                            .position(
+                                x: playheadFraction * geo.size.width,
+                                y: geo.size.height / 2
+                            )
+                            .onReceive(
+                                Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+                            ) { _ in
+                                previewTime = trimmer?.audioPlayer?.currentTime ?? 0
+                            }
+                           
+                        
                         // Start handle
                         HandleView(height: geo.size.height, color: .customPink)
                             .position(x: startFraction * geo.size.width, y: geo.size.height / 2)
@@ -87,7 +111,7 @@ struct AudioWaveformView: View {
                                         startTime = round(rawTime)
                                     }
                                     .onEnded { _ in
-                                        trimmer?.seekAudio(to: previewTime)
+                                        trimmer?.seekAudio(to: startTime)
                                     }
                             )
                         
@@ -106,28 +130,21 @@ struct AudioWaveformView: View {
                 }
                
             }
-            #if targetEnvironment(simulator)
-            .border(.customBlue)
-            #endif
+          
             .background(shadowOutline)
             .frame(width: UIScreen.main.bounds.width - 50, height: 50)
             
             
             if trimmer?.duration != nil {
                 timeControls
-                #if targetEnvironment(simulator)
-                .border(.red)
-                #endif
+              
             }
         }
-        .padding(.horizontal, 20)
-       
         
+        .padding()
+        .background(shadowOutline)
+ 
        
-        
-        #if targetEnvironment(simulator)
-        .border(.green)
-        #endif
       
         
     }
@@ -150,11 +167,13 @@ struct AudioWaveformView: View {
             // Button groups in their own HStack
             HStack(spacing: 10) {
                 HStack(spacing: 6) {
-                    Button("-10") { startTime = max(0, startTime - 10) }
-                    Button("-1") { startTime = max(0, startTime - 1) }
-                    Button("+1") { startTime = min(endTime - 1, startTime + 1) }
-                    Button("+10") { startTime = min(endTime - 1, startTime + 10) }
+                    Button("-10") { adjustStartTime(by: -10) }
+                    Button("-1") { adjustStartTime(by: -1) }
+                    Button("+1") { adjustStartTime(by: 1) }
+                    Button("+10") { adjustStartTime(by: 10) }
                 }
+
+              
                 .buttonStyle(MiniAudioButtonStyle(color: .customPink))
                 
                 Divider()
@@ -171,6 +190,12 @@ struct AudioWaveformView: View {
         }
        
     }
+    
+    private func adjustStartTime(by offset: Double) {
+        let newTime = (startTime + offset).clamped(to: 0...(endTime - 1))
+        startTime = newTime
+        trimmer?.seekAudio(to: newTime)
+    }
 
     func formatTime(_ seconds: Double) -> String {
         let mins = Int(seconds) / 60
@@ -179,7 +204,35 @@ struct AudioWaveformView: View {
     }
 }
 
+
+struct Needle: View {
+
+    let width: CGFloat
+    let height: CGFloat
+    let color: Color
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: 4)
+            .fill(color)
+            .frame(width: width, height: height)
+            .shadow(color: .black.opacity(0.2), radius: 2, y: 1)
+            .overlay(alignment: .top) {
+                Circle()
+                    .fill(color)
+                    .frame(width: 8, height: 8)
+                    .offset(y: -4)
+            }
+            .overlay(alignment: .bottom) {
+                Circle()
+                    .fill(color)
+                    .frame(width: 8, height: 8)
+                    .offset(y: 4)
+            }
+    }
+}
+
 struct HandleView: View {
+ 
     let height: CGFloat
     let color: Color
     
@@ -217,4 +270,11 @@ struct HandleView: View {
     }
     
     return PreviewWrapper()
+}
+
+
+
+#Preview {
+    
+    Needle(width: 3, height: 100, color: .blue)
 }

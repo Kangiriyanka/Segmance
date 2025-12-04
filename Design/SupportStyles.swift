@@ -32,7 +32,7 @@ func usageTitle(title: String, ) -> some View {
     VStack(alignment: .leading) {
        
             Text(title)
-                .font(.headline)
+                .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.secondary).italic()
             

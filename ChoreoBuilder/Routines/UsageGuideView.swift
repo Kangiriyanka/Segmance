@@ -21,7 +21,7 @@ struct UsageGuideView: View {
                 
                 infoButtonCard(
                     title: "General",
-                    description: "Audio files you upload will be split into parts. Each part will have its own audio player associated with it. You can rename and drag parts to change their order.", spacing: 12) {
+                    description: "Audio files uploaded will be split into parts. Each part will have its own audio player associated with it. You can rename and drag parts to change their order.", spacing: 12) {
                         
                         Button() {
                           
@@ -34,7 +34,7 @@ struct UsageGuideView: View {
                 
                 infoButtonCard(
                     title: "Clipping Audio",
-                    description: "If there's an audio file you want to clip, please use the clipper tool.", spacing: 12) {
+                    description: "If there's an audio file you want to clip beforehand, use the clipper tool.", spacing: 12) {
                         
                         Button() {
                           
@@ -58,26 +58,29 @@ struct UsageGuideView: View {
                     
                 )
            
-                infoButtonCard(title: "Link a video" ,description: "Link a video from your Photos library to your choreography parts. Once you link a video, a new play button will appear. You can unlink the video by long-pressing it." ,spacing: 12) {
+                infoButtonCard(title: "Link a video" ,description: "Link a video from your Photos library to a specific part. Once linked, a new play button will appear. You can unlink the video by long-pressing the play button." ,spacing: 12) {
                     
                     Button() {
                         
                     } label: {
                         Image(systemName: "film")
                     }
+                    
+                
             
                     
                   
                 }
               
                 
-                infoButtonCard(title: "Toggle the player" ,description: "Toggle the audio player. You can expand the player by tapping on it." ,spacing: 12) {
+                infoButtonCard(title: "Toggle the player" ,description: "Toggle the audio player. It can be expanded  by tapping on it." ,spacing: 12) {
                     
                     Button() {
                       
                     } label: {
                         Image(systemName: "music.quarternote.3")
                     }
+                    
     
                 
                 }
@@ -86,7 +89,7 @@ struct UsageGuideView: View {
                 
                 
                 
-                infoButtonCard(title: "Add a custom move" ,description: "Add personalized moves of any type you choose. The type is an abstract way to represent the move.  You can reorder the moves by dragging them or delete them by long-pressing." ,spacing: 12) {
+                infoButtonCard(title: "Add a custom move" ,description: "Add personalized moves of any type you choose. The type is an abstract way to represent the move.  ." ,spacing: 12) {
                     
                     withAnimation(Animation.organicFastBounce) {
                         Button() {
@@ -115,7 +118,7 @@ struct UsageGuideView: View {
                     
                 )
                 
-                infoButtonCard(title: "Custom Loop" ,description: "Set a custom loop for longer parts you want to practice. You can turn it off by long-pressing it. ", spacing: 12) {
+                infoButtonCard(title: "Custom Loop" ,description: "Set a custom loop for longer parts you want to practice. Turn it off by long-pressing it. ", spacing: 12) {
                     
                     
                     Image(systemName: "repeat")
@@ -138,7 +141,7 @@ struct UsageGuideView: View {
                    
                 }
                 
-                infoButtonCard(title: "Countdown" ,description: "Set a countdown before you start performing. The countdown resets every time you pause or when the looped parts are done." ,spacing: 12) {
+                infoButtonCard(title: "Countdown" ,description: "Set a countdown before you start practicing. The countdown resets every time you pause or when a loop finishes" ,spacing: 12) {
       
                     Group {
                         
@@ -197,7 +200,7 @@ func infoButtonCard<T: View>(
                     .font(.footnote)
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(cardBackground)
         .customBorderStyle()

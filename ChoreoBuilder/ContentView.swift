@@ -8,6 +8,10 @@ import SwiftData
 
 
 struct ContentView: View {
+    
+    @AppStorage("hasOnboarded") var hasOnboarded: Bool = false
+    
+
   
     init() {
         let itemAppearance = UITabBarItemAppearance()
@@ -21,47 +25,58 @@ struct ContentView: View {
         appearance.compactInlineLayoutAppearance = itemAppearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
-        
     }
+    
+    
     var body: some View {
         
-      
-            TabView {
+        Group {
+            if hasOnboarded {
+                TabView {
+                    
+                    
+                    RoutineContainerView()
+                    
+                        .tabItem {
+                            Label("Choreographies", systemImage: "figure.dance")
+                            
+                        }
+                    
+                    
+                    AudioTrimmerView()
+                        .tabItem {
+                            Label("Clipper", systemImage: "scissors")
+                        }
+                    
+                    
+                    OptionsView()
+                        .tabItem {
+                            Label("Settings", systemImage: "gear")
+                        }
+                    
+                    
+                    
+                    
+#if targetEnvironment(simulator)
+                    FilesView()
+                        .tabItem {
+                            Label("Files", systemImage: "folder")
+                        }
+#endif
+                    
+                    
+                }
                 
-                
-                RoutineContainerView()
-                   
-                    .tabItem {
-                        Label("Choreographies", systemImage: "figure.dance")
-                        
-                    }
-                 
-                
-                AudioTrimmerView()
-                    .tabItem {
-                        Label("Clipper", systemImage: "scissors")
-                    }
-               
-                
-                OptionsView()
-                    .tabItem {
-                        Label("Settings", systemImage: "gear")
-                    }
-                 
-                
-                
-                
-                #if targetEnvironment(simulator)
-                FilesView()
-                    .tabItem {
-                        Label("Files", systemImage: "folder")
-                    }
-                #endif
-                
-               
             }
-     
+            
+            else {
+                OnboardingView()
+            }
+        }
+        .animation(.easeInOut(duration: 0.7), value: hasOnboarded)
+        .transition(.move(edge: .trailing).combined(with: .opacity))
         
+    
     }
     
 
@@ -73,7 +88,11 @@ struct ContentView: View {
     let preview = Routine.preview
    
     ContentView()
+    
         .modelContainer(preview)
+        .onAppear {
+                UserDefaults.standard.set(false, forKey: "hasOnboarded")
+            }
     
 }
 

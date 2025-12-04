@@ -19,14 +19,26 @@
 		822245CA2EDE1CBA001B70AA /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 822245C92EDE1CBA001B70AA /* snap.wav */; };
 		822245CB2EDE1CBA001B70AA /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 822245C92EDE1CBA001B70AA /* snap.wav */; };
 		822245CC2EDE1CBA001B70AA /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 822245C92EDE1CBA001B70AA /* snap.wav */; };
+		822246062EDFD598001B70AA /* AudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822246052EDFD598001B70AA /* AudioExtensions.swift */; };
+		822246072EDFD598001B70AA /* AudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822246052EDFD598001B70AA /* AudioExtensions.swift */; };
+		822246082EDFD598001B70AA /* AudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822246052EDFD598001B70AA /* AudioExtensions.swift */; };
+		825542E52EE2043A00783FDC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E42EE2043A00783FDC /* OnboardingView.swift */; };
+		825542E62EE2043A00783FDC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E42EE2043A00783FDC /* OnboardingView.swift */; };
+		825542E72EE2043A00783FDC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E42EE2043A00783FDC /* OnboardingView.swift */; };
+		825542E92EE2104C00783FDC /* SoundSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E82EE2104C00783FDC /* SoundSettingsView.swift */; };
+		825542EA2EE2104C00783FDC /* SoundSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E82EE2104C00783FDC /* SoundSettingsView.swift */; };
+		825542EB2EE2104C00783FDC /* SoundSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E82EE2104C00783FDC /* SoundSettingsView.swift */; };
+		825542ED2EE21DE100783FDC /* gabagoo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542EC2EE21DE100783FDC /* gabagoo.wav */; };
+		825542EE2EE21DE100783FDC /* gabagoo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542EC2EE21DE100783FDC /* gabagoo.wav */; };
+		825542EF2EE21DE100783FDC /* gabagoo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542EC2EE21DE100783FDC /* gabagoo.wav */; };
+		825542F12EE21FA600783FDC /* furio.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542F02EE21FA600783FDC /* furio.wav */; };
+		825542F22EE21FA600783FDC /* furio.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542F02EE21FA600783FDC /* furio.wav */; };
+		825542F32EE21FA600783FDC /* furio.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542F02EE21FA600783FDC /* furio.wav */; };
 		827D6F872E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F882E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
 		827D6F892E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
-		828DC4092E5372610032083A /* furio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D32E5372610032083A /* furio.mp3 */; };
 		828DC40A2E5372610032083A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FF2E5372610032083A /* Info.plist */; };
-		828DC40C2E5372610032083A /* nanako.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D52E5372610032083A /* nanako.mp3 */; };
 		828DC40D2E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
-		828DC40E2E5372610032083A /* gabagoo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D42E5372610032083A /* gabagoo.mp3 */; };
 		828DC40F2E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
 		828DC4102E5372610032083A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DF2E5372610032083A /* Part.swift */; };
 		828DC4122E5372610032083A /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D82E5372610032083A /* AudioPlayerView.swift */; };
@@ -66,11 +78,8 @@
 		828DC4462E5372610032083A /* PartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EB2E5372610032083A /* PartView.swift */; };
 		828DC4482E5372610032083A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DE2E5372610032083A /* Move.swift */; };
 		828DC44E2E5372610032083A /* AudioPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D72E5372610032083A /* AudioPlayerModel.swift */; };
-		828DC4502E5372610032083A /* furio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D32E5372610032083A /* furio.mp3 */; };
 		828DC4512E5372610032083A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FF2E5372610032083A /* Info.plist */; };
-		828DC4532E5372610032083A /* nanako.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D52E5372610032083A /* nanako.mp3 */; };
 		828DC4542E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
-		828DC4552E5372610032083A /* gabagoo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D42E5372610032083A /* gabagoo.mp3 */; };
 		828DC4562E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
 		828DC4572E5372610032083A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DF2E5372610032083A /* Part.swift */; };
 		828DC4592E5372610032083A /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D82E5372610032083A /* AudioPlayerView.swift */; };
@@ -91,10 +100,7 @@
 		828DC46D2E5372610032083A /* PartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EB2E5372610032083A /* PartView.swift */; };
 		828DC46F2E5372610032083A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DE2E5372610032083A /* Move.swift */; };
 		828DC4752E5372610032083A /* AudioPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D72E5372610032083A /* AudioPlayerModel.swift */; };
-		828DC4772E5372610032083A /* furio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D32E5372610032083A /* furio.mp3 */; };
-		828DC47A2E5372610032083A /* nanako.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D52E5372610032083A /* nanako.mp3 */; };
 		828DC47B2E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
-		828DC47C2E5372610032083A /* gabagoo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3D42E5372610032083A /* gabagoo.mp3 */; };
 		828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
 		82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
 		82DD58202ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
@@ -105,9 +111,6 @@
 		82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
 		82E7574B2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
 		82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
-		82E757522ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
-		82E757532ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
-		82E757542ED92AC50086F880 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757512ED92AC50086F880 /* TimelineBar.swift */; };
 		82E757562ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
 		82E757572ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
 		82E757582ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
@@ -140,10 +143,12 @@
 		821392552E95D206003B79E1 /* AllMoveTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoveTypesView.swift; sourceTree = "<group>"; };
 		821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrimmerView.swift; sourceTree = "<group>"; };
 		822245C92EDE1CBA001B70AA /* snap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = snap.wav; sourceTree = "<group>"; };
+		822246052EDFD598001B70AA /* AudioExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioExtensions.swift; sourceTree = "<group>"; };
+		825542E42EE2043A00783FDC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		825542E82EE2104C00783FDC /* SoundSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundSettingsView.swift; sourceTree = "<group>"; };
+		825542EC2EE21DE100783FDC /* gabagoo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gabagoo.wav; sourceTree = "<group>"; };
+		825542F02EE21FA600783FDC /* furio.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = furio.wav; sourceTree = "<group>"; };
 		827D6F862E76592E00091652 /* AudioErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioErrors.swift; sourceTree = "<group>"; };
-		828DC3D32E5372610032083A /* furio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = furio.mp3; sourceTree = "<group>"; };
-		828DC3D42E5372610032083A /* gabagoo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gabagoo.mp3; sourceTree = "<group>"; };
-		828DC3D52E5372610032083A /* nanako.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nanako.mp3; sourceTree = "<group>"; };
 		828DC3D72E5372610032083A /* AudioPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerModel.swift; sourceTree = "<group>"; };
 		828DC3D82E5372610032083A /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		828DC3DC2E5372610032083A /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
@@ -173,7 +178,6 @@
 		82DDAE702CFBF2F400AD0F60 /* ChoreoBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreoBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E757152ED3906B0086F880 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		82E757492ED8F90C0086F880 /* UsageGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageGuideView.swift; sourceTree = "<group>"; };
-		82E757512ED92AC50086F880 /* TimelineBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBar.swift; sourceTree = "<group>"; };
 		82E757552ED9458E0086F880 /* AudioWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWaveformView.swift; sourceTree = "<group>"; };
 		82E759652EDB5A8C0086F880 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,10 +256,9 @@
 		828DC3D62E5372610032083A /* Audio Files */ = {
 			isa = PBXGroup;
 			children = (
-				828DC3D32E5372610032083A /* furio.mp3 */,
-				828DC3D42E5372610032083A /* gabagoo.mp3 */,
+				825542F02EE21FA600783FDC /* furio.wav */,
+				825542EC2EE21DE100783FDC /* gabagoo.wav */,
 				822245C92EDE1CBA001B70AA /* snap.wav */,
-				828DC3D52E5372610032083A /* nanako.mp3 */,
 			);
 			path = "Audio Files";
 			sourceTree = "<group>";
@@ -267,9 +270,10 @@
 				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
 				82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */,
 				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
+				822246052EDFD598001B70AA /* AudioExtensions.swift */,
 				82E757552ED9458E0086F880 /* AudioWaveformView.swift */,
-				82E757512ED92AC50086F880 /* TimelineBar.swift */,
 				827D6F862E76592E00091652 /* AudioErrors.swift */,
+				825542E82EE2104C00783FDC /* SoundSettingsView.swift */,
 			);
 			path = AudioPlayer;
 			sourceTree = "<group>";
@@ -307,6 +311,7 @@
 				828DC3E52E5372610032083A /* AllRoutinesView.swift */,
 				828DC3E62E5372610032083A /* DropViewDelegate.swift */,
 				828DC3E72E5372610032083A /* EditRoutineView.swift */,
+				825542E42EE2043A00783FDC /* OnboardingView.swift */,
 				828DC3EA2E5372610032083A /* OptionsView.swift */,
 				82E759652EDB5A8C0086F880 /* ExportView.swift */,
 				821392552E95D206003B79E1 /* AllMoveTypesView.swift */,
@@ -499,10 +504,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				822245CB2EDE1CBA001B70AA /* snap.wav in Resources */,
-				828DC4772E5372610032083A /* furio.mp3 in Resources */,
-				828DC47A2E5372610032083A /* nanako.mp3 in Resources */,
+				825542F22EE21FA600783FDC /* furio.wav in Resources */,
+				825542EE2EE21DE100783FDC /* gabagoo.wav in Resources */,
 				828DC47B2E5372610032083A /* Assets.xcassets in Resources */,
-				828DC47C2E5372610032083A /* gabagoo.mp3 in Resources */,
 				828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,12 +516,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				822245CC2EDE1CBA001B70AA /* snap.wav in Resources */,
-				828DC4092E5372610032083A /* furio.mp3 in Resources */,
+				825542F12EE21FA600783FDC /* furio.wav in Resources */,
 				828DC40A2E5372610032083A /* Info.plist in Resources */,
-				828DC40C2E5372610032083A /* nanako.mp3 in Resources */,
 				828DC40D2E5372610032083A /* Assets.xcassets in Resources */,
-				828DC40E2E5372610032083A /* gabagoo.mp3 in Resources */,
 				828DC40F2E5372610032083A /* Preview Assets.xcassets in Resources */,
+				825542EF2EE21DE100783FDC /* gabagoo.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,12 +529,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				822245CA2EDE1CBA001B70AA /* snap.wav in Resources */,
-				828DC4502E5372610032083A /* furio.mp3 in Resources */,
+				825542F32EE21FA600783FDC /* furio.wav in Resources */,
 				828DC4512E5372610032083A /* Info.plist in Resources */,
-				828DC4532E5372610032083A /* nanako.mp3 in Resources */,
 				828DC4542E5372610032083A /* Assets.xcassets in Resources */,
-				828DC4552E5372610032083A /* gabagoo.mp3 in Resources */,
 				828DC4562E5372610032083A /* Preview Assets.xcassets in Resources */,
+				825542ED2EE21DE100783FDC /* gabagoo.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,19 +550,21 @@
 				821393392E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
 				828DC45B2E5372610032083A /* OptionsView.swift in Sources */,
 				828DC45C2E5372610032083A /* UploadedFileView.swift in Sources */,
+				825542EB2EE2104C00783FDC /* SoundSettingsView.swift in Sources */,
 				828DC45D2E5372610032083A /* DropViewDelegate.swift in Sources */,
 				82E757562ED9458E0086F880 /* AudioWaveformView.swift in Sources */,
 				82E759682EDB5A8C0086F880 /* ExportView.swift in Sources */,
 				821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */,
 				828DC45E2E5372610032083A /* RoutineView.swift in Sources */,
 				828DC45F2E5372610032083A /* FilesView.swift in Sources */,
+				822246082EDFD598001B70AA /* AudioExtensions.swift in Sources */,
 				828DC4612E5372610032083A /* UploadRoutineView.swift in Sources */,
 				828DC4622E5372610032083A /* Routine.swift in Sources */,
-				82E757532ED92AC50086F880 /* TimelineBar.swift in Sources */,
 				828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */,
 				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
 				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
+				825542E72EE2043A00783FDC /* OnboardingView.swift in Sources */,
 				82E757162ED3906B0086F880 /* AboutView.swift in Sources */,
 				828DC4672E5372610032083A /* ContentView.swift in Sources */,
 				82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
@@ -591,17 +595,19 @@
 				828DC4172E5372610032083A /* RoutineView.swift in Sources */,
 				828DC4182E5372610032083A /* FilesView.swift in Sources */,
 				828DC41A2E5372610032083A /* UploadRoutineView.swift in Sources */,
+				825542EA2EE2104C00783FDC /* SoundSettingsView.swift in Sources */,
 				828DC41B2E5372610032083A /* Routine.swift in Sources */,
 				828DC41D2E5372610032083A /* ChoreoBuilder.swift in Sources */,
+				825542E52EE2043A00783FDC /* OnboardingView.swift in Sources */,
 				827D6F872E76592E00091652 /* AudioErrors.swift in Sources */,
 				821391B22E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC41E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4202E5372610032083A /* ContentView.swift in Sources */,
 				82DD58202ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
+				822246062EDFD598001B70AA /* AudioExtensions.swift in Sources */,
 				828DC4222E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4232E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4252E5372610032083A /* TextDocument.swift in Sources */,
-				82E757522ED92AC50086F880 /* TimelineBar.swift in Sources */,
 				828DC4262E5372610032083A /* PartView.swift in Sources */,
 				828DC4282E5372610032083A /* Move.swift in Sources */,
 				82E7574C2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
@@ -627,17 +633,19 @@
 				828DC4372E5372610032083A /* RoutineView.swift in Sources */,
 				828DC4382E5372610032083A /* FilesView.swift in Sources */,
 				828DC43A2E5372610032083A /* UploadRoutineView.swift in Sources */,
+				825542E92EE2104C00783FDC /* SoundSettingsView.swift in Sources */,
 				828DC43B2E5372610032083A /* Routine.swift in Sources */,
 				828DC43D2E5372610032083A /* ChoreoBuilder.swift in Sources */,
+				825542E62EE2043A00783FDC /* OnboardingView.swift in Sources */,
 				827D6F892E76592E00091652 /* AudioErrors.swift in Sources */,
 				821391B42E935F57003B79E1 /* MoveType.swift in Sources */,
 				828DC43E2E5372610032083A /* AllRoutinesView.swift in Sources */,
 				828DC4402E5372610032083A /* ContentView.swift in Sources */,
 				82DD58212ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
+				822246072EDFD598001B70AA /* AudioExtensions.swift in Sources */,
 				828DC4422E5372610032083A /* EditRoutineView.swift in Sources */,
 				828DC4432E5372610032083A /* RoutineContainerView.swift in Sources */,
 				828DC4452E5372610032083A /* TextDocument.swift in Sources */,
-				82E757542ED92AC50086F880 /* TimelineBar.swift in Sources */,
 				828DC4462E5372610032083A /* PartView.swift in Sources */,
 				828DC4482E5372610032083A /* Move.swift in Sources */,
 				82E7574A2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,

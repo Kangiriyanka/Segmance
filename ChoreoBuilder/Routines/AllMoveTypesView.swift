@@ -40,7 +40,7 @@ struct AllMoveTypesView: View {
                             ContentUnavailableView {
                                 Label("No move types found", systemImage: "music.quarternote.3")
                             } description: {
-                                Text("Create a type when you add moves to your routine using the \(Image(systemName: "figure.dance")) button.")
+                                Text("Create a type when you add moves to your choreography.")
                                     .padding(.top, 5)
                             }
                         } else {

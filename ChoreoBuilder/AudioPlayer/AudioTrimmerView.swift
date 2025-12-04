@@ -25,6 +25,7 @@ struct AudioTrimmerView: View {
                       
                         emptyStateButton
                             .matchedGeometryEffect(id: "audioImport", in: uploadSpace)
+                          
                        
                     }
                     
@@ -36,12 +37,16 @@ struct AudioTrimmerView: View {
                             endTime: $endHandle,
                             trimmer: audioTrimmerManager)
                         
-                        clipsSection
+                       
+                        
+                        Spacer()
+                        clipsSection.offset(y: 20)
                     }
                 
                
             }
-        
+            
+            .contentMargins(.horizontal, 10, for: .scrollContent)
             .background(backgroundGradient.ignoresSafeArea())
             .navigationTitle("Trimmer")
             .navigationBarTitleDisplayMode(.inline)
@@ -59,6 +64,7 @@ struct AudioTrimmerView: View {
             withAnimation(.easeInOut) {
                
                 audioTrimmerManager.setupAudio(url: audioURL)
+                endHandle = audioTrimmerManager.duration?.rounded(.down) ?? 1
                
             }
         }
@@ -109,7 +115,9 @@ struct AudioTrimmerView: View {
       
     
     private var clipsSection: some View {
+        
         VStack(spacing: 15) {
+            
             HStack {
                 usageTitle(title: "Clips")
                 Spacer()
@@ -118,6 +126,8 @@ struct AudioTrimmerView: View {
                     shareButton
                 }
             }
+            .frame(height: 10)
+            .padding()
             
             if audioTrimmerManager.clippedURLs.isEmpty {
                 Text("No clips yet")
@@ -127,9 +137,14 @@ struct AudioTrimmerView: View {
                   
             } else {
                 clipsList
+                  
             }
         }
-        .padding()
+        
+       
+       
+        
+        
     }
     
     private var emptyStateButton: some View {
@@ -156,7 +171,7 @@ struct AudioTrimmerView: View {
                         .scaleEffect(0.8)
                     Text("Clipping...")
                 }
-                .foregroundColor(.accentColor)
+                .foregroundStyle(.secondary)
                 .font(.caption)
             case .duplicate:
                 Text("Already clipped")
@@ -171,10 +186,12 @@ struct AudioTrimmerView: View {
     
     private var shareButton: some View {
         ShareLink(items: audioTrimmerManager.clippedURLs) {
-            Image(systemName: "square.and.arrow.up")
-                .font(.system(size: 16, weight: .semibold))
+            Text("Done")
+                .font(.subheadline)
+         
+      
         }
-        .buttonStyle(PressableButtonStyle())
+        .buttonStyle(NavButtonStyle())
     }
     
     private var clipsList: some View {
@@ -195,11 +212,8 @@ struct AudioTrimmerView: View {
                 }
                 .buttonStyle(.plain)
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.routineCard)
-            )
+           
+            .bubbleStyle()
         }
     }
     
@@ -240,6 +254,8 @@ struct AudioTrimmerView: View {
     
     private func resetEverything() {
         withAnimation(.easeInOut) {
+            clipTask?.cancel()
+            clipTask = nil
             audioTrimmerManager.cleanup()
             startHandle = 0
             endHandle = 1

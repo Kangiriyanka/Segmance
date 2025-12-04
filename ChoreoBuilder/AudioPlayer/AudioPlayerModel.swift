@@ -6,6 +6,9 @@
 import Foundation
 import AVKit
 
+
+
+
 @Observable
 class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     private var audioPlayer: AVAudioPlayer?
@@ -17,7 +20,6 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     var isCountingDown: Bool = false
     var firstMarkerSelected = false
     var secondMarkerSelected = false
-    private var delayedPlayTask: DispatchWorkItem?
     var countdownRemaining: Int = 0
     var delay: Float = 0.0
     var totalTime: TimeInterval = 0.0
@@ -29,11 +31,21 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     var seekTime: TimeInterval = 5.0
     var showError: Bool = false
     
+    // Tasks
+    
+    private var delayedPlayTask: DispatchWorkItem?
+    private var loopTask: DispatchWorkItem?
+    // You can't use @AppStorage inside a class!
+    // Don't cache the value, compute it
+    var countdownSound: String {
+        UserDefaults.standard.string(forKey: "countdownSound") ?? "tick"
+    }
+    
     // You need this to destroy the countdown timer every time you pause.
     private var countdownTimer: Timer?
     
     
-    init(audioFileURL: URL) {
+    init(audioFileURL: URL? = nil) {
         self.audioFileURL = audioFileURL
     }
     
@@ -87,7 +99,9 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         }
         
         func pauseAudio() {
-            delayedPlayTask?.cancel()  
+            delayedPlayTask?.cancel()
+            loopTask?.cancel()
+            loopTask = nil
             delayedPlayTask = nil
             countdownTimer?.invalidate()
             countdownTimer = nil
@@ -197,24 +211,30 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         }
 
         // Before loop start → jump forward
+        // The +0.1 is to prevent any jittering.
         if currentTime < firstMark {
             seekAudio(to: firstMark + 0.1)
             return
         }
 
-        // Past loop end → loop back
+       
+        // In updateProgress():
         if currentTime >= secondMark {
+            loopTask?.cancel()
             player.pause()
             seekAudio(to: firstMark)
-
             resetCountdown()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 + TimeInterval(delay)) {
-                player.play()
+            let task = DispatchWorkItem { [weak self] in
+                self?.audioPlayer?.play()
             }
-
+            loopTask = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 + TimeInterval(delay), execute: task)
             return
         }
+
+        
+       
     }
     
     
@@ -260,11 +280,7 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         secondMarkerSelected = false
     }
     
-    func timeString(time: TimeInterval) -> String {
-        let minutes = Int(time) / 60
-        let seconds = Int(time) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
+  
     
     func resetCountdown() {
         if delay > 0 {
@@ -279,23 +295,22 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
         
         if !isLooping {
             isPlaying = false
-            
         }
-       
         else {
+            loopTask?.cancel()
             resetCountdown()
-            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
-                self.audioPlayer?.play()
-               }
+            
+            let task = DispatchWorkItem { [weak self] in
+                self?.audioPlayer?.play()
+            }
+            loopTask = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay), execute: task)
         }
-        
-       
-        
     }
     
     
     func playTick() {
-        let URL = Bundle.main.url(forResource: "snap", withExtension: "wav")!
+        let URL = Bundle.main.url(forResource: countdownSound, withExtension: "wav")!
         
         do {
             tickPlayer = try AVAudioPlayer(contentsOf: URL)

@@ -54,7 +54,7 @@ struct EditRoutineView: View {
                     }
                     
                     Divider()
-                    TextField("Enter the routine title", text: $title)
+                    TextField("Enter a title", text: $title)
                         .bubbleStyle()
                         .limitText($title, to: characterLimit)
                         .focused($isFocused)
