@@ -14,7 +14,6 @@ struct PartView: View {
     
     @State var part: Part
     var moves: [Move] { part.moves.sorted { $0.order < $1.order }}
-    @State private var audioPlayerPresented = false
     @State private var showingAddMoveSheet = false
     @State private var draggedMove: Move?
     @FocusState private var focusedMoveID: UUID?
@@ -22,11 +21,14 @@ struct PartView: View {
     @State private var videoURL: URL?
     @State private var showingVideoPlayer = false
     @State private var isLoadingVideo = false
-    @Binding private var playerExpanded: Bool
+    var onPlayAudio: (URL, String) -> Void
     
-    init(part: Part, playerExpanded: Binding<Bool>) {
+    
+    
+    init(part: Part, onPlayAudio: @escaping (URL,String) -> Void) {
         self._part = State(initialValue: part)
-        self._playerExpanded = playerExpanded
+        self.onPlayAudio = onPlayAudio
+        
     }
 
     var body: some View {
@@ -38,14 +40,14 @@ struct PartView: View {
                 movesScrollView
             }
             
-            if audioPlayerPresented, let partURL = part.location {
-                AudioPlayerView(audioFileURL: partURL, partTitle: part.title, isExpanded: $playerExpanded)
-                   
-                    .offset(y: audioPlayerPresented ? 0 : 400)
-                    .opacity(audioPlayerPresented ? 1 : 0)
-                    .transition(.blurReplace)
-                    .zIndex(10)
-            }
+//            if audioPlayerPresented, let partURL = part.location {
+//                AudioPlayerView(audioFileURL: partURL, partTitle: part.title, isExpanded: $playerExpanded)
+//                   
+//                    .offset(y: audioPlayerPresented ? 0 : 400)
+//                    .opacity(audioPlayerPresented ? 1 : 0)
+//                    .transition(.blurReplace)
+//                    .zIndex(10)
+//            }
         }
        
 
@@ -193,9 +195,11 @@ struct PartView: View {
             // Audio and add buttons
             HStack(spacing: 5) {
                 Button {
-                    withAnimation(Animation.organicFastBounce) {
-                        audioPlayerPresented.toggle()
-                    }
+                    
+                        if let url = part.location {
+                                onPlayAudio(url, part.title)
+                        }
+                    
                 } label: {
                     Image(systemName: "music.quarternote.3")
                 }
@@ -254,6 +258,6 @@ struct PartView: View {
     let part = Part.firstPartExample
     TabView {
        
-        PartView(part: part, playerExpanded: .constant(true))
+        PartView(part: part, onPlayAudio: { _, _ in })
     }
 }
