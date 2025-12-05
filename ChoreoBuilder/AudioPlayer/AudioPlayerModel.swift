@@ -72,6 +72,11 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
             totalTime = audioPlayer?.duration ?? 0.0
             audioPlayer?.delegate = self
             
+            if tickPlayer == nil, let url = Bundle.main.url(forResource: countdownSound, withExtension: "wav") {
+                        tickPlayer = try? AVAudioPlayer(contentsOf: url)
+                        tickPlayer?.prepareToPlay()
+                    }
+            
         } catch {
             // Take whatever error we throw and put it into our custom one
             errorMessage = AudioPlayerError.initializationFailed(error).errorDescription
@@ -312,15 +317,11 @@ class AudioPlayerModel: NSObject, AVAudioPlayerDelegate {
     
     
     func playTick() {
-        let URL = Bundle.main.url(forResource: countdownSound, withExtension: "wav")!
         
-        do {
-            tickPlayer = try AVAudioPlayer(contentsOf: URL)
-            tickPlayer?.prepareToPlay()
-            tickPlayer?.play()
-        } catch {
-            print("Failed to play tick sound:", error)
-        }
+        tickPlayer?.currentTime = 0
+        tickPlayer?.play()
+    
+      
     }
     
     

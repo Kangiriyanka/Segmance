@@ -120,7 +120,7 @@ struct OptionsView: View {
                         backgroundGradient.ignoresSafeArea()
                         ExportView(routines: routines)
                           
-                            .background(shadowOutline)
+                           
                             .padding()
                             .presentationDetents([.fraction(0.25)])
                     }
