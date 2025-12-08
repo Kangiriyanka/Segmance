@@ -40,7 +40,7 @@ struct GeoCard: View {
         .padding()
         
         .background(shadowOutline)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.customLB.opacity(0.2))))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.routineCard.opacity(0.2)))
         
         .overlay {
             if isTapped {

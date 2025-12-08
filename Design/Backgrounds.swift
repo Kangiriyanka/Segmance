@@ -25,7 +25,7 @@ var SineBackground: some View {
                 phase: 0
             )
             .stroke(
-                Color.customLB.opacity(0.2),
+                Color.customLB.opacity(0.3),
                 lineWidth: CGFloat(strokeWidth)
             )
             .offset(y: off * Double(i) * 0.5)
@@ -98,17 +98,29 @@ var cardBackground: some View {
     
 }
 
-func routineCardBackground(off: Double, strokeWidth: CGFloat = 10, c: Color = .accent) -> some View {
-    SineWave(
-        frequency: 1.5,
-        amplitude: 10.0,
-        phase: 1 + off * 0.5 
-    )
-    .stroke(c.opacity(0.5), lineWidth: strokeWidth)
-    .rotationEffect(.degrees(10))
-    .blur(radius: 4) // subtle blur for softness
+var routineCardBackground: some View {
+    
+    RoundedRectangle(cornerRadius: 10)
+        .fill(
+            LinearGradient(
+                colors: [
+                    .customBlue.opacity(0.8),
+                    .customBlue.opacity(0.7),
+                    .customBlue.opacity(0.5),
+                    .customBlue.opacity(0.4),
+                  
+                   
+                ],
+                startPoint: .bottom,
+                endPoint: .top
+            )
+        )
+        .frame(height: 40)
+        .blur(radius: 30)
+        .frame(maxHeight: .infinity, alignment: .bottom)
+    
+       
 }
-
 
 var shadowOutline: some View {
     RoundedRectangle(cornerRadius: 10)
@@ -187,7 +199,7 @@ struct DarkBackgrounds: View {
             Text("HI")
         }
         .frame(maxWidth: .infinity)
-        .background(routineCardBackground(off: 10))
+        .background(routineCardBackground)
         Backgrounds()
         DarkBackgrounds().preferredColorScheme(.dark)
     }

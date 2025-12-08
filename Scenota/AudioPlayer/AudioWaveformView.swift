@@ -116,7 +116,7 @@ struct AudioWaveformView: View {
                             )
                         
                         // End handle
-                        HandleView(height: geo.size.height, color: .customBlue)
+                        HandleView(height: geo.size.height, color: .routineCard)
                             .position(x: endFraction * geo.size.width, y: geo.size.height / 2)
                             .gesture(
                                 DragGesture()

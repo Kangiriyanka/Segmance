@@ -199,7 +199,7 @@ struct MoveView: View {
    
         .frame(width: UIScreen.main.bounds.width - 75)
         .padding(.horizontal, 20)
-        .background(cardBackground)
+        .background(routineCardBackground)
         .customBorderStyle()
         .clipShape(RoundedRectangle(cornerRadius: 10))
 
@@ -216,7 +216,7 @@ struct MoveView: View {
     
     private func moveMarker(width: CGFloat, height: CGFloat, text: String, color: Color) -> some View {
         
-        Text(text) .foregroundStyle(Color.mainText)
+        Text(text) .foregroundStyle(Color.mainText.opacity(0.85))
         
         .frame(width: width, height: height)
         

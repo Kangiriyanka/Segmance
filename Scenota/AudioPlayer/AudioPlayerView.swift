@@ -28,11 +28,10 @@ struct AudioPlayerView: View {
     
 
     let playbackSpeedOptions: [Float] = [2.0,1.75,1.5,1.25,1.0,0.75,0.5,0.25]
-    let delayOptions: [Float] = [15,10,5,3,1,0]
+    let delayOptions: [Float] = [20,15,10,5,3,0]
     
     
     var body: some View {
-        
         
         
         GeometryReader {
@@ -113,7 +112,13 @@ struct AudioPlayerView: View {
             
         }
      
-      
+        .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
+            
+            if !isDragging {
+                audioPlayerManager.updateProgress()
+                
+            }
+        }
         .alert("Error", isPresented: $audioPlayerManager.showError) {
             Button("OK") {
                 audioPlayerManager.showError = false
@@ -132,6 +137,12 @@ struct AudioPlayerView: View {
         
         
         GeometryReader { geometry in
+            
+        
+            let progressWidth = max(0, audioPlayerManager.currentTime / audioPlayerManager.totalTime * geometry.size.width)
+                
+                
+           
             HStack(spacing: 20) {
                 
                 SlidingText(text: partTitle)
@@ -184,13 +195,15 @@ struct AudioPlayerView: View {
                     isExpanded = true
                 }
             }
+            
             .overlay(
                 
                 Rectangle()
                 
+                    .fill()
                     .clipShape(.rect(cornerRadius: 3))
                 
-                    .frame(width: max(0,audioPlayerManager.currentTime / audioPlayerManager.totalTime * geometry.size.width) , height: 3)
+                    .frame(width: max(0, progressWidth) , height: 3)
                 ,alignment: .topLeading
                 
                 
@@ -526,14 +539,9 @@ struct AudioPlayerView: View {
                     )
                 }
                 // Frame of the whole slider
+                // 0.5 -> choppy updates on the slider
                 .frame(height: 20)
-                .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
-                    
-                    if !isDragging {
-                        audioPlayerManager.updateProgress()
-                        
-                    }
-                }
+               
                 
                 
                 

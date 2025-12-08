@@ -175,7 +175,8 @@ struct AudioTrimmerView: View {
                 .font(.caption)
             case .duplicate:
                 Text("Already clipped")
-                    .foregroundColor(.orange)
+                    
+                    .foregroundStyle(.accent.opacity(0.7))
                     .font(.caption)
             case .idle:
                 Text("")
