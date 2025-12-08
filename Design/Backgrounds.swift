@@ -9,22 +9,86 @@ import Foundation
 import SwiftUI
 
 
+var SineBackground: some View {
+ 
+    let off: Double = 30
+    let waves: Int = 11
+    let strokeWidth: CGFloat = 9
+    
+  
+
+    return ZStack(alignment: .bottom) {
+        ForEach(0..<waves, id: \.self) { i in
+            SineWave(
+                frequency: 2.0,
+                amplitude: 12.0,
+                phase: 0
+            )
+            .stroke(
+                Color.customLB.opacity(0.2),
+                lineWidth: CGFloat(strokeWidth)
+            )
+            .offset(y: off * Double(i) * 0.5)
+        }
+            
+      
+        
+    }
+    
 
 
+    
+}
 
 
-// Start radius is the inner glow
-// End radius is the reach
-var backgroundGradient: RadialGradient {
-    RadialGradient(
-        colors: [
-            Color.customBlue.opacity(0.9),
-            Color.customBlue.opacity(0.7)
-        ],
-        center: .topLeading,
-        startRadius: 10,
-        endRadius: 600
-    )
+// Usage in your background
+var backgroundGradient: some View {
+    ZStack(alignment: .bottom) {
+     
+        SineBackground
+            .frame(height: 300)
+              
+            
+        
+      
+        
+        RadialGradient(
+            colors: [
+                Color.customBlue.opacity(0.9),
+                Color.customBlue.opacity(0.8)
+            ],
+            center: .topLeading,
+            startRadius: 10,
+            endRadius: 600
+        )
+     
+        
+        
+        
+    }
+    .ignoresSafeArea()
+}
+
+var noSinBackgroundGradient: some View {
+    ZStack(alignment: .bottom) {
+     
+    
+        
+        RadialGradient(
+            colors: [
+                Color.customBlue.opacity(0.9),
+                Color.customBlue.opacity(0.8)
+            ],
+            center: .topLeading,
+            startRadius: 10,
+            endRadius: 600
+        )
+     
+        
+        
+        
+    }
+    .ignoresSafeArea()
 }
 
 var cardBackground: some View {
@@ -34,7 +98,16 @@ var cardBackground: some View {
     
 }
 
-
+func routineCardBackground(off: Double, strokeWidth: CGFloat = 10, c: Color = .accent) -> some View {
+    SineWave(
+        frequency: 1.5,
+        amplitude: 10.0,
+        phase: 1 + off * 0.5 
+    )
+    .stroke(c.opacity(0.5), lineWidth: strokeWidth)
+    .rotationEffect(.degrees(10))
+    .blur(radius: 4) // subtle blur for softness
+}
 
 
 var shadowOutline: some View {
@@ -108,10 +181,17 @@ struct DarkBackgrounds: View {
     
 }
 #Preview {
+    
     TabView {
+        VStack {
+            Text("HI")
+        }
+        .frame(maxWidth: .infinity)
+        .background(routineCardBackground(off: 10))
         Backgrounds()
         DarkBackgrounds().preferredColorScheme(.dark)
     }
     .tabViewStyle(.page)
     
 }
+
