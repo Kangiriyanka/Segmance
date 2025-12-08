@@ -166,7 +166,7 @@ struct RoutineCardView: View {
                         .frame(width: 40, height: 40)
                     
                     Image(systemName: "music.note")
-                        .foregroundStyle(.accent)
+                        .foregroundStyle(.accent.opacity(0.7))
                         .font(.system(size: 20, weight: .semibold))
                     
                     
@@ -196,7 +196,7 @@ struct RoutineCardView: View {
         
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(routineCardBackground(off: off))
+        .background(routineCardBackground)
         .customBorderStyle()
         
      

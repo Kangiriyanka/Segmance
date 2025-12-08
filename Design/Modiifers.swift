@@ -28,22 +28,16 @@ struct BubbleTextField: ViewModifier {
     
 
     func body(content: Content) -> some View {
-        
         content
-        
-        
-        .padding()
-        
-           .background(Color.routineCard)
-           .overlay(
-               RoundedRectangle(cornerRadius: 12)
-                   .stroke(Color.black.opacity(0.2), lineWidth: 1)
-           )
-           .buttonStyle(PlainButtonStyle())
-           .clipShape(RoundedRectangle(cornerRadius: 12))
-           .textInputAutocapitalization(.never)
-          
-        
+            .padding()
+            .background(Color.routineCard.opacity(0.8))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.black.opacity(0.2), lineWidth: 1)
+            )
+            .buttonStyle(PlainButtonStyle())
+            .textInputAutocapitalization(.never)
     }
     
 }

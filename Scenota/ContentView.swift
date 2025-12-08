@@ -57,15 +57,16 @@ struct ContentView: View {
                     
                     
                     
-#if targetEnvironment(simulator)
+                    #if targetEnvironment(simulator)
                     FilesView()
                         .tabItem {
                             Label("Files", systemImage: "folder")
                         }
-#endif
-                    
+                    #endif
+                                        
                     
                 }
+                
                 
             }
             
