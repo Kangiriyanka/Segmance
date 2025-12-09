@@ -103,7 +103,7 @@ struct MoveView: View {
                             .animation(.organicFastBounce, value: showMoveType)
                             
                         
-                        moveMarker(width: 40, height: 20, text: String(move.order), color: Color.customBlue)
+                        moveMarker(width: 40, height: 20, text: String(move.order), color: Color.player)
                             .contentShape(RoundedRectangle(cornerRadius: 4.0))
                             .contextMenu {
                                 Button(role: .destructive) {

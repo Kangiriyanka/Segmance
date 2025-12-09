@@ -30,7 +30,7 @@ struct BubbleTextField: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .background(Color.routineCard.opacity(0.8))
+            .background(Color.routineCard)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
@@ -82,7 +82,7 @@ struct CustomLoopCircle: ViewModifier {
           
             .background(
                     Ellipse()
-                        .fill(Color.routineCard)
+                        .fill(Color.customBlue.opacity(0.8))
                 )
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
             .offset(x: 7)

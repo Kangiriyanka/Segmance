@@ -79,6 +79,10 @@ struct AudioTrimmerView: View {
             HStack {
                 
                 
+                Button(action: resetEverything) {
+                    Image(systemName: "trash")
+                        .font(.system(size: 20, weight: .semibold))
+                }
                 
                 Button(action: { isImporting = true }) {
                     Image(systemName: "square.and.arrow.down")
@@ -91,20 +95,19 @@ struct AudioTrimmerView: View {
                         .font(.system(size: 20, weight: .semibold))
                 }
                 
+                
                 Button(action: clipAudio) {
                     Image(systemName: "scissors")
                         .font(.system(size: 20, weight: .semibold))
                 }
+            
                 
-                Button(action: resetEverything) {
-                    Image(systemName: "trash")
-                        .font(.system(size: 20, weight: .semibold))
-                }
+             
                 
             }
             .padding()
             
-            .buttonStyle(PressableButtonStyle())
+            .buttonStyle(PressableButtonStyle(isDisabled: clipStatus == .clipping))
             
         
     }

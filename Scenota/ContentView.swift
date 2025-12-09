@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @AppStorage("hasOnboarded") var hasOnboarded: Bool = false
     
+    
 
   
     init() {
@@ -66,7 +67,8 @@ struct ContentView: View {
                                         
                     
                 }
-                
+           
+             
                 
             }
             

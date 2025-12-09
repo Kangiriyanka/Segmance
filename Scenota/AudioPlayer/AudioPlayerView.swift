@@ -200,7 +200,7 @@ struct AudioPlayerView: View {
                 
                 Rectangle()
                 
-                    .fill()
+                    .fill(Color.customWhite)
                     .clipShape(.rect(cornerRadius: 3))
                 
                     .frame(width: max(0, progressWidth) , height: 3)
@@ -222,35 +222,17 @@ struct AudioPlayerView: View {
             Spacer()
             
             
-            
-            VStack (spacing: 20) {
-                
-                
-                ZStack(alignment: .top) {
-                   
-                     
-                    
-                    Text(partTitle)
-                        
-                        
-                        .font(.title2)
-                        .fontWeight(.medium)
-
-                    
-                }
-              
-            
-              
+            // MARK: Part Title, Audio Controls, Custom Slider and Special Controls VStack
+            VStack(spacing: 20) {
                 
                 
                 VStack {
+                    Text(partTitle)
+                        .customHeader()
                     
                     
                     
-                    HStack(spacing: 25) {
-                        
-                        
-                        
+                    HStack(spacing: 30) {
                         
                         
                         Image(systemName: "repeat")
@@ -267,8 +249,8 @@ struct AudioPlayerView: View {
                             }
                             .overlay(
                                 Text(audioPlayerManager.isCustomLooping ? "Hold" :"AB")
-                                    
-                                    
+                                
+                                
                                     .customCircle()
                                 
                                 
@@ -276,7 +258,7 @@ struct AudioPlayerView: View {
                                 , alignment: .bottomTrailing
                                 
                             )
-                          
+                        
                         Image(systemName: "backward.end.fill")
                             .symbolRenderingMode(.monochrome)
                             .font(.system(size: 25))
@@ -320,60 +302,39 @@ struct AudioPlayerView: View {
                                 audioPlayerManager.isLooping ? audioPlayerManager.stopLoop() : audioPlayerManager.loop()
                             }
                         
-                    
+                        
                         
                     }
+                    .frame(height: 30)
                     .padding()
-                    .frame(width: 300)
                     
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.customWhite.opacity(0.05)))
+                    .background(shadowOutline)
+                  
                     
+         
                     
-                    
-                    
-                    
-                    
-                }
-                
-                VStack {
-                    
-                    if audioPlayerManager.showMarkers {
-                        
-                        markerSelection
-                        
-                        
+                    VStack {
+                        if audioPlayerManager.showMarkers {
+                            
+                            markerSelection
+                            
+                        }
                     }
-                    
+                    .frame(height: 40)
                 }
-                
-                
-                
-                .foregroundStyle(.white)
-                .font(.title2)
-                .frame(height: 20)
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                VStack(spacing: 20){
-                    
-                    
+                .offset(y: -20)
+                      
+                         
+                        
+                       
                     
                     customSlider
+               
+
                     
-                    
-                    
-                    
-                }
-                
-                HStack(spacing: 20) {
+  
+                HStack(spacing: 15) {
                     
                     
                     Menu {
@@ -398,19 +359,25 @@ struct AudioPlayerView: View {
                             
                             VStack(spacing: 10) {
                                 Image(systemName: "powersleep")
-                                
-                                
+                                   
                                 
                                 Text("\(delay, specifier: "%g ")")
+                                    
                             }
+                            
+                          
+                            .frame(width: 50, height: 60)
+                            .padding()
+                            .background(optionsBackground)
+                         
                         }
                         .bold()
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.customWhite)
                         .font(.title2)
                         
                         
                     }
-                    Spacer()
+                   
                     
                     Menu {
                         Picker("Playback Speed", selection: $playbackSpeed) {
@@ -420,6 +387,7 @@ struct AudioPlayerView: View {
                             }
                             
                         }
+                        
                         
                         .onChange(of: playbackSpeed) {
                             audioPlayerManager.changeSpeedRate(playbackSpeed)
@@ -432,12 +400,20 @@ struct AudioPlayerView: View {
                             
                             VStack(spacing: 10) {
                                 Image(systemName: "hare")
+                                    .font(.system(size: 19))
 
                                 Text(String(format: "%g", playbackSpeed))
                             }
+                            
+                            
+                            .frame(width: 50, height: 60)
+                            .padding()
+                            .background(optionsBackground)
+                    
                         }
+                     
                         .bold()
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.customWhite)
                         .font(.title2)
                         
                         
@@ -453,6 +429,11 @@ struct AudioPlayerView: View {
                     
                 }
                 
+                .offset(y: 50)
+                
+                
+            
+                
                                 
             }
             .overlay(countdownTimer(width: 150, height: 150) .offset(y: -200), alignment: .top)
@@ -463,7 +444,7 @@ struct AudioPlayerView: View {
         }
         
         
-        
+        .background(Color.player)
         .padding(15)
         .padding(.top, safeArea.top)
         
@@ -565,23 +546,25 @@ struct AudioPlayerView: View {
             
             
         }
+        .frame(height: 40)
       
           
         
-        .frame(height: 50)
+      
         
     }
     
     
     /// MARK: Marker Buttons  to set  Custom Loop
     private var markerSelection:  some View {
-        ZStack {
+       
             Group {
                 if !audioPlayerManager.firstMarkerSelected {
                     Button {
                         audioPlayerManager.setFirstMarker()
                     } label: {
                         Text("Select A Mark").foregroundStyle(.mainText)
+                            
                             .fontWeight(.medium)
                     }
                     
@@ -597,10 +580,15 @@ struct AudioPlayerView: View {
                     
                 }
             }
-            .frame(height: 10)
+            .frame(height: 5)
+            .font(.title3)
+      
+            
             .bubbleStyle()
-            .shadow( radius: 1, y:1  )
-        }
+            
+        
+     
+     
     }
     
     /// MARK: Marker selectors
@@ -610,15 +598,19 @@ struct AudioPlayerView: View {
             Group {
                 
                 LoopMarker()
+                   
                     .offset(x: m1, y: -30 )
                 
               
                 
                 LoopMarker()
+                    
                     .offset(x: m2, y: -30 )
             }
           
         }
+        .offset(y: 15)
+       
         
     }
     
@@ -642,7 +634,7 @@ struct AudioPlayerView: View {
                 .shadow(color: .accent.opacity(0.3), radius: 8)
 
             
-            Text("\(audioPlayerManager.countdownRemaining)")
+            Text(String(format: "%.0f", audioPlayerManager.countdownRemaining))
                 .font(.system(size: 50))
                 .foregroundColor(.accent)
                 .bold()
@@ -685,7 +677,7 @@ struct AudioPlayerView: View {
 }
 
 #Preview {
-    let URL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
+    let URL = Bundle.main.url(forResource: "tambourine", withExtension: "wav")!
     AudioPlayerView(audioFileURL: URL, partTitle: "The Initial Start ", isExpanded: .constant(true) )
    
 }

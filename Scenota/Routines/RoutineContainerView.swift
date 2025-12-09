@@ -126,9 +126,11 @@ struct RoutineContainerView: View {
             showingUploadRoutineSheet.toggle()
         } label: {
             Image(systemName: "figure.dance")
-              
+                
+                
              
         }
+        .padding(5)
         .buttonStyle(PressableButtonStyle())
         .contentShape(Rectangle())
        
@@ -182,6 +184,7 @@ struct RoutineCardView: View {
                         .font(.footnote)
                         .foregroundStyle(Color.mainText.opacity(0.6))
                         .lineLimit(2)
+                        .offset(y: -8)
                     
                     
                 }
