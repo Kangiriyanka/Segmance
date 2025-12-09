@@ -70,7 +70,13 @@ struct PressableButtonStyle: ButtonStyle {
                 
             )
             .font(.system(size: 16, weight: .semibold))
-            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 3)
+        
+
+        // Multi-layer for depth without blur
+            .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: 1)
+            .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: 2)
+
+      
             .scaleEffect(configuration.isPressed ? scale : 1)
             .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))
             .foregroundStyle(.mainText)

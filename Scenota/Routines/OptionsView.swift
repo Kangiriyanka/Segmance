@@ -117,7 +117,7 @@ struct OptionsView: View {
                 .sheet(isPresented: $isExporting) {
                     
                     ZStack {
-                        backgroundGradient.ignoresSafeArea()
+                        noSinBackgroundGradient.ignoresSafeArea()
                         ExportView(routines: routines)
                           
                            

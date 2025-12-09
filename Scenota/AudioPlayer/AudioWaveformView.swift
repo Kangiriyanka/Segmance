@@ -25,7 +25,7 @@ struct SimpleDSWaveformView: View {
     let config = Waveform.Configuration(
         backgroundColor: .clear,
         style: .striped(Waveform.Style.StripeConfig(color: DSColor(Color.customWhite.opacity(0.3)), width: 2, spacing: 5.5)),
-        verticalScalingFactor: 0.4,
+        verticalScalingFactor: 0.5,
       
     )
     
@@ -88,7 +88,7 @@ struct AudioWaveformView: View {
                         
                         
                        
-                        Needle(width: 2, height: geo.size.height, color: .yellow)
+                        Needle(width: 2, height: geo.size.height, color: Color.yellow.opacity(0.8))
                             .position(
                                 x: playheadFraction * geo.size.width,
                                 y: geo.size.height / 2
@@ -116,7 +116,7 @@ struct AudioWaveformView: View {
                             )
                         
                         // End handle
-                        HandleView(height: geo.size.height, color: .routineCard)
+                        HandleView(height: geo.size.height, color: Color.player)
                             .position(x: endFraction * geo.size.width, y: geo.size.height / 2)
                             .gesture(
                                 DragGesture()
@@ -185,7 +185,7 @@ struct AudioWaveformView: View {
                     Button("+1") { endTime = min(trimmer?.duration ?? endTime, endTime + 1) }
                     Button("+10") { endTime = min(trimmer?.duration ?? endTime, endTime + 10) }
                 }
-                .buttonStyle(MiniAudioButtonStyle(color: Color.customBlue))
+                .buttonStyle(MiniAudioButtonStyle(color: Color.player))
             }
         }
        
