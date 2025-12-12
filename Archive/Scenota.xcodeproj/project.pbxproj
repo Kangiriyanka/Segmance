@@ -1,0 +1,770 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		821391B32E935F57003B79E1 /* MoveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821391B12E935F57003B79E1 /* MoveType.swift */; };
+		821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821392552E95D206003B79E1 /* AllMoveTypesView.swift */; };
+		821393392E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */; };
+		822246082EDFD598001B70AA /* AudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822246052EDFD598001B70AA /* AudioExtensions.swift */; };
+		8225FB6F2EE7FC3E00EC7C72 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225FB6E2EE7FC3E00EC7C72 /* ReviewManager.swift */; };
+		825542E72EE2043A00783FDC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E42EE2043A00783FDC /* OnboardingView.swift */; };
+		825542EB2EE2104C00783FDC /* SoundSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825542E82EE2104C00783FDC /* SoundSettingsView.swift */; };
+		825542F72EE25DBF00783FDC /* bongo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542F42EE25DBF00783FDC /* bongo.wav */; };
+		825542FB2EE265F200783FDC /* clave.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825542F82EE265F200783FDC /* clave.wav */; };
+		825543012EE27BAD00783FDC /* piano.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825543002EE27BAD00783FDC /* piano.wav */; };
+		825543072EE2817F00783FDC /* hihat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825543042EE2817F00783FDC /* hihat.wav */; };
+		8255430B2EE2818A00783FDC /* kick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825543082EE2818A00783FDC /* kick.wav */; };
+		8255430D2EE2819300783FDC /* snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8255430C2EE2819300783FDC /* snap.wav */; };
+		825543112EE2819800783FDC /* tambourine.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825543102EE2819800783FDC /* tambourine.wav */; };
+		825543162EE281AA00783FDC /* wood.wav in Resources */ = {isa = PBXBuildFile; fileRef = 825543142EE281AA00783FDC /* wood.wav */; };
+		827594302EE4D7F0007B4FA6 /* AudioModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275942F2EE4D7F0007B4FA6 /* AudioModelTests.swift */; };
+		827D6F882E76592E00091652 /* AudioErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D6F862E76592E00091652 /* AudioErrors.swift */; };
+		828DC4572E5372610032083A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DF2E5372610032083A /* Part.swift */; };
+		828DC4592E5372610032083A /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D82E5372610032083A /* AudioPlayerView.swift */; };
+		828DC45A2E5372610032083A /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DC2E5372610032083A /* ViewExtensions.swift */; };
+		828DC45B2E5372610032083A /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EA2E5372610032083A /* OptionsView.swift */; };
+		828DC45C2E5372610032083A /* UploadedFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EF2E5372610032083A /* UploadedFileView.swift */; };
+		828DC45D2E5372610032083A /* DropViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E62E5372610032083A /* DropViewDelegate.swift */; };
+		828DC45E2E5372610032083A /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3ED2E5372610032083A /* RoutineView.swift */; };
+		828DC45F2E5372610032083A /* FilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FE2E5372610032083A /* FilesView.swift */; };
+		828DC4612E5372610032083A /* UploadRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3F02E5372610032083A /* UploadRoutineView.swift */; };
+		828DC4622E5372610032083A /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E02E5372610032083A /* Routine.swift */; };
+		828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FC2E5372610032083A /* ChoreoBuilder.swift */; };
+		828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E52E5372610032083A /* AllRoutinesView.swift */; };
+		828DC4672E5372610032083A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3FD2E5372610032083A /* ContentView.swift */; };
+		828DC4692E5372610032083A /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3E72E5372610032083A /* EditRoutineView.swift */; };
+		828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EC2E5372610032083A /* RoutineContainerView.swift */; };
+		828DC46C2E5372610032083A /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EE2E5372610032083A /* TextDocument.swift */; };
+		828DC46D2E5372610032083A /* PartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3EB2E5372610032083A /* PartView.swift */; };
+		828DC46F2E5372610032083A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3DE2E5372610032083A /* Move.swift */; };
+		828DC4752E5372610032083A /* AudioPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828DC3D72E5372610032083A /* AudioPlayerModel.swift */; };
+		828DC47B2E5372610032083A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3FA2E5372610032083A /* Assets.xcassets */; };
+		828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 828DC3E22E5372610032083A /* Preview Assets.xcassets */; };
+		82A5D51F2EE8A9FC006D96FC /* SimpleTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A5D51E2EE8A9FC006D96FC /* SimpleTip.swift */; };
+		82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */; };
+		82E757162ED3906B0086F880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757152ED3906B0086F880 /* AboutView.swift */; };
+		82E7574B2ED8F90C0086F880 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757492ED8F90C0086F880 /* UsageGuideView.swift */; };
+		82E757562ED9458E0086F880 /* AudioWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E757552ED9458E0086F880 /* AudioWaveformView.swift */; };
+		82E7584B2EDA0F750086F880 /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 82E7584A2EDA0F750086F880 /* DSWaveformImage */; };
+		82E7584D2EDA0F750086F880 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 82E7584C2EDA0F750086F880 /* DSWaveformImageViews */; };
+		82E759682EDB5A8C0086F880 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E759652EDB5A8C0086F880 /* ExportView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		82CEB0D02EE509D4009C0D36 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82DDAE4E2CFBF2F300AD0F60 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82DDAE552CFBF2F300AD0F60;
+			remoteInfo = Scenota;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		821391B12E935F57003B79E1 /* MoveType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveType.swift; sourceTree = "<group>"; };
+		821392552E95D206003B79E1 /* AllMoveTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoveTypesView.swift; sourceTree = "<group>"; };
+		821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrimmerView.swift; sourceTree = "<group>"; };
+		822246052EDFD598001B70AA /* AudioExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioExtensions.swift; sourceTree = "<group>"; };
+		8225FB6E2EE7FC3E00EC7C72 /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
+		825542E42EE2043A00783FDC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		825542E82EE2104C00783FDC /* SoundSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundSettingsView.swift; sourceTree = "<group>"; };
+		825542F42EE25DBF00783FDC /* bongo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bongo.wav; sourceTree = "<group>"; };
+		825542F82EE265F200783FDC /* clave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = clave.wav; sourceTree = "<group>"; };
+		825543002EE27BAD00783FDC /* piano.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano.wav; sourceTree = "<group>"; };
+		825543042EE2817F00783FDC /* hihat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hihat.wav; sourceTree = "<group>"; };
+		825543082EE2818A00783FDC /* kick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = kick.wav; sourceTree = "<group>"; };
+		8255430C2EE2819300783FDC /* snap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = snap.wav; sourceTree = "<group>"; };
+		825543102EE2819800783FDC /* tambourine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tambourine.wav; sourceTree = "<group>"; };
+		825543142EE281AA00783FDC /* wood.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wood.wav; sourceTree = "<group>"; };
+		8275942F2EE4D7F0007B4FA6 /* AudioModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioModelTests.swift; sourceTree = "<group>"; };
+		827D6F862E76592E00091652 /* AudioErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioErrors.swift; sourceTree = "<group>"; };
+		828DC3D72E5372610032083A /* AudioPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerModel.swift; sourceTree = "<group>"; };
+		828DC3D82E5372610032083A /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		828DC3DC2E5372610032083A /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		828DC3DE2E5372610032083A /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		828DC3DF2E5372610032083A /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
+		828DC3E02E5372610032083A /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		828DC3E22E5372610032083A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		828DC3E52E5372610032083A /* AllRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutinesView.swift; sourceTree = "<group>"; };
+		828DC3E62E5372610032083A /* DropViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropViewDelegate.swift; sourceTree = "<group>"; };
+		828DC3E72E5372610032083A /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
+		828DC3EA2E5372610032083A /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
+		828DC3EB2E5372610032083A /* PartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartView.swift; sourceTree = "<group>"; };
+		828DC3EC2E5372610032083A /* RoutineContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineContainerView.swift; sourceTree = "<group>"; };
+		828DC3ED2E5372610032083A /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
+		828DC3EE2E5372610032083A /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
+		828DC3EF2E5372610032083A /* UploadedFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedFileView.swift; sourceTree = "<group>"; };
+		828DC3F02E5372610032083A /* UploadRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRoutineView.swift; sourceTree = "<group>"; usesTabs = 0; };
+		828DC3FA2E5372610032083A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		828DC3FB2E5372610032083A /* ChoreoBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChoreoBuilder.entitlements; sourceTree = "<group>"; };
+		828DC3FC2E5372610032083A /* ChoreoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreoBuilder.swift; sourceTree = "<group>"; };
+		828DC3FD2E5372610032083A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		828DC3FE2E5372610032083A /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
+		828DC3FF2E5372610032083A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82A5D51E2EE8A9FC006D96FC /* SimpleTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTip.swift; sourceTree = "<group>"; };
+		82CEB0CC2EE509D4009C0D36 /* ScenotaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScenotaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrimmerModel.swift; sourceTree = "<group>"; };
+		82DDAE562CFBF2F300AD0F60 /* Scenota.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scenota.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E757152ED3906B0086F880 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		82E757492ED8F90C0086F880 /* UsageGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageGuideView.swift; sourceTree = "<group>"; };
+		82E757552ED9458E0086F880 /* AudioWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWaveformView.swift; sourceTree = "<group>"; };
+		82E759652EDB5A8C0086F880 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		82B1FA312ECF7E9E00B69BAB /* Debug */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		82B230AB2EA027C800EEFE6A /* Moves */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Moves;
+			sourceTree = "<group>";
+		};
+		82B230E62EA167BF00EEFE6A /* Design */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Design;
+			sourceTree = "<group>";
+		};
+		82CEB0CD2EE509D4009C0D36 /* ScenotaTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ScenotaTests;
+			sourceTree = "<group>";
+		};
+		82DD58162ECFCBFA0009972E /* Errors */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Errors;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		82CEB0C92EE509D4009C0D36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DDAE532CFBF2F300AD0F60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E7584B2EDA0F750086F880 /* DSWaveformImage in Frameworks */,
+				82E7584D2EDA0F750086F880 /* DSWaveformImageViews in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		828DC3D62E5372610032083A /* Audio Files */ = {
+			isa = PBXGroup;
+			children = (
+				825542F82EE265F200783FDC /* clave.wav */,
+				825543002EE27BAD00783FDC /* piano.wav */,
+				825543082EE2818A00783FDC /* kick.wav */,
+				825543142EE281AA00783FDC /* wood.wav */,
+				825543102EE2819800783FDC /* tambourine.wav */,
+				825543042EE2817F00783FDC /* hihat.wav */,
+				8255430C2EE2819300783FDC /* snap.wav */,
+				825542F42EE25DBF00783FDC /* bongo.wav */,
+			);
+			path = "Audio Files";
+			sourceTree = "<group>";
+		};
+		828DC3DA2E5372610032083A /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				828DC3D72E5372610032083A /* AudioPlayerModel.swift */,
+				8275942F2EE4D7F0007B4FA6 /* AudioModelTests.swift */,
+				821393382E9BF5CB003B79E1 /* AudioTrimmerView.swift */,
+				82DD581E2ED00EAD0009972E /* AudioTrimmerModel.swift */,
+				828DC3D82E5372610032083A /* AudioPlayerView.swift */,
+				822246052EDFD598001B70AA /* AudioExtensions.swift */,
+				82E757552ED9458E0086F880 /* AudioWaveformView.swift */,
+				827D6F862E76592E00091652 /* AudioErrors.swift */,
+				825542E82EE2104C00783FDC /* SoundSettingsView.swift */,
+			);
+			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
+		828DC3DD2E5372610032083A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				828DC3DC2E5372610032083A /* ViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		828DC3E12E5372610032083A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				828DC3DE2E5372610032083A /* Move.swift */,
+				828DC3DF2E5372610032083A /* Part.swift */,
+				821391B12E935F57003B79E1 /* MoveType.swift */,
+				828DC3E02E5372610032083A /* Routine.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		828DC3E32E5372610032083A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				828DC3E22E5372610032083A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		828DC3F12E5372610032083A /* Routines */ = {
+			isa = PBXGroup;
+			children = (
+				828DC3E52E5372610032083A /* AllRoutinesView.swift */,
+				828DC3E62E5372610032083A /* DropViewDelegate.swift */,
+				828DC3E72E5372610032083A /* EditRoutineView.swift */,
+				825542E42EE2043A00783FDC /* OnboardingView.swift */,
+				828DC3EA2E5372610032083A /* OptionsView.swift */,
+				82E759652EDB5A8C0086F880 /* ExportView.swift */,
+				821392552E95D206003B79E1 /* AllMoveTypesView.swift */,
+				828DC3EB2E5372610032083A /* PartView.swift */,
+				82E757152ED3906B0086F880 /* AboutView.swift */,
+				828DC3EC2E5372610032083A /* RoutineContainerView.swift */,
+				828DC3ED2E5372610032083A /* RoutineView.swift */,
+				828DC3EE2E5372610032083A /* TextDocument.swift */,
+				828DC3EF2E5372610032083A /* UploadedFileView.swift */,
+				828DC3F02E5372610032083A /* UploadRoutineView.swift */,
+				82E757492ED8F90C0086F880 /* UsageGuideView.swift */,
+			);
+			path = Routines;
+			sourceTree = "<group>";
+		};
+		828DC4002E5372610032083A /* Scenota */ = {
+			isa = PBXGroup;
+			children = (
+				828DC3D62E5372610032083A /* Audio Files */,
+				828DC3DA2E5372610032083A /* AudioPlayer */,
+				828DC3DD2E5372610032083A /* Extensions */,
+				828DC3E12E5372610032083A /* Models */,
+				828DC3E32E5372610032083A /* Preview Content */,
+				828DC3F12E5372610032083A /* Routines */,
+				828DC3FA2E5372610032083A /* Assets.xcassets */,
+				828DC3FB2E5372610032083A /* ChoreoBuilder.entitlements */,
+				828DC3FC2E5372610032083A /* ChoreoBuilder.swift */,
+				8225FB6E2EE7FC3E00EC7C72 /* ReviewManager.swift */,
+				82A5D51E2EE8A9FC006D96FC /* SimpleTip.swift */,
+				828DC3FD2E5372610032083A /* ContentView.swift */,
+				828DC3FE2E5372610032083A /* FilesView.swift */,
+				82DD58162ECFCBFA0009972E /* Errors */,
+				828DC3FF2E5372610032083A /* Info.plist */,
+				82B230AB2EA027C800EEFE6A /* Moves */,
+				82B1FA312ECF7E9E00B69BAB /* Debug */,
+			);
+			path = Scenota;
+			sourceTree = "<group>";
+		};
+		82DDAE4D2CFBF2F300AD0F60 = {
+			isa = PBXGroup;
+			children = (
+				82CEB0CD2EE509D4009C0D36 /* ScenotaTests */,
+				82DDAE572CFBF2F300AD0F60 /* Products */,
+				828DC4002E5372610032083A /* Scenota */,
+				82B230E62EA167BF00EEFE6A /* Design */,
+			);
+			sourceTree = "<group>";
+		};
+		82DDAE572CFBF2F300AD0F60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				82DDAE562CFBF2F300AD0F60 /* Scenota.app */,
+				82CEB0CC2EE509D4009C0D36 /* ScenotaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		82CEB0CB2EE509D4009C0D36 /* ScenotaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82CEB0D22EE509D4009C0D36 /* Build configuration list for PBXNativeTarget "ScenotaTests" */;
+			buildPhases = (
+				82CEB0C82EE509D4009C0D36 /* Sources */,
+				82CEB0C92EE509D4009C0D36 /* Frameworks */,
+				82CEB0CA2EE509D4009C0D36 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82CEB0D12EE509D4009C0D36 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				82CEB0CD2EE509D4009C0D36 /* ScenotaTests */,
+			);
+			name = ScenotaTests;
+			packageProductDependencies = (
+			);
+			productName = ScenotaTests;
+			productReference = 82CEB0CC2EE509D4009C0D36 /* ScenotaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		82DDAE552CFBF2F300AD0F60 /* Scenota */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82DDAE7A2CFBF2F400AD0F60 /* Build configuration list for PBXNativeTarget "Scenota" */;
+			buildPhases = (
+				82DDAE522CFBF2F300AD0F60 /* Sources */,
+				82DDAE532CFBF2F300AD0F60 /* Frameworks */,
+				82DDAE542CFBF2F300AD0F60 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				82B1FA312ECF7E9E00B69BAB /* Debug */,
+				82B230AB2EA027C800EEFE6A /* Moves */,
+				82B230E62EA167BF00EEFE6A /* Design */,
+				82DD58162ECFCBFA0009972E /* Errors */,
+			);
+			name = Scenota;
+			packageProductDependencies = (
+				82E7584A2EDA0F750086F880 /* DSWaveformImage */,
+				82E7584C2EDA0F750086F880 /* DSWaveformImageViews */,
+			);
+			productName = BluesMaker;
+			productReference = 82DDAE562CFBF2F300AD0F60 /* Scenota.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		82DDAE4E2CFBF2F300AD0F60 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2610;
+				LastUpgradeCheck = 2610;
+				TargetAttributes = {
+					82CEB0CB2EE509D4009C0D36 = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 82DDAE552CFBF2F300AD0F60;
+					};
+					82DDAE552CFBF2F300AD0F60 = {
+						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1610;
+					};
+				};
+			};
+			buildConfigurationList = 82DDAE512CFBF2F300AD0F60 /* Build configuration list for PBXProject "Scenota" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 82DDAE4D2CFBF2F300AD0F60;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 82DDAE572CFBF2F300AD0F60 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				82DDAE552CFBF2F300AD0F60 /* Scenota */,
+				82CEB0CB2EE509D4009C0D36 /* ScenotaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82CEB0CA2EE509D4009C0D36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DDAE542CFBF2F300AD0F60 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8255430B2EE2818A00783FDC /* kick.wav in Resources */,
+				825543012EE27BAD00783FDC /* piano.wav in Resources */,
+				825543072EE2817F00783FDC /* hihat.wav in Resources */,
+				825542F72EE25DBF00783FDC /* bongo.wav in Resources */,
+				828DC47B2E5372610032083A /* Assets.xcassets in Resources */,
+				825543162EE281AA00783FDC /* wood.wav in Resources */,
+				825542FB2EE265F200783FDC /* clave.wav in Resources */,
+				825543112EE2819800783FDC /* tambourine.wav in Resources */,
+				8255430D2EE2819300783FDC /* snap.wav in Resources */,
+				828DC47D2E5372610032083A /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		82CEB0C82EE509D4009C0D36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DDAE522CFBF2F300AD0F60 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				828DC4572E5372610032083A /* Part.swift in Sources */,
+				828DC4592E5372610032083A /* AudioPlayerView.swift in Sources */,
+				828DC45A2E5372610032083A /* ViewExtensions.swift in Sources */,
+				821393392E9BF5CB003B79E1 /* AudioTrimmerView.swift in Sources */,
+				828DC45B2E5372610032083A /* OptionsView.swift in Sources */,
+				828DC45C2E5372610032083A /* UploadedFileView.swift in Sources */,
+				825542EB2EE2104C00783FDC /* SoundSettingsView.swift in Sources */,
+				828DC45D2E5372610032083A /* DropViewDelegate.swift in Sources */,
+				82E757562ED9458E0086F880 /* AudioWaveformView.swift in Sources */,
+				82E759682EDB5A8C0086F880 /* ExportView.swift in Sources */,
+				821392572E95D206003B79E1 /* AllMoveTypesView.swift in Sources */,
+				828DC45E2E5372610032083A /* RoutineView.swift in Sources */,
+				828DC45F2E5372610032083A /* FilesView.swift in Sources */,
+				822246082EDFD598001B70AA /* AudioExtensions.swift in Sources */,
+				828DC4612E5372610032083A /* UploadRoutineView.swift in Sources */,
+				828DC4622E5372610032083A /* Routine.swift in Sources */,
+				828DC4642E5372610032083A /* ChoreoBuilder.swift in Sources */,
+				827594302EE4D7F0007B4FA6 /* AudioModelTests.swift in Sources */,
+				827D6F882E76592E00091652 /* AudioErrors.swift in Sources */,
+				821391B32E935F57003B79E1 /* MoveType.swift in Sources */,
+				8225FB6F2EE7FC3E00EC7C72 /* ReviewManager.swift in Sources */,
+				828DC4652E5372610032083A /* AllRoutinesView.swift in Sources */,
+				825542E72EE2043A00783FDC /* OnboardingView.swift in Sources */,
+				82E757162ED3906B0086F880 /* AboutView.swift in Sources */,
+				828DC4672E5372610032083A /* ContentView.swift in Sources */,
+				82DD581F2ED00EAD0009972E /* AudioTrimmerModel.swift in Sources */,
+				82A5D51F2EE8A9FC006D96FC /* SimpleTip.swift in Sources */,
+				828DC4692E5372610032083A /* EditRoutineView.swift in Sources */,
+				828DC46A2E5372610032083A /* RoutineContainerView.swift in Sources */,
+				828DC46C2E5372610032083A /* TextDocument.swift in Sources */,
+				828DC46D2E5372610032083A /* PartView.swift in Sources */,
+				828DC46F2E5372610032083A /* Move.swift in Sources */,
+				82E7574B2ED8F90C0086F880 /* UsageGuideView.swift in Sources */,
+				828DC4752E5372610032083A /* AudioPlayerModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		82CEB0D12EE509D4009C0D36 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82DDAE552CFBF2F300AD0F60 /* Scenota */;
+			targetProxy = 82CEB0D02EE509D4009C0D36 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		82CEB0D32EE509D4009C0D36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWG234D888;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.ScenotaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scenota.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Scenota";
+			};
+			name = Debug;
+		};
+		82CEB0D42EE509D4009C0D36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWG234D888;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.ScenotaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scenota.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Scenota";
+			};
+			name = Release;
+		};
+		82DDAE782CFBF2F400AD0F60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		82DDAE792CFBF2F400AD0F60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		82DDAE7B2CFBF2F400AD0F60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				"DEBUG_INFORMATION_FORMAT[sdk=*]" = dwarf;
+				DEVELOPMENT_TEAM = PWG234D888;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app supports bluetooth";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth is only used to connect to nearby supported devices for selected features. No data is collected.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to record audio";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to select videos from your library and link them to your routines.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.Scenota;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		82DDAE7C2CFBF2F400AD0F60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWG234D888;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app supports bluetooth";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth is only used to connect to nearby supported devices for selected features. No data is collected.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to record audio";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to select videos from your library and link them to your routines.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.ChoreoBuilder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		82CEB0D22EE509D4009C0D36 /* Build configuration list for PBXNativeTarget "ScenotaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82CEB0D32EE509D4009C0D36 /* Debug */,
+				82CEB0D42EE509D4009C0D36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82DDAE512CFBF2F300AD0F60 /* Build configuration list for PBXProject "Scenota" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82DDAE782CFBF2F400AD0F60 /* Debug */,
+				82DDAE792CFBF2F400AD0F60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82DDAE7A2CFBF2F400AD0F60 /* Build configuration list for PBXNativeTarget "Scenota" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82DDAE7B2CFBF2F400AD0F60 /* Debug */,
+				82DDAE7C2CFBF2F400AD0F60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmrschmidt/DSWaveformImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		82E7584A2EDA0F750086F880 /* DSWaveformImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImage;
+		};
+		82E7584C2EDA0F750086F880 /* DSWaveformImageViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82E757892EDA06860086F880 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImageViews;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 82DDAE4E2CFBF2F300AD0F60 /* Project object */;
+}
