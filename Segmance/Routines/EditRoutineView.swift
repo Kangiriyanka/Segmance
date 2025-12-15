@@ -43,6 +43,11 @@ struct EditRoutineView: View {
                             if validateDetails() {
                                 routine.title = title
                                 routine.routineDescription = description
+                                
+                                // Since I COPY the parts, I have to manually set it back.
+                                for (index,part) in parts.enumerated() {
+                                    part.order = index + 1
+                                }
                                 routine.parts = parts
                                 dismiss()
                             }
