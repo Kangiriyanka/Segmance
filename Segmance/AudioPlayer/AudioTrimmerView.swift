@@ -273,7 +273,7 @@ func formatTime(_ seconds: CGFloat) -> String {
 }
 
 #Preview {
-    let URL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
+    let URL = Bundle.main.url(forResource: "clave", withExtension: "wav")!
     let manager: AudioTrimmerModel = AudioTrimmerModel()
     AudioTrimmerView()
         .onAppear {

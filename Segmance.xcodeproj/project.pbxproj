@@ -480,7 +480,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.ScenotaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.SegmanceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -502,7 +502,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.ScenotaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.SegmanceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -642,16 +642,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				"DEBUG_INFORMATION_FORMAT[sdk=*]" = dwarf;
 				DEVELOPMENT_TEAM = PWG234D888;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Segmance;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app supports bluetooth";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth functionality is supported.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth is only used to connect to nearby supported devices for selected features. No data is collected.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to record audio";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access to record audio is supported.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to select videos from your library and link them to your routines.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -664,7 +664,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.Scenota;
+				PRODUCT_BUNDLE_IDENTIFIER = kangiriyanka.ChoreoBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -681,15 +681,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = PWG234D888;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Segmance;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app supports bluetooth";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth functionality is supported.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth is only used to connect to nearby supported devices for selected features. No data is collected.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to record audio";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access to record audio is supported.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to select videos from your library and link them to your routines.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

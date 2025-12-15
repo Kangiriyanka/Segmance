@@ -141,7 +141,7 @@ struct UsageGuideView: View {
                    
                 }
                 
-                infoButtonCard(title: "Countdown" ,description: "Set a countdown before you start practicing. The countdown resets on pause or when  looping ends. Change the tick sound in the Settings." ,spacing: 12) {
+                infoButtonCard(title: "Countdown" ,description: "Set a countdown before rehearsing. The countdown resets on pause or when  looping ends. Change the tick sound in the Settings." ,spacing: 12) {
       
                     Group {
                         
