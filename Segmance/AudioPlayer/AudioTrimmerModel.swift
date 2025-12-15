@@ -11,7 +11,7 @@ import AVFoundation
 import Accelerate
 
 @Observable
-class AudioTrimmerModel: NSObject {
+class AudioTrimmerModel: NSObject, AVAudioPlayerDelegate {
 
     var audioPlayer: AVAudioPlayer?
     private var currentExportSession: AVAssetExportSession?
@@ -47,6 +47,8 @@ class AudioTrimmerModel: NSObject {
         
         defer { audioFileURL.stopAccessingSecurityScopedResource() }
         
+     
+        
         originalFilename = String(audioFileURL.deletingPathExtension().lastPathComponent.prefix(6))
         let tempURL = FileManager.default.temporaryDirectory
             .appendingPathComponent(UUID().uuidString)
@@ -61,6 +63,7 @@ class AudioTrimmerModel: NSObject {
             
             audioURL = tempURL
             audioPlayer = try AVAudioPlayer(contentsOf: tempURL)
+            audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
             
             // Initialize selection to full track

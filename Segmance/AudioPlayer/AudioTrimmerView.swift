@@ -48,7 +48,7 @@ struct AudioTrimmerView: View {
             
             .contentMargins(.horizontal, 10, for: .scrollContent)
             .background(backgroundGradient.ignoresSafeArea())
-            .navigationTitle("Trimmer")
+            .navigationTitle("Clipper")
             .navigationBarTitleDisplayMode(.inline)
         }
         .fileImporter(

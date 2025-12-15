@@ -1,5 +1,5 @@
 import XCTest
-@testable import Scenota
+@testable import Segmance
 
 
 
