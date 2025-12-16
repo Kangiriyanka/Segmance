@@ -89,7 +89,7 @@ struct UsageGuideView: View {
                 
                 
                 
-                infoButtonCard(title: "Add custom moves" ,description: "Assign a type to categorize moves. Use labels that fit your discipline." ,spacing: 12) {
+                infoButtonCard(title: "Add custom moves" ,description: "Create custom moves and assign types that fit your creative process." ,spacing: 12) {
                     
                     withAnimation(Animation.organicFastBounce) {
                         Button() {
@@ -141,7 +141,7 @@ struct UsageGuideView: View {
                    
                 }
                 
-                infoButtonCard(title: "Countdown" ,description: "Set a countdown before rehearsing. The countdown resets on pause or when  looping ends. Change the tick sound in the Settings." ,spacing: 12) {
+                infoButtonCard(title: "Countdown" ,description: "Set a countdown before rehearsing. The countdown resets on pause or when the loop completes. Change the tick sound in the Settings." ,spacing: 12) {
       
                     Group {
                         
