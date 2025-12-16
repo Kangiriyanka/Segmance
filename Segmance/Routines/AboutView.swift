@@ -20,15 +20,15 @@ struct AboutView: View {
             VStack(alignment: .leading, spacing: 20) {
                 infoCard(
                     title: "Segment your performance ",
-                    description: "Segmance offers an intuitive way of breaking down performance routines into individual parts for meaningful practice.",
+                    description: "Segmance helps you break down  performances into parts for organized meaningful practice.",
                     spacing: 12
                 )
                 
                 BubbleSeparator()
                 
                 infoCard(
-                    title: "For every artist",
-                    description: "Built for artists of all levels and discisplines who hone their craft every day.",
+                    title: "Express yourself",
+                    description: "Built for anyone who wants to express themselves through music and movement.",
                     spacing: 12
                 )
                 
@@ -63,8 +63,8 @@ struct AboutView: View {
                 HStack(spacing: 12) {
                     Button {
                         let email = "joseph.farah100@gmail.com"
-                        let subject = "Scenota Feedback"
-                        let body = "Feel free to tell me what you'd like added, fixed or anything else you'd like to comment"
+                        let subject = "Segmance Feedback"
+                        let body = "Feel free to share what you'd like added, fixed or any other feedback."
                         
                         let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
                         let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""

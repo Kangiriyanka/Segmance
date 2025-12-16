@@ -1,6 +1,10 @@
 import SwiftUI
 import AVFoundation
 
+// Edge cases
+
+/// 1. If a user reuploads a file, you must reset the handles back to the original positions and change isPlaying to false.
+
 struct AudioTrimmerView: View {
     
     @State private var isImporting = false
@@ -61,9 +65,13 @@ struct AudioTrimmerView: View {
             
             guard audioURL.startAccessingSecurityScopedResource() else { return }
             
+            
             withAnimation(.easeInOut) {
                
+                
                 audioTrimmerManager.setupAudio(url: audioURL)
+                audioTrimmerManager.isPlaying = false
+                startHandle = 0
                 endHandle = audioTrimmerManager.duration?.rounded(.down) ?? 1
                
             }
