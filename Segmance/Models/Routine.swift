@@ -73,6 +73,17 @@ class Routine {
         return routine
     }()
     
+    static let sixthExample: Routine = {
+        let routine = Routine(title: "Lost Woods Long Version", routineDescription: "Playful and Mysterious Tempo Changes")
+        let part1 = Part(title: "Mischievous Intro", fileName: "woods_intro", order: 1)
+        routine.parts.append(part1)
+        let part2 = Part(title: "Echo Section", fileName: "woods_echo", order: 2)
+        routine.parts.append(part2)
+        let part3 = Part(title: "Final Trick", fileName: "woods_final", order: 3)
+        routine.parts.append(part3)
+        return routine
+    }()
+    
     
 }
     
@@ -90,6 +101,7 @@ extension Routine {
                     Routine.thirdExample,
                     Routine.fourthExample,
                     Routine.fifthExample,
+                    Routine.sixthExample,
                 ]
             }
             samples.forEach {
