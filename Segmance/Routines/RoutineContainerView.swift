@@ -20,6 +20,11 @@ struct RoutineContainerView: View {
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("gridMode") private var gridMode: GridMode = .list
 
+    @State private var selectedRoutineID: UUID? = nil
+    @Namespace private var animation
+
+
+
     
     var filteredRoutines: [Routine] {
         if searchText.isEmpty {
@@ -33,7 +38,7 @@ struct RoutineContainerView: View {
             
             var columns: [GridItem] {
                 switch self {
-                case .list: return []
+                case .list: return [GridItem(.flexible())]
                 case .grid2: return [GridItem(.adaptive(minimum: 140), spacing: 15)]
                 case .grid3: return [GridItem(.adaptive(minimum: 100), spacing: 15)]
                 }
@@ -109,54 +114,51 @@ struct RoutineContainerView: View {
                     }
                     else {
                         
+                        // Animation Problems
+                        // Don't use LazyVStack and LazyVGrid, just use one.
                         
                         ScrollView(showsIndicators: false) {
                             ScrollViewReader { proxy in
-                                Group {
-                                    switch gridMode {
-                                    case .list:
-                                        LazyVStack(spacing: 10) {
-                                            ForEach(filteredRoutines) { routine in
-                                                NavigationLink(destination: RoutineView(routine: routine)
-                                                    .navigationBarBackButtonHidden(true)) {
-                                                        RoutineCardView(routine: routine)
+                                LazyVGrid(columns: gridMode.columns, spacing: 10) {
+                                        ForEach(filteredRoutines) { routine in
+                                            NavigationLink(destination: RoutineView(routine: routine)
+                                                            .navigationBarBackButtonHidden(true)) {
+                                                if gridMode == .list {
+                                                    RoutineCardView(routine: routine)
+                                                        .frame(maxWidth: .infinity)
+                                                } else {
+                                                    CompactRoutineCard(routine: routine, gridMode: gridMode.rawValue)
                                                 }
-                                                .buttonStyle(NavButtonStyle())
                                             }
+                                                            
+                                            .buttonStyle(NavButtonStyle())
+                                            .animation(.smoothReorder, value: gridMode)
+                                            .matchedGeometryEffect(id: routine.id, in: animation)
+                                            .transition(.identity)
                                         }
-                             
-                                        
-                                    case .grid2, .grid3:
-                                        LazyVGrid(columns: gridMode.columns, spacing: 15) {
-                                            ForEach(filteredRoutines) { routine in
-                                                NavigationLink(destination: RoutineView(routine: routine)
-                                                    .navigationBarBackButtonHidden(true)) {
-                                                        CompactRoutineCard(routine: routine, gridMode: gridMode.rawValue)
-                                                }
-                                                .buttonStyle(NavButtonStyle())
-                                            }
-                                        }
-                                     
                                     }
-                                }
-                                .id("scrollTop")
-                                .onChange(of: gridMode) { _, _ in
-                                    
-                                        proxy.scrollTo("scrollTop", anchor: .top)
-                                    
-                                }
+                                    .id("scrollTop")
+                                    .onChange(of: gridMode) { _, _ in
+                                        withAnimation(.smoothReorder) {
+                                            proxy.scrollTo("scrollTop", anchor: .top)
+                                        }
+                                    }
+                               
                             }
                         }
-                    
+                     
+                        .contentMargins(.horizontal, 10, for: .scrollContent)
                         .contentMargins(.bottom, 50, for: .scrollContent)
+                        .contentMargins(.top, 10, for: .scrollContent)
 
                         
                     }
                     
                 }
+         
+                .animation(Animation.smoothReorder, value: gridMode)
                 .padding()
-
-
+ 
                 .navigationTitle("Routines")
                 .ignoresSafeArea(.keyboard)
                 .navigationBarTitleDisplayMode(.inline)
@@ -166,6 +168,8 @@ struct RoutineContainerView: View {
                 
                 
             }
+            
+            
             .background(
                 backgroundGradient
             )
@@ -198,7 +202,7 @@ struct RoutineContainerView: View {
         
         private var viewModeButton: some View {
             Button {
-                withAnimation {
+                withAnimation(.smoothReorder) {
                     gridMode.cycle()
                 }
                     

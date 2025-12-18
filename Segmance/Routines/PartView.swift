@@ -40,14 +40,7 @@ struct PartView: View {
                 movesScrollView
             }
             
-//            if audioPlayerPresented, let partURL = part.location {
-//                AudioPlayerView(audioFileURL: partURL, partTitle: part.title, isExpanded: $playerExpanded)
-//                   
-//                    .offset(y: audioPlayerPresented ? 0 : 400)
-//                    .opacity(audioPlayerPresented ? 1 : 0)
-//                    .transition(.blurReplace)
-//                    .zIndex(10)
-//            }
+
         }
        
 
@@ -91,6 +84,7 @@ struct PartView: View {
                     ContentUnavailableView {
                         Label("Controls", systemImage: "arcade.stick")
                     } description: {
+                        
                         
                         VStack(alignment: .leading, spacing: 10) {
                             Text("1. Add moves with \(Image(systemName: "plus.circle")).")
@@ -151,44 +145,7 @@ struct PartView: View {
     private var actionButtons: some View {
         HStack {
             
-            if part.videoAssetID != nil {
-                Button {
-                    guard let id = part.videoAssetID, !isLoadingVideo else { return }
-                    isLoadingVideo = true
-                    fetchVideoURL(from: id) { url in
-                        isLoadingVideo = false
-                        if let url = url {
-                            videoURL = url
-                            showingVideoPlayer = true
-                        }
-                    }
-                } label: {
-                  
-                        Image(systemName: "play.circle")
-                        .popoverTip(tip)
-                        
-                       
-                            
-                           
-                    
-                }
-                .onAppear {
-                    Task {
-                        await VideoTip.setVideoEvent.donate()
-                    }
-                }
-                .contextMenu {
-                    Button(role: .destructive) {
-                        part.videoAssetID = nil
-                    } label: {
-                        Label("Unlink Video", systemImage: "trash")
-                    }
-                }
-                .buttonStyle(PressableButtonStyle())
-                .contentShape(Rectangle())
-                .disabled(isLoadingVideo)
-            }
-            // Video picker
+            
        
 
             // Play video button if video exists
@@ -215,24 +172,7 @@ struct PartView: View {
                     Image(systemName: "music.quarternote.3")
                 }
                 
-                PhotosPicker(
-                    selection: Binding(
-                        get: { nil },
-                        set: { item in
-                            Task {
-                                if let id = item?.itemIdentifier {
-                                    part.videoAssetID = id
-                                }
-                            }
-                        }
-                    ),
-                    matching: .videos,
-                    photoLibrary: .shared()
-                ) {
-                    Image(systemName: "film")
-                }
-                .buttonStyle(PressableButtonStyle())
-                .contentShape(Rectangle())
+                filmButton
 
               
             }
@@ -253,6 +193,68 @@ struct PartView: View {
             if move.order > moveToDelete.order {
                 move.order -= 1
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var filmButton: some View {
+        
+        if part.videoAssetID != nil {
+            Button {
+                guard let id = part.videoAssetID, !isLoadingVideo else { return }
+                isLoadingVideo = true
+                fetchVideoURL(from: id) { url in
+                    isLoadingVideo = false
+                    if let url = url {
+                        videoURL = url
+                        showingVideoPlayer = true
+                    }
+                }
+            } label: {
+              
+                    Image(systemName: "play.circle")
+                    .popoverTip(tip)
+                      
+                
+            }
+            .onAppear {
+                Task {
+                    await VideoTip.setVideoEvent.donate()
+                }
+            }
+            .contextMenu {
+                Button(role: .destructive) {
+                    part.videoAssetID = nil
+                } label: {
+                    Label("Unlink Video", systemImage: "trash")
+                }
+            }
+            .buttonStyle(PressableButtonStyle())
+            .contentShape(Rectangle())
+         
+        }
+        
+        else {
+            // Video picker
+            PhotosPicker(
+                selection: Binding(
+                    get: { nil },
+                    set: { item in
+                        Task {
+                            if let id = item?.itemIdentifier {
+                                part.videoAssetID = id
+                            }
+                        }
+                    }
+                ),
+                matching: .videos,
+                photoLibrary: .shared()
+            ) {
+                Image(systemName: "film")
+            }
+            .buttonStyle(PressableButtonStyle())
+            .contentShape(Rectangle())
+            
         }
     }
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 
 struct RoutineView: View {
@@ -21,6 +22,7 @@ struct RoutineView: View {
     @State private var currentAudioURL: URL?
     @State private var currentPartTitle: String = ""
     @Environment(\.dismiss) private var dismiss
+    @Query(sort: \Routine.title) var routines: [Routine]
     
     
     var body: some View {
@@ -71,6 +73,13 @@ struct RoutineView: View {
             
             
         }
+        .onChange(of: routines) { _,_ in
+                    // If this routine no longer exists, dismiss this view
+                    if !routines.contains(where: { $0.id == routine.id }) {
+                        dismiss()
+                    }
+                }
+      
         .padding(.top, -10)
         
       
