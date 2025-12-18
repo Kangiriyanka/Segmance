@@ -26,13 +26,13 @@ struct AllMoveTypesView: View {
 
                 VStack(spacing: 0) {
 
-                    // Your custom search bar at the top
-                    CustomSearchBar(
-                        text: $searchText,
-                        placeholder: "Search move types"
-                    )
-                   
-                    .padding()
+                    HStack{
+                        Spacer()
+                        CustomSearchBar(text: $searchText, placeholder: "Search routines")
+                            .padding()
+                        
+                    }
+                    
                  
 
                     Group {

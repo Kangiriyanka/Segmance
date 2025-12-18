@@ -56,12 +56,15 @@ struct PressableButtonStyle: ButtonStyle {
     var scale: CGFloat = 0.9
     var opacity: Double = 0.85
     var isDisabled: Bool? = nil
+    var width: CGFloat = 50
+    var height: CGFloat = 50
 
     func makeBody(configuration: Configuration) -> some View {
         let disabled = isDisabled ?? false
         configuration.label
            
             .padding()
+            .frame(width: width, height: height)
             .background(
                 
                 Circle()
@@ -69,6 +72,7 @@ struct PressableButtonStyle: ButtonStyle {
                     .fill(Color.routineCard)
                 
             )
+           
             .font(.system(size: 16, weight: .semibold))
         
 
@@ -160,7 +164,7 @@ struct ReviewButtonStyle: ButtonStyle {
          
           
             .scaleEffect(configuration.isPressed ? scale : 1)
-            .opacity(disabled ? 0.5 : (configuration.isPressed ? opacity : 1))
+            .opacity(disabled ? 0.2 : (configuration.isPressed ? opacity : 1))
             .animation(.spring(response: 0.3, dampingFraction: 0.4), value: configuration.isPressed)
     }
 }

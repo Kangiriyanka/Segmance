@@ -87,13 +87,25 @@ struct PartView: View {
     private var movesScrollView: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
-                if part.moves.isEmpty {
+                if part.moves.isEmpty && part.order == 1 {
                     ContentUnavailableView {
-                        Label("No moves added", systemImage: "figure.dance")
+                        Label("Controls", systemImage: "arcade.stick")
                     } description: {
-                        Text("Add moves by tapping the \(Image(systemName: "plus.circle")) button.")
-                            .padding(.top, 5)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("1. Add moves with \(Image(systemName: "plus.circle")).")
+                            Text("2. Toggle Audio Player with \(Image(systemName: "music.quarternote.3")).")
+                            Text("3. Link videos with the \(Image(systemName: "film")).")
+                            Text("4. Hold order number to delete move.")
+                            Text("5. Reorder moves with drag and drop.")
+                        }
+                        .padding()
+                        .multilineTextAlignment(.leading)
+                            
                     }
+                   
+                    .background(shadowOutline)
+                    .padding()
                 } else {
                     VStack(spacing: 50) {
                         ForEach(moves) { move in
@@ -177,30 +189,22 @@ struct PartView: View {
                 .disabled(isLoadingVideo)
             }
             // Video picker
-            PhotosPicker(
-                selection: Binding(
-                    get: { nil },
-                    set: { item in
-                        Task {
-                            if let id = item?.itemIdentifier {
-                                part.videoAssetID = id
-                            }
-                        }
-                    }
-                ),
-                matching: .videos,
-                photoLibrary: .shared()
-            ) {
-                Image(systemName: "film")
-            }
-            .buttonStyle(PressableButtonStyle())
-            .contentShape(Rectangle())
+       
 
             // Play video button if video exists
            
 
             // Audio and add buttons
-            HStack(spacing: 5) {
+            HStack(spacing: 10) {
+                
+                Button {
+                    withAnimation {
+                        showingAddMoveSheet.toggle()
+                    }
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                
                 Button {
                     
                         if let url = part.location {
@@ -210,14 +214,27 @@ struct PartView: View {
                 } label: {
                     Image(systemName: "music.quarternote.3")
                 }
-
-                Button {
-                    withAnimation {
-                        showingAddMoveSheet.toggle()
-                    }
-                } label: {
-                    Image(systemName: "plus.circle")
+                
+                PhotosPicker(
+                    selection: Binding(
+                        get: { nil },
+                        set: { item in
+                            Task {
+                                if let id = item?.itemIdentifier {
+                                    part.videoAssetID = id
+                                }
+                            }
+                        }
+                    ),
+                    matching: .videos,
+                    photoLibrary: .shared()
+                ) {
+                    Image(systemName: "film")
                 }
+                .buttonStyle(PressableButtonStyle())
+                .contentShape(Rectangle())
+
+              
             }
             .buttonStyle(PressableButtonStyle())
             .contentShape(Rectangle())

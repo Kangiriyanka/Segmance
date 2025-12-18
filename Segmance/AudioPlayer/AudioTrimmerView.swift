@@ -27,6 +27,8 @@ struct AudioTrimmerView: View {
                
                     if audioTrimmerManager.audioURL == nil {
                       
+                        Text("Import audio for clipping").customHeader()
+                            .offset(y:5)
                         emptyStateButton
                             .matchedGeometryEffect(id: "audioImport", in: uploadSpace)
                           
@@ -40,6 +42,7 @@ struct AudioTrimmerView: View {
                             startTime: $startHandle,
                             endTime: $endHandle,
                             trimmer: audioTrimmerManager)
+                        .offset(y: 10)
                         
                        
                         
@@ -51,6 +54,7 @@ struct AudioTrimmerView: View {
             }
             
             .contentMargins(.horizontal, 10, for: .scrollContent)
+            .contentMargins(.bottom, 30, for: .scrollContent)
             .background(backgroundGradient.ignoresSafeArea())
             .navigationTitle("Clipper")
             .navigationBarTitleDisplayMode(.inline)
@@ -83,41 +87,24 @@ struct AudioTrimmerView: View {
     @ViewBuilder
     /// TempComment:  HStack of Audio Controls, shouldn't cause any issues.
     private var audioControls: some View {
-    
-            HStack {
-                
-                
-                Button(action: resetEverything) {
-                    Image(systemName: "trash")
-                        .font(.system(size: 20, weight: .semibold))
-                }
-                
-                Button(action: { isImporting = true }) {
-                    Image(systemName: "square.and.arrow.down")
-                        .font(.system(size: 20, weight: .semibold))
-                        .matchedGeometryEffect(id: "audioImport", in: uploadSpace)
-                }
-                
-                Button(action: audioTrimmerManager.togglePlayPause) {
-                    Image(systemName: audioTrimmerManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                        .font(.system(size: 20, weight: .semibold))
-                }
-                
-                
-                Button(action: clipAudio) {
-                    Image(systemName: "scissors")
-                        .font(.system(size: 20, weight: .semibold))
-                }
-            
-                
-             
-                
+        HStack {
+            Button(action: audioTrimmerManager.togglePlayPause) {
+                Image(systemName: audioTrimmerManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                 
             }
-            .padding()
             
-            .buttonStyle(PressableButtonStyle(isDisabled: clipStatus == .clipping))
+            Button(action: clipAudio) {
+                Image(systemName: "scissors")
+       
+            }
             
-        
+            Button(action: resetEverything) {
+                Image(systemName: "trash")
+                 
+            }
+        }
+   
+        .buttonStyle(PressableButtonStyle(isDisabled: clipStatus == .clipping))
     }
                   
              
@@ -166,7 +153,7 @@ struct AudioTrimmerView: View {
                     .font(.system(size: 50, weight: .semibold))
                     .frame(width: 100, height: 100)
             }
-            .buttonStyle(PressableButtonStyle())
+            .buttonStyle(PressableButtonStyle(width: 140, height: 140))
             Spacer()
         }
         .padding()
@@ -187,7 +174,7 @@ struct AudioTrimmerView: View {
             case .duplicate:
                 Text("Already clipped")
                     
-                    .foregroundStyle(.accent.opacity(0.7))
+                    .foregroundStyle(.secondary)
                     .font(.caption)
             case .idle:
                 Text("")
@@ -198,8 +185,10 @@ struct AudioTrimmerView: View {
     
     private var shareButton: some View {
         ShareLink(items: audioTrimmerManager.clippedURLs) {
-            Text("Done")
-                .font(.subheadline)
+            Text("Save Clips")
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundStyle(.accent.opacity(0.8))
          
       
         }
@@ -207,26 +196,31 @@ struct AudioTrimmerView: View {
     }
     
     private var clipsList: some View {
-        ForEach(audioTrimmerManager.clippedURLs, id: \.self) { clipURL in
-            HStack {
-                Text(clipURL.lastPathComponent)
-                    .lineLimit(1)
-                    .truncationMode(.middle)
-                Spacer()
-                Button {
-                    withAnimation(.easeInOut) {
-                        audioTrimmerManager.removeURL(url: clipURL)
+        VStack {
+            ForEach(audioTrimmerManager.clippedURLs, id: \.self) { clipURL in
+                HStack {
+                    Text(clipURL.lastPathComponent)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                    Spacer()
+                    Button {
+                        withAnimation(.easeInOut) {
+                            audioTrimmerManager.removeURL(url: clipURL)
+                        }
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.red.opacity(0.7))
+                            
                     }
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.red.opacity(0.7))
-                        .font(.system(size: 20))
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
+                
+                .bubbleStyle()
             }
-           
-            .bubbleStyle()
         }
+        .padding()
+        .background(shadowOutline)
+     
     }
     
 
@@ -290,3 +284,4 @@ func formatTime(_ seconds: CGFloat) -> String {
         }
     
 }
+

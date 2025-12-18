@@ -79,6 +79,7 @@ struct AudioPlayerView: View {
             .padding(.bottom, isExpanded ? 0 : safeArea.bottom + 20)
             .padding(.horizontal, isExpanded ? 0 : 10)
             .ignoresSafeArea()
+            .navigationBarHidden(true)
             .offset(y: offsetY).animation(.smooth(duration: 0.3), value: offsetY)
             .gesture(
                 // To dismiss the expanded player
@@ -218,7 +219,7 @@ struct AudioPlayerView: View {
             Capsule()
                 .fill(.white.secondary)
                 .frame(width:35,height: 5)
-                .offset(y: -10)
+               
             Spacer()
             
             
@@ -358,7 +359,7 @@ struct AudioPlayerView: View {
                         Group {
                             
                             VStack(spacing: 10) {
-                                Image(systemName: "powersleep")
+                                Image(systemName: "timer")
                                    
                                 
                                 Text("\(delay, specifier: "%g ")")
@@ -369,6 +370,7 @@ struct AudioPlayerView: View {
                             .frame(width: 50, height: 60)
                             .padding()
                             .background(optionsBackground)
+                           
                          
                         }
                         .bold()

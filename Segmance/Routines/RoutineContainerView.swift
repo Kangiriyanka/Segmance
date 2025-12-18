@@ -15,8 +15,10 @@ struct RoutineContainerView: View {
     @State private var showingConfirmation: Bool = false
     @State private var searchText: String = ""
     @State private var routinePendingDeletion: Routine? = nil
+    @Environment(\.dismiss) private var dismiss
     @Query(sort: \Routine.title) var routines: [Routine]
     @Environment(\.colorScheme) var colorScheme
+    @AppStorage("viewMode") private var isCompactView: Bool = false
     
     var filteredRoutines: [Routine] {
                if searchText.isEmpty {
@@ -25,7 +27,7 @@ struct RoutineContainerView: View {
         return routines.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
     
-    
+
 
     
     var body: some View {
@@ -36,21 +38,27 @@ struct RoutineContainerView: View {
         
             VStack {
                 
-                HStack(spacing: 0) {
-
+                HStack(spacing: 10) {
+                    Spacer()
                     CustomSearchBar(
                         text: $searchText,
                         placeholder: "Search routines"
                     )
+                    
                     .contentShape(Rectangle())
-                 
+                
                   
                     
-
-                    addRoutineButton
+                    HStack {
+                        addRoutineButton
+                        viewModeButton
+                    }
+                        
+                    Spacer()
                       
                 }
-                .offset(y: -20)
+                .frame(maxWidth: .infinity)
+                .offset(y: -15)
                 .sheet(isPresented: $showingUploadRoutineSheet) {
                     UploadRoutineView()
                         .background(noSinBackgroundGradient.opacity(0.9))
@@ -67,7 +75,7 @@ struct RoutineContainerView: View {
                         ContentUnavailableView {
                             Label("No routines found", systemImage: "music.quarternote.3")
                         } description: {
-                            Text("Add your first one by tapping the \(Image(systemName: "figure.dance")) button.").padding([.top], 5)
+                            Text("Add one by tapping the \(Image(systemName: "figure.dance")) button.").padding([.top], 5)
                         }
                         
                         
@@ -76,18 +84,37 @@ struct RoutineContainerView: View {
                     }
                     else {
                         
+                        
+                       
                         ScrollView(.vertical, showsIndicators: false) {
-                            ForEach(Array(filteredRoutines.enumerated()), id: \.element.id) { index, routine in
-                                NavigationLink(destination: RoutineView(routine: routine)
-                                                .navigationBarBackButtonHidden()) {
-                                                    RoutineCardView(off: Double(index), routine: routine)
-                                        .padding(.vertical, 10)
+                            if isCompactView {
+                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                                    ForEach(filteredRoutines) { routine in
+                                        NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden(true)) {
+                                            CompactRoutineCard(routine: routine)
+                                        }
+                                        .buttonStyle(NavButtonStyle())
+                                     
+                                    }
                                 }
-                                .buttonStyle(NavButtonStyle())
+                            
+                            } else {
+                                ForEach(Array(filteredRoutines.enumerated()), id: \.element.id) { index, routine in
+                                    NavigationLink(destination: RoutineView(routine: routine) .navigationBarBackButtonHidden(true))  {
+                                        RoutineCardView(off: Double(index), routine: routine)
+                                            .padding(.vertical, 10)
+                                    }
+                                    .buttonStyle(NavButtonStyle())
+                                  
+                                }
+                             
                             }
                         }
                        
+                        .animation(.smoothReorder, value: isCompactView)
                         .contentMargins(.bottom, 50, for: .scrollContent)
+                       
+                
                     
                         
                         
@@ -113,10 +140,14 @@ struct RoutineContainerView: View {
             .navigationTitle("Routines")
             .ignoresSafeArea(.keyboard)
             .navigationBarTitleDisplayMode(.inline)
+        
+           
           
             
            
         }
+        
+     
      
     }
     
@@ -130,9 +161,28 @@ struct RoutineContainerView: View {
                 
              
         }
-        .padding(5)
+     
         .buttonStyle(PressableButtonStyle())
         .contentShape(Rectangle())
+       
+        
+    }
+    
+    
+    private var viewModeButton: some View {
+        Button {
+            withAnimation(Animation.smoothReorder) {
+                  isCompactView.toggle()
+              }
+          } label: {
+              Image(systemName: isCompactView ? "square.grid.2x2" : "rectangle.grid.1x2")
+                  .frame(width: 10)
+                  
+          }
+          
+     
+          .buttonStyle(PressableButtonStyle())
+          .contentShape(Rectangle())
        
         
     }
@@ -148,6 +198,41 @@ struct RoutineContainerView: View {
 
 
 
+
+struct CompactRoutineCard: View {
+    let routine: Routine
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(Color.accent.opacity(0.15))
+                    .frame(width: 30, height: 30)
+                
+                Image(systemName: "music.note")
+                    .foregroundStyle(.accent.opacity(0.7))
+                    .font(.system(size: 14, weight: .semibold))
+            }
+            
+            VStack(spacing: 4) {
+                Text(routine.title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.mainText)
+                    .fixedSize(horizontal: false, vertical: true)
+                   
+                    .multilineTextAlignment(.center)
+                
+             
+            }
+          
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .frame(height: 100)
+        .background(routineCardBackground)
+        .customBorderStyle()
+    }
+}
 
 
 struct RoutineCardView: View {
@@ -175,7 +260,7 @@ struct RoutineCardView: View {
                     
                 }
                 
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text(routine.title)
                         .font(.headline.weight(.semibold))
                         .foregroundStyle(Color.mainText)

@@ -19,7 +19,7 @@ struct EditRoutineView: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError: Bool = false
-    @State private var characterLimit: Int = 25
+    @State private var characterLimit: Int = 30
     @State private var draggedPart: Part?
     @State private var isPresentingConfirm: Bool = false
     @Environment(\.modelContext)  var modelContext
@@ -65,7 +65,7 @@ struct EditRoutineView: View {
                         .focused($isFocused)
                     
                     
-                    TextField("Enter a short description", text: $description)
+                    TextField("Enter a subtitle", text: $description)
                         .bubbleStyle()
                         .limitText($description, to: characterLimit)
                         .focused($isFocused)
@@ -112,6 +112,7 @@ struct EditRoutineView: View {
                             Spacer().frame(height: 1)
                         }
                         
+                        .contentMargins(.vertical, 20)
                         .scrollIndicators(.hidden)
                         .clipped()
                         .onChange(of: focusedPartID) { _, newValue in

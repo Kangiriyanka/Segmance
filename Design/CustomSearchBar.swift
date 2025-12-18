@@ -16,6 +16,7 @@ struct CustomSearchBar: View {
     
     var body: some View {
         HStack(spacing: 0) {
+            
             if !isExpanded {
                 Button {
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
@@ -73,10 +74,11 @@ struct CustomSearchBar: View {
                 )
                
             }
+          
         }
-        .padding()
+ 
        
-        .frame(maxWidth: .infinity, maxHeight: 30, alignment: .trailing)
+        .frame(maxHeight: 30, alignment: .trailing)
     }
 }
 

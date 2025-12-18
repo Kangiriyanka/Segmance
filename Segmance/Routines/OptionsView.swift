@@ -39,8 +39,11 @@ struct OptionsView: View {
                         }
                         
                     } header: {
-                        HStack {
-                            Text("Library")
+                        HStack(spacing: 3) {
+                            Group {
+                                Image(systemName: "book.circle")
+                                Text("Browse")
+                            }
                                 .customHeader()
                             
                             Spacer()
@@ -50,8 +53,39 @@ struct OptionsView: View {
                     
                     
                     Divider()
-                    // MARK: - ABOUT
+           
                     
+                 
+                        Section {
+                            
+                            NavigationLink {
+                                SoundSettingsView()
+                            } label: {
+                                navText(title: "Countdown Sound", image: "circle.fill")
+                            }
+                            
+                            
+                            Button {
+                                isExporting = true
+                            } label: {
+                                navText(title: "Export Routines", image: "circle.fill")
+                            }
+                            .buttonStyle(NavButtonStyle())
+
+                        } header: {
+                            HStack(spacing: 3) {
+                                Group {
+                                    Image(systemName: "square.circle")
+                                    Text("Options")
+                                }
+                                    .customHeader()
+                                
+                                Spacer()
+                            }
+                            .padding(.bottom, 4)
+                        }
+                    
+                    Divider()
                     Section {
                         
                         NavigationLink {
@@ -69,44 +103,17 @@ struct OptionsView: View {
                         }
                         
                     } header: {
-                        HStack {
-                            Text("Support")
+                        HStack(spacing: 3) {
+                            Group {
+                                Image(systemName: "questionmark.circle")
+                                Text("Support")
+                            }
                                 .customHeader()
                             
                             Spacer()
                         }
                         .padding(.bottom, 4)
                     }
-                    
-                    Divider()
-                    
-                    // MARK: - EXPORT
-                    
-                 
-                        Section {
-                            
-                            NavigationLink {
-                                SoundSettingsView()
-                            } label: {
-                                navText(title: "Sound Settings", image: "circle.fill")
-                            }
-                            
-                            
-                            Button {
-                                isExporting = true
-                            } label: {
-                                navText(title: "Export", image: "circle.fill")
-                            }
-                            .buttonStyle(NavButtonStyle())
-
-                        } header: {
-                            HStack {
-                                Text("Extras")
-                                    .customHeader()
-                                Spacer()
-                            }
-                            .padding(.bottom, 4)
-                        }
                         
                         
                    

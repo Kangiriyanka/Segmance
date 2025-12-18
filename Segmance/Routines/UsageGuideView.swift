@@ -89,7 +89,7 @@ struct UsageGuideView: View {
                 
                 
                 
-                infoButtonCard(title: "Add custom moves" ,description: "Create custom moves and assign types that fit your creative process." ,spacing: 12) {
+                infoButtonCard(title: "Add custom moves" ,description: "Create custom moves and assign types that fit your creative process. Delete them by holding their number." ,spacing: 12) {
                     
                     withAnimation(Animation.organicFastBounce) {
                         Button() {
@@ -146,7 +146,7 @@ struct UsageGuideView: View {
                     Group {
                         
                         VStack(spacing: 10) {
-                            Image(systemName: "powersleep")
+                            Image(systemName: "timer")
                                 .font(.system(size: 20))
                                 .foregroundStyle(.mainText)
                             

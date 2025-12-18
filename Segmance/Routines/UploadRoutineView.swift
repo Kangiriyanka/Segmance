@@ -54,39 +54,7 @@ struct UploadRoutineView: View {
                             .font(.system(size: 16, weight: .semibold))
                         Text("Details").font(.headline)
                     }
-                    HStack {
-                        
-                        #if targetEnvironment(simulator)
-                        Button {
-                            // Simulate appending a new file
-                            let newFile = FileItem(URL: URL(filePath: "/dummy/path2"),
-                                                   fileTitle: "" + String(Int.random(in: 10..<10000)))
-                            selectedFiles.append(newFile)
-                        } label : {
-                            Image(systemName: "plus")
-                        }
-                        #endif
-                        
-                        Spacer()
-                        
-                        Button {
-                            isImporting = true
-                        } label: {
-                            
-                            
-                            Image(systemName: "square.and.arrow.down")
-                             
-                             
-                              
-
-                        }
-                       
-                        .buttonStyle(PressableButtonStyle())
-                      
-                           
-
-                        
-                    }
+                   
                 }
                 
                 
@@ -137,8 +105,52 @@ struct UploadRoutineView: View {
                             Image(systemName: "rectangle.stack")
                                 .foregroundStyle(.accent).opacity(0.7)
                                 .font(.system(size: 16, weight: .semibold))
-                        Text("Rename & Arrange").font(.headline)
+                        Text("Order Parts").font(.headline)
                             .popoverTip(tip)
+                        
+                        HStack {
+                            
+                            #if targetEnvironment(simulator)
+                            Button {
+                                // Simulate appending a new file
+                                let newFile = FileItem(URL: URL(filePath: "/dummy/path2"),
+                                                       fileTitle: "" + String(Int.random(in: 10..<10000)))
+                                selectedFiles.append(newFile)
+                            } label : {
+                                Image(systemName: "plus")
+                            }
+                            #endif
+                            
+                            Spacer()
+                            
+                            
+                            HStack {
+                                Button {
+                                    isImporting = true
+                                } label: {
+                                    
+                                    
+                                    Image(systemName: "square.and.arrow.down")
+                                    
+                                    
+                                    
+                                    
+                                }
+                                
+                                .buttonStyle(PressableButtonStyle())
+                                
+                                
+                                addButton
+                                    
+                                
+                            }
+                            
+                            
+                          
+                               
+
+                            
+                        }
                          
                         
 
@@ -146,40 +158,7 @@ struct UploadRoutineView: View {
                             
                     }
                     Spacer()
-                    HStack {
-                        
-                        Button {
-                            
-                            // Create a Routine without parts
-                            addRoutine()
-                            // Copying the files to the documents directory, we add the destinationURL of those files to every part
-                            
-                            for (index,file) in selectedFiles.enumerated() {
-                                copyFileToDocuments(file: file, order: index+1)
-                            }
-                            
-                            modelContext.insert(newRoutine ?? Routine(title:"", routineDescription: ""))
-                            // Create 20 routines to request a review
-                            reviewManager.incrementActionCount()
-                            
-                            dismiss()
-                        } label: {
-                            
-                            Image(systemName: "plus.circle")
-                            
-                           
-                            
-                            
-                            
-                        }
-                        // Using a custom button style requires to pass the disabled state
-                        // to the custom button style
-                        .disabled(!areFilesUploaded() || !areFieldsFilled())
-                        .buttonStyle(PressableButtonStyle(isDisabled: !areFilesUploaded() || !areFieldsFilled()))
-                     
-                        
-                
-                    }
+
                     
                     
                 }
@@ -193,9 +172,11 @@ struct UploadRoutineView: View {
                         if selectedFiles.isEmpty {
                             
                             ContentUnavailableView {
-                                Label("No uploaded audio files", systemImage: "music.note")
+                                Label("Import Audio", systemImage: "music.note")
                             }  description: {
-                                Text("Upload by tapping the \(Image(systemName: "square.and.arrow.down")) button.")
+                                Text("Upload audio files with the \(Image(systemName: "square.and.arrow.down")) button. When finished reordering the files, tap \(Image(systemName: "plus.circle")) to add the routine. ")
+                                    .multilineTextAlignment(.leading)
+                                    .lineSpacing(2) // optional for readability
                                     .padding(.top, 5)
                             }
 
@@ -211,12 +192,10 @@ struct UploadRoutineView: View {
                                     partName: $file.fileTitle,
      
                                 )
-                               
                                 
-                                
-                               
                                 .id(file.id)
                                 .focused($focusedFileID, equals: file.id)
+                               
         
                                 .onDrag {
                                     draggedFile = file
@@ -249,10 +228,13 @@ struct UploadRoutineView: View {
                         }
                      
                         // For the focused view to work.
-                        Spacer().frame(height: 1)
+                        Spacer().frame(height: 5)
                         
                     }
                   
+                    // MARK: - Saviour Code
+                    // You need this otherwise to have the whole UploadedFileView show
+                    .contentMargins(.vertical, 20)
                     .scrollIndicators(.hidden)
                     .clipped()
                     .onChange(of: focusedFileID) { _, newValue in
@@ -261,7 +243,7 @@ struct UploadRoutineView: View {
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 withAnimation {
-                                    proxy.scrollTo(id, anchor: .center)
+                                    proxy.scrollTo(id, anchor: .bottom)
                                 }
                             }
                         }
@@ -269,11 +251,24 @@ struct UploadRoutineView: View {
                     
                 }
                 
+                
+                 
+                    
+                   
+                 
+                    
+            
+               
+                
             }
             
            
             .background(shadowOutline)
             .offset(y: 15)
+            
+            // Mark: Add Button
+           
+            
          
             
             
@@ -292,7 +287,39 @@ struct UploadRoutineView: View {
     }
        
        
-                   
+    private var addButton: some View {
+        
+        Button {
+            
+            // Create a Routine without parts
+            addRoutine()
+            // Copying the files to the documents directory, we add the destinationURL of those files to every part
+            
+            for (index,file) in selectedFiles.enumerated() {
+                copyFileToDocuments(file: file, order: index+1)
+            }
+            
+            modelContext.insert(newRoutine ?? Routine(title:"", routineDescription: ""))
+            // Create 20 routines to request a review
+            reviewManager.incrementActionCount()
+            
+            dismiss()
+        } label: {
+            
+           
+            Image(systemName: "plus.circle")
+                
+            
+           
+            
+            
+            
+        }
+       
+        .disabled(!areFilesUploaded() || !areFieldsFilled() || areFilenamesEmpty())
+        .buttonStyle(PressableButtonStyle(isDisabled: !areFilesUploaded() || !areFieldsFilled() || areFilenamesEmpty()))
+     
+    }
 
     
     // Returns True if the fields are not empty
@@ -303,6 +330,17 @@ struct UploadRoutineView: View {
     
     private func areFilesUploaded() -> Bool {
         return !selectedFiles.isEmpty
+    }
+    
+    private func areFilenamesEmpty() -> Bool {
+        for file in selectedFiles {
+            let trimmedPartTitle = file.fileTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmedPartTitle.isEmpty {
+               
+                return true
+            }
+        }
+        return false
     }
     
     
