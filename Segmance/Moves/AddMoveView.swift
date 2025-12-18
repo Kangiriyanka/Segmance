@@ -80,6 +80,7 @@ struct AddMoveView: View {
                             }
                             .contentMargins(1)
                             .frame(height: 50)
+                            .scrollDismissesKeyboard(.immediately)
                             .transition(.opacity)
                         }
                     }
@@ -102,18 +103,15 @@ struct AddMoveView: View {
                 addMove()
                 dismiss()
             }) {
-                Image(systemName: "plus.circle")
-                    .font(Font.system(size: 30))
-                    .frame(maxWidth: .infinity)
-                    .padding(5)
+                Text("Add Move")
                     
-                    .fontWeight(.semibold)
             }
+            .frame(maxWidth: .infinity)
             
-            .buttonStyle(PressableButtonStyle(isDisabled: isDisabled()))
+            .buttonStyle(ReviewButtonStyle(isDisabled: isDisabled()))
             .contentShape(Rectangle())
             
-            .disabled(isDisabled())
+
             .padding()
             
            
@@ -124,7 +122,7 @@ struct AddMoveView: View {
  
           
         }
-  
+      
        
         
     }

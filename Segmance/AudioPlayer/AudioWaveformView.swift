@@ -123,7 +123,7 @@ struct AudioWaveformView: View {
                                     .onChanged { value in
                                         let fraction = max(min(1, value.location.x / geo.size.width), CGFloat(startTime / duration) + 0.01)
                                         let rawTime = Double(fraction) * duration
-                                        endTime = round(rawTime)
+                                        endTime = rawTime
                                     }
                             )
                     }

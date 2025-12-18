@@ -30,8 +30,13 @@ struct AllRoutinesView: View {
             
             VStack(spacing: 0) {
                 
-                CustomSearchBar(text: $searchText, placeholder: "Search routines")
-                    .padding()
+                HStack{
+                    Spacer()
+                    CustomSearchBar(text: $searchText, placeholder: "Search routines")
+                        .padding()
+                    
+                }
+               
                 
                 
                 Group {
@@ -40,7 +45,7 @@ struct AllRoutinesView: View {
                         ContentUnavailableView {
                             Label("No routines found", systemImage: "music.quarternote.3")
                         } description: {
-                            Text("Add your first one by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
+                            Text("Add one by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
                         }
                         
                     }

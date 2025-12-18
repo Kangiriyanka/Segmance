@@ -154,10 +154,13 @@ var playerBackground: RadialGradient {
 var optionsBackground: some View {
     return (
         ZStack{
-            RoundedRectangle(cornerRadius: 10).fill(Color.customPink.gradient.opacity(0.5))
+            RoundedRectangle(cornerRadius: 10)
+           
+                .fill(Color.customWhite.opacity(0.1))
             
             
         }
+            
         )
 }
 

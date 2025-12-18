@@ -20,6 +20,8 @@ struct RoutineView: View {
     @State private var playerIsExpanded: Bool = false
     @State private var currentAudioURL: URL?
     @State private var currentPartTitle: String = ""
+    @Environment(\.dismiss) private var dismiss
+    
     
     var body: some View {
         ZStack {
@@ -66,7 +68,13 @@ struct RoutineView: View {
                 .transition(.blurReplace)
                 .zIndex(10)
             }
+            
+            
         }
+        .padding(.top, -10)
+        
+      
+     
         
         
     }
