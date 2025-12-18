@@ -39,22 +39,7 @@ struct EditRoutineView: View {
                             Text("Details").font(.headline)
                         }
                         Spacer()
-                        Button {
-                            if validateDetails() {
-                                routine.title = title
-                                routine.routineDescription = description
-                                
-                                // Since I COPY the parts, I have to manually set it back.
-                                for (index,part) in parts.enumerated() {
-                                    part.order = index + 1
-                                }
-                                routine.parts = parts
-                                dismiss()
-                            }
-                        } label: {
-                            Image(systemName: "checkmark.circle")
-                        }
-                        .buttonStyle(PressableButtonStyle())
+                   
                         
                     }
                     
@@ -80,8 +65,24 @@ struct EditRoutineView: View {
                         Image(systemName: "rectangle.stack")
                             .foregroundStyle(.accent).opacity(0.7)
                             .font(.system(size: 16, weight: .semibold))
-                        Text("Rename & Arrange").font(.headline)
+                        Text("Ordered Parts").font(.headline)
                         Spacer()
+                        Button {
+                            if validateDetails() {
+                                routine.title = title
+                                routine.routineDescription = description
+                                
+                                // Since I COPY the parts, I have to manually set it back.
+                                for (index,part) in parts.enumerated() {
+                                    part.order = index + 1
+                                }
+                                routine.parts = parts
+                                dismiss()
+                            }
+                        } label: {
+                            Image(systemName: "checkmark.circle")
+                        }
+                        .buttonStyle(PressableButtonStyle())
                     }
                     
                     .padding()

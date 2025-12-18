@@ -83,7 +83,7 @@ struct RoutineContainerView: View {
                 }
                
                 .frame(maxWidth: .infinity)
-                .offset(y: -15)
+               
                 .sheet(isPresented: $showingUploadRoutineSheet) {
                     UploadRoutineView()
                         .background(noSinBackgroundGradient.opacity(0.9))
@@ -141,13 +141,13 @@ struct RoutineContainerView: View {
                                 }
                                 .id("scrollTop")
                                 .onChange(of: gridMode) { _, _ in
-                                    withAnimation(Animation.smoothReorder) {
+                                    
                                         proxy.scrollTo("scrollTop", anchor: .top)
-                                    }
+                                    
                                 }
                             }
                         }
-                        .animation(.smoothReorder, value: gridMode)
+                    
                         .contentMargins(.bottom, 50, for: .scrollContent)
 
                         
@@ -180,6 +180,7 @@ struct RoutineContainerView: View {
         
         private var addRoutineButton: some View {
             Button {
+                
                 showingUploadRoutineSheet.toggle()
             } label: {
                 Image(systemName: "figure.dance")
@@ -197,18 +198,13 @@ struct RoutineContainerView: View {
         
         private var viewModeButton: some View {
             Button {
-                withAnimation(.smoothReorder) {
+                withAnimation {
                     gridMode.cycle()
-                    
                 }
+                    
+
             } label: {
-                Image(systemName: {
-                    switch gridMode {
-                    case .list: return "rectangle.grid.1x2"
-                    case .grid2: return "square.grid.2x2"
-                    case .grid3: return "square.grid.3x2"
-                    }
-                }())
+                Image(systemName: gridMode.icon)
                 .frame(width: 10)
             }
             .buttonStyle(PressableButtonStyle())
@@ -231,6 +227,35 @@ struct RoutineContainerView: View {
         let routine: Routine
         let gridMode: String
         
+        var fontSize: CGFloat {
+            switch gridMode {
+            case "grid2":
+                return 16
+            default:
+                return 14
+            }
+        }
+        
+        var lineLimit: Int {
+            switch gridMode {
+            case "grid2":
+                return 2
+            default:
+                return 3
+            }
+            
+        }
+        
+        var height: CGFloat {
+            switch gridMode {
+            case "grid2":
+                return 120
+            default:
+                return 130
+            }
+            
+        }
+        
         var body: some View {
             VStack(spacing: 8) {
                 ZStack {
@@ -244,20 +269,26 @@ struct RoutineContainerView: View {
                 }
                 .frame(width: 40, height: 40)
                 
+                
                 Text(routine.title)
-                    .font(gridMode == "grid2" ? .subheadline : .footnote)
+                    .font(.system(size: fontSize))
                     .fontWeight(.semibold)
-                    .foregroundStyle(Color.mainText)
-                    .lineLimit(2)
+                    .lineLimit(lineLimit)
+                    .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center)
+                    .foregroundStyle(Color.mainText)
                     .truncationMode(.tail)
-            }
             
-            .padding(12)
-            .frame(maxWidth: .infinity, maxHeight: 110, alignment: .top)
+                    
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: height, alignment: .top)
+            .frame(height: height,  alignment: .top)
             .background(routineCardBackground)
+           
             
             .customBorderStyle()
+           
             
         }
     }

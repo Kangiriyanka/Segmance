@@ -67,7 +67,7 @@ struct UploadRoutineView: View {
                     .focused($isFocused)
                 
               
-                TextField("Enter a short description", text: $routineDescription)
+                TextField("Enter a subtitle", text: $routineDescription)
                     .bubbleStyle()
                     .limitText($routineDescription, to: characterLimit)
                     .focused($isFocused)
