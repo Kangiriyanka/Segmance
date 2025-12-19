@@ -204,7 +204,7 @@ struct AudioTrimmerView: View {
                         .truncationMode(.middle)
                     Spacer()
                     Button {
-                        withAnimation(.easeInOut) {
+                       withAnimation(.smoothReorder) {
                             audioTrimmerManager.removeURL(url: clipURL)
                         }
                     } label: {

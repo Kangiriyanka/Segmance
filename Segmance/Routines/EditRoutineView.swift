@@ -8,6 +8,29 @@
 import SwiftUI
 import SwiftData
 
+// This is a way to only re-render the part you want to delete
+// Re-render the body of only the part, and not the whole ScrollView
+struct PartRowView: View {
+    @Binding var part: Part
+    let onDelete: () -> Void
+    @State private var showingDeleteConfirm = false
+    
+    var body: some View {
+        UploadedFileView(partName: $part.title) {
+            showingDeleteConfirm = true
+        }
+        .confirmationDialog(
+            "Are you sure you want to remove this part?",
+            isPresented: $showingDeleteConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Remove Part \(part.title)", role: .destructive) {
+                onDelete()
+            }
+        }
+    }
+}
+
 struct EditRoutineView: View {
     
     @Bindable var routine: Routine
@@ -22,6 +45,13 @@ struct EditRoutineView: View {
     @State private var characterLimit: Int = 30
     @State private var draggedPart: Part?
     @State private var isPresentingConfirm: Bool = false
+    @State private var showingSaveConfirm: Bool = false
+    @State private var isImporting: Bool = false
+    @State private var error: Error?
+    @State private var tempFiles: [UUID: URL] = [:]
+    
+    
+    
     @Environment(\.modelContext)  var modelContext
     
     @FocusState private var isFocused: Bool
@@ -67,22 +97,8 @@ struct EditRoutineView: View {
                             .font(.system(size: 16, weight: .semibold))
                         Text("Ordered Parts").font(.headline)
                         Spacer()
-                        Button {
-                            if validateDetails() {
-                                routine.title = title
-                                routine.routineDescription = description
-                                
-                                // Since I COPY the parts, I have to manually set it back.
-                                for (index,part) in parts.enumerated() {
-                                    part.order = index + 1
-                                }
-                                routine.parts = parts
-                                dismiss()
-                            }
-                        } label: {
-                            Image(systemName: "checkmark.circle")
-                        }
-                        .buttonStyle(PressableButtonStyle())
+                        uploadButton
+                        confirmationButton
                     }
                     
                     .padding()
@@ -95,12 +111,18 @@ struct EditRoutineView: View {
                                 ContentUnavailableView {
                                     Label("No parts", systemImage: "music.note")
                                 } description: {
-                                    Text("This routine has no parts").padding([.top], 5)
+                                    Text("Upload audio files before continuing. Navigating back from this screen discards all changes.").padding([.top], 5)
                                 }
                             }
                             
                             ForEach($parts) { $part in
-                                UploadedFileView(partName: $part.title)
+                                PartRowView(part: $part, onDelete: {
+                                       withAnimation(.smoothReorder) {
+                                           parts.removeAll { $0.id == part.id }
+                                       }
+                                   })
+                               
+                                
                                     .id(part.id)
                                     .focused($focusedPartID, equals: part.id)
                                     .onDrag {
@@ -110,7 +132,8 @@ struct EditRoutineView: View {
                                     .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: part, items: $parts, draggedItem: $draggedPart))
                             }
                             
-                            Spacer().frame(height: 1)
+                            
+                            Spacer().frame(height: 10)
                         }
                         
                         .contentMargins(.vertical, 20)
@@ -140,13 +163,52 @@ struct EditRoutineView: View {
                 Text(errorMessage)
             }
             
+            .fileImporter(isPresented: $isImporting, allowedContentTypes: [.audio], allowsMultipleSelection: true) { result in
+                
+                switch result {
+                case .success(let urls):
+                    for url in urls {
+                            
+                        let fileName = url.lastPathComponent
+                        
+                            
+                        // Check if file already exists in parts
+                        if parts.contains(where: { $0.fileName == "\(routine.title)_\(fileName)" }) {
+                                continue
+                            }
+                        if tempFiles.values.contains(where: { $0.lastPathComponent == fileName }) {
+                            continue
+                        }
+                        
+                            // We can't directly use the documentsURL right now, because it means w would have to upload the files.
+                            let newPart = Part(
+                                title: (url.lastPathComponent as NSString).deletingPathExtension,
+                                fileName: "",
+                                order: parts.count + 1
+                            )
+                            parts.append(newPart)
+                            // URL is the full filepath
+                            tempFiles[newPart.id] = url
+                        }
+                    
+                   
+                    
+               
+                case .failure(let err):
+                    error = err
+                    print("Error selecting files: \(err.localizedDescription)")
+                }
+                
+            }
+           
+            
             
             .navigationTitle("Edit \(routine.title)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        Button("Delete", systemImage: "trash", role: .destructive) {
+                        Button("Delete Routine", systemImage: "trash", role: .destructive) {
                             isPresentingConfirm = true
                         }
                     } label: {
@@ -162,12 +224,62 @@ struct EditRoutineView: View {
             
             
             
+            
+            
         }
        
        
         
         
     }
+    
+    var uploadButton: some View {
+        Button {
+            isImporting = true
+        } label: {
+            
+            
+            Image(systemName: "square.and.arrow.down")
+            
+
+            
+        }
+        
+        .buttonStyle(PressableButtonStyle())
+        
+    }
+    
+    var confirmationButton: some View {
+        Button {
+            showingSaveConfirm = true
+        } label: {
+            Image(systemName: "checkmark.circle")
+        }
+        .disabled(parts.isEmpty)
+        .confirmationDialog(
+            "Are you sure you want to save changes?",
+            isPresented: $showingSaveConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Save", role: .none) {
+                if validateDetails() {
+                    routine.title = title
+                    routine.routineDescription = description
+                    
+                    syncFiles()
+                    for (index, part) in parts.enumerated() {
+                        part.order = index + 1
+                    }
+                    routine.parts = parts
+                    dismiss()
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        }
+        .buttonStyle(PressableButtonStyle(isDisabled: parts.isEmpty))
+    }
+    
+    
     
     init(routine: Routine) {
         self.routine = routine
@@ -177,7 +289,61 @@ struct EditRoutineView: View {
         _title = .init(initialValue: routine.title)
         _description = .init(initialValue: routine.routineDescription)
         _parts = .init(initialValue: copiedParts.sorted { $0.order < $1.order })
+     
     }
+    
+    
+    private func copyFileToDocuments(url: URL) -> URL? {
+        let fileManager = FileManager.default
+        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        let destinationURL = documentsURL.appendingPathComponent("\(routine.title)_\(url.lastPathComponent)")
+        let accessGranted = url.startAccessingSecurityScopedResource()
+        
+        guard accessGranted else { return nil }
+        defer { url.stopAccessingSecurityScopedResource() }
+        
+        do {
+            if !fileManager.fileExists(atPath: destinationURL.path) {
+                try fileManager.copyItem(at: url, to: destinationURL)
+            }
+            return destinationURL
+        } catch {
+           
+            return nil
+        }
+    }
+    /// Delete the removed parts
+    /// Add new parts from tempFiles
+    /// Clear temp files
+    private func syncFiles() {
+        let fileManager = FileManager.default
+
+        // Parts that match will not be returned
+        let removedParts = routine.parts.filter { oldPart in
+            !parts.contains(where: { $0.id == oldPart.id })
+        }
+        
+        for part in removedParts {
+            if let partURL = part.location {
+                try? fileManager.removeItem(at: partURL)
+            }
+        }
+
+        for part in parts {
+            if let tempURL = tempFiles[part.id] {
+                if let finalURL = copyFileToDocuments(url: tempURL) {
+                    part.fileName = finalURL.lastPathComponent
+                }
+            }
+        }
+
+     
+        tempFiles.removeAll()
+    }
+    
     
     private func deleteRoutine(id: UUID) {
         
@@ -216,7 +382,7 @@ struct EditRoutineView: View {
         }
         
         guard !trimmedDescription.isEmpty else {
-            inputError(title: "Description Error", message: "Description cannot be empty.")
+            inputError(title: "Subtitle Error", message: "Subtitle cannot be empty.")
             return false
         }
         

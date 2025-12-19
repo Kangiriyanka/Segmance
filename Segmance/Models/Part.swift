@@ -31,7 +31,7 @@ class Part {
     
     /// A function to copy a Part before modifying it.
     func copy() -> Part {
-        let newPart = Part(title: self.title, fileName: self.fileName, order: self.order)
+        let newPart = Part(id: self.id, title: self.title, fileName: self.fileName, order: self.order)
         newPart.moves = self.moves.map { $0.copy() }
         return newPart
     }
@@ -41,8 +41,16 @@ class Part {
         self.fileName = fileName
         self.order = order
      
-       
     }
+    
+    init(id: UUID, title: String, fileName: String, order: Int) {
+        self.id = id
+        self.title = title
+        self.fileName = fileName
+        self.order = order
+    }
+
+   
     
     static let firstPartExample = Part(title: "First Example Part", fileName: "firstExample.mp3", order: 1)
     static let secondPartExample = Part(title: "Second Example Part", fileName: "secondExample.mp3", order: 2)
