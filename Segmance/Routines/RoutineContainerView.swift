@@ -116,7 +116,7 @@ struct RoutineContainerView: View {
                         // Animation Problems
                         // Don't use LazyVStack and LazyVGrid, just use one.
                         
-                        ZStack {
+                     
                             ScrollView(showsIndicators: false) {
                                 
                                
@@ -126,19 +126,19 @@ struct RoutineContainerView: View {
                                                 .navigationBarBackButtonHidden(true)) {
                                                     
                                                     
-                                                    Group {
-                                                                    if gridMode == .list {
+                                                   
+                                                 if gridMode == .list {
                                                                         RoutineCardView(routine: routine)
                                                                           
                                                                     } else {
                                                                         CompactRoutineCard(routine: routine, gridMode: gridMode.rawValue)
                                                                             
                                                                     }
-                                                                }
+                                                                
                                                              
                                                                 
                                                 }
-                                                .animation(.smooth, value: gridMode)
+                                              
                                             
                                                 .buttonStyle(NavButtonStyle())
                                             
@@ -155,11 +155,15 @@ struct RoutineContainerView: View {
                                 
                                 
                             }
-                            
+                          
+                          
+                            .scrollPosition(id: $selectedRoutineID, anchor: .top) // Add this
                             .contentMargins(.horizontal, 10, for: .scrollContent)
                             .contentMargins(.bottom, 50, for: .scrollContent)
                             .contentMargins(.top, 10, for: .scrollContent)
-                        }
+                            .animation(.organicFastBounce, value: gridMode)
+                        
+                        
                        
                     }
                      
@@ -218,9 +222,9 @@ struct RoutineContainerView: View {
         
         private var viewModeButton: some View {
             Button {
-                withAnimation(.smoothReorder) {
+                
                     gridMode.cycle()
-                }
+                
                     
 
             } label: {

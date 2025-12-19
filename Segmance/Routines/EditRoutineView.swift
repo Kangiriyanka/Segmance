@@ -10,6 +10,9 @@ import SwiftData
 
 // This is a way to only re-render the part you want to delete
 // Re-render the body of only the part, and not the whole ScrollView
+
+
+
 struct PartRowView: View {
     @Binding var part: Part
     let onDelete: () -> Void
@@ -173,9 +176,17 @@ struct EditRoutineView: View {
                         
                             
                         // Check if file already exists in parts
-                        if parts.contains(where: { $0.fileName == "\(routine.title)_\(fileName)" }) {
-                                continue
-                            }
+                        if parts.contains(where: {
+                            let components = $0.fileName.components(separatedBy: "_")
+                            let fileNameWithoutRoutine = components.dropFirst().joined(separator: "_")
+                            print(fileNameWithoutRoutine)
+                            return fileNameWithoutRoutine == fileName
+                        }) {
+                            continue
+                        }
+                        
+                        
+                     
                         if tempFiles.values.contains(where: { $0.lastPathComponent == fileName }) {
                             continue
                         }
@@ -271,6 +282,7 @@ struct EditRoutineView: View {
                         part.order = index + 1
                     }
                     routine.parts = parts
+                    
                     dismiss()
                 }
             }
@@ -317,11 +329,14 @@ struct EditRoutineView: View {
     }
     /// Delete the removed parts
     /// Add new parts from tempFiles
+    /// Rename the files if the routine title changes
     /// Clear temp files
+    ///
+    /// 1. User renaming the part has no effect on the filename
     private func syncFiles() {
         let fileManager = FileManager.default
-
-        // Parts that match will not be returned
+        
+     
         let removedParts = routine.parts.filter { oldPart in
             !parts.contains(where: { $0.id == oldPart.id })
         }
@@ -331,6 +346,7 @@ struct EditRoutineView: View {
                 try? fileManager.removeItem(at: partURL)
             }
         }
+        
 
         for part in parts {
             if let tempURL = tempFiles[part.id] {
@@ -339,12 +355,32 @@ struct EditRoutineView: View {
                 }
             }
         }
-
-     
+        
+        for part in parts {
+            if let oldURL = part.location {
+                // Sample.mp3
+                let bareFileName = oldURL.lastPathComponent.components(separatedBy: "_").dropFirst().joined(separator: "_")
+                // mp3
+                let fileExtension = (bareFileName as NSString).pathExtension
+                
+                // New routine title was changed before calling syncFiles
+                let newFileName = "\(routine.title)_\(part.title).\(fileExtension)"
+               
+                
+                if part.fileName != newFileName {
+                    let newURL = oldURL.deletingLastPathComponent().appendingPathComponent(newFileName)
+                    try? fileManager.moveItem(at: oldURL, to: newURL)
+                    part.fileName = newFileName
+                }
+            }
+        }
+        
         tempFiles.removeAll()
     }
     
     
+    /// Deletes the routines and associated parts
+    /// It works well for this edge case: renaming a routine and uploading the same file
     private func deleteRoutine(id: UUID) {
         
         let fileManager = FileManager.default
