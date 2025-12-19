@@ -21,7 +21,6 @@ struct RoutineContainerView: View {
     @AppStorage("gridMode") private var gridMode: GridMode = .list
 
     @State private var selectedRoutineID: UUID? = nil
-    @Namespace private var animation
 
 
 
@@ -117,47 +116,64 @@ struct RoutineContainerView: View {
                         // Animation Problems
                         // Don't use LazyVStack and LazyVGrid, just use one.
                         
-                        ScrollView(showsIndicators: false) {
-                            ScrollViewReader { proxy in
-                                LazyVGrid(columns: gridMode.columns, spacing: 10) {
+                        ZStack {
+                            ScrollView(showsIndicators: false) {
+                                
+                               
+                                    LazyVGrid(columns: gridMode.columns, spacing: 10) {
                                         ForEach(filteredRoutines) { routine in
                                             NavigationLink(destination: RoutineView(routine: routine)
-                                                            .navigationBarBackButtonHidden(true)) {
-                                                if gridMode == .list {
-                                                    RoutineCardView(routine: routine)
-                                                        .frame(maxWidth: .infinity)
-                                                } else {
-                                                    CompactRoutineCard(routine: routine, gridMode: gridMode.rawValue)
+                                                .navigationBarBackButtonHidden(true)) {
+                                                    
+                                                    
+                                                    Group {
+                                                                    if gridMode == .list {
+                                                                        RoutineCardView(routine: routine)
+                                                                          
+                                                                    } else {
+                                                                        CompactRoutineCard(routine: routine, gridMode: gridMode.rawValue)
+                                                                            
+                                                                    }
+                                                                }
+                                                             
+                                                                
                                                 }
-                                            }
-                                                            
-                                            .buttonStyle(NavButtonStyle())
-                                            .animation(.smoothReorder, value: gridMode)
-                                            .matchedGeometryEffect(id: routine.id, in: animation)
-                                            .transition(.identity)
+                                                .animation(.smooth, value: gridMode)
+                                            
+                                                .buttonStyle(NavButtonStyle())
+                                            
+                                            
+                                            
                                         }
+                                        
+                                        
+                                        
                                     }
-                                    .id("scrollTop")
-                                    .onChange(of: gridMode) { _, _ in
-                                        withAnimation(.smoothReorder) {
-                                            proxy.scrollTo("scrollTop", anchor: .top)
-                                        }
-                                    }
-                               
+                                  
+                                
+                                
+                                
+                                
                             }
+                            
+                            .contentMargins(.horizontal, 10, for: .scrollContent)
+                            .contentMargins(.bottom, 50, for: .scrollContent)
+                            .contentMargins(.top, 10, for: .scrollContent)
                         }
+                       
+                    }
                      
-                        .contentMargins(.horizontal, 10, for: .scrollContent)
-                        .contentMargins(.bottom, 50, for: .scrollContent)
-                        .contentMargins(.top, 10, for: .scrollContent)
+                        
 
                         
-                    }
+                    
                     
                 }
+               
          
-                .animation(Animation.smoothReorder, value: gridMode)
+               
                 .padding()
+               
  
                 .navigationTitle("Routines")
                 .ignoresSafeArea(.keyboard)

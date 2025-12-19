@@ -14,6 +14,8 @@ struct UploadedFileView : View {
     
     @Binding var partName: String
     @State private var partCharacterCount: Int = 25
+    let onDelete: () -> Void
+    
   
     
     var body: some View {
@@ -22,11 +24,25 @@ struct UploadedFileView : View {
             TextField("", text: $partName)
      
                 .limitText($partName, to: partCharacterCount)
-                .bubbleStyle()
+         
+            
+            
+            Button {
+                withAnimation(.smoothReorder) {
+                    // Call the parent's onDelete
+                    onDelete()
+                }
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .foregroundColor(.red.opacity(0.7))
+                    
+            }
+            .buttonStyle(.plain)
             
                
             
         }
+        .bubbleStyle()
         .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
         
         

@@ -80,27 +80,42 @@ struct PartView: View {
     private var movesScrollView: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
-                if part.moves.isEmpty && part.order == 1 {
-                    ContentUnavailableView {
-                        Label("Controls", systemImage: "arcade.stick")
-                    } description: {
-                        
-                        
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("1. Add moves with \(Image(systemName: "plus.circle")).")
-                            Text("2. Toggle Audio Player with \(Image(systemName: "music.quarternote.3")).")
-                            Text("3. Link videos with the \(Image(systemName: "film")).")
-                            Text("4. Hold order number to delete move.")
-                            Text("5. Reorder moves with drag and drop.")
-                        }
-                        .padding()
-                        .multilineTextAlignment(.leading)
+                if part.moves.isEmpty {
+                    Group {
+                        if part.order == 1 {
+                            ContentUnavailableView {
+                                Label("Controls", systemImage: "arcade.stick")
+                            } description: {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("1. Add moves with \(Image(systemName: "plus.circle")).")
+                                    Text("2. Toggle Audio Player with \(Image(systemName: "music.quarternote.3")).")
+                                    Text("3. Link videos with \(Image(systemName: "film")).")
+                                    Text("4. Hold order number to delete move.")
+                                    Text("5. Reorder moves with drag and drop.")
+                                }
+                                .padding()
+                                .multilineTextAlignment(.leading)
+                            }
                             
+                            
+                        } else {
+                            ContentUnavailableView {
+                                Label("No moves", systemImage: "figure.dance")
+                            } description: {
+                               
+                            }
+                        
+                            
+                        }
                     }
-                   
                     .background(shadowOutline)
                     .padding()
-                } else {
+                }
+                    
+                   
+                  
+                  
+                else {
                     VStack(spacing: 50) {
                         ForEach(moves) { move in
                             MoveView(deleteFunction: deleteMove, move: move)
@@ -126,6 +141,7 @@ struct PartView: View {
                 }
             }
             .contentMargins(.bottom, 50, for: .scrollContent)
+            
             .onTapGesture {
                 focusedMoveID = nil
             }

@@ -84,10 +84,18 @@ struct UploadRoutineView: View {
                 
                 switch result {
                 case .success(let urls):
-                    
-                    selectedFiles.append(contentsOf: urls.map {FileItem(URL: $0, fileTitle: ($0.lastPathComponent as NSString).deletingPathExtension )})
-                    
-                    print("Selected files: \(urls)")
+                    for url in urls {
+                        let fileName = url.lastPathComponent
+                        
+                       
+                        // Skip duplicates
+                        if selectedFiles.contains(where: { $0.URL.lastPathComponent == fileName }) {
+                            continue
+                        }
+                        
+                        selectedFiles.append(FileItem(URL: url, fileTitle: (fileName as NSString).deletingPathExtension))
+                    }
+               
                 case .failure(let err):
                     error = err
                     print("Error selecting files: \(err.localizedDescription)")
@@ -188,10 +196,11 @@ struct UploadRoutineView: View {
                         ForEach($selectedFiles) { $file in
                                 
                                 
-                                UploadedFileView(
-                                    partName: $file.fileTitle,
-     
-                                )
+                            UploadedFileView(partName: $file.fileTitle) {
+                                withAnimation(.smoothReorder) {
+                                    selectedFiles.removeAll { $0.id == file.id }
+                                }
+                            }
                                 
                                 .id(file.id)
                                 .focused($focusedFileID, equals: file.id)
@@ -228,13 +237,14 @@ struct UploadRoutineView: View {
                         }
                      
                         // For the focused view to work.
-                        Spacer().frame(height: 5)
+                        Spacer().frame(height: 10)
                         
                     }
                   
                     // MARK: - Saviour Code
                     // You need this otherwise to have the whole UploadedFileView show
                     .contentMargins(.vertical, 20)
+                
                     .scrollIndicators(.hidden)
                     .clipped()
                     .onChange(of: focusedFileID) { _, newValue in
