@@ -19,7 +19,6 @@ struct RoutineContainerView: View {
     @Query(sort: \Routine.title) var routines: [Routine]
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("gridMode") private var gridMode: GridMode = .list
-
     @State private var selectedRoutineID: UUID? = nil
 
 
@@ -116,52 +115,24 @@ struct RoutineContainerView: View {
                         // Animation Problems
                         // Don't use LazyVStack and LazyVGrid, just use one.
                         
-                     
                             ScrollView(showsIndicators: false) {
                                 
                                
-                                    LazyVGrid(columns: gridMode.columns, spacing: 10) {
-                                        ForEach(filteredRoutines) { routine in
-                                            NavigationLink(destination: RoutineView(routine: routine)
-                                                .navigationBarBackButtonHidden(true)) {
-                                                    
-                                                    
-                                                   
-                                                 if gridMode == .list {
-                                                                        RoutineCardView(routine: routine)
-                                                                          
-                                                                    } else {
-                                                                        CompactRoutineCard(routine: routine, gridMode: gridMode.rawValue)
-                                                                            
-                                                                    }
-                                                                
-                                                             
-                                                                
-                                                }
-                                              
-                                            
-                                                .buttonStyle(NavButtonStyle())
-                                            
-                                            
-                                            
-                                        }
-                                        
-                                        
-                                        
-                                    }
-                                  
-                                
-                                
-                                
+                                gridView(for: gridMode)
+                                   
+                                       
+    
                                 
                             }
+                      
                           
                           
-                            .scrollPosition(id: $selectedRoutineID, anchor: .top) // Add this
+                         
                             .contentMargins(.horizontal, 10, for: .scrollContent)
                             .contentMargins(.bottom, 50, for: .scrollContent)
                             .contentMargins(.top, 10, for: .scrollContent)
-                            .animation(.organicFastBounce, value: gridMode)
+                        
+                 
                         
                         
                        
@@ -189,7 +160,7 @@ struct RoutineContainerView: View {
                 
             }
             
-            
+    
             .background(
                 backgroundGradient
             )
@@ -201,7 +172,29 @@ struct RoutineContainerView: View {
         }
     }
         
-        
+        @ViewBuilder
+        private func gridView(for mode: GridMode) -> some View {
+            ScrollView(showsIndicators: false) {
+                LazyVGrid(columns: mode.columns, spacing: 10) {
+                    ForEach(filteredRoutines) { routine in
+                        NavigationLink(
+                            destination: RoutineView(routine: routine)
+                                .navigationBarBackButtonHidden(true)
+                        ) {
+                            if mode == .list {
+                                RoutineCardView(routine: routine)
+                            } else {
+                                CompactRoutineCard(
+                                    routine: routine,
+                                    gridMode: mode.rawValue
+                                )
+                            }
+                        }
+                        .buttonStyle(NavButtonStyle())
+                    }
+                }
+            }
+        }
         private var addRoutineButton: some View {
             Button {
                 
@@ -222,8 +215,11 @@ struct RoutineContainerView: View {
         
         private var viewModeButton: some View {
             Button {
+                withAnimation(.spring(duration: 0.3)) {
+                           gridMode.cycle()
+                       }
+                   
                 
-                    gridMode.cycle()
                 
                     
 
