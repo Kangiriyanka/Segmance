@@ -10,9 +10,12 @@ import PhotosUI
 import Photos
 import AVKit
 
+/// Don't create @State of part, it creates a local copy of it
+/// Use Bindable. When you're in EditRoutineView, you want to reflect the changes automatically.
 struct PartView: View {
     
-    @State var part: Part
+    
+    @Bindable var part: Part
     var moves: [Move] { part.moves.sorted { $0.order < $1.order }}
     @State private var showingAddMoveSheet = false
     @State private var draggedMove: Move?
@@ -28,7 +31,7 @@ struct PartView: View {
     
     
     init(part: Part, onPlayAudio: @escaping (URL,String) -> Void) {
-        self._part = State(initialValue: part)
+        self.part = part
         self.onPlayAudio = onPlayAudio
         
     }
@@ -39,7 +42,14 @@ struct PartView: View {
             VStack {
                 headerView
                 movesScrollView
+               
             }
+            if showingVideoPlayer, let url = videoURL {
+                      DraggableVideoPlayer(url: url, isShowing: $showingVideoPlayer)
+                        .transition(.scale.combined(with: .opacity))
+                            .zIndex(1)
+                  }
+               
             
 
         }
@@ -59,16 +69,8 @@ struct PartView: View {
              
             
         }
-        .sheet(isPresented: $showingVideoPlayer, onDismiss: { videoURL = nil }) {
-            if let url = videoURL {
-                VideoPlayer(player: AVPlayer(url: url))
-                    .ignoresSafeArea()
-                   
-            }
-            
-            
-        }
         
+
       
            
         
@@ -228,11 +230,19 @@ struct PartView: View {
                 // Lock any other video uploads with isLoadingVideo
                 guard let id = part.videoAssetID, !isLoadingVideo else { return }
                 isLoadingVideo = true
+                
+                
                 fetchVideoURL(fromLocalIdentifier: id) { url in
-                    isLoadingVideo = false
-                    if let url = url {
-                        videoURL = url
-                        showingVideoPlayer = true
+                    DispatchQueue.main.async {
+                        isLoadingVideo = false
+                        if let url = url {
+                            videoURL = url
+                            
+                           
+                            withAnimation(.organicFastBounce) {
+                                showingVideoPlayer = true
+                            }
+                        }
                     }
                 }
             } label: {

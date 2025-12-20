@@ -52,10 +52,11 @@ struct UploadRoutineView: View {
                         Image(systemName: "note.text")
                             .foregroundStyle(.accent).opacity(0.7)
                             .font(.system(size: 16, weight: .semibold))
-                        Text("Details").font(.headline)
+                        Text("Routine Details").font(.headline)
                     }
                    
                 }
+                Divider()
                 
                 
                 
@@ -134,6 +135,9 @@ struct UploadRoutineView: View {
                             
                             HStack {
                                 Button {
+                                    // Dismiss keyboard if sharing
+                                    isFocused = false
+                                    focusedFileID = nil
                                     isImporting = true
                                 } label: {
                                     

@@ -69,7 +69,7 @@ struct EditRoutineView: View {
                             Image(systemName: "note.text")
                                 .foregroundStyle(.accent).opacity(0.7)
                                 .font(.system(size: 16, weight: .semibold))
-                            Text("Details").font(.headline)
+                            Text("Routine Details").font(.headline)
                         }
                         Spacer()
                    
@@ -105,6 +105,7 @@ struct EditRoutineView: View {
                     }
                     
                     .padding()
+                  
                     
                     Divider()
                     

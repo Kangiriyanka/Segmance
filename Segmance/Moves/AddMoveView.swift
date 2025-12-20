@@ -18,26 +18,43 @@ struct AddMoveView: View {
     @Query(sort: \MoveType.name) var moveTypes: [MoveType]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 13) {
             
+            HStack(spacing: 6) {
+            Image(systemName: "list.bullet.rectangle")
+                    .foregroundStyle(.accent).opacity(0.7)
+                    .font(.system(size: 16, weight: .semibold))
             Text("New Move")
                 .font(.headline)
+           
+        }
                 
                 TextField("Move name", text: $title)
                     .bubbleStyle()
                     .limitText($title, to: 20)
             
-            VStack(alignment: .leading) {
-                HStack(spacing: 5){
+            VStack(alignment: .leading, spacing: 13) {
+                HStack(spacing: 6){
+                    Image(systemName: "tag")
+                            .foregroundStyle(.accent).opacity(0.7)
+                            .font(.system(size: 16, weight: .semibold))
+                           
                     Text("Type").font(.headline)
+                    // This is hilarious
+                        .offset(x: 0.5)
+                    
+                      
+                
                     Button {
                         isNew.toggle()
                     } label: {
                         if !moveTypes.isEmpty {
-                        Image(systemName: isNew ? "return" : "plus.circle") .foregroundStyle(Color.mainText.opacity(0.8))
+                        Image(systemName: isNew ? "return" : "plus.circle") .foregroundStyle(Color.mainText.opacity(0.7))
                         }
+                           
                    
                     }
+                    .buttonStyle(.borderless)
                 }
                 
                 HStack {
@@ -67,7 +84,7 @@ struct AddMoveView: View {
                                             ZStack {
                                                 if selectedType == moveType {
                                                     RoundedRectangle(cornerRadius: 12)
-                                                        .fill(Color.accentColor)
+                                                        .fill(Color.accentColor.opacity(0.7))
                                                         .stroke(Color.black.opacity(0.2), lineWidth: 1)
                                                 } else {
                                                     RoundedRectangle(cornerRadius: 12)
@@ -82,6 +99,7 @@ struct AddMoveView: View {
                             .frame(height: 50)
                             .scrollDismissesKeyboard(.immediately)
                             .transition(.opacity)
+                            
                         }
                     }
                     .frame(height: 50)
