@@ -47,11 +47,7 @@ struct RoutineView: View {
                                     }
                                 }
                             }
-                            // Dismiss the view if the user changes the part name/
-                            // The name of the audio file changes so if the user toggles it off and on, an error occurs.
-                            .onChange(of: part) {
-                                dismiss()
-                            }
+                           
                             .frame(width: UIScreen.main.bounds.width)
                         }
                     }

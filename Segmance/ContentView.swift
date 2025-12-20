@@ -18,9 +18,9 @@ struct ContentView: View {
         let itemAppearance = UITabBarItemAppearance()
         let appearance = UITabBarAppearance()
         appearance.backgroundColor = UIColor(
-            Color.customBlue.opacity(0.5)
+            Color.customBlue.opacity(0.7)
               )
-        appearance.backgroundEffect = UIBlurEffect(style: .systemThickMaterial)
+      
         appearance.stackedLayoutAppearance = itemAppearance
         appearance.inlineLayoutAppearance = itemAppearance
         appearance.compactInlineLayoutAppearance = itemAppearance

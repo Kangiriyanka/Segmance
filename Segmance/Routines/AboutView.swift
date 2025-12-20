@@ -20,14 +20,14 @@ struct AboutView: View {
             VStack(alignment: .leading, spacing: 20) {
                 infoCard(
                     title: "Segment your performance ",
-                    description: "Segmance helps you break down  performances into parts for organized meaningful practice.",
+                    description: "Segmance helps you break down performances into parts for organized meaningful practice.",
                     spacing: 12
                 )
                 
                 BubbleSeparator()
                 
                 infoCard(
-                    title: "Express yourself",
+                    title: "Who is this for?",
                     description: "Built for anyone who wants to express themselves through music and movement.",
                     spacing: 12
                 )
