@@ -21,6 +21,7 @@ struct PartView: View {
     @State private var videoURL: URL?
     @State private var showingVideoPlayer = false
     @State private var isLoadingVideo = false
+    @State private var selectedVideoItem: PhotosPickerItem?
     var onPlayAudio: (URL, String) -> Void
     let tip = VideoTip(customText: "Hold the play button to unlink the video.")
     
@@ -62,8 +63,15 @@ struct PartView: View {
             if let url = videoURL {
                 VideoPlayer(player: AVPlayer(url: url))
                     .ignoresSafeArea()
+                   
             }
+            
+            
         }
+        
+      
+           
+        
     }
     
     private var headerView: some View {
@@ -217,9 +225,10 @@ struct PartView: View {
         
         if part.videoAssetID != nil {
             Button {
+                // Lock any other video uploads with isLoadingVideo
                 guard let id = part.videoAssetID, !isLoadingVideo else { return }
                 isLoadingVideo = true
-                fetchVideoURL(from: id) { url in
+                fetchVideoURL(fromLocalIdentifier: id) { url in
                     isLoadingVideo = false
                     if let url = url {
                         videoURL = url
@@ -251,46 +260,49 @@ struct PartView: View {
         }
         
         else {
-            // Video picker
+            // itemIdentifier is an id referring to the video
+            // set -> user selects a video which becomes the item
+            
+            
             PhotosPicker(
-                selection: Binding(
-                    get: { nil },
-                    set: { item in
-                        Task {
-                            if let id = item?.itemIdentifier {
-                                part.videoAssetID = id
-                            }
-                        }
+                        selection: $selectedVideoItem,
+                        matching: .videos,
+                        photoLibrary: .shared()
+                    ) {
+                        Image(systemName: "film")
                     }
-                ),
-                matching: .videos,
-                photoLibrary: .shared()
-            ) {
-                Image(systemName: "film")
-            }
-            .buttonStyle(PressableButtonStyle())
-            .contentShape(Rectangle())
+                    .onChange(of: selectedVideoItem) { _, item in
+                        if let id = item?.itemIdentifier {
+                            part.videoAssetID = id
+                        }
+                        // Reset picker to allow reselecting the same video later
+                        selectedVideoItem = nil
+                    }
+                    .buttonStyle(PressableButtonStyle())
+                    .contentShape(Rectangle())
+            
             
         }
     }
     
-    private func fetchVideoURL(from id: String, completion: @escaping (URL?) -> Void) {
-        let fetchOptions = PHVideoRequestOptions()
-        fetchOptions.version = .current
-        fetchOptions.deliveryMode = .fastFormat
-        
+    private func fetchVideoURL(fromLocalIdentifier id: String, completion: @escaping (URL?) -> Void) {
         let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+        // Finds the match
         guard let asset = assets.firstObject else {
-            DispatchQueue.main.async {
-                completion(nil)
-            }
+            completion(nil)
             return
         }
 
-        PHImageManager.default().requestAVAsset(forVideo: asset, options: fetchOptions) { avAsset, _, _ in
-            DispatchQueue.main.async {
-                let url = (avAsset as? AVURLAsset)?.url
-                completion(url)
+        let options = PHVideoRequestOptions()
+        options.version = .original
+        options.deliveryMode = .highQualityFormat
+
+        // Set the url from PHImageManager to the Part's state
+        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
+            if let urlAsset = avAsset as? AVURLAsset {
+                completion(urlAsset.url)
+            } else {
+                completion(nil)
             }
         }
     }
@@ -303,3 +315,4 @@ struct PartView: View {
         PartView(part: part, onPlayAudio: { _, _ in })
     }
 }
+

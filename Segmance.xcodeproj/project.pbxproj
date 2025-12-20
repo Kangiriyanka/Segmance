@@ -132,6 +132,11 @@
 			path = Design;
 			sourceTree = "<group>";
 		};
+		82BD32752EF5C62C004D166E /* Video */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Video;
+			sourceTree = "<group>";
+		};
 		82CEB0CD2EE509D4009C0D36 /* SegmanceTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SegmanceTests;
@@ -247,6 +252,7 @@
 		828DC4002E5372610032083A /* Segmance */ = {
 			isa = PBXGroup;
 			children = (
+				82BD32752EF5C62C004D166E /* Video */,
 				828DC3D62E5372610032083A /* Audio Files */,
 				828DC3DA2E5372610032083A /* AudioPlayer */,
 				828DC3DD2E5372610032083A /* Extensions */,
@@ -329,6 +335,7 @@
 				82B1FA312ECF7E9E00B69BAB /* Debug */,
 				82B230AB2EA027C800EEFE6A /* Moves */,
 				82B230E62EA167BF00EEFE6A /* Design */,
+				82BD32752EF5C62C004D166E /* Video */,
 				82DD58162ECFCBFA0009972E /* Errors */,
 			);
 			name = Segmance;
@@ -647,6 +654,7 @@
 				DEVELOPMENT_TEAM = PWG234D888;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Segmance/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Segmance;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth functionality is supported.";
@@ -685,6 +693,7 @@
 				DEVELOPMENT_TEAM = PWG234D888;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Segmance/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Segmance;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth functionality is supported.";
