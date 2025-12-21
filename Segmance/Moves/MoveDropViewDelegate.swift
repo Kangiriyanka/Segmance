@@ -19,34 +19,42 @@ struct MoveDropViewDelegate: DropDelegate {
     
     func performDrop(info: DropInfo) -> Bool {
       
-        draggedMove = nil
-        return true
+        
+           draggedMove = nil
+           return true
+    
     }
     
     func dropEntered(info: DropInfo) {
+        
+        var sortedArray = originalArray.sorted { $0.order < $1.order }
+        
         guard let draggedMove,
-              let fromIndex = originalArray.firstIndex(where: { $0.id == draggedMove.id }),
-              let toIndex = originalArray.firstIndex(where: { $0.id == destinationMove.id }),
+              let fromIndex = sortedArray.firstIndex(where: { $0.id == draggedMove.id }),
+              let toIndex = sortedArray.firstIndex(where: { $0.id == destinationMove.id }),
               fromIndex != toIndex else { return }
         
         // Remove withAnimation here: just update the data, let the view handle the animation.
 
-            originalArray.move(
+        withAnimation(.smoothReorder) {
+            sortedArray.move(
                 fromOffsets: IndexSet(integer: fromIndex),
                 toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)
             )
             
-            updateOrderNumbers()
+            
+            updateOrderNumbers(newArray: sortedArray)
+        }
             
       
     }
     
-    private func updateOrderNumbers() {
+    private func updateOrderNumbers(newArray: [Move]) {
         
       
-        for (index, move) in originalArray.enumerated() {
-            move.order = index + 1 
-            originalArray[index] = move
+        for (index, move) in newArray.enumerated() {
+            move.order = index + 1
+           
         }
      }
 }

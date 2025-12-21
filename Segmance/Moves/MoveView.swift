@@ -108,7 +108,8 @@ struct MoveView: View {
                         
                         moveMarker(width: 40, height: 20, text: String(move.order), color: Color.player)
                             .popoverTip(tip)
-                            .contentShape(RoundedRectangle(cornerRadius: 4.0))
+                            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 4))
+                        
                             .contextMenu {
                                 Button(role: .destructive) {
                                     deleteFunction(move.id)

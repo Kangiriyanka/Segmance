@@ -12,6 +12,7 @@ import AVKit
 
 /// Don't create @State of part, it creates a local copy of it
 /// Use Bindable. When you're in EditRoutineView, you want to reflect the changes automatically.
+/// Suggestion: onDrag feels a bit slow?
 struct PartView: View {
     
     
@@ -132,6 +133,11 @@ struct PartView: View {
                                 .onDrag {
                                     draggedMove = move
                                     return NSItemProvider()
+//                              Preview is a huge help for the jittering
+                                } preview: {
+                                    MoveView(deleteFunction: deleteMove, move: move)
+                                        .contentShape(RoundedRectangle(cornerRadius: 10))
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                                 .onDrop(
                                     of: [.text],
@@ -142,11 +148,11 @@ struct PartView: View {
                                 )
                                 .id(move.id)
                                 .focused($focusedMoveID, equals: move.id)
-                                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 10))
+                               
                              
                                
                         }
-                        .animation(.smoothReorder, value: moves)
+                       
                     }
                 }
             }
@@ -257,6 +263,7 @@ struct PartView: View {
                     await VideoTip.setVideoEvent.donate()
                 }
             }
+            .contentShape(.contextMenuPreview, Circle())
             .contextMenu {
                 Button(role: .destructive) {
                     part.videoAssetID = nil

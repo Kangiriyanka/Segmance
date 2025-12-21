@@ -4,45 +4,26 @@ import AVKit
 struct DraggableVideoPlayer: View {
     let url: URL
     @Binding var isShowing: Bool
-
+    
     @State private var offset: CGSize = .zero
-    @GestureState private var dragOffset: CGSize = .zero
-
-    private let width: CGFloat = 400
-    private let height: CGFloat = 400
-
-    private var clampedOffset: CGSize {
-        let screen = UIScreen.main.bounds
-        let maxX = (screen.width - width) / 2
-        let maxY = (screen.height - height) / 2
-        return CGSize(
-            width: offset.width + dragOffset.width,
-            height: offset.height + dragOffset.height
-        )
-    }
-
+    @State private var dragOffset: CGSize = .zero
+    
+    private let size: CGFloat = 350
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
+            // Video Player
             VideoPlayer(player: AVPlayer(url: url))
+                .frame(width: size, height: size)
                 .cornerRadius(12)
                 .shadow(radius: 5)
-                .frame(width: width, height: height)
-                .offset(clampedOffset)
-                .gesture(
-                    DragGesture()
-                        .updating($dragOffset) { value, state, _ in
-                            state = value.translation
-                        }
-                        .onEnded { value in
-                            let screen = UIScreen.main.bounds
-                            let maxX = (screen.width - width) / 2
-                            let maxY = (screen.height - height) / 2
-
-                            offset.width = min(max(offset.width + value.translation.width, -maxX), maxX)
-                            offset.height = min(max(offset.height + value.translation.height, -maxY), maxY)
-                        }
+                .offset(
+                    x: offset.width + dragOffset.width,
+                    y: offset.height + dragOffset.height
                 )
-
+                .gesture(dragGesture)
+            
+            // Close Button
             Button {
                 isShowing = false
             } label: {
@@ -50,9 +31,20 @@ struct DraggableVideoPlayer: View {
                     .font(.title2)
                     .foregroundColor(.white)
                     .shadow(radius: 2)
-                    .padding(6)
             }
-            .offset(clampedOffset)
+            .padding(8)
         }
+    }
+    
+    private var dragGesture: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                dragOffset = value.translation
+            }
+            .onEnded { value in
+                offset.width += value.translation.width
+                offset.height += value.translation.height
+                dragOffset = .zero
+            }
     }
 }

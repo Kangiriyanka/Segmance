@@ -1,6 +1,5 @@
 //
 //  DropViewDelegate.swift
-//  BluesMaker
 //
 //  Created by Kangiriyanka The Single Leaf on 2025/02/21.
 //
