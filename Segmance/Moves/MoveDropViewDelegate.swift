@@ -19,7 +19,7 @@ struct MoveDropViewDelegate: DropDelegate {
     
     func performDrop(info: DropInfo) -> Bool {
       
-        
+          guard draggedMove != nil else { return false }
            draggedMove = nil
            return true
     
@@ -27,9 +27,12 @@ struct MoveDropViewDelegate: DropDelegate {
     
     func dropEntered(info: DropInfo) {
         
+        // Video player can trigger a drag
+        guard let draggedMove = draggedMove else { return }
+        
         var sortedArray = originalArray.sorted { $0.order < $1.order }
         
-        guard let draggedMove,
+        guard
               let fromIndex = sortedArray.firstIndex(where: { $0.id == draggedMove.id }),
               let toIndex = sortedArray.firstIndex(where: { $0.id == destinationMove.id }),
               fromIndex != toIndex else { return }

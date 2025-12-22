@@ -43,6 +43,8 @@ struct SimpleDSWaveformView: View {
             }.padding(5)
                
         }
+      
+   
         
         
         
@@ -65,7 +67,7 @@ struct AudioWaveformView: View {
                     if let url = trimmer?.audioURL, let duration = trimmer?.duration {
                         // Destroy the Waveform view if the url changes.
                         SimpleDSWaveformView(audioURL: url)
-                            
+                        
                             .id(url)
                             
                            
@@ -130,7 +132,7 @@ struct AudioWaveformView: View {
                 }
                
             }
-          
+            .frame(height: 70)
             .background(shadowOutline)
             .frame(width: UIScreen.main.bounds.width - 50, height: 50)
             
@@ -254,7 +256,7 @@ struct HandleView: View {
         @State private var endTime: Double = 1
         
         var body: some View {
-            let sampleURL = Bundle.main.url(forResource: "gabagoo", withExtension: "mp3")!
+            let sampleURL = Bundle.main.url(forResource: "piano", withExtension: "wav")!
             let mockTrimmer = AudioTrimmerModel()
             
             AudioWaveformView(

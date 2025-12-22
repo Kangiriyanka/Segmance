@@ -31,7 +31,7 @@ struct RoutineContainerView: View {
         return routines.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
     
-    enum GridMode: String, CaseIterable {
+     enum GridMode: String, CaseIterable {
             case list, grid2, grid3
             
             var columns: [GridItem] {
@@ -215,7 +215,7 @@ struct RoutineContainerView: View {
         
         private var viewModeButton: some View {
             Button {
-                withAnimation(.spring(duration: 0.3)) {
+                withAnimation(.organicFastBounce) {
                            gridMode.cycle()
                        }
                    
@@ -281,7 +281,7 @@ struct RoutineContainerView: View {
                 ZStack {
                     Circle()
                         .fill(Color.accent.opacity(0.15))
-                        .frame(width: gridMode == "grid2" ? 40: 30, height: gridMode == "grid2" ? 40: 30)
+                        .frame(width: gridMode == "rectangle.grid.1x2" ? 40: 30, height: gridMode == "grid2" ? 40: 30)
                     
                     Image(systemName: "music.note")
                         .foregroundStyle(.accent.opacity(0.7))

@@ -16,7 +16,8 @@ class Part {
     var fileName: String
     var parent: Routine?
     var order: Int
-    @Attribute(.unique) var videoAssetID: String?
+    // videoAssetID doesn't have to be unique
+    var videoAssetID: String?
     @Relationship(deleteRule: .cascade) var moves =  [Move]()
     
     var location: URL? {
@@ -31,7 +32,8 @@ class Part {
     
     /// A function to copy a Part before modifying it.
     func copy() -> Part {
-        let newPart = Part(id: self.id, title: self.title, fileName: self.fileName, order: self.order)
+        let newPart = Part(id: self.id, title: self.title, fileName: self.fileName, order: self.order, )
+        newPart.videoAssetID = self.videoAssetID
         newPart.moves = self.moves.map { $0.copy() }
         return newPart
     }

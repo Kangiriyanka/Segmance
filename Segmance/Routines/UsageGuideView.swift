@@ -89,7 +89,7 @@ struct UsageGuideView: View {
                 
                 
                 
-                infoButtonCard(title: "Add custom moves" ,description: "Create custom moves and assign types that fit your creative process. Delete them by holding their number." ,spacing: 12) {
+                infoButtonCard(title: "Add custom moves" ,description: "Create custom moves and assign types that fit your creative process. Delete them by holding their order number." ,spacing: 12) {
                     
                     withAnimation(Animation.organicFastBounce) {
                         Button() {
