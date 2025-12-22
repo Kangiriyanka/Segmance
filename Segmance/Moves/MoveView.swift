@@ -8,6 +8,22 @@
 import SwiftUI
 
 
+extension View {
+    func moveMarker(width: CGFloat, height: CGFloat, text: String, color: Color) -> some View {
+        
+        Text(text) .foregroundStyle(Color.mainText.opacity(0.85))
+        
+        .frame(width: width, height: height)
+        
+        .background(RoundedRectangle(cornerRadius: 4.0)
+                    
+            .fill(color.opacity(0.5))
+            .stroke(.black.opacity(0.3), lineWidth: 1)
+            .shadow(radius: 2, x: 0, y: 1)
+                    )
+    }
+}
+
 struct MyDisclosureStyle: DisclosureGroupStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack {
@@ -111,10 +127,12 @@ struct MoveView: View {
                             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 4))
                         
                             .contextMenu {
-                                Button(role: .destructive) {
-                                    deleteFunction(move.id)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
+                                withAnimation(.smoothReorder) {
+                                    Button(role: .destructive) {
+                                        deleteFunction(move.id)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
                                 }
                             }
                         
@@ -227,19 +245,7 @@ struct MoveView: View {
         
     }
     
-    private func moveMarker(width: CGFloat, height: CGFloat, text: String, color: Color) -> some View {
-        
-        Text(text) .foregroundStyle(Color.mainText.opacity(0.85))
-        
-        .frame(width: width, height: height)
-        
-        .background(RoundedRectangle(cornerRadius: 4.0)
-                    
-            .fill(color.opacity(0.5))
-            .stroke(.black.opacity(0.3), lineWidth: 1)
-            .shadow(radius: 2, x: 0, y: 1)
-                    )
-    }
+    
     
     
 }

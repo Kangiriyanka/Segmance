@@ -26,6 +26,7 @@ struct PartView: View {
     @State private var showingVideoPlayer = false
     @State private var isLoadingVideo = false
     @State private var selectedVideoItem: PhotosPickerItem?
+    @State private var gridMode: GridMode = .list
     var onPlayAudio: (URL, String) -> Void
     let tip = VideoTip(customText: "Hold the play button to unlink the video.")
     
@@ -36,44 +37,47 @@ struct PartView: View {
         self.onPlayAudio = onPlayAudio
         
     }
-
+    
     var body: some View {
         ZStack {
-           
+            
             VStack {
                 headerView
                 movesScrollView
-               
+                
             }
             if showingVideoPlayer, let url = videoURL {
-                      DraggableVideoPlayer(url: url, isShowing: $showingVideoPlayer)
-                        .transition(.scale.combined(with: .opacity))
-                            .zIndex(1)
-                  }
-               
+                DraggableVideoPlayer(url: url, isShowing: $showingVideoPlayer)
+                   
+                    .transition(.symbolEffect.combined(with: .opacity))
+                 
+                   
+                    
+            }
             
-
+            
+            
         }
-       
-
+        
+        
         .sheet(isPresented: $showingAddMoveSheet) {
             ZStack {
                 noSinBackgroundGradient.ignoresSafeArea()
                 AddMoveView(part: part).padding()
-                 
+                
             }
             
             .presentationDetents([.fraction(0.5)])
-          
-       
-         
-             
+            
+            
+            
+            
             
         }
         
-
-      
-           
+        
+        
+        
         
     }
     
@@ -84,7 +88,7 @@ struct PartView: View {
             Text("\(part.order). \(part.title)").customHeader().padding()
             actionButtons
         }
-      
+        
         .padding()
     }
     
@@ -101,8 +105,10 @@ struct PartView: View {
                                     Text("1. Add moves with \(Image(systemName: "plus.circle")).")
                                     Text("2. Toggle Audio Player with \(Image(systemName: "music.quarternote.3")).")
                                     Text("3. Link videos with \(Image(systemName: "film")).")
-                                    Text("4. Hold order number to delete move.")
-                                    Text("5. Reorder moves with drag and drop.")
+                                    Text("4. Hold order number to delete the move.")
+                                    Text("5. Order moves by holding and dragging them.")
+                                  
+                                   
                                 }
                                 .padding()
                                 .multilineTextAlignment(.leading)
@@ -113,47 +119,23 @@ struct PartView: View {
                             ContentUnavailableView {
                                 Label("No moves", systemImage: "figure.dance")
                             } description: {
-                               
+                                
                             }
-                        
+                            
                             
                         }
                     }
                     .background(shadowOutline)
                     .padding()
                 }
-                    
-                   
-                  
-                  
+                
+                
+                
+                
                 else {
-                    VStack(spacing: 50) {
-                        ForEach(moves) { move in
-                            MoveView(deleteFunction: deleteMove, move: move)
-                                .onDrag {
-                                    draggedMove = move
-                                    return NSItemProvider()
-//                              Preview is a huge help for the jittering
-                                } preview: {
-                                    MoveView(deleteFunction: deleteMove, move: move)
-                                        .contentShape(RoundedRectangle(cornerRadius: 10))
-                                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                }
-                                .onDrop(
-                                    of: [.text],
-                                    delegate: MoveDropViewDelegate(
-                                        destinationMove: move,
-                                        originalArray: $part.moves,
-                                        draggedMove: $draggedMove)
-                                )
-                                .id(move.id)
-                                .focused($focusedMoveID, equals: move.id)
-                               
-                             
-                               
-                        }
-                       
-                    }
+                    
+                    gridView(for: gridMode)
+                    
                 }
             }
             .contentMargins(.bottom, 50, for: .scrollContent)
@@ -178,11 +160,11 @@ struct PartView: View {
         HStack {
             
             
-       
-
+            
+            
             // Play video button if video exists
-           
-
+            
+            
             // Audio and add buttons
             HStack(spacing: 10) {
                 
@@ -196,17 +178,28 @@ struct PartView: View {
                 
                 Button {
                     
-                        if let url = part.location {
-                                onPlayAudio(url, part.title)
-                        }
+                    if let url = part.location {
+                        onPlayAudio(url, part.title)
+                    }
                     
                 } label: {
                     Image(systemName: "music.quarternote.3")
                 }
                 
                 filmButton
-
-              
+                
+                Button {
+                    
+                
+                        gridMode.cycle()
+                    
+                    
+                    
+                } label: {
+                    Image(systemName: gridMode.icon)
+                }
+                
+                
             }
             .buttonStyle(PressableButtonStyle())
             .contentShape(Rectangle())
@@ -216,6 +209,77 @@ struct PartView: View {
         }
         .frame(maxWidth: .infinity)
     }
+    
+    
+    private var viewModeButton: some View {
+        Button {
+            withAnimation(.spring(duration: 0.3)) {
+                gridMode.cycle()
+            }
+            
+            
+            
+            
+            
+        } label: {
+            Image(systemName: gridMode.icon)
+                .frame(width: 10)
+        }
+        .buttonStyle(PressableButtonStyle())
+        .contentShape(Rectangle())
+    }
+    
+    @ViewBuilder
+    private func gridView(for mode: GridMode) -> some View {
+        if !(mode == .list) {
+            HStack {
+                Text("Overview mode: Switch to \(Image(systemName:"rectangle.grid.1x2")) to edit moves.").font(.caption2).foregroundStyle(.secondary)
+                
+            }
+        }
+        LazyVGrid(columns: mode.columns, spacing: 30) {
+            ForEach(moves) { move in
+                
+                if mode == .list {
+                    moveViewContainer(move: move)
+                } else {
+                    CompactMoveView(move: move, gridMode: mode.rawValue)
+                }
+            }
+            
+        }
+        .padding()
+    }
+    
+    
+    
+    
+    private func moveViewContainer(move: Move) -> some View {
+        
+        MoveView(deleteFunction: deleteMove, move: move)
+            .onDrag {
+                draggedMove = move
+                return NSItemProvider()
+                // Preview is a huge help for the jittering
+            } preview: {
+                MoveView(deleteFunction: deleteMove, move: move)
+                    .contentShape(RoundedRectangle(cornerRadius: 10))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .onDrop(
+                of: [.text],
+                delegate: MoveDropViewDelegate(
+                    destinationMove: move,
+                    originalArray: $part.moves,
+                    draggedMove: $draggedMove)
+            )
+            .id(move.id)
+            .focused($focusedMoveID, equals: move.id)
+        
+    }
+    
+    
+    
     
     private func deleteMove(id: UUID) {
         guard let moveToDelete = part.moves.first(where: { $0.id == id }) else { return }
@@ -233,6 +297,8 @@ struct PartView: View {
         
         if part.videoAssetID != nil {
             Button {
+                
+                
                 // Lock any other video uploads with isLoadingVideo
                 guard let id = part.videoAssetID, !isLoadingVideo else { return }
                 isLoadingVideo = true
@@ -244,7 +310,7 @@ struct PartView: View {
                         if let url = url {
                             videoURL = url
                             
-                           
+                            
                             withAnimation(.organicFastBounce) {
                                 showingVideoPlayer = true
                             }
@@ -252,10 +318,10 @@ struct PartView: View {
                     }
                 }
             } label: {
-              
-                    Image(systemName: "play.circle")
+                
+                Image(systemName: "play.circle")
                     .popoverTip(tip)
-                      
+                
                 
             }
             .onAppear {
@@ -267,13 +333,14 @@ struct PartView: View {
             .contextMenu {
                 Button(role: .destructive) {
                     part.videoAssetID = nil
+                    showingVideoPlayer = false
                 } label: {
                     Label("Unlink Video", systemImage: "trash")
                 }
             }
             .buttonStyle(PressableButtonStyle())
             .contentShape(Rectangle())
-         
+            
         }
         
         else {
@@ -282,21 +349,21 @@ struct PartView: View {
             
             
             PhotosPicker(
-                        selection: $selectedVideoItem,
-                        matching: .videos,
-                        photoLibrary: .shared()
-                    ) {
-                        Image(systemName: "film")
-                    }
-                    .onChange(of: selectedVideoItem) { _, item in
-                        if let id = item?.itemIdentifier {
-                            part.videoAssetID = id
-                        }
-                        // Reset picker to allow reselecting the same video later
-                        selectedVideoItem = nil
-                    }
-                    .buttonStyle(PressableButtonStyle())
-                    .contentShape(Rectangle())
+                selection: $selectedVideoItem,
+                matching: .videos,
+                photoLibrary: .shared()
+            ) {
+                Image(systemName: "film")
+            }
+            .onChange(of: selectedVideoItem) { _, item in
+                if let id = item?.itemIdentifier {
+                    part.videoAssetID = id
+                }
+                // Reset picker to allow reselecting the same video later
+                selectedVideoItem = nil
+            }
+            .buttonStyle(PressableButtonStyle())
+            .contentShape(Rectangle())
             
             
         }
@@ -309,11 +376,11 @@ struct PartView: View {
             completion(nil)
             return
         }
-
+        
         let options = PHVideoRequestOptions()
         options.version = .original
         options.deliveryMode = .highQualityFormat
-
+        
         // Set the url from PHImageManager to the Part's state
         PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
             if let urlAsset = avAsset as? AVURLAsset {
@@ -324,12 +391,14 @@ struct PartView: View {
         }
     }
 }
-
-#Preview {
-    let part = Part.firstPartExample
-    TabView {
-       
-        PartView(part: part, onPlayAudio: { _, _ in })
+    
+    
+    #Preview {
+        let part = Part.firstPartExample
+        TabView {
+            
+            PartView(part: part, onPlayAudio: { _, _ in })
+        }
     }
-}
+
 

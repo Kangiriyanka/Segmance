@@ -5,6 +5,9 @@
 //  Created by Kangiriyanka The Single Leaf on 2025/11/21.
 //
 
+
+// Issue: Jitter in the sliding
+// Ask an expert at some point.
 import SwiftUI
 struct SlidingText: View {
     let text: String

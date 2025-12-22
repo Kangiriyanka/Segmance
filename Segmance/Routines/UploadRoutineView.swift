@@ -114,7 +114,7 @@ struct UploadRoutineView: View {
                             Image(systemName: "rectangle.stack")
                                 .foregroundStyle(.accent).opacity(0.7)
                                 .font(.system(size: 16, weight: .semibold))
-                        Text("Order Parts").font(.headline)
+                        Text("Ordered Parts").font(.headline)
                             .popoverTip(tip)
                         
                         HStack {

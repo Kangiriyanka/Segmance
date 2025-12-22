@@ -23,13 +23,23 @@ class Move {
  
     // The copy is made to prevent permanent changes when the user changes details about the move
     func copy() -> Move {
-        let newMove = Move(title: self.title, details: self.details, order: self.order, type: self.type!)
+        let newMove = Move(id: self.id, title: self.title, details: self.details, order: self.order, type: self.type!)
         return newMove
     }
  
 
     init(title: String, details: String, order: Int, type: MoveType) {
         
+        self.title = title
+        self.details = details
+        self.order = order
+        self.type = type
+        
+    }
+    
+    init(id: UUID,  title: String, details: String, order: Int, type: MoveType) {
+        
+        self.id = id
         self.title = title
         self.details = details
         self.order = order

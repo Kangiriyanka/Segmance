@@ -125,6 +125,7 @@ struct AddMoveView: View {
                     
             }
             .frame(maxWidth: .infinity)
+            .disabled(isDisabled())
             
             .buttonStyle(ReviewButtonStyle(isDisabled: isDisabled()))
             .contentShape(Rectangle())

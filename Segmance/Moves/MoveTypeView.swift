@@ -55,10 +55,18 @@ struct MoveTypeView: View {
                             } label: {
                                 Image(systemName: "ellipsis.circle")
                             }
-                            .confirmationDialog("Deleting this move type will delete all related moves. Are you sure?", isPresented: $isPresentingConfirm) {
-                                Button("Delete this move type permanently", role: .destructive) {
+                           
+                            
+                            .confirmationDialog(
+                                "Move Type Deletion",
+                                isPresented: $isPresentingConfirm
+                            ) {
+                                Button("Delete permanently", role: .destructive) {
                                     deleteMoveType()
                                 }
+                                Button("Cancel", role: .cancel) {}
+                            } message: {
+                                Text("Deleting this move type will erase all associated moves. Are you sure?")
                             }
                         }
                     }

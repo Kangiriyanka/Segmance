@@ -72,7 +72,7 @@ struct EditRoutineView: View {
                             Text("Routine Details").font(.headline)
                         }
                         Spacer()
-                   
+                        
                         
                     }
                     
@@ -105,7 +105,7 @@ struct EditRoutineView: View {
                     }
                     
                     .padding()
-                  
+                    
                     
                     Divider()
                     
@@ -116,24 +116,25 @@ struct EditRoutineView: View {
                                     Label("No parts", systemImage: "music.note")
                                 } description: {
                                     Text("Upload audio files before continuing. Navigating back from this screen discards all changes.").padding([.top], 5)
+                                        .multilineTextAlignment(.leading)
                                 }
                             }
                             
                             ForEach($parts) { $part in
                                 PartRowView(part: $part, onDelete: {
-                                       withAnimation(.smoothReorder) {
-                                           parts.removeAll { $0.id == part.id }
-                                       }
-                                   })
-                               
-                                
-                                    .id(part.id)
-                                    .focused($focusedPartID, equals: part.id)
-                                    .onDrag {
-                                        draggedPart = part
-                                        return NSItemProvider()
+                                    withAnimation(.smoothReorder) {
+                                        parts.removeAll { $0.id == part.id }
                                     }
-                                    .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: part, items: $parts, draggedItem: $draggedPart))
+                                })
+                                
+                                
+                                .id(part.id)
+                                .focused($focusedPartID, equals: part.id)
+                                .onDrag {
+                                    draggedPart = part
+                                    return NSItemProvider()
+                                }
+                                .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: part, items: $parts, draggedItem: $draggedPart))
                             }
                             
                             
@@ -172,10 +173,10 @@ struct EditRoutineView: View {
                 switch result {
                 case .success(let urls):
                     for url in urls {
-                            
+                        
                         let fileName = url.lastPathComponent
                         
-                            
+                        
                         // Check if file already exists in parts
                         if parts.contains(where: {
                             let components = $0.fileName.components(separatedBy: "_")
@@ -187,32 +188,32 @@ struct EditRoutineView: View {
                         }
                         
                         
-                     
+                        
                         if tempFiles.values.contains(where: { $0.lastPathComponent == fileName }) {
                             continue
                         }
                         
-                            // We can't directly use the documentsURL right now, because it means w would have to upload the files.
-                            let newPart = Part(
-                                title: (url.lastPathComponent as NSString).deletingPathExtension,
-                                fileName: "",
-                                order: parts.count + 1
-                            )
-                            parts.append(newPart)
-                            // URL is the full filepath
-                            tempFiles[newPart.id] = url
-                        }
+                        // We can't directly use the documentsURL right now, because it means w would have to upload the files.
+                        let newPart = Part(
+                            title: (url.lastPathComponent as NSString).deletingPathExtension,
+                            fileName: "",
+                            order: parts.count + 1
+                        )
+                        parts.append(newPart)
+                        // URL is the full filepath
+                        tempFiles[newPart.id] = url
+                    }
                     
-                   
                     
-               
+                    
+                    
                 case .failure(let err):
                     error = err
                     print("Error selecting files: \(err.localizedDescription)")
                 }
                 
             }
-           
+            
             
             
             .navigationTitle("Edit \(routine.title)")
@@ -226,13 +227,21 @@ struct EditRoutineView: View {
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
-                    .confirmationDialog("Deleting this routine will erase all of its content. Are you sure?", isPresented: $isPresentingConfirm) {
-                        Button("Delete permanently", role: .destructive) {
-                            deleteRoutine(id: routine.id)
-                        }
-                    }
+                    
                 }
             }
+            .confirmationDialog(
+                "Routine Deletion",
+                isPresented: $isPresentingConfirm
+            ) {
+                Button("Delete permanently", role: .destructive) {
+                    deleteRoutine(id: routine.id)
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Deleting this routine will erase all of its content. Are you sure?")
+            }
+        
             
             
             
