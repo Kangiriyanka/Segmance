@@ -12,7 +12,9 @@ import AVKit
 
 /// Don't create @State of part, it creates a local copy of it
 /// Use Bindable. When you're in EditRoutineView, you want to reflect the changes automatically.
-/// Suggestion: onDrag feels a bit slow?
+/// Suggestions #1:  onDrag feels a bit slow?
+/// Suggestion #2: A PhotoPicker of only allowed items
+
 struct PartView: View {
     
     
@@ -27,7 +29,9 @@ struct PartView: View {
     @State private var isLoadingVideo = false
     @State private var selectedVideoItem: PhotosPickerItem?
     @State private var gridMode: GridMode = .list
+    @State private var showAccessAlert = false
     var onPlayAudio: (URL, String) -> Void
+    
     let tip = VideoTip(customText: "Hold the play button to unlink the video.")
     
     
@@ -49,12 +53,13 @@ struct PartView: View {
             if showingVideoPlayer, let url = videoURL {
                 DraggableVideoPlayer(url: url, isShowing: $showingVideoPlayer)
                    
-                    .transition(.symbolEffect.combined(with: .opacity))
+                    .transition(.scale.combined(with: .opacity))
+                    
                  
                    
                     
             }
-            
+              
             
             
         }
@@ -139,20 +144,28 @@ struct PartView: View {
                 }
             }
             .contentMargins(.bottom, 50, for: .scrollContent)
+            .alert("No Access", isPresented: $showAccessAlert) {
+                Button("Open Settings") {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+
+                Button("Cancel", role: .cancel) {
+                    showAccessAlert = false
+                    selectedVideoItem = nil
+                 
+                }
+            } message: {
+                Text("This video isn’t accessible with your current Photos permissions. You can allow access in Settings.")
+            }
             
             .onTapGesture {
                 focusedMoveID = nil
+               
             }
             .scrollDismissesKeyboard(.immediately)
-            .onChange(of: focusedMoveID) { _, newValue in
-                if let id = newValue {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        withAnimation {
-                            proxy.scrollTo(id, anchor: .center)
-                        }
-                    }
-                }
-            }
+          
         }
     }
     
@@ -242,6 +255,7 @@ struct PartView: View {
                 
                 if mode == .list {
                     moveViewContainer(move: move)
+                    
                 } else {
                     CompactMoveView(move: move, gridMode: mode.rawValue)
                 }
@@ -257,14 +271,23 @@ struct PartView: View {
     private func moveViewContainer(move: Move) -> some View {
         
         MoveView(deleteFunction: deleteMove, move: move)
+        
+            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16))
+            .transition(.asymmetric(
+                insertion: .scale.combined(with: .opacity),
+                removal: .scale.combined(with: .opacity)
+            ))
             .onDrag {
                 draggedMove = move
                 return NSItemProvider()
                 // Preview is a huge help for the jittering
             } preview: {
                 MoveView(deleteFunction: deleteMove, move: move)
-                    .contentShape(RoundedRectangle(cornerRadius: 10))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+             
+
+                            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                    
             }
             .onDrop(
                 of: [.text],
@@ -273,8 +296,10 @@ struct PartView: View {
                     originalArray: $part.moves,
                     draggedMove: $draggedMove)
             )
+          
             .id(move.id)
             .focused($focusedMoveID, equals: move.id)
+          
         
     }
     
@@ -284,10 +309,14 @@ struct PartView: View {
     private func deleteMove(id: UUID) {
         guard let moveToDelete = part.moves.first(where: { $0.id == id }) else { return }
         
-        part.moves.removeAll { $0.id == id }
-        part.moves.forEach { move in
-            if move.order > moveToDelete.order {
-                move.order -= 1
+        withAnimation(.smoothReorder) {
+            part.moves.removeAll { $0.id == id }
+            
+          
+            part.moves.forEach { move in
+                if move.order > moveToDelete.order {
+                    move.order -= 1
+                }
             }
         }
     }
@@ -331,9 +360,17 @@ struct PartView: View {
             }
             .contentShape(.contextMenuPreview, Circle())
             .contextMenu {
+                
+                
+              
                 Button(role: .destructive) {
-                    part.videoAssetID = nil
-                    showingVideoPlayer = false
+                    withAnimation(.organicFastBounce) {
+                        part.videoAssetID = nil
+                        videoURL = nil
+                        selectedVideoItem = nil
+                        isLoadingVideo = false
+                        showingVideoPlayer = false
+                    }
                 } label: {
                     Label("Unlink Video", systemImage: "trash")
                 }
@@ -356,22 +393,37 @@ struct PartView: View {
                 Image(systemName: "film")
             }
             .onChange(of: selectedVideoItem) { _, item in
-                if let id = item?.itemIdentifier {
-                    part.videoAssetID = id
+                guard let item = item, let id = item.itemIdentifier else {
+                    print("No access to selected video")
+                    return
                 }
-                // Reset picker to allow reselecting the same video later
-                selectedVideoItem = nil
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    // Validate access before assigning
+                    let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+                    
+                    if assets.firstObject != nil {
+                        part.videoAssetID = id
+                    } else {
+                        showAccessAlert = true
+                    }
+                }
             }
-            .buttonStyle(PressableButtonStyle())
-            .contentShape(Rectangle())
+            
+           
             
             
         }
+       
+     
     }
     
+   
+
+
     private func fetchVideoURL(fromLocalIdentifier id: String, completion: @escaping (URL?) -> Void) {
         let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
-        // Finds the match
+        
         guard let asset = assets.firstObject else {
             completion(nil)
             return
@@ -380,14 +432,10 @@ struct PartView: View {
         let options = PHVideoRequestOptions()
         options.version = .original
         options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true // Allow iCloud downloads
         
-        // Set the url from PHImageManager to the Part's state
         PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
-            if let urlAsset = avAsset as? AVURLAsset {
-                completion(urlAsset.url)
-            } else {
-                completion(nil)
-            }
+            completion((avAsset as? AVURLAsset)?.url)
         }
     }
 }

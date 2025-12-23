@@ -16,7 +16,7 @@ class Part {
     var fileName: String
     var parent: Routine?
     var order: Int
-    // videoAssetID doesn't have to be unique
+    // videoAssetID doesn't have to be unique, in fact: maybe it was source of random deletions in the parts.
     var videoAssetID: String?
     @Relationship(deleteRule: .cascade) var moves =  [Move]()
     
@@ -32,7 +32,7 @@ class Part {
     
     /// A function to copy a Part before modifying it.
     func copy() -> Part {
-        let newPart = Part(id: self.id, title: self.title, fileName: self.fileName, order: self.order, )
+        let newPart = Part(id: self.id, title: self.title, fileName: self.fileName, order: self.order,)
         newPart.videoAssetID = self.videoAssetID
         newPart.moves = self.moves.map { $0.copy() }
         return newPart

@@ -205,6 +205,7 @@ struct UploadRoutineView: View {
                                     selectedFiles.removeAll { $0.id == file.id }
                                 }
                             }
+                         
                                 
                                 .id(file.id)
                                 .focused($focusedFileID, equals: file.id)
@@ -212,8 +213,9 @@ struct UploadRoutineView: View {
         
                                 .onDrag {
                                     draggedFile = file
+                                    // Provide some identifiable content for the drag
                                     return NSItemProvider()
-                                }
+                                } 
                                 
                                 .onDrop(of: [.text], delegate: DropViewDelegate(destinationItem: file, items: $selectedFiles, draggedItem: $draggedFile))
                            

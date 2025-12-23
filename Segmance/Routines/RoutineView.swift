@@ -19,6 +19,7 @@ struct RoutineView: View {
     
     @State private var playerIsPresented: Bool = false
     @State private var playerIsExpanded: Bool = false
+    @State private var videoIsExpanded: Bool = false
     @State private var currentAudioURL: URL?
     @State private var currentPartTitle: String = ""
     @Environment(\.dismiss) private var dismiss
