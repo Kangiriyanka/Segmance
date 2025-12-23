@@ -180,8 +180,9 @@ struct EditRoutineView: View {
                         // Check if file already exists in parts
                         if parts.contains(where: {
                             let components = $0.fileName.components(separatedBy: "_")
+                            // Fatal index crash source?
+                            guard components.count > 1 else { return false }
                             let fileNameWithoutRoutine = components.dropFirst().joined(separator: "_")
-                            print(fileNameWithoutRoutine)
                             return fileNameWithoutRoutine == fileName
                         }) {
                             continue
