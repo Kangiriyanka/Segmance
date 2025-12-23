@@ -12,8 +12,14 @@ import SwiftUI
 
 struct UploadedFileView : View {
     
-    @Binding var partName: String
-    @State private var partCharacterCount: Int = 25
+    @Binding var partName: String {
+        didSet {
+            if partName.count > partCharacterCount {
+                partName = String(partName.prefix(partCharacterCount))
+            }
+        }
+    }
+    @State private var partCharacterCount: Int = 30
     let onDelete: () -> Void
     
   
@@ -21,7 +27,7 @@ struct UploadedFileView : View {
     var body: some View {
         
         HStack {
-            TextField("", text: $partName)
+            TextField("Part name", text: $partName)
      
                 .limitText($partName, to: partCharacterCount)
          

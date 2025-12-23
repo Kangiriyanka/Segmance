@@ -27,7 +27,7 @@ struct UploadRoutineView: View {
     @State private var isImporting = false
     @State private var selectedFiles: [FileItem] = []
     @State private var draggedFile: FileItem?
-    @State private var characterLimit: Int = 25
+    @State private var characterLimit: Int = 30
     @State private var reviewManager = ReviewManager()
     let tip = UploadTip(customText: "Hold and drag to reorder your files.")
     
@@ -94,7 +94,10 @@ struct UploadRoutineView: View {
                             continue
                         }
                         
-                        selectedFiles.append(FileItem(URL: url, fileTitle: (fileName as NSString).deletingPathExtension))
+                        // BUG: When I upload files, they should be truncated.
+                        let truncatedTitle = String((fileName as NSString).deletingPathExtension.prefix(characterLimit))
+                        selectedFiles.append(FileItem(URL: url, fileTitle: truncatedTitle))
+                        
                     }
                
                 case .failure(let err):

@@ -11,83 +11,77 @@ import PhotosUI
 import Photos
 import AVKit
 
-
 @Observable
 class VideoPlayerModel {
     var selectedVideoItem: PhotosPickerItem?
     var isFullScreen = false
     var isLoadingVideo = false
     var showingVideoPlayer = false
+    var showingAccessAlert = false
     var videoURL: URL?
     
-
-    func fetchVideoURL(fromLocalIdentifier id: String, completion: @escaping (URL?) -> Void) {
-        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+    func fetchVideo(for id: String, onDeleted: @escaping () -> Void) {
+        guard !isLoadingVideo else { return }
+        isLoadingVideo = true
         
+        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
         guard let asset = assets.firstObject else {
-            completion(nil)
+            handleVideoDeleted(onDeleted)
             return
         }
         
         let options = PHVideoRequestOptions()
         options.version = .original
         options.deliveryMode = .highQualityFormat
-        options.isNetworkAccessAllowed = true // Allow iCloud downloads
+        options.isNetworkAccessAllowed = true
         
-        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
-            completion((avAsset as? AVURLAsset)?.url)
+        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { [weak self] avAsset, _, _ in
+            guard let self = self else { return }
+            
+            if let url = (avAsset as? AVURLAsset)?.url {
+                self.videoURL = url
+                self.isLoadingVideo = false
+                withAnimation(.organicFastBounce) {
+                    self.showingVideoPlayer = true
+                }
+            } else {
+                self.handleVideoDeleted(onDeleted)
+            }
         }
     }
     
-    func fetchVideo(for id: String) {
-           guard !isLoadingVideo else { return }
-           isLoadingVideo = true
-           
-           fetchVideoURL(fromLocalIdentifier: id) { [weak self] url in
-               DispatchQueue.main.async {
-                   guard let self = self else { return }
-                   self.isLoadingVideo = false
-                   if let url = url {
-                       self.videoURL = url
-                      
-                       withAnimation(.organicFastBounce) {
-                           self.showingVideoPlayer.toggle()
-                       }
-                   }
-               }
-           }
-       }
-    
-    
-    func validateAndAssignVideo(for item: PhotosPickerItem?, assignID: @escaping (String) -> Void, showAccessAlert: @escaping () -> Void) {
-            guard let item = item, let id = item.itemIdentifier else {
-                print("No access to selected video")
-                return
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
-                if assets.firstObject != nil {
-                    assignID(id)
-                    self.selectedVideoItem = item
-                } else {
-                    showAccessAlert()
-                }
-            }
-        }
-    
+    private func assetIsAccessible(_ id: String) -> Bool {
+        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+        return assets.firstObject != nil
+    }
 
-     
+    // Edge case: User deletes a video from their library. Simply unlink with the play button
+    private func handleVideoDeleted(_ onDeleted: @escaping () -> Void) {
+        isLoadingVideo = false
+        onDeleted()
+    }
+    
+    func validateAndAssignVideo(for item: PhotosPickerItem?, assignID: @escaping (String) -> Void) {
+        guard let item = item, let id = item.itemIdentifier else { return }
         
-        
-       
-        
-     
+        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+        if assets.firstObject != nil {
+            assignID(id)
+            selectedVideoItem = item
+        } else {
+            showingAccessAlert = true
+        }
+    }
     
     func unlinkVideo() {
-           selectedVideoItem = nil
-           videoURL = nil
-           showingVideoPlayer = false
-           isLoadingVideo = false
-       }
+        selectedVideoItem = nil
+        videoURL = nil
+        showingVideoPlayer = false
+        isLoadingVideo = false
+    }
+    
+    private func handleFetchFailure() {
+        isLoadingVideo = false
+        showingAccessAlert = true
+    }
 }

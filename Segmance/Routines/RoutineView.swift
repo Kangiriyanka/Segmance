@@ -57,9 +57,25 @@ struct RoutineView: View {
                 }
                 .scrollTargetBehavior(.paging)
                 .scrollIndicators(.never)
+                
             }
             .toolbar(playerIsExpanded || videoManager.isFullScreen ? .hidden : .visible, for: .tabBar)
             .ignoresSafeArea(.container, edges: playerIsExpanded ? .bottom : [])
+            .alert("No Access", isPresented: $videoManager.showingAccessAlert) {
+                Button("Open Settings") {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                
+                Button("Cancel", role: .cancel) {
+                    videoManager.showingAccessAlert = false
+                    videoManager.selectedVideoItem = nil
+                    
+                }
+            } message: {
+                Text("This video isn’t accessible with your current Photos permissions. You can allow access in Settings.")
+            }
             
      
             // Design Choice: Audio Player across all parts
@@ -100,8 +116,9 @@ struct RoutineView: View {
                     }
                 }
      
+    // Padding to align action buttons  of RoutineContainerView  and RoutineView
+//        .padding(.top, -10)
       
-        .padding(.top, -10)
         
         
         
@@ -112,9 +129,14 @@ struct RoutineView: View {
         
     }
 
-
+    // Edge case: if a user deletes a video and a user tries to access it.
     private func onPlayVideo(_ videoID: String) {
-        videoManager.fetchVideo(for: videoID)
+        videoManager.fetchVideo(for: videoID) {
+        
+            if let part = routine.parts.first(where: { $0.videoAssetID == videoID }) {
+                part.videoAssetID = nil
+            }
+        }
     }
 
     private func onPlayAudio(_ url: URL, _ title: String) {
@@ -141,13 +163,12 @@ struct RoutineView: View {
         routine.parts.first { $0.videoAssetID == id }?.videoAssetID = nil
     }
 
+    // Part view's PhotoPicker
     private func onVideoPicked(_ item: PhotosPickerItem, _ part: Part) {
         videoManager.validateAndAssignVideo(
             for: item,
             assignID: { part.videoAssetID = $0 },
-            showAccessAlert: {
-                // handle alert if/when you surface it
-            }
+           
         )
     }
 }

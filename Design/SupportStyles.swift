@@ -12,19 +12,16 @@ import StoreKit
 // MARK: - Info Card
 func infoCard(title: String, description: String, spacing: CGFloat) -> some View {
     VStack(alignment: .leading, spacing: spacing) {
-       
-            Text(title)
-                .customHeader()
-            
-            Text(description)
-                .padding()
-                .background(cardBackground)
-                .customBorderStyle()
+        Text(title)
+            .customHeader()
         
-     
+        Text(description)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .multilineTextAlignment(.leading)
+            .padding()
+            .background(cardBackground)
+            .customBorderStyle()
     }
-    
-    
 }
 func usageTitle(title: String, ) -> some View {
     VStack(alignment: .leading) {

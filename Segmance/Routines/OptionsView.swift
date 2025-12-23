@@ -19,7 +19,8 @@ struct OptionsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(spacing: 24) {
+                // LazyVStack causes teleporting maybe
+                VStack(spacing: 24) {
                     
                     // MARK: - GENERAL
                     
@@ -142,9 +143,8 @@ struct OptionsView: View {
             }
             .contentMargins(.top, 8, for: .scrollContent)
             .contentMargins(.bottom, 16, for: .scrollContent)
-            .scrollContentBackground(.hidden)
             .background(backgroundGradient)
-            .navigationTitle("Settings")
+            .navigationTitle("Manager")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
