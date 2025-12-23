@@ -8,6 +8,10 @@
 import SwiftUI
 
 
+// Animation Debug Tips for the Move Marker
+// Add a delay to the delete function in the parent or use opacity = 0
+// Had a problem where the context menu was lingering after deletion
+
 extension View {
     func moveMarker(width: CGFloat, height: CGFloat, text: String, color: Color) -> some View {
         
@@ -75,6 +79,7 @@ struct MoveView: View {
     @State private var moveTitleLimit =  30
     @State private var characterLimit = 200
     @State private var showMoveType = false
+    @State private var isDeleting = false
     let tip = MoveTip(customText: "Hold the number to delete the move.")
     
     
@@ -122,18 +127,22 @@ struct MoveView: View {
                             .animation(.organicFastBounce, value: showMoveType)
                             
                         
-                        moveMarker(width: 40, height: 20, text: String(move.order), color: Color.player)
+                        moveMarker(width: 40, height: 20, text: "\(move.order)", color: Color.player)
                             .popoverTip(tip)
+                            .opacity(isDeleting ? 0 : 1)
                             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 4))
                         
                             .contextMenu {
-                                withAnimation(.smoothReorder) {
+                                
+                                    
                                     Button(role: .destructive) {
+                                        isDeleting = true
                                         deleteFunction(move.id)
+                                    
                                     } label: {
                                         Label("Delete", systemImage: "trash")
                                     }
-                                }
+                                
                             }
                         
                             .onAppear {
@@ -214,25 +223,23 @@ struct MoveView: View {
             .disclosureGroupStyle(MyDisclosureStyle())
             
          
-            
-            
-            
-            
-            
-            
-            
+
         }
+    
         
        
         
         
 
-   
+        
         .frame(width: UIScreen.main.bounds.width - 75)
         .padding(.horizontal, 20)
         .background(routineCardBackground)
         .customBorderStyle()
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+      
+        
+      
+        
 
      
         

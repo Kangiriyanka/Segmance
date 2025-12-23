@@ -118,8 +118,11 @@ struct AddMoveView: View {
             .padding(.vertical)
             
             Button(action: {
-                addMove()
-                dismiss()
+                withAnimation(.organicFastBounce) {
+                    addMove()
+                }
+                    dismiss()
+                
             }) {
                 Text("Add Move")
                     

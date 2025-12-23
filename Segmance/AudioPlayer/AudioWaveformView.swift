@@ -79,6 +79,7 @@ struct AudioWaveformView: View {
                         
                         // Selection overlay
                         RoundedRectangle(cornerRadius: 8)
+                        
                             .fill(Color.accent.opacity(0.3))
                             .frame(
                                 width: (endFraction - startFraction) * geo.size.width,
@@ -105,6 +106,7 @@ struct AudioWaveformView: View {
                         // Start handle
                         HandleView(height: geo.size.height, color: .customPink)
                             .position(x: startFraction * geo.size.width, y: geo.size.height / 2)
+                          
                             .gesture(
                                 DragGesture()
                                     .onChanged { value in
@@ -120,6 +122,7 @@ struct AudioWaveformView: View {
                         // End handle
                         HandleView(height: geo.size.height, color: Color.player)
                             .position(x: endFraction * geo.size.width, y: geo.size.height / 2)
+                           
                             .gesture(
                                 DragGesture()
                                     .onChanged { value in
