@@ -28,7 +28,7 @@ struct AboutView: View {
                 
                 infoCard(
                     title: "Who is this for?",
-                    description: "Built for anyone who wants to express themselves through music and movement.",
+                    description: "Built for performers and anyone who wants to create routines with music and movement.",
                     spacing: 12
                 )
                 

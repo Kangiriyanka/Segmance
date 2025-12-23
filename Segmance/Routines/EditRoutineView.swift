@@ -194,9 +194,14 @@ struct EditRoutineView: View {
                             continue
                         }
                         
-                        // We can't directly use the documentsURL right now, because it means w would have to upload the files.
+                        
+                        let truncatedTitle = String((url.lastPathComponent as NSString)
+                                                    .deletingPathExtension
+                                                    .prefix(characterLimit))
+                    
+                        // We can't directly use the documentsURL right now, because it means we would have to upload the files.
                         let newPart = Part(
-                            title: (url.lastPathComponent as NSString).deletingPathExtension,
+                            title: truncatedTitle,
                             fileName: "",
                             order: parts.count + 1
                         )

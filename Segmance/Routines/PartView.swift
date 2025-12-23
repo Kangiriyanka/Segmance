@@ -15,6 +15,27 @@ import AVKit
 /// Suggestions #1:  onDrag feels a bit slow?
 /// Suggestion #2: A PhotoPicker of only allowed items
 
+
+
+struct VideoPickerButton: View {
+    @Binding var selectedVideoItem: PhotosPickerItem?
+    var onVideoPicked: (PhotosPickerItem) -> Void
+
+    var body: some View {
+        PhotosPicker(
+            selection: $selectedVideoItem,
+            matching: .videos,
+            photoLibrary: .shared()
+        ) {
+            Image(systemName: "film")
+        }
+        .onChange(of: selectedVideoItem) { _, item in
+            guard let item else { return }
+            onVideoPicked(item)
+            selectedVideoItem = nil
+        }
+    }
+}
 struct PartView: View {
     
     
@@ -24,7 +45,6 @@ struct PartView: View {
     @State private var showingAddMoveSheet = false
     @State private var draggedMove: Move?
     @State private var gridMode: GridMode = .list
-    @State private var showAccessAlert = false
     @State private var videoManager: VideoPlayerModel
     @FocusState private var focusedMoveID: UUID?
     @State private var selectedVideoItem: PhotosPickerItem?
@@ -151,21 +171,7 @@ struct PartView: View {
                 }
             }
             .contentMargins(.bottom, 50, for: .scrollContent)
-            .alert("No Access", isPresented: $showAccessAlert) {
-                Button("Open Settings") {
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                        UIApplication.shared.open(url)
-                    }
-                }
-                
-                Button("Cancel", role: .cancel) {
-                    showAccessAlert = false
-                    videoManager.selectedVideoItem = nil
-                    
-                }
-            } message: {
-                Text("This video isn’t accessible with your current Photos permissions. You can allow access in Settings.")
-            }
+           
             
             .onTapGesture {
                 focusedMoveID = nil
@@ -174,6 +180,7 @@ struct PartView: View {
             .scrollDismissesKeyboard(.immediately)
             
         }
+       
     }
     
     private var actionButtons: some View {
@@ -346,9 +353,9 @@ struct PartView: View {
             .contentShape(.contextMenuPreview, Circle())
             .contextMenu {
                 Button(role: .destructive) {
-                    withAnimation(.organicFastBounce) {
+                   
                         onUnlinkVideo(part.videoAssetID)
-                    }
+                    
                 } label: {
                     Label("Unlink Video", systemImage: "trash")
                 }
@@ -358,18 +365,12 @@ struct PartView: View {
             
         } else {
           
-            PhotosPicker(
-                selection: $selectedVideoItem,
-                matching: .videos,
-                photoLibrary: .shared()
-            ) {
-                Image(systemName: "film")
-            }
-            .onChange(of: selectedVideoItem) { _, item in
-                guard let item else { return }
-                onVideoPicked(item, part)
-                selectedVideoItem = nil 
-            }
+           
+                VideoPickerButton(selectedVideoItem: $selectedVideoItem) { item in
+                    onVideoPicked(item, part)
+                }
+            
+           
         }
     }
     
