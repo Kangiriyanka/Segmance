@@ -46,68 +46,81 @@ struct DragModifier: ViewModifier {
 
 
 struct DraggableVideoPlayer: View {
-    let url: URL
-    @Binding var isShowing: Bool
+
+
     @State private var player: AVPlayer?
     @State private var currentPosition: CGSize = .zero
     @State private var newPosition: CGSize = .zero
-    @State private var isFullScreen: Bool = false
+   
     
-    
-    @State private var videoWidth: CGFloat = 350
+    let initialWidth: CGFloat = 300
+    let initialHeight: CGFloat = 200
+    @State private var videoWidth: CGFloat = 300
     @State private var videoHeight: CGFloat = 200
     
     @State private var showControls = true
     @State private var autoDismissTask: Task<Void, Never>?
+    @State private var videoManager: VideoPlayerModel
+    
+    
+    init(videoManager: VideoPlayerModel) {
+        self.videoManager = videoManager
+    }
 
     var body: some View {
-        GeometryReader { geometry in
-            VideoPlayer(player: player)
-                .overlay (
-                    customControls(geometry: geometry)
-                       
-                        .padding(.top, isFullScreen ? 15 : 5)
-                        .opacity(showControls ? 1 : 0)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
-                        .animation(.easeInOut(duration: 0.2), value: showControls)
+        ZStack {
+            GeometryReader { geometry in
+                VideoPlayer(player: player)
+                    .overlay (
+                        customControls(geometry: geometry)
                         
-                    ,alignment: .top)
+                            .padding(.top, videoManager.isFullScreen ? 65 : 5)
+                            .opacity(showControls ? 1 : 0)
+                            .animation(.easeInOut(duration: 0.2), value: showControls)
+                        
+                        ,alignment: .top)
                 
-                .simultaneousGesture(
-                    TapGesture()
-                        .onEnded { _ in
-                            autoDismissTask?.cancel()
-                            withAnimation(.smoothReorder) {
-                                showControls.toggle()
+                    .simultaneousGesture(
+                        TapGesture()
+                            .onEnded { _ in
+                                autoDismissTask?.cancel()
+                                withAnimation(.smoothReorder) {
+                                    showControls.toggle()
+                                }
+                                if showControls {
+                                    startAutoDismiss()
+                                }
                             }
-                            if showControls {
-                                startAutoDismiss()
-                            }
-                        }
-                )
-                .task {
-                    player = AVPlayer(url: url)
-                }
-                .modifier(DragModifier(
-                    videoWidth: videoWidth,
-                    videoHeight: videoHeight,
-                    currentPosition: $currentPosition,
-                    newPosition: $newPosition,
-                    geometry: geometry
-                ))
-                .onAppear {
-                    guard currentPosition == .zero else { return }
-                    currentPosition = CGSize(
-                        width: (geometry.size.width - videoWidth) / 2,
-                        height: (geometry.size.height - videoHeight) / 2
                     )
-                    if showControls {
-                        startAutoDismiss()
+                    .task {
+                        if let url = videoManager.videoURL {
+                            player = AVPlayer(url: url)
+                        }
                     }
-                }
+                    .modifier(DragModifier(
+                        videoWidth: videoWidth,
+                        videoHeight: videoHeight,
+                        currentPosition: $currentPosition,
+                        newPosition: $newPosition,
+                        geometry: geometry
+                    ))
+                    .onAppear {
+                        guard currentPosition == .zero else { return }
+                        currentPosition = CGSize(
+                            width: (geometry.size.width - videoWidth) / 2,
+                            height: (geometry.size.height - videoHeight) / 2
+                        )
+                        if showControls {
+                            startAutoDismiss()
+                        }
+                    }
+            }
         }
+        
+     
+        
        
-        .ignoresSafeArea(.all)
+     
         
     }
 
@@ -139,7 +152,7 @@ struct DraggableVideoPlayer: View {
                     toggleScreen(width: geometry.size.width, height: geometry.size.height)
                 }
             } label: {
-                Image(systemName: isFullScreen ? "rectangle.arrowtriangle.2.inward" : "rectangle.arrowtriangle.2.outward")
+                Image(systemName: videoManager.isFullScreen ? "rectangle.arrowtriangle.2.inward" : "rectangle.arrowtriangle.2.outward")
                     .foregroundStyle(Color.white)
                     .padding(10)
                     .background(.ultraThinMaterial)
@@ -149,13 +162,10 @@ struct DraggableVideoPlayer: View {
             
             Button {
                 withAnimation(
-                    .spring(
-                        response: 0.35,
-                        dampingFraction: 0.9,
-                        blendDuration: 0.1
-                    )
+                    .organicFastBounce
                 ) {
-                    isShowing = false
+                    videoManager.showingVideoPlayer = false
+                    videoManager.isFullScreen = false
                 }
             } label: {
                 Image(systemName: "xmark.circle")
@@ -177,22 +187,22 @@ struct DraggableVideoPlayer: View {
     @State private var previousPosition: CGSize = .zero
 
     func toggleScreen(width: CGFloat, height: CGFloat) {
-        isFullScreen.toggle()
+        videoManager.isFullScreen.toggle()
         
-        if isFullScreen {
+        if videoManager.isFullScreen {
             // Store current position before going full-screen
             previousPosition = currentPosition
             
-            let targetWidth = width
-            let targetHeight = height
-            videoWidth = targetWidth
-            videoHeight = targetHeight
+            let screenBounds = UIScreen.main.bounds
+            videoWidth = screenBounds.width
+            videoHeight = screenBounds.height
             currentPosition = .zero
             newPosition = .zero
+           
         } else {
             // Restore to default compact size
-            videoWidth = 350
-            videoHeight = 200
+            videoWidth = initialWidth
+            videoHeight = initialHeight
             
             // Restore previous position, clamped to new bounds
             currentPosition.width = min(max(previousPosition.width, 0), max(0, width - videoWidth))
@@ -202,6 +212,3 @@ struct DraggableVideoPlayer: View {
 }
 
 
-#Preview {
-    DraggableVideoPlayer(url: URL("")! , isShowing: .constant(false))
-}

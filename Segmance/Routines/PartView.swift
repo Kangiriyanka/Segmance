@@ -19,28 +19,43 @@ struct PartView: View {
     
     
     @Bindable var part: Part
+    
     var moves: [Move] { part.moves.sorted { $0.order < $1.order }}
     @State private var showingAddMoveSheet = false
     @State private var draggedMove: Move?
-    @FocusState private var focusedMoveID: UUID?
-    @Namespace private var animation
-    @State private var videoURL: URL?
-    @State private var showingVideoPlayer = false
-    @State private var isLoadingVideo = false
-    @State private var selectedVideoItem: PhotosPickerItem?
     @State private var gridMode: GridMode = .list
     @State private var showAccessAlert = false
+    @State private var videoManager: VideoPlayerModel
+    @FocusState private var focusedMoveID: UUID?
+    @State private var selectedVideoItem: PhotosPickerItem?
+    
+    
+    // Callbacks for video
+    var onPlayVideo: (String) -> Void
     var onPlayAudio: (URL, String) -> Void
+    var onUnlinkVideo: (String?) -> Void
+    var onVideoPicked: (PhotosPickerItem, Part) -> Void
+    
     
     let tip = VideoTip(customText: "Hold the play button to unlink the video.")
     
     
     
-    init(part: Part, onPlayAudio: @escaping (URL,String) -> Void) {
-        self.part = part
-        self.onPlayAudio = onPlayAudio
-        
-    }
+    init(
+           part: Part,
+           manager: VideoPlayerModel,
+           onPlayVideo: @escaping (String) -> Void,
+           onPlayAudio: @escaping (URL, String) -> Void,
+           onUnlinkVideo: @escaping (String?) -> Void,
+           onVideoPicked: @escaping (PhotosPickerItem, Part) -> Void
+       ) {
+           self.part = part
+           self.videoManager = manager
+           self.onPlayVideo = onPlayVideo
+           self.onPlayAudio = onPlayAudio
+           self.onUnlinkVideo = onUnlinkVideo
+           self.onVideoPicked = onVideoPicked
+       }
     
     var body: some View {
         ZStack {
@@ -50,16 +65,8 @@ struct PartView: View {
                 movesScrollView
                 
             }
-            if showingVideoPlayer, let url = videoURL {
-                DraggableVideoPlayer(url: url, isShowing: $showingVideoPlayer)
-                   
-                    .transition(.scale.combined(with: .opacity))
-                    
-                 
-                   
-                    
-            }
-              
+            
+            
             
             
         }
@@ -112,8 +119,8 @@ struct PartView: View {
                                     Text("3. Link videos with \(Image(systemName: "film")).")
                                     Text("4. Hold order number to delete the move.")
                                     Text("5. Order moves by holding and dragging them.")
-                                  
-                                   
+                                    
+                                    
                                 }
                                 .padding()
                                 .multilineTextAlignment(.leading)
@@ -150,11 +157,11 @@ struct PartView: View {
                         UIApplication.shared.open(url)
                     }
                 }
-
+                
                 Button("Cancel", role: .cancel) {
                     showAccessAlert = false
-                    selectedVideoItem = nil
-                 
+                    videoManager.selectedVideoItem = nil
+                    
                 }
             } message: {
                 Text("This video isn’t accessible with your current Photos permissions. You can allow access in Settings.")
@@ -162,10 +169,10 @@ struct PartView: View {
             
             .onTapGesture {
                 focusedMoveID = nil
-               
+                
             }
             .scrollDismissesKeyboard(.immediately)
-          
+            
         }
     }
     
@@ -203,8 +210,8 @@ struct PartView: View {
                 
                 Button {
                     
-                
-                        gridMode.cycle()
+                    
+                    gridMode.cycle()
                     
                     
                     
@@ -274,8 +281,8 @@ struct PartView: View {
         
             .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16))
             .transition(.asymmetric(
-                insertion: .scale.combined(with: .opacity),
-                removal: .scale.combined(with: .opacity)
+                insertion: .opacity,
+                removal: .opacity
             ))
             .onDrag {
                 draggedMove = move
@@ -283,11 +290,11 @@ struct PartView: View {
                 // Preview is a huge help for the jittering
             } preview: {
                 MoveView(deleteFunction: deleteMove, move: move)
-             
-
-                            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                    
+                
+                
+                    .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16))
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                
             }
             .onDrop(
                 of: [.text],
@@ -296,10 +303,10 @@ struct PartView: View {
                     originalArray: $part.moves,
                     draggedMove: $draggedMove)
             )
-          
+        
             .id(move.id)
             .focused($focusedMoveID, equals: move.id)
-          
+        
         
     }
     
@@ -312,7 +319,7 @@ struct PartView: View {
         withAnimation(.smoothReorder) {
             part.moves.removeAll { $0.id == id }
             
-          
+            
             part.moves.forEach { move in
                 if move.order > moveToDelete.order {
                     move.order -= 1
@@ -321,37 +328,15 @@ struct PartView: View {
         }
     }
     
+ 
     @ViewBuilder
     private var filmButton: some View {
-        
-        if part.videoAssetID != nil {
+        if let videoID = part.videoAssetID {
             Button {
-                
-                
-                // Lock any other video uploads with isLoadingVideo
-                guard let id = part.videoAssetID, !isLoadingVideo else { return }
-                isLoadingVideo = true
-                
-                
-                fetchVideoURL(fromLocalIdentifier: id) { url in
-                    DispatchQueue.main.async {
-                        isLoadingVideo = false
-                        if let url = url {
-                            videoURL = url
-                            
-                            
-                            withAnimation(.organicFastBounce) {
-                                showingVideoPlayer = true
-                            }
-                        }
-                    }
-                }
+                onPlayVideo(videoID)
             } label: {
-                
                 Image(systemName: "play.circle")
                     .popoverTip(tip)
-                
-                
             }
             .onAppear {
                 Task {
@@ -360,16 +345,9 @@ struct PartView: View {
             }
             .contentShape(.contextMenuPreview, Circle())
             .contextMenu {
-                
-                
-              
                 Button(role: .destructive) {
                     withAnimation(.organicFastBounce) {
-                        part.videoAssetID = nil
-                        videoURL = nil
-                        selectedVideoItem = nil
-                        isLoadingVideo = false
-                        showingVideoPlayer = false
+                        onUnlinkVideo(part.videoAssetID)
                     }
                 } label: {
                     Label("Unlink Video", systemImage: "trash")
@@ -378,13 +356,8 @@ struct PartView: View {
             .buttonStyle(PressableButtonStyle())
             .contentShape(Rectangle())
             
-        }
-        
-        else {
-            // itemIdentifier is an id referring to the video
-            // set -> user selects a video which becomes the item
-            
-            
+        } else {
+          
             PhotosPicker(
                 selection: $selectedVideoItem,
                 matching: .videos,
@@ -393,60 +366,20 @@ struct PartView: View {
                 Image(systemName: "film")
             }
             .onChange(of: selectedVideoItem) { _, item in
-                guard let item = item, let id = item.itemIdentifier else {
-                    print("No access to selected video")
-                    return
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    // Validate access before assigning
-                    let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
-                    
-                    if assets.firstObject != nil {
-                        part.videoAssetID = id
-                    } else {
-                        showAccessAlert = true
-                    }
-                }
+                guard let item else { return }
+                onVideoPicked(item, part)
+                selectedVideoItem = nil 
             }
-            
-           
-            
-            
         }
-       
-     
     }
     
-   
-
-
-    private func fetchVideoURL(fromLocalIdentifier id: String, completion: @escaping (URL?) -> Void) {
-        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
-        
-        guard let asset = assets.firstObject else {
-            completion(nil)
-            return
+        #Preview {
+            let part = Part.firstPartExample
+            TabView {
+    
+//                PartView(part: part, onPlayVideo: {_,_ in}, onPlayAudio: { _, _ in })
+            }
         }
-        
-        let options = PHVideoRequestOptions()
-        options.version = .original
-        options.deliveryMode = .highQualityFormat
-        options.isNetworkAccessAllowed = true // Allow iCloud downloads
-        
-        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
-            completion((avAsset as? AVURLAsset)?.url)
-        }
-    }
+    
 }
-    
-    
-    #Preview {
-        let part = Part.firstPartExample
-        TabView {
-            
-            PartView(part: part, onPlayAudio: { _, _ in })
-        }
-    }
-
 
