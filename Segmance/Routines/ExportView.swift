@@ -17,6 +17,7 @@ struct ExportView: View {
             
             VStack {
               
+                Text("Select the export format")
                 HStack {
                     ForEach(exportTypes, id: \.self) { exp in
                         
@@ -36,14 +37,14 @@ struct ExportView: View {
                 Button {
                     isShowingExporter = true
                 } label: {
-                    Image(systemName: "square.and.arrow.up")
+                    Text("Export routines")
                     
                     
                 }
               
-             
-                .buttonStyle(PressableButtonStyle())
-                .scaleEffect(1.5)
+                .padding()
+                .buttonStyle(ReviewButtonStyle())
+               
              
                 
              

@@ -124,7 +124,7 @@ var routineCardBackground: some View {
 
 var shadowOutline: some View {
     RoundedRectangle(cornerRadius: 10)
-        .stroke(Color.black.opacity(0.3), lineWidth: 1)
+        .stroke(Color.black.opacity(0.15), lineWidth: 1)
         .shadow(radius: 2, x: 0, y: 2)
     
 }

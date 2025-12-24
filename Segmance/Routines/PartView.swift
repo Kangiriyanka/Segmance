@@ -16,6 +16,30 @@ import AVKit
 /// Suggestion #2: A PhotoPicker of only allowed items
 
 
+extension View {
+    
+    @ViewBuilder
+    func instructionRow(
+        text: String,
+        systemImage: String? = nil,
+        customLabel: Text? = nil
+    ) -> some View {
+        HStack(spacing: 10) {
+            if let systemImage {
+                Image(systemName: systemImage)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 20)
+            } else if let customLabel {
+                customLabel
+                    .frame(width: 20)
+            }
+
+            Text(text)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
 
 struct VideoPickerButton: View {
     @Binding var selectedVideoItem: PhotosPickerItem?
@@ -133,17 +157,65 @@ struct PartView: View {
                             ContentUnavailableView {
                                 Label("Controls", systemImage: "arcade.stick")
                             } description: {
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Text("1. Add moves with \(Image(systemName: "plus.circle")).")
-                                    Text("2. Toggle Audio Player with \(Image(systemName: "music.quarternote.3")).")
-                                    Text("3. Link videos with \(Image(systemName: "film")).")
-                                    Text("4. Hold order number to delete the move.")
-                                    Text("5. Order moves by holding and dragging them.")
+                                
+                                Text("Instructions on what each button above does and general instructions.")
+                                VStack(alignment: .leading, spacing: 14) {
+
+                                    instructionRow(
+                                        text: "Toggle the audio player",
+                                        systemImage: "music.quarternote.3"
+                                    )
+
+                                    instructionRow(
+                                        text: "Link a video from Photos",
+                                        systemImage: "film"
+                                    )
+
+                                    instructionRow(
+                                        text: "Switch to non-editable overview mode",
+                                        systemImage: "rectangle.grid.1x2"
+                                    )
+
+                                    instructionRow(
+                                        text: "Add new moves to a part",
+                                        systemImage: "plus.circle"
+                                    )
+
+                                    Divider()
                                     
+                                    instructionRow(
+                                        text: "Delete a move by holding its order number",
+                                        systemImage: "1.circle"
+                                            
+                                    )
+                                    instructionRow(
+                                        text: "Reorder moves by holding and dragging them",
+                                        systemImage: "rectangle"
+                                            
+                                    )
+                                    instructionRow(
+                                        text: "Tap the Routines tab to go back to your routines",
+                                        systemImage: "figure.dance"
+                                            
+                                    )
+
+                                    instructionRow(
+                                        text: "For more information, see Settings > Usage Guide",
+                                        systemImage: "info.circle"
+                                            
+                                    )
                                     
+                                    Divider()
+                                    
+                                    Button {
+                                        showingAddMoveSheet = true
+                                    } label: {
+                                        Text("Add first move")
+                                    }
+                                    .padding()
+                                    .buttonStyle(ReviewButtonStyle())
+                                       
                                 }
-                                .padding()
-                                .multilineTextAlignment(.leading)
                             }
                             
                             
@@ -152,13 +224,22 @@ struct PartView: View {
                                 Label("No moves", systemImage: "figure.dance")
                             } description: {
                                 
+                                
+                                VStack(alignment: .leading, spacing: 14) {
+                                    Button {
+                                        showingAddMoveSheet = true
+                                    } label: {
+                                        Text("Add your first move")
+                                    }
+                                    .padding()
+                                    .buttonStyle(ReviewButtonStyle())
+                                }
                             }
                             
                             
                         }
                     }
-                    .background(shadowOutline)
-                    .padding()
+                
                 }
                 
                 
@@ -195,13 +276,7 @@ struct PartView: View {
             // Audio and add buttons
             HStack(spacing: 10) {
                 
-                Button {
-                    withAnimation {
-                        showingAddMoveSheet.toggle()
-                    }
-                } label: {
-                    Image(systemName: "plus.circle")
-                }
+                
                 
                 Button {
                     
@@ -226,6 +301,14 @@ struct PartView: View {
                     Image(systemName: gridMode.icon)
                 }
                 
+                Button {
+                    withAnimation {
+                        showingAddMoveSheet.toggle()
+                    }
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                
                 
             }
             .buttonStyle(PressableButtonStyle())
@@ -236,6 +319,9 @@ struct PartView: View {
         }
         .frame(maxWidth: .infinity)
     }
+    
+    
+   
     
     
     private var viewModeButton: some View {
@@ -374,13 +460,28 @@ struct PartView: View {
         }
     }
     
-        #Preview {
-            let part = Part.firstPartExample
-            TabView {
+
     
-//                PartView(part: part, onPlayVideo: {_,_ in}, onPlayAudio: { _, _ in })
-            }
+}
+
+#Preview {
+  
+    let part = Part.firstPartExample
+    PartView(
+        part: part,
+        manager: VideoPlayerModel(),
+        onPlayVideo: { videoID in
+            print("Play video: \(videoID)")
+        },
+        onPlayAudio: { url, title in
+            print("Play audio: \(title) at \(url)")
+        },
+        onUnlinkVideo: { videoID in
+            print("Unlink video: \(videoID ?? "nil")")
+        },
+        onVideoPicked: { item, part in
+            print("Picked video for part \(part.title)")
         }
-    
+    )
 }
 

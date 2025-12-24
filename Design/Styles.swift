@@ -58,41 +58,53 @@ struct PressableButtonStyle: ButtonStyle {
     var isDisabled: Bool? = nil
     var width: CGFloat = 50
     var height: CGFloat = 50
-
+    
     func makeBody(configuration: Configuration) -> some View {
         let disabled = isDisabled ?? false
         configuration.label
-           
             .padding()
             .frame(width: width, height: height)
             .background(
-                
                 Circle()
-                
-                    .fill(Color.routineCard)
-                
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.routineCard, Color.routineCard.opacity(0.85)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .overlay(
+                        Circle()
+                            .strokeBorder(.black.opacity(0.12), lineWidth: 0.5)
+                    )
             )
-           
             .font(.system(size: 16, weight: .semibold))
-        
-
-  
             .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: 1)
             .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: 2)
-
-      
             .scaleEffect(configuration.isPressed ? scale : 1)
-            .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))
             .foregroundStyle(.mainText)
-            .opacity(configuration.isPressed ? opacity : 1)
+            .opacity(disabled ? 0.3 : (configuration.isPressed ? opacity : 1))
             .animation(.spring(response: 0.3, dampingFraction: 0.4), value: configuration.isPressed)
-            .foregroundColor(.mainText)
-          
     }
 }
 
 
-
+struct FormButtonStyle: ButtonStyle {
+    
+    let width: CGFloat
+    let height: CGFloat
+    
+    func makeBody(configuration: Configuration) -> some View {
+        
+        configuration.label
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundStyle(Color.mainText)
+            .frame(width: width, height: height)
+            .buttonStyle(.borderedProminent)
+    }
+        
+        
+}
 
 struct ReviewButtonStyle: ButtonStyle {
     var scale: CGFloat = 0.9
@@ -188,4 +200,7 @@ struct ReviewButtonStyle: ButtonStyle {
     Divider()
     Button("Review"){}
         .buttonStyle(ReviewButtonStyle())
+    
+    Button("Review"){}
+        .buttonStyle(FormButtonStyle(width: 100, height: 10))
 }

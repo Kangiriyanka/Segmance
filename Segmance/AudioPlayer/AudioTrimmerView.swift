@@ -27,10 +27,13 @@ struct AudioTrimmerView: View {
                
                     if audioTrimmerManager.audioURL == nil {
                       
-                        Text("Import audio for clipping").customHeader()
-                            .offset(y:5)
-                        emptyStateButton
-                            .matchedGeometryEffect(id: "audioImport", in: uploadSpace)
+                        VStack {
+                            Text("Upload a song to clip into parts.").customHeader()
+                            
+                                .offset(y:10)
+                            emptyStateButton
+                        }.padding(1)
+                           
                           
                        
                     }
@@ -128,10 +131,43 @@ struct AudioTrimmerView: View {
             .padding()
             
             if audioTrimmerManager.clippedURLs.isEmpty {
-                Text("No clips yet")
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-                    .frame(maxWidth: .infinity)
+                
+                ContentUnavailableView {
+                    Label("Clip Controls", systemImage: "arcade.stick")
+                } description: {
+                    
+                    Text("Instructions on how to use the clipper")
+                    VStack(alignment: .leading, spacing: 14) {
+                        instructionRow(
+                            text: "Drag the handles to select a time range",
+                            systemImage: "arrow.left.and.right"
+                        )
+                        instructionRow(
+                            text: "Use the time buttons for precision",
+                            systemImage: "1.square"
+                        )
+            
+                        instructionRow(
+                            text: "Clip the selected time range.",
+                            systemImage: "scissors"
+                        )
+
+                        instructionRow(
+                            text: "Reset everything.",
+                            systemImage: "trash"
+                        )
+                        
+                        instructionRow(
+                            text: "Once finished clipping, save all clips.",
+                            
+                        )
+                    }
+                }
+                    
+                    
+                   
+            
+            
                   
             } else {
                 clipsList
@@ -149,11 +185,11 @@ struct AudioTrimmerView: View {
         HStack {
             Spacer()
             Button(action: { isImporting = true }) {
-                Image(systemName: "square.and.arrow.down")
-                    .font(.system(size: 50, weight: .semibold))
-                    .frame(width: 100, height: 100)
+                Text("Upload Song")
+                   
+                    .frame(width: 100, height: 20)
             }
-            .buttonStyle(PressableButtonStyle(width: 140, height: 140))
+            .buttonStyle(ReviewButtonStyle())
             Spacer()
         }
         .padding()
@@ -189,9 +225,10 @@ struct AudioTrimmerView: View {
                 .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.accent.opacity(0.8))
-         
+               
       
         }
+        
         .buttonStyle(NavButtonStyle())
     }
     
@@ -275,11 +312,13 @@ func formatTime(_ seconds: CGFloat) -> String {
 }
 
 #Preview {
+    @Previewable var isImporting: Bool = true
     let URL = Bundle.main.url(forResource: "clave", withExtension: "wav")!
     let manager: AudioTrimmerModel = AudioTrimmerModel()
     AudioTrimmerView()
         .onAppear {
-          
+            manager.audioURL = URL
+            
             manager.setupAudio(url: URL)
         }
     

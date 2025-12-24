@@ -130,7 +130,7 @@ struct OptionsView: View {
                           
                            
                             .padding()
-                            .presentationDetents([.fraction(0.25)])
+                            .presentationDetents([.fraction(0.35)])
                     }
                        
                     
@@ -144,7 +144,7 @@ struct OptionsView: View {
             .contentMargins(.top, 8, for: .scrollContent)
             .contentMargins(.bottom, 16, for: .scrollContent)
             .background(backgroundGradient)
-            .navigationTitle("Manager")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

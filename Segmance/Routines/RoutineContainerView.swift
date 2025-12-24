@@ -67,6 +67,7 @@ struct RoutineContainerView: View {
                 
                 HStack(spacing: 10) {
                     Spacer()
+              
                     CustomSearchBar(
                         text: $searchText,
                         placeholder: "Search routines"
@@ -77,8 +78,9 @@ struct RoutineContainerView: View {
                     
                     
                     HStack {
-                        addRoutineButton
+                        
                         viewModeButton
+                        addRoutineButton
                     }
                     
                     Spacer()
@@ -88,8 +90,10 @@ struct RoutineContainerView: View {
                 .frame(maxWidth: .infinity)
                
                 .sheet(isPresented: $showingUploadRoutineSheet) {
-                    UploadRoutineView()
-                        .background(noSinBackgroundGradient.opacity(0.9))
+                
+                        UploadRoutineView()
+                            .background(noSinBackgroundGradient.opacity(0.9))
+                    
                 }
                 
                 
@@ -103,8 +107,40 @@ struct RoutineContainerView: View {
                         ContentUnavailableView {
                             Label("No routines found", systemImage: "music.quarternote.3")
                         } description: {
-                            Text("Add one by tapping the \(Image(systemName: "figure.dance")) button.").padding([.top], 5)
+                            
+                            VStack(alignment: .leading, spacing: 1) {
+                                Button("Create your first routine") {
+                                    showingUploadRoutineSheet.toggle()
+                                }
+                                .padding()
+                                .buttonStyle(ReviewButtonStyle())
+                                .contentShape(Rectangle())
+                                
+                                HStack(spacing: 4) {
+                                    Text("Create more later by tapping the ") +
+                                    Text(Image(systemName: "plus.circle"))
+                                   +
+                                    Text(" in the actions above.")
+                                        .foregroundStyle(.secondary)
+                                        
+                                    
+                                }
+                                .padding(.horizontal, 11)
+                                .multilineTextAlignment(.leading)
+                                .offset(y: -3)
+                                .frame(maxWidth: .infinity)
+                                .font(.subheadline)
+                            
+                                
+                            
                         }
+                        
+                       
+                        }
+                      
+                        
+                        
+                        
                         
                         
                         
@@ -153,12 +189,14 @@ struct RoutineContainerView: View {
                 .navigationTitle("Routines")
                 .ignoresSafeArea(.keyboard)
                 .navigationBarTitleDisplayMode(.inline)
+              
                 
                 
                 
                 
                 
             }
+            
             
     
             .background(
@@ -170,6 +208,9 @@ struct RoutineContainerView: View {
             
             
         }
+        
+        
+        
     }
         
         @ViewBuilder
@@ -200,12 +241,12 @@ struct RoutineContainerView: View {
                 
                 showingUploadRoutineSheet.toggle()
             } label: {
-                Image(systemName: "figure.dance")
+                Image(systemName: "plus.circle")
                 
                 
                 
             }
-            
+           
             .buttonStyle(PressableButtonStyle())
             .contentShape(Rectangle())
             

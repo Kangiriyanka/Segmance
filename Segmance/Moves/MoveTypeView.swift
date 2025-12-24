@@ -49,7 +49,7 @@ struct MoveTypeView: View {
                         
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Menu {
-                                Button("Delete", systemImage: "trash", role: .destructive) {
+                                Button("Delete Move Type", systemImage: "trash", role: .destructive) {
                                     isPresentingConfirm = true
                                 }
                             } label: {

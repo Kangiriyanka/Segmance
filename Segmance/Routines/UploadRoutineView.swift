@@ -29,6 +29,7 @@ struct UploadRoutineView: View {
     @State private var draggedFile: FileItem?
     @State private var characterLimit: Int = 30
     @State private var reviewManager = ReviewManager()
+    @State private var showToast = false
     let tip = UploadTip(customText: "Hold and drag to reorder your files.")
     
     @FocusState private var isFocused: Bool
@@ -45,36 +46,57 @@ struct UploadRoutineView: View {
         // User enters the routine title and description
         // Imports the relevant audio files for the routine.
         
+        
         VStack {
             VStack(alignment: .leading,  spacing: 13) {
-                HStack {
+             
+              
                     HStack(spacing: 6) {
-                        Image(systemName: "note.text")
-                            .foregroundStyle(.accent).opacity(0.7)
-                            .font(.system(size: 16, weight: .semibold))
-                        Text("Routine Details").font(.headline)
-                    }
-                   
-                }
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                            HStack(spacing: 5) {
+                                
+                                usageTitleProminent(title: "Step 1: Enter routine details")
+                                   
+                                
+                                Image(systemName: "note.text")
+                                    .foregroundStyle(.accent).opacity(0.7)
+                                    .font(.system(size: 16, weight: .semibold))
+                               
+                              
+                            }
+                            Text("A routine is the sequence of all parts of your performance.")
+                                .foregroundStyle(.secondary)
+                            
+                                .font(.caption2)
+                            
+                        }
+                        
+                        
+                              
+                            
+                        }
                 Divider()
-                
-                
-                
+            
+                        
+       
                 
       
-                TextField("Enter a title", text: $routineTitle)
+                TextField("Enter a routine title", text: $routineTitle)
                     .bubbleStyle()
                     .limitText($routineTitle, to: characterLimit)
                     .focused($isFocused)
                 
               
-                TextField("Enter a subtitle", text: $routineDescription)
+                TextField("Enter a routine subtitle", text: $routineDescription)
                     .bubbleStyle()
                     .limitText($routineDescription, to: characterLimit)
                     .focused($isFocused)
                 
                 
             }
+            
             .padding()
            
                 .background(shadowOutline)
@@ -111,15 +133,26 @@ struct UploadRoutineView: View {
             
             
             VStack {
+                
                 HStack {
                     HStack(spacing: 6) {
     
-                            Image(systemName: "rectangle.stack")
-                                .foregroundStyle(.accent).opacity(0.7)
-                                .font(.system(size: 16, weight: .semibold))
-                        Text("Ordered Parts").font(.headline)
-                            .popoverTip(tip)
+                         
                         
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                            HStack(spacing: 5){
+                                usageTitleProminent(title: "Step 2: Upload audio files")
+                                Image(systemName: "music.note.list")
+                                    .foregroundStyle(.accent).opacity(0.7)
+                                    .font(.system(size: 16, weight: .semibold))
+                            }
+                            Text("Each audio file becomes a part of your routine. Rename and reorder them once uploaded.")
+                                .foregroundStyle(.secondary)
+                                .font(.caption2)
+                              
+                            
+                        }
                         HStack {
                             
                             #if targetEnvironment(simulator)
@@ -133,32 +166,9 @@ struct UploadRoutineView: View {
                             }
                             #endif
                             
-                            Spacer()
+                           
                             
                             
-                            HStack {
-                                Button {
-                                    // Dismiss keyboard if sharing
-                                    isFocused = false
-                                    focusedFileID = nil
-                                    isImporting = true
-                                } label: {
-                                    
-                                    
-                                    Image(systemName: "square.and.arrow.down")
-                                    
-                                    
-                                    
-                                    
-                                }
-                                
-                                .buttonStyle(PressableButtonStyle())
-                                
-                                
-                                addButton
-                                    
-                                
-                            }
                             
                             
                           
@@ -172,13 +182,18 @@ struct UploadRoutineView: View {
                             
                             
                     }
+                    
                     Spacer()
+                    addButton
 
                     
-                    
+                  
                 }
                 .padding()
-                Divider()
+               
+                // Add this to even out
+                Divider().padding(.horizontal).offset(y: -10)
+                
                 ScrollViewReader { proxy in
                     ScrollView {
                         
@@ -187,12 +202,21 @@ struct UploadRoutineView: View {
                         if selectedFiles.isEmpty {
                             
                             ContentUnavailableView {
-                                Label("Import Audio", systemImage: "music.note")
+                                Label("No uploaded audio files", systemImage: "music.note.list")
                             }  description: {
-                                Text("Upload audio files with the \(Image(systemName: "square.and.arrow.down")) button. When finished reordering the files, tap \(Image(systemName: "plus.circle")) to add the routine. ")
-                                    .multilineTextAlignment(.leading)
-                                    .lineSpacing(2) // optional for readability
-                                    .padding(.top, 5)
+                               
+                                
+                                Button("Upload") {
+                                    isFocused = false
+                                    focusedFileID = nil
+                                    isImporting = true
+                                }
+                                .padding()
+                                .buttonStyle(ReviewButtonStyle())
+                                .contentShape(Rectangle())
+                                
+                                
+                               
                             }
 
                         }
@@ -269,44 +293,49 @@ struct UploadRoutineView: View {
                     }
                     
                 }
-                
-                
-                 
-                    
-                   
-                 
-                    
-            
-               
+              
                 
             }
             
-           
+            
+          
             .background(shadowOutline)
-            .offset(y: 15)
-            
-            // Mark: Add Button
-           
-            
-         
+            .offset(y: 10)
             
             
+      
             
             
             
             
             
         }
-       
+        
         .frame(width: 370)
         .padding(.horizontal, 30)
         .padding(.vertical, 50)
+        .overlay(alignment: .top) {
+            if showToast {
+                Text("Routine saved!")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(.accent, in: RoundedRectangle(cornerRadius: 12))
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .padding(.top, 20)
+            }
+        }
+        .animation(.organicFastBounce, value: showToast)
+     
      
         
     }
        
        
     private var addButton: some View {
+        
         
         Button {
             
@@ -322,11 +351,20 @@ struct UploadRoutineView: View {
             // Create 20 routines to request a review
             reviewManager.incrementActionCount()
             
-            dismiss()
+            showToast = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                dismiss()
+            }
         } label: {
             
            
-            Image(systemName: "plus.circle")
+            Text("Save")
+                .font(.headline)
+                .bold()
+                .foregroundStyle(.accent.opacity(0.8))
+                .opacity(!areFilesUploaded() || !areFieldsFilled() || areFilenamesEmpty() ? 0.3 : 1)
+                
+               
                 
             
            
@@ -334,9 +372,11 @@ struct UploadRoutineView: View {
             
             
         }
-       
+      
+        .buttonStyle(NavButtonStyle())
+        .controlSize(.small)
         .disabled(!areFilesUploaded() || !areFieldsFilled() || areFilenamesEmpty())
-        .buttonStyle(PressableButtonStyle(isDisabled: !areFilesUploaded() || !areFieldsFilled() || areFilenamesEmpty()))
+       
      
     }
 

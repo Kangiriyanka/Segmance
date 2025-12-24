@@ -52,7 +52,7 @@ struct ContentView: View {
                     
                     OptionsView()
                         .tabItem {
-                            Label("Manager", systemImage: "squares.leading.rectangle")
+                            Label("Settings", systemImage: "gearshape")
                         }
                     
                     

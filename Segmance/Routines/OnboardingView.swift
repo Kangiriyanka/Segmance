@@ -26,7 +26,7 @@ struct OnboardingView: View {
                 OnboardingPage(
                     image: "list.bullet.rectangle",
                     title: "Add Moves & Notes",
-                    description: "Add notes, link reference videos, and practice with the built-in player."
+                    description: "Add notes, link reference videos, and practice with the built-in audio player."
                 )
                 .tag(1)
                 
