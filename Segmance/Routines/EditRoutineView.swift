@@ -51,6 +51,7 @@ struct EditRoutineView: View {
     @State private var showingSaveConfirm: Bool = false
     @State private var isImporting: Bool = false
     @State private var error: Error?
+    @State private var showToast = false
     @State private var tempFiles: [UUID: URL] = [:]
     
     
@@ -65,13 +66,27 @@ struct EditRoutineView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 13) {
                     HStack {
-                        HStack(spacing: 6) {
-                            Image(systemName: "note.text")
-                                .foregroundStyle(.accent).opacity(0.7)
-                                .font(.system(size: 16, weight: .semibold))
-                            Text("Routine Details").font(.headline)
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                           HStack(spacing: 5) {
+                                
+                                Text("Step 1: Edit routine details")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.secondary).italic()
+                                
+                                Image(systemName: "note.text")
+                                    .foregroundStyle(.accent).opacity(0.7)
+                                    .font(.system(size: 16, weight: .semibold))
+                               
+                              
+                            }
+                            Text("Change the title or subtitle.")
+                                .foregroundStyle(.secondary)
+                            
+                                .font(.caption2)
+                            
                         }
-                        Spacer()
                         
                         
                     }
@@ -95,13 +110,29 @@ struct EditRoutineView: View {
                 
                 VStack {
                     HStack(spacing: 6) {
-                        Image(systemName: "rectangle.stack")
-                            .foregroundStyle(.accent).opacity(0.7)
-                            .font(.system(size: 16, weight: .semibold))
-                        Text("Ordered Parts").font(.headline)
+                 
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                            HStack(spacing: 5) {
+                                usageTitleProminent(title: "2. Modify parts")
+                                Image(systemName: "rectangle.stack")
+                                    .foregroundStyle(.accent).opacity(0.7)
+                                    .font(.system(size: 16, weight: .semibold))
+                            }
+                            Text("Reorder parts, upload new ones, or delete existing parts.")
+                                .foregroundStyle(.secondary)
+                                .font(.caption2)
+                              
+                            
+                        }
+                        
+                       
                         Spacer()
-                        uploadButton
-                        confirmationButton
+                        HStack(spacing: 6) {
+                            
+                            
+                            confirmationButton
+                        }
                     }
                     
                     .padding()
@@ -138,7 +169,11 @@ struct EditRoutineView: View {
                             }
                             
                             
+                            
+                            
                             Spacer().frame(height: 10)
+                            
+                            uploadButton
                         }
                         
                         .contentMargins(.vertical, 20)
@@ -167,6 +202,20 @@ struct EditRoutineView: View {
             } message: {
                 Text(errorMessage)
             }
+            .overlay(alignment: .top) {
+                if showToast {
+                    Text("Routine edited!")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(.accent, in: RoundedRectangle(cornerRadius: 12))
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .padding(.top, 20)
+                }
+            }
+            .animation(.organicFastBounce, value: showToast)
             
             .fileImporter(isPresented: $isImporting, allowedContentTypes: [.audio], allowsMultipleSelection: true) { result in
                 
@@ -231,7 +280,7 @@ struct EditRoutineView: View {
                             isPresentingConfirm = true
                         }
                     } label: {
-                        Image(systemName: "ellipsis.circle")
+                        Image(systemName: "trash")
                     }
                     
                 }
@@ -261,18 +310,15 @@ struct EditRoutineView: View {
     }
     
     var uploadButton: some View {
-        Button {
+        Button("Upload") {
+            
             isImporting = true
-        } label: {
-            
-            
-            Image(systemName: "square.and.arrow.down")
-            
-
-            
         }
+        .padding()
+        .buttonStyle(ReviewButtonStyle())
+        .contentShape(Rectangle())
         
-        .buttonStyle(PressableButtonStyle())
+      
         
     }
     
@@ -280,8 +326,14 @@ struct EditRoutineView: View {
         Button {
             showingSaveConfirm = true
         } label: {
-            Image(systemName: "checkmark.circle")
+            Text("Save")
+           
+           
+           
+            .opacity(parts.isEmpty ? 0.3 : 1)
         }
+        .bold()
+        
         .disabled(parts.isEmpty)
         .confirmationDialog(
             "Are you sure you want to save changes?",
@@ -299,12 +351,15 @@ struct EditRoutineView: View {
                     }
                     routine.parts = parts
                     
-                    dismiss()
+                    showToast = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        dismiss()
+                    }
                 }
             }
             Button("Cancel", role: .cancel) {}
         }
-        .buttonStyle(PressableButtonStyle(isDisabled: parts.isEmpty))
+        
     }
     
     

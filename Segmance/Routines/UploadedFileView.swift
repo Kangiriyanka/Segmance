@@ -27,7 +27,7 @@ struct UploadedFileView : View {
     var body: some View {
         
         HStack {
-            TextField("Part name", text: $partName)
+            TextField("Enter a part name", text: $partName)
      
                 .limitText($partName, to: partCharacterCount)
          

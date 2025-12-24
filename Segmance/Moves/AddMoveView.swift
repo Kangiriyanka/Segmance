@@ -21,27 +21,50 @@ struct AddMoveView: View {
         VStack(alignment: .leading, spacing: 13) {
             
             HStack(spacing: 6) {
-            Image(systemName: "list.bullet.rectangle")
-                    .foregroundStyle(.accent).opacity(0.7)
-                    .font(.system(size: 16, weight: .semibold))
-            Text("New Move")
-                .font(.headline)
+            
+                usageTitle(title: "1. Enter a move name")
+             
+                
+            
            
         }
                 
-                TextField("Move name", text: $title)
+                TextField("Enter a move name", text: $title)
                     .bubbleStyle()
                     .limitText($title, to: 20)
             
             VStack(alignment: .leading, spacing: 13) {
                 HStack(spacing: 6){
-                    Image(systemName: "tag")
-                            .foregroundStyle(.accent).opacity(0.7)
-                            .font(.system(size: 16, weight: .semibold))
-                           
-                    Text("Type").font(.headline)
-                    // This is hilarious
-                        .offset(x: 0.5)
+                 
+                    
+                    if moveTypes.isEmpty {
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                            HStack(spacing: 5) {
+                                usageTitleProminent(title: "2. Create your first move type")
+                                
+                                Image(systemName: "tag")
+                                    .foregroundStyle(.accent).opacity(0.7)
+                                    .font(.system(size: 16, weight: .semibold))
+                               
+                            }
+                            Text("The move type is a quick mental note on how to execute the move. Examples: Rest, Transition, Power Move, Spin, Cascade etc.")
+                                .foregroundStyle(.secondary)
+                                .font(.caption2)
+                            
+                              
+                            
+                        }
+                      
+                        
+                        
+                    }
+                    else {
+                        usageTitle(title: "2. Select a move type or create one")
+                    }
+                   
+                     
                     
                       
                 
@@ -49,12 +72,14 @@ struct AddMoveView: View {
                         isNew.toggle()
                     } label: {
                         if !moveTypes.isEmpty {
-                        Image(systemName: isNew ? "return" : "plus.circle") .foregroundStyle(Color.mainText.opacity(0.7))
+                        
+                        Image(systemName: isNew ? "return" : "plus.circle")
                         }
                            
                    
                     }
-                    .buttonStyle(.borderless)
+                    .buttonStyle(MiniAudioButtonStyle(color: .routineCard.opacity(0.85)))
+                   
                 }
                 
                 HStack {
@@ -63,7 +88,7 @@ struct AddMoveView: View {
                         
                         if isNew || moveTypes.isEmpty {
                             Group {
-                                TextField("New type", text: $newType)
+                                TextField("Enter a new type", text: $newType)
                                     .limitText($newType, to: 15)
                             }
                             .bubbleStyle()
@@ -190,7 +215,7 @@ struct AddMoveView: View {
     
     
     let container = MoveType.previewContainer
-    let sample = Part.firstPartExample
+    let sample = Part.secondPartExample
     AddMoveView(part: sample)
         .modelContainer(container)
     
