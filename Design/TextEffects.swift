@@ -8,6 +8,7 @@
 
 // Issue: Jitter in the sliding
 // Ask an expert at some point.
+// Because I used onAppear (any re-evaluation of the view hierarchy), it was jittering
 import SwiftUI
 struct SlidingText: View {
     let text: String
@@ -17,6 +18,7 @@ struct SlidingText: View {
     @State private var offset: CGFloat = 0
     @State private var needsSliding = false
     @State private var textWidth: CGFloat = 0
+    @State private var initialized = false
     
     var body: some View {
         GeometryReader { geo in
@@ -26,6 +28,9 @@ struct SlidingText: View {
                     .background(
                         GeometryReader { textGeo in
                             Color.clear.onAppear {
+                                guard !initialized else { return }
+                                initialized = true
+                                
                                 textWidth = textGeo.size.width
                                 needsSliding = textWidth > geo.size.width
                                 
@@ -44,28 +49,23 @@ struct SlidingText: View {
                 }
             }
             .offset(x: offset)
-            
         }
         .mask {
-         
-                if needsSliding {
-                    LinearGradient(
-                        gradient: Gradient(stops: [
-                            .init(color: .clear, location: 0.0),
-                            .init(color: .black, location: 0.1),
-                            .init(color: .black, location: 0.9),
-                            .init(color: .clear, location: 1.0)
-                        ]),
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                }
-                    else {
-                        Color.black
-                    }
-                }
-        
-        
+            if needsSliding {
+                LinearGradient(
+                    gradient: Gradient(stops: [
+                        .init(color: .clear, location: 0.0),
+                        .init(color: .black, location: 0.1),
+                        .init(color: .black, location: 0.9),
+                        .init(color: .clear, location: 1.0)
+                    ]),
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            } else {
+                Color.black
+            }
+        }
         .clipped()
         .frame(height: 20)
     }

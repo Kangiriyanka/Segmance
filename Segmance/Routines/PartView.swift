@@ -104,6 +104,8 @@ struct PartView: View {
     var body: some View {
         ZStack {
             
+            
+            
             VStack {
                 headerView
                 movesScrollView
@@ -141,7 +143,11 @@ struct PartView: View {
         
         VStack {
             
-            Text("\(part.order). \(part.title)").customHeader().padding()
+            HStack {
+                Text("\(part.order). \(part.title)").customHeader()
+               
+            }
+            .padding()
             actionButtons
         }
         
@@ -158,7 +164,7 @@ struct PartView: View {
                                 Label("Controls", systemImage: "arcade.stick")
                             } description: {
                                 
-                                Text("Instructions on what each button above does and general instructions.")
+                                Text("Instructions on what each button above does and general instructions")
                                 VStack(alignment: .leading, spacing: 14) {
 
                                     instructionRow(
@@ -172,7 +178,7 @@ struct PartView: View {
                                     )
 
                                     instructionRow(
-                                        text: "Switch to non-editable overview mode",
+                                        text: "Switch to a non-editable overview mode",
                                         systemImage: "rectangle.grid.1x2"
                                     )
 
@@ -229,7 +235,7 @@ struct PartView: View {
                                     Button {
                                         showingAddMoveSheet = true
                                     } label: {
-                                        Text("Add your first move")
+                                        Text("Add first move")
                                     }
                                     .padding()
                                     .buttonStyle(ReviewButtonStyle())

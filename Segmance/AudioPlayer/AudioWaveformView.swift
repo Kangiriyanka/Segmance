@@ -52,6 +52,7 @@ struct SimpleDSWaveformView: View {
 }
 
 
+// Things to improve: Needle jitter while dragging
 
 
 struct AudioWaveformView: View {
@@ -99,7 +100,9 @@ struct AudioWaveformView: View {
                             .onReceive(
                                 Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
                             ) { _ in
-                                previewTime = trimmer?.audioPlayer?.currentTime ?? 0
+                                withAnimation(.linear(duration: 0.1)) {
+                                    previewTime = trimmer?.audioPlayer?.currentTime ?? 0
+                                }
                             }
                            
                         
@@ -261,6 +264,8 @@ struct HandleView: View {
         var body: some View {
             let sampleURL = Bundle.main.url(forResource: "piano", withExtension: "wav")!
             let mockTrimmer = AudioTrimmerModel()
+            
+            
             
             AudioWaveformView(
                 startTime: $startTime,

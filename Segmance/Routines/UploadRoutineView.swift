@@ -322,7 +322,7 @@ struct UploadRoutineView: View {
                     .foregroundStyle(.white)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
-                    .background(.accent, in: RoundedRectangle(cornerRadius: 12))
+                    .background(.green.opacity(0.9), in: RoundedRectangle(cornerRadius: 12))
                     .transition(.move(edge: .top).combined(with: .opacity))
                     .padding(.top, 20)
             }

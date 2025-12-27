@@ -25,18 +25,34 @@ struct AudioTrimmerView: View {
         NavigationStack {
             ScrollView {
                
+             
                     if audioTrimmerManager.audioURL == nil {
+                        ScrollView {
+                            VStack {
+                           
+                                VStack {
+                                    
+                                    ContentUnavailableView {
+                                        Label("No track uploaded", systemImage: "waveform")
+                                    } description: {
+                                        Text("Upload a track to clip into parts for your routine").padding([.top], 5)
+                                        emptyStateButton
+                                    }
+                                    
+                                
+                                    
+                                }
+                                .frame(minHeight: UIScreen.main.bounds.height * 0.7)
+                             
+                            }
+                         
+                        }
                       
-                        VStack {
-                            Text("Upload a song to clip into parts.").customHeader()
-                            
-                                .offset(y:10)
-                            emptyStateButton
-                        }.padding(1)
+                    }
                            
                           
                        
-                    }
+                    
                     
                     else {
                        
@@ -148,17 +164,17 @@ struct AudioTrimmerView: View {
                         )
             
                         instructionRow(
-                            text: "Clip the selected time range.",
+                            text: "Clip the selected time range",
                             systemImage: "scissors"
                         )
 
                         instructionRow(
-                            text: "Reset everything.",
+                            text: "Reset everything",
                             systemImage: "trash"
                         )
                         
                         instructionRow(
-                            text: "Once finished clipping, save all clips.",
+                            text: "Save all clips when finished clipping",
                             
                         )
                     }
@@ -185,10 +201,13 @@ struct AudioTrimmerView: View {
         HStack {
             Spacer()
             Button(action: { isImporting = true }) {
-                Text("Upload Song")
+                Text("Upload Track")
                    
                     .frame(width: 100, height: 20)
+                
             }
+            .offset(y: -20)
+            
             .buttonStyle(ReviewButtonStyle())
             Spacer()
         }

@@ -20,6 +20,7 @@ struct MoveTypeView: View {
     @State private var characterLimit: Int = 25
     // Crash source: When deleting this could be a problem.
     @State private var originalType: String
+    @State private var showToast: Bool = false
     
     @FocusState private var isFocused: Bool
     
@@ -62,6 +63,7 @@ struct MoveTypeView: View {
                                 isPresented: $isPresentingConfirm
                             ) {
                                 Button("Delete permanently", role: .destructive) {
+                                    showToast = true
                                     deleteMoveType()
                                 }
                                 Button("Cancel", role: .cancel) {}
@@ -81,6 +83,20 @@ struct MoveTypeView: View {
             } message: {
                 Text(errorMessage)
             }
+            .overlay(alignment: .top) {
+                if showToast {
+                    Text("Move type deleted!")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(.green.opacity(0.8), in: RoundedRectangle(cornerRadius: 12))
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .padding(.top, 20)
+                }
+            }
+            .animation(.organicFastBounce, value: showToast)
         }
     }
     
@@ -111,7 +127,10 @@ struct MoveTypeView: View {
         moveType.moves.forEach { modelContext.delete($0) }
         modelContext.delete(moveType)
         try? modelContext.save()
-        dismiss()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            dismiss()
+        }
     }
 }
 

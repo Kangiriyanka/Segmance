@@ -32,3 +32,29 @@ enum GridMode: String, CaseIterable {
            self = all[(all.firstIndex(of: self)! + 1) % all.count]
        }
    }
+
+
+enum ToastMessage: String {
+    case saved
+    case deleted
+
+    var text: String {
+        switch self {
+        case .saved:
+            return "Routine Saved!"
+        case .deleted:
+            return "Routine Deleted!"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .saved:
+            return .green.opacity(0.8)
+        case .deleted:
+            return .green.opacity(0.8)
+        }
+    }
+
+   
+}
