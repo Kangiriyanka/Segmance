@@ -13,6 +13,8 @@ import SwiftData
 
 
 
+
+
 struct PartRowView: View {
     @Binding var part: Part
     let onDelete: () -> Void
@@ -44,6 +46,7 @@ struct EditRoutineView: View {
     @State private var parts: [Part]
     @State private var errorTitle = ""
     @State private var errorMessage = ""
+    @State private var toastMessage: ToastMessage = .saved
     @State private var showingError: Bool = false
     @State private var characterLimit: Int = 30
     @State private var draggedPart: Part?
@@ -53,6 +56,7 @@ struct EditRoutineView: View {
     @State private var error: Error?
     @State private var showToast = false
     @State private var tempFiles: [UUID: URL] = [:]
+ 
     
     
     
@@ -204,13 +208,13 @@ struct EditRoutineView: View {
             }
             .overlay(alignment: .top) {
                 if showToast {
-                    Text("Routine edited!")
+                    Text(toastMessage.text)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 12)
-                        .background(.accent, in: RoundedRectangle(cornerRadius: 12))
+                        .background(toastMessage.color, in: RoundedRectangle(cornerRadius: 12))
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .padding(.top, 20)
                 }
@@ -290,6 +294,8 @@ struct EditRoutineView: View {
                 isPresented: $isPresentingConfirm
             ) {
                 Button("Delete permanently", role: .destructive) {
+                    toastMessage = ToastMessage.deleted
+                    showToast = true
                     deleteRoutine(id: routine.id)
                 }
                 Button("Cancel", role: .cancel) {}
@@ -326,7 +332,10 @@ struct EditRoutineView: View {
         Button {
             showingSaveConfirm = true
         } label: {
+            
+            
             Text("Save")
+            
            
            
            
@@ -344,6 +353,7 @@ struct EditRoutineView: View {
                 if validateDetails() {
                     routine.title = title
                     routine.routineDescription = description
+                    toastMessage = ToastMessage.saved
                     
                     syncFiles()
                     for (index, part) in parts.enumerated() {
@@ -472,8 +482,12 @@ struct EditRoutineView: View {
             }
             modelContext.delete(routineToDelete)
         }
-        dismiss()
         
+        showToast = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            dismiss()
+        }
+  
         
         
         

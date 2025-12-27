@@ -103,40 +103,50 @@ struct RoutineContainerView: View {
                 
                 Group {
                     if filteredRoutines.isEmpty {
-                        
-                        ContentUnavailableView {
-                            Label("No routines found", systemImage: "music.quarternote.3")
-                        } description: {
-                            
-                            VStack(alignment: .leading, spacing: 1) {
-                                Button("Create your first routine") {
-                                    showingUploadRoutineSheet.toggle()
-                                }
-                                .padding()
-                                .buttonStyle(ReviewButtonStyle())
-                                .contentShape(Rectangle())
+                        VStack {
+                            ContentUnavailableView {
+                                Label("No routines found", systemImage: "music.quarternote.3")
+                            } description: {
                                 
-                                HStack(spacing: 4) {
-                                    Text("Create more later by tapping the ") +
-                                    Text(Image(systemName: "plus.circle"))
-                                   +
-                                    Text(" in the actions above.")
-                                        .foregroundStyle(.secondary)
+                                VStack(alignment: .leading, spacing: 1) {
+                                    
+                                    
+                                    HStack(spacing: 4) {
+                                        Text("Create more later by tapping the ") +
+                                        Text(Image(systemName: "plus.circle"))
+                                        +
+                                        Text("button above.")
+                                            .foregroundStyle(.secondary)
                                         
+                                        
+                                    }
+                                    .padding(.horizontal, 11)
+                                    .multilineTextAlignment(.leading)
+                                
+                                    .frame(maxWidth: .infinity)
+                                    .font(.subheadline)
+                                    Button(routines.isEmpty ? "Create first routine" : "Create a routine") {
+                                        showingUploadRoutineSheet.toggle()
+                                    }
+                                    .padding()
+                                    .buttonStyle(ReviewButtonStyle())
+                                    .contentShape(Rectangle())
+                                   
+                                    
+                                    
                                     
                                 }
-                                .padding(.horizontal, 11)
-                                .multilineTextAlignment(.leading)
-                                .offset(y: -3)
-                                .frame(maxWidth: .infinity)
-                                .font(.subheadline)
-                            
                                 
+                                
+                                
+                            }
+                            
+                            
+                            Spacer()
                             
                         }
                         
-                       
-                        }
+                        .offset(y: -63)
                       
                         
                         

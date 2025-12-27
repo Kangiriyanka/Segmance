@@ -31,18 +31,25 @@ struct AllMoveTypesView: View {
                         CustomSearchBar(text: $searchText, placeholder: "Search routines")
                             .padding()
                         
+                        
+                        
                     }
                     
                  
 
                     Group {
                         if filteredMoveTypes.isEmpty {
-                            ContentUnavailableView {
-                                Label("No move types found", systemImage: "music.quarternote.3")
-                            } description: {
-                                Text("Create a type when you add moves to your routine.")
-                                    .padding(.top, 5)
+                            
+                            VStack {
+                                ContentUnavailableView {
+                                    Label("No move types found", systemImage: "music.quarternote.3")
+                                } description: {
+                                    Text("Create a type when you add moves to your routine.")
+                                        .padding(.top, 5)
+                                }
+                                
                             }
+                            .offset(y: -63)
                         } else {
                           
                             

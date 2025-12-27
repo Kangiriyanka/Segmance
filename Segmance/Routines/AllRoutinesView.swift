@@ -42,11 +42,15 @@ struct AllRoutinesView: View {
                 Group {
                     if filteredRoutines.isEmpty {
                         
-                        ContentUnavailableView {
-                            Label("No routines found", systemImage: "music.quarternote.3")
-                        } description: {
-                            Text("Add one by tapping the \(Image(systemName: "figure.dance")) button in the Routines tab.").padding([.top], 5)
+                        VStack {
+                            ContentUnavailableView {
+                                Label("No routines found", systemImage: "music.quarternote.3")
+                            } description: {
+                                Text("Add one by heading to the \(Image(systemName: "figure.dance")) Routines tab.").padding([.top], 5)
+                            }
+                            
                         }
+                        .offset(y: -63)
                         
                     }
                     else {

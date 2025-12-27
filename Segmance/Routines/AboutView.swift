@@ -20,7 +20,7 @@ struct AboutView: View {
             VStack(alignment: .leading, spacing: 20) {
                 infoCard(
                     title: "Segment your performance ",
-                    description: "Segmance helps you break down performances into parts for organized meaningful practice.",
+                    description: "Segmance helps you break down performances into parts for more organized, meaningful practice.",
                     spacing: 12
                 )
                 

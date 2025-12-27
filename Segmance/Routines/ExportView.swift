@@ -17,7 +17,7 @@ struct ExportView: View {
             
             VStack {
               
-                Text("Select the export format")
+                usageTitle(title: "Select the export format")
                 HStack {
                     ForEach(exportTypes, id: \.self) { exp in
                         

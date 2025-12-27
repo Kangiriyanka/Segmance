@@ -21,6 +21,14 @@ class VideoPlayerModel {
     var videoURL: URL?
     
     func fetchVideo(for id: String, onDeleted: @escaping () -> Void) {
+        
+        if showingVideoPlayer {
+                withAnimation(.organicFastBounce) {
+                    showingVideoPlayer = false
+                }
+                return
+            }
+        
         guard !isLoadingVideo else { return }
         isLoadingVideo = true
         

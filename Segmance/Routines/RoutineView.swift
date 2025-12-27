@@ -10,6 +10,36 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
+struct PartNavigationBar: View {
+    let parts: [Part]
+    @Binding var currentIndex: Int?
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(Array(parts.enumerated()), id: \.offset) { index, part in
+                    Button {
+                        withAnimation(.easeInOut) {
+                            currentIndex = index
+                        }
+                    } label: {
+                        Text("\(index + 1)")
+                            .font(.subheadline.bold())
+                            .frame(width: 36, height: 36)
+                            .background(
+                                index == currentIndex
+                                ? .white.opacity(0.9)
+                                : .white.opacity(0.3)
+                            )
+                            .clipShape(Circle())
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
+        .frame(height: 44)
+    }
+}
 
 struct RoutineView: View {
     var routine: Routine
@@ -24,22 +54,34 @@ struct RoutineView: View {
     @State private var currentAudioURL: URL?
     @State private var currentPartTitle: String = ""
     @State private var videoManager = VideoPlayerModel()
+    @State private var currentPartIndex: Int? = 1
     
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Routine.title) var routines: [Routine]
     
     
     var body: some View {
+  
         ZStack {
-            
+           
             backgroundGradient.ignoresSafeArea(.all)
             
-            
+          
+         
             
             VStack {
+               
+             
+                
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
-                        ForEach(routine.parts.sorted(by: { $0.order < $1.order })) { part in
+                        ForEach(
+                            Array(routine.parts
+                                .sorted(by: { $0.order < $1.order })
+                                .enumerated()),
+                            id: \.offset
+                        ) { index, part in
+
                             PartView(
                                 part: part,
                                 manager: videoManager,
@@ -48,15 +90,18 @@ struct RoutineView: View {
                                 onUnlinkVideo: onUnlinkVideo,
                                 onVideoPicked: onVideoPicked
                             )
-                            
-                      
-                           
                             .frame(width: UIScreen.main.bounds.width)
+                            // To scroll to
+                            .id(index)
                         }
                     }
                 }
                 .scrollTargetBehavior(.paging)
                 .scrollIndicators(.never)
+                .scrollPosition(id: $currentPartIndex)
+               
+                
+                
                 
             }
             .toolbar(playerIsExpanded || videoManager.isFullScreen ? .hidden : .visible, for: .tabBar)
@@ -76,7 +121,7 @@ struct RoutineView: View {
             } message: {
                 Text("This video isn’t accessible with your current Photos permissions. You can allow access in Settings.")
             }
-            
+         
      
             // Design Choice: Audio Player across all parts
             if playerIsPresented, let url = currentAudioURL {
@@ -109,6 +154,7 @@ struct RoutineView: View {
         }
       
         // If this routine no longer exists, dismiss this view
+        
         .onChange(of: routines) { _,_ in
                    
                     if !routines.contains(where: { $0.id == routine.id }) {
