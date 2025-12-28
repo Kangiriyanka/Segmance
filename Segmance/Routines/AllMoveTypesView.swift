@@ -28,7 +28,7 @@ struct AllMoveTypesView: View {
 
                     HStack{
                         Spacer()
-                        CustomSearchBar(text: $searchText, placeholder: "Search routines")
+                        CustomSearchBar(text: $searchText, placeholder: "Search move types")
                             .padding()
                         
                         
@@ -44,7 +44,7 @@ struct AllMoveTypesView: View {
                                 ContentUnavailableView {
                                     Label("No move types found", systemImage: "music.quarternote.3")
                                 } description: {
-                                    Text("Create a type when you add moves to your routine.")
+                                    Text("Create a move type when you add moves to a routine.")
                                         .padding(.top, 5)
                                 }
                                 

@@ -113,7 +113,7 @@ struct RoutineContainerView: View {
                                     
                                     HStack(spacing: 4) {
                                         Group {
-                                            Text("Create routines your way ")
+                                            Text("Create routines your way.")
                                           
                                                 .foregroundStyle(.secondary)
                                         }.padding(5)
@@ -125,7 +125,7 @@ struct RoutineContainerView: View {
                                 
                                     .frame(maxWidth: .infinity)
                                     .font(.subheadline)
-                                    Button(routines.isEmpty ? "Create First Routine" : "Create A Routine") {
+                                    Button(routines.isEmpty ? "Create First Routine" : "Create a Routine") {
                                         showingUploadRoutineSheet.toggle()
                                     }
                                     .padding()

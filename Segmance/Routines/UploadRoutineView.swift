@@ -66,7 +66,7 @@ struct UploadRoutineView: View {
                                
                               
                             }
-                            Text("A routine is the sequence of all parts of your performance.")
+                            Text("A routine is the sequence of all parts of a performance.")
                                 .foregroundStyle(.secondary)
                             
                                 .font(.caption2)
@@ -147,7 +147,7 @@ struct UploadRoutineView: View {
                                     .foregroundStyle(.accent).opacity(0.7)
                                     .font(.system(size: 16, weight: .semibold))
                             }
-                            Text("Each audio file becomes a part of your routine. Rename and reorder them once uploaded.")
+                            Text("Each audio file becomes a part in the routine. Rename and reorder parts once uploaded.")
                                 .foregroundStyle(.secondary)
                                 .font(.caption2)
                               

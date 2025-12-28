@@ -184,12 +184,12 @@ struct PartView: View {
                                     )
 
                                     instructionRow(
-                                        text: "Link a video from Photos",
+                                        text: "Link a video from Photos. Unlink by holding it.",
                                         systemImage: "film"
                                     )
 
                                     instructionRow(
-                                        text: "Switch to a non-editable overview mode",
+                                        text: "Switch to a read-only overview mode",
                                         systemImage: "rectangle.grid.1x2"
                                     )
 

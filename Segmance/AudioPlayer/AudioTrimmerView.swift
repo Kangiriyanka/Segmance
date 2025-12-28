@@ -35,7 +35,7 @@ struct AudioTrimmerView: View {
                                     ContentUnavailableView {
                                         Label("No track uploaded", systemImage: "waveform")
                                     } description: {
-                                        Text("Upload a track to split it into practice segments.").padding([.top], 5)
+                                        Text("Upload a track to break it into practice segments.").padding([.top], 5)
                                         emptyStateButton
                                     }
                                     

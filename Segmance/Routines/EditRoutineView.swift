@@ -292,7 +292,7 @@ struct EditRoutineView: View {
                 "Routine Deletion",
                 isPresented: $isPresentingConfirm
             ) {
-                Button("Delete permanently", role: .destructive) {
+                Button("Delete", role: .destructive) {
                     toastMessage = ToastMessage.deleted
                     showToast = true
                     deleteRoutine(id: routine.id)

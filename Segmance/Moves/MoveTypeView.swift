@@ -62,13 +62,14 @@ struct MoveTypeView: View {
                                 "Move Type Deletion",
                                 isPresented: $isPresentingConfirm
                             ) {
-                                Button("Delete permanently", role: .destructive) {
+                                Button("Delete", role: .destructive) {
                                     showToast = true
                                     deleteMoveType()
                                 }
                                 Button("Cancel", role: .cancel) {}
                             } message: {
-                                Text("Deleting this move type will delete all associated moves. Are you sure?")
+                                Text("Deleting this move type will also delete all its associated moves. Are you sure?")
+                                    
                             }
                         }
                     }

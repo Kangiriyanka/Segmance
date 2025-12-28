@@ -22,7 +22,7 @@ struct AddMoveView: View {
             
             HStack(spacing: 6) {
             
-                usageTitle(title: "1. Enter a move name")
+                usageTitle(title: "Enter a move name")
              
                 
             
@@ -42,7 +42,7 @@ struct AddMoveView: View {
                         VStack(alignment: .leading, spacing: 5) {
                             
                             HStack(spacing: 5) {
-                                usageTitleProminent(title: "2. Create your first move type")
+                                usageTitleProminent(title: "Create your first move type")
                                 
                                 Image(systemName: "tag")
                                     .foregroundStyle(.accent).opacity(0.7)
@@ -62,7 +62,7 @@ struct AddMoveView: View {
                         
                     }
                     else {
-                        usageTitle(title: "2. Select a move type or create one")
+                        usageTitle(title: "Select a move type or create one")
                     }
                    
                      

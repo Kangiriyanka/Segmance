@@ -21,7 +21,7 @@ struct UsageGuideView: View {
                 
                 infoButtonCard(
                     title: "General",
-                    description: "Audio files uploaded will be split into parts. Each part can play its own audio. Rename or reorder parts in Settings.", spacing: 12) {
+                    description: "Audio files uploaded will be split into routine parts. Each part can play its own audio. Some audio formats may not be supported.", spacing: 12) {
                         
                         Button() {
                           
@@ -45,6 +45,19 @@ struct UsageGuideView: View {
                         
                     }
                 
+                infoButtonCard(
+                    title: "Make Changes",
+                    description: "Edit routines in the Settings tab. Add or remove parts as needed.", spacing: 12) {
+                        
+                        Button() {
+                          
+                        } label: {
+                            Image(systemName: "pencil")
+                        }
+        
+                        
+                    }
+                
                 
                 
                 BubbleSeparator()
@@ -58,7 +71,7 @@ struct UsageGuideView: View {
                     
                 )
            
-                infoButtonCard(title: "Reference videos" ,description: "Link a video from your Photos library to any part for reference. Hold the play button to unlink." ,spacing: 12) {
+                infoButtonCard(title: "Reference videos" ,description: "Link a video from your Photos library to any part for reference. Hold the play button to unlink. Enable 'All Photos' access in Settings for a better experience." ,spacing: 12) {
                     
                     Button() {
                         
@@ -131,7 +144,9 @@ struct UsageGuideView: View {
                             Text(isCustomLooping ? "Hold" :"AB")
                                 
                                 
-                                .customCircle().scaleEffect(0.8)
+                                .customCircle().scaleEffect(0.7).offset(y: -1)
+                            
+                                
                             
                             
                             
@@ -147,7 +162,7 @@ struct UsageGuideView: View {
                         
                         VStack(spacing: 10) {
                             Image(systemName: "timer")
-                                .font(.system(size: 20))
+                                .font(.system(size: 16))
                                 .foregroundStyle(.mainText)
                             
                             
@@ -159,6 +174,8 @@ struct UsageGuideView: View {
                     .font(.title2)
                    
                 }
+                
+             
                 
 
             

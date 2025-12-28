@@ -17,30 +17,29 @@ struct OnboardingView: View {
         ZStack {
             TabView(selection: $currentPage) {
                 OnboardingPage(
-                    image: "square.and.arrow.down",
-                    title: "Import Your Tracks",
-                    description: "Upload separate audio files for each part of your routine."
+                    image: "waveform",
+                    title: "Segment Your Performance",
+                    description: "Break your performance into parts by uploading separate audio files."
                 )
                 .tag(0)
-                
+
                 OnboardingPage(
                     image: "list.bullet.rectangle",
-                    title: "Add Moves & Notes",
-                    description: "Add notes, link reference videos, and practice with the built-in audio player."
+                    title: "Add Notes to Parts",
+                    description: "Add notes, link videos, and practice with the built-in audio player."
                 )
                 .tag(1)
-                
+
                 OnboardingPage(
                     image: "scissors",
                     title: "Clip Audio",
-                    description: "Clip your audio files anytime."
+                    description: "Clip audio tracks anytime to practice specific parts."
                 )
                 .tag(2)
             }
             .tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .always))
-            .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
+            
             
             VStack {
                 
