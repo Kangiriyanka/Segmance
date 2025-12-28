@@ -182,7 +182,7 @@ struct AudioWaveformView: View {
                 }
 
               
-                .buttonStyle(MiniAudioButtonStyle(color: .customPink))
+                .buttonStyle(MiniAudioButtonStyle(width: 30, color: .customPink))
                 
                 Divider()
                     .frame(width: 2, height: 30)
@@ -193,7 +193,7 @@ struct AudioWaveformView: View {
                     Button("+1") { endTime = min(trimmer?.duration ?? endTime, endTime + 1) }
                     Button("+10") { endTime = min(trimmer?.duration ?? endTime, endTime + 10) }
                 }
-                .buttonStyle(MiniAudioButtonStyle(color: Color.player))
+                .buttonStyle(MiniAudioButtonStyle(width: 30, color: .player))
             }
         }
        

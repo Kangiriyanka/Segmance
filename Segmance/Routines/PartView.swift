@@ -55,9 +55,24 @@ struct VideoPickerButton: View {
         }
         .onChange(of: selectedVideoItem) { _, item in
             guard let item else { return }
-            onVideoPicked(item)
-            selectedVideoItem = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation(.easeInOut) {
+                    onVideoPicked(item)
+                    selectedVideoItem = nil
+                }
+            }
         }
+//        Another way
+//        .onChange(of: selectedVideoItem) { _, item in
+//        guard let item else { return }
+//        Task {
+//            try? await Task.sleep(for: .milliseconds(300))
+//            withAnimation {
+//                onVideoPicked(item)
+//                selectedVideoItem = nil
+//            }
+//        }
+    
     }
 }
 struct PartView: View {
@@ -143,11 +158,7 @@ struct PartView: View {
         
         VStack {
             
-            HStack {
-                Text("\(part.order). \(part.title)").customHeader()
-               
-            }
-            .padding()
+           
             actionButtons
         }
         
@@ -164,7 +175,7 @@ struct PartView: View {
                                 Label("Controls", systemImage: "arcade.stick")
                             } description: {
                                 
-                                Text("Instructions on what each button above does and general instructions")
+                                Text("How buttons work and helpful tips") 
                                 VStack(alignment: .leading, spacing: 14) {
 
                                     instructionRow(
@@ -199,24 +210,26 @@ struct PartView: View {
                                         systemImage: "rectangle"
                                             
                                     )
+                                    
+                                    instructionRow(
+                                        text: "Tap the part title to navigate between parts",
+                                        systemImage: "textformat.characters"
+                                            
+                                    )
                                     instructionRow(
                                         text: "Tap the Routines tab to go back to your routines",
                                         systemImage: "figure.dance"
                                             
                                     )
 
-                                    instructionRow(
-                                        text: "For more information, see Settings > Usage Guide",
-                                        systemImage: "info.circle"
-                                            
-                                    )
+                                   
                                     
                                     Divider()
                                     
                                     Button {
                                         showingAddMoveSheet = true
                                     } label: {
-                                        Text("Add first move")
+                                        Text("Add First Move")
                                     }
                                     .padding()
                                     .buttonStyle(ReviewButtonStyle())
@@ -235,7 +248,7 @@ struct PartView: View {
                                     Button {
                                         showingAddMoveSheet = true
                                     } label: {
-                                        Text("Add first move")
+                                        Text("Add First Move")
                                     }
                                     .padding()
                                     .buttonStyle(ReviewButtonStyle())

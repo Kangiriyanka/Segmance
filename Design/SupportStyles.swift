@@ -12,11 +12,11 @@ import StoreKit
 // MARK: - Info Card
 func infoCard(title: String, description: String, spacing: CGFloat) -> some View {
     VStack(alignment: .leading, spacing: spacing) {
-        Text(title)
-            .customHeader()
+        usageTitle(title: title)
         
         Text(description)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .opacity(0.9)
             .multilineTextAlignment(.leading)
             .padding()
             .background(cardBackground)
@@ -31,7 +31,7 @@ func usageTitleProminent(title: String, ) -> some View {
             Text(title)
             .font(.headline)
             .fontWeight(.semibold)
-            .foregroundStyle(.secondary).italic()
+            .foregroundStyle(.mainText.opacity(0.9))
 
     }
     
@@ -44,7 +44,7 @@ func usageTitle(title: String, ) -> some View {
             Text(title)
                 .font(.headline)
                 .fontWeight(.semibold)
-                .foregroundStyle(.secondary).italic()
+                .foregroundStyle(.mainText.opacity(0.9))
 
     }
     

@@ -11,6 +11,11 @@ import PhotosUI
 import Photos
 import AVKit
 
+// Problems:
+
+// One problem that arises is when you link a video for the first time there's the prompt: Full - Limited - No access
+// The alert shows initially even if you allow full access
+
 @Observable
 class VideoPlayerModel {
     var selectedVideoItem: PhotosPickerItem?
@@ -69,14 +74,61 @@ class VideoPlayerModel {
         onDeleted()
     }
     
-    func validateAndAssignVideo(for item: PhotosPickerItem?, assignID: @escaping (String) -> Void) {
+    func canAccessAsset(withID id: String) -> Bool {
+        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+        return fetchResult.firstObject != nil
+    }
+
+  
+    // In Limited Mode, iOS can randomly ask the user to allow access.
+    func validateAndAssignVideo(
+        for item: PhotosPickerItem?,
+        assignID: @escaping (String) -> Void
+    ) {
         guard let item = item, let id = item.itemIdentifier else { return }
-        
-        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
-        if assets.firstObject != nil {
+
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+
+        switch status {
+        case .authorized:
             assignID(id)
             selectedVideoItem = item
-        } else {
+            
+        // Check for the limited user videos
+        case .limited:
+            if canAccessAsset(withID: id) {
+                assignID(id)
+                selectedVideoItem = item
+            } else {
+                
+                self.showingAccessAlert = true
+            }
+            
+        // This is the case
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { newStatus in
+                // DispatchQue.main.async (UI updates on the main thread)
+                Task { @MainActor in
+                    if newStatus == .authorized {
+                        assignID(id)
+                        self.selectedVideoItem = item
+                    } else if newStatus == .limited {
+                        if self.canAccessAsset(withID: id) {
+                            assignID(id)
+                            self.selectedVideoItem = item
+                        } else {
+                            self.showingAccessAlert = true
+                        }
+                    } else {
+                        self.showingAccessAlert = true
+                    }
+                }
+            }
+
+        case .denied, .restricted:
+            showingAccessAlert = true
+
+        @unknown default:
             showingAccessAlert = true
         }
     }

@@ -113,7 +113,8 @@ struct MoveView: View {
                     
                     HStack {
                        
-                        moveMarker(width: showMoveType ? 120 : 40, height: 20, text: moveTypeText, color: Color.customPink)
+                        moveMarker(width: showMoveType ? 120 : 40, height : 20, text: moveTypeText, color: Color.customPink)
+                         
                             .onTapGesture {
                                  
                                     showMoveType.toggle()
@@ -263,7 +264,7 @@ struct MoveView: View {
 
 #Preview {
     
-    let moveType = MoveType(name: "Juggling", abbreviation: "J")
+    let moveType = MoveType(name: "Freeze Louise ", abbreviation: "J")
     let move = Move(title: "Test", details: "Test", order: 1, type: moveType )
     MoveView(deleteFunction: { _ in }, move: move )
     

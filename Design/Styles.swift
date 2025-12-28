@@ -23,13 +23,14 @@ struct NavButtonStyle: ButtonStyle {
 struct MiniAudioButtonStyle: ButtonStyle {
     var scale: CGFloat = 0.9
     var opacity: Double = 0.85
+    var width: CGFloat
     var color: Color
     var isDisabled: Bool? = nil
 
     func makeBody(configuration: Configuration) -> some View {
         let disabled = isDisabled ?? false
         configuration.label
-            .frame(width: 30)
+            .frame(width: width)
             .padding(3)
             .background(RoundedRectangle(cornerRadius: 4.0)
                         
@@ -196,7 +197,7 @@ struct ReviewButtonStyle: ButtonStyle {
 #Preview {
     
     Button("+1"){}
-        .buttonStyle(MiniAudioButtonStyle(color: .customPink))
+        .buttonStyle(MiniAudioButtonStyle(width: 30, color: .customPink))
     Divider()
     Button("Review"){}
         .buttonStyle(ReviewButtonStyle())

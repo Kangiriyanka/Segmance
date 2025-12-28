@@ -14,14 +14,14 @@ struct UsageGuideView: View {
                 
                 
                 usageTitle(
-                    title: "Uploading a routine",
+                    title: "1. Uploading a routine",
                     
                 )
            
                 
                 infoButtonCard(
                     title: "General",
-                    description: "Audio files uploaded will be split into parts. Each part has its own audio player. Rename or reorder parts in Settings.", spacing: 12) {
+                    description: "Audio files uploaded will be split into parts. Each part can play its own audio. Rename or reorder parts in Settings.", spacing: 12) {
                         
                         Button() {
                           
@@ -34,7 +34,7 @@ struct UsageGuideView: View {
                 
                 infoButtonCard(
                     title: "Clip Audio",
-                    description: "Clip audio files beforehand using the clipper tool.", spacing: 12) {
+                    description: "Clip performance track beforehand using the clipper tool.", spacing: 12) {
                         
                         Button() {
                           
@@ -54,7 +54,7 @@ struct UsageGuideView: View {
                 
                 
                 usageTitle(
-                    title: "Inside the routine",
+                    title: "2. Inside the routine",
                     
                 )
            
@@ -114,7 +114,7 @@ struct UsageGuideView: View {
             
                 
                 usageTitle(
-                    title: "Audio player specifications",
+                    title: "3. Audio player specifications",
                     
                 )
                 

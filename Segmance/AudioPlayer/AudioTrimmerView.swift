@@ -35,7 +35,7 @@ struct AudioTrimmerView: View {
                                     ContentUnavailableView {
                                         Label("No track uploaded", systemImage: "waveform")
                                     } description: {
-                                        Text("Upload a track to clip into parts for your routine").padding([.top], 5)
+                                        Text("Upload a track to split it into practice segments.").padding([.top], 5)
                                         emptyStateButton
                                     }
                                     
@@ -149,10 +149,10 @@ struct AudioTrimmerView: View {
             if audioTrimmerManager.clippedURLs.isEmpty {
                 
                 ContentUnavailableView {
-                    Label("Clip Controls", systemImage: "arcade.stick")
+                    Label("Controls", systemImage: "arcade.stick")
                 } description: {
                     
-                    Text("Instructions on how to use the clipper")
+                    Text("How the clipper works")
                     VStack(alignment: .leading, spacing: 14) {
                         instructionRow(
                             text: "Drag the handles to select a time range",
@@ -175,6 +175,7 @@ struct AudioTrimmerView: View {
                         
                         instructionRow(
                             text: "Save all clips when finished clipping",
+                            systemImage: "square.and.arrow.down" 
                             
                         )
                     }

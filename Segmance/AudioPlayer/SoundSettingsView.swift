@@ -65,7 +65,10 @@ struct SoundSettingsView: View {
             NavigationStack {
                 ScrollView {
                     
-                    Text("Choose the countdown sound").customHeader()
+                    HStack(spacing: 7){
+                        usageTitle(title: "Select the countdown sound")
+                        Image(systemName: "timer")
+                    }
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20)
                     {
                         ForEach(CountdownSound.allCases, id: \.self) { sound in
@@ -82,10 +85,25 @@ struct SoundSettingsView: View {
                             }
                         }
                     }
+                   
                     .padding()
                     .onAppear {
                         selectedSound = countdownSound
                     }
+                    
+                    HStack {
+                        VStack {
+                            Text("Note: The countdown for rehearsing can be set in the expanded audio player of a routine (which appears when you tap the mini audio player).")
+                                .padding()
+                            
+                         
+                               
+                        }
+                        
+                    }
+                    .font(.caption)
+                    .foregroundStyle(Color(.secondaryLabel))
+                        
                 }
                 .background(backgroundGradient)
                 

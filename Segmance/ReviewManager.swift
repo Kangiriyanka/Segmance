@@ -9,14 +9,15 @@ import Foundation
 import StoreKit
 
 // Notes: You get this prompt 3 times a year
+// Some apps just ask for it in the first 5 seconds (what the?)
 class ReviewManager {
     static let shared = ReviewManager()
     
     private let defaults = UserDefaults.standard
     private let actionCountKey = "actionCount"
     private let lastReviewRequestKey = "lastReviewRequest"
-    // If a user uploads a routine 25 times, it's a good time to ask
-    private let actionThreshold = 25
+    // If a user uploads a routine 10 times, it's a good time to ask
+    private let actionThreshold = 10
     
     @MainActor func incrementActionCount() {
         let count = defaults.integer(forKey: actionCountKey) + 1

@@ -50,6 +50,7 @@ struct AddMoveView: View {
                                
                             }
                             Text("The move type is a quick mental note on how to execute the move. Examples: Rest, Transition, Power Move, Spin, Cascade etc.")
+                                .fixedSize(horizontal: false, vertical: true)
                                 .foregroundStyle(.secondary)
                                 .font(.caption2)
                             
@@ -78,7 +79,7 @@ struct AddMoveView: View {
                            
                    
                     }
-                    .buttonStyle(MiniAudioButtonStyle(color: .routineCard.opacity(0.85)))
+                    .buttonStyle(MiniAudioButtonStyle(width: 30, color: .routineCard.opacity(0.85)))
                    
                 }
                 

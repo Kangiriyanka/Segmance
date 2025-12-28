@@ -1,5 +1,7 @@
 import SwiftUI
 
+import UniformTypeIdentifiers
+
 struct ExportView: View {
     
     @State private var exportFileURL: URL?
@@ -37,7 +39,7 @@ struct ExportView: View {
                 Button {
                     isShowingExporter = true
                 } label: {
-                    Text("Export routines")
+                    Text("Export Routines")
                     
                     
                 }
@@ -57,7 +59,8 @@ struct ExportView: View {
             .fileExporter(
                 isPresented: $isShowingExporter,
                 document: TextDocument(text: exportType == "Markdown" ? exportRoutinesToMarkdown(routines) : exportRoutinesToHTML(routines)),
-                contentType: exportType == "Markdown" ? .plainText : .html
+                contentType: exportType == "Markdown" ? .plainText : .html,
+                defaultFilename: exportType == "Markdown" ? "Routines.md" : "Routines.html"
             ) { result in
                 switch result {
                 case .success(let url):
@@ -93,7 +96,7 @@ struct ExportView: View {
             }
 
             h1 {
-                font-size: 32px;
+                font-size: 40px;
                 font-weight: 700;
                 margin-top: 40px;
                 margin-bottom: 16px;
@@ -130,6 +133,16 @@ struct ExportView: View {
                 margin-bottom: 18px;
             }
         
+            .routine-description {
+                display: block;
+                font-size: 30px;
+                font-weight: 700;
+                margin-top: -10px;
+                margin-bottom: 16px;
+                color: var(--routine-color);
+        
+            }
+        
         
 
             .move-block {
@@ -145,18 +158,19 @@ struct ExportView: View {
         </style>
         """
         
-        for routine in routines {
-            export += "<h1>\(routine.title)</h1>"
-            export += "<span class='routine-description'>\(routine.routineDescription)</span>"
-        
+        for routine in routines.sorted(by: {$0.title < $1.title}){
+            export += "<h1>\(routine.title) - \(routine.routineDescription) </h1>"
+           
 
-            for part in routine.parts {
+            for part in routine.parts.sorted(by: {$0.order < $1.order} ) {
                 export += "<div class='part-block'>"
-                export += "<h2>\(part.title)</h2>"
+                export += "<h2> Part \(part.order): \(part.title)</h2>"
 
-                for move in part.moves {
+                for move in part.moves.sorted(by: {$0.order < $1.order}) {
                     export += "<div class='move-block'>"
-                    export += "<h3>\(move.title) - \(move.type!.name)</h3>"
+                    if let type = move.type?.name {
+                        export += "<h3>\(move.title) - \(type)</h3>"
+                    }
                     export += "<p>\(move.details)</p>"
                     export += "</div>"
                 }
@@ -172,14 +186,14 @@ struct ExportView: View {
         func exportRoutinesToMarkdown(_ routines: [Routine]) -> String {
             var export = ""
 
-            for routine in routines {
-                export += "# \(routine.title)\n\n"
-                export += "\(routine.routineDescription)\n\n"
+            for routine in routines.sorted(by: {$0.title < $1.title}) {
+                export += "# \(routine.title) - \(routine.routineDescription)\n\n"
+              
 
-                for part in routine.parts {
-                    export += "## \(part.order). \(part.title)\n\n"
+                for part in routine.parts.sorted(by : {$0.order < $1.order}) {
+                    export += "## Part \(part.order): \(part.title)\n\n"
 
-                    for move in part.moves {
+                    for move in part.moves.sorted(by : {$0.order < $1.order}) {
                         export += "### \(move.title)"
                         if let typeName = move.type?.name {
                             export += " — \(typeName)"

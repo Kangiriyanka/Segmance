@@ -49,11 +49,11 @@ struct AboutView: View {
         VStack(alignment: .leading, spacing: 12) {
             
             VStack(alignment: .leading){
-                Text("Support")
-                    .customHeader()
+                usageTitle(title: "Support")
                 
                 Text("Enjoying the app? I’d love to hear your feedback. Reach out anytime for support or feature requests.")
                     .padding()
+                    .opacity(0.9)
                     .background(cardBackground)
                     .customBorderStyle()
                 

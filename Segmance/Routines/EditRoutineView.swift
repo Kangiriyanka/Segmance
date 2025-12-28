@@ -29,7 +29,7 @@ struct PartRowView: View {
             isPresented: $showingDeleteConfirm,
             titleVisibility: .visible
         ) {
-            Button("Remove Part \(part.title)", role: .destructive) {
+            Button("Remove \(part.title)", role: .destructive) {
                 onDelete()
             }
         }
@@ -74,10 +74,8 @@ struct EditRoutineView: View {
                             
                            HStack(spacing: 5) {
                                 
-                                Text("Step 1: Edit routine details")
-                                    .font(.headline)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.secondary).italic()
+                               usageTitleProminent(title: "Edit Routine Details")
+                                   
                                 
                                 Image(systemName: "note.text")
                                     .foregroundStyle(.accent).opacity(0.7)
@@ -117,8 +115,9 @@ struct EditRoutineView: View {
                  
                         VStack(alignment: .leading, spacing: 5) {
                             
+                            // MARK: -  Part Title
                             HStack(spacing: 5) {
-                                usageTitleProminent(title: "2. Modify parts")
+                                usageTitleProminent(title: "Edit Parts")
                                 Image(systemName: "rectangle.stack")
                                     .foregroundStyle(.accent).opacity(0.7)
                                     .font(.system(size: 16, weight: .semibold))
@@ -345,7 +344,7 @@ struct EditRoutineView: View {
         
         .disabled(parts.isEmpty)
         .confirmationDialog(
-            "Are you sure you want to save changes?",
+            "Are you sure you want to save these changes?",
             isPresented: $showingSaveConfirm,
             titleVisibility: .visible
         ) {

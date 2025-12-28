@@ -10,34 +10,87 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct PartNavigationBar: View {
+
+
+struct PartPickerOverlay: View {
     let parts: [Part]
-    @Binding var currentIndex: Int?
+    let currentOrder: Int
+    @Binding var isPresented: Bool
+    let onSelect: (Int) -> Void
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                ForEach(Array(parts.enumerated()), id: \.offset) { index, part in
-                    Button {
-                        withAnimation(.easeInOut) {
-                            currentIndex = index
+        ZStack {
+
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismiss()
+                }
+
+            VStack(spacing: 12) {
+                usageTitle(title: "Jump To")
+                    
+
+                LazyVGrid(
+                    columns: [
+                        GridItem(.flexible(), spacing: 15),
+                        GridItem(.flexible(), spacing: 15),
+                     
+                    ],
+                    spacing: 15
+                ) {
+                    ForEach(parts.sorted(by: { $0.order < $1.order })) { part in
+                        Button {
+                            onSelect(part.order - 1)
+                            dismiss()
+                        } label: {
+                            
+                            VStack {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.player.opacity(0.85))
+                                        .frame(width: 30, height: 30)
+                                    
+                                    Text(String(part.order))
+                                        .foregroundStyle(.mainText.opacity(0.85))
+                                        .font(.system(size: 12))
+                                        .fontWeight(.semibold)
+                                }
+                                .frame(width: 40, height: 40)
+                                
+                                
+                                Text(part.title)
+                                    .font(.system(size: 12))
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundStyle(Color.mainText)
+                                    .truncationMode(.tail)
+                                
+                                
+                            }
+                            
                         }
-                    } label: {
-                        Text("\(index + 1)")
-                            .font(.subheadline.bold())
-                            .frame(width: 36, height: 36)
-                            .background(
-                                index == currentIndex
-                                ? .white.opacity(0.9)
-                                : .white.opacity(0.3)
-                            )
-                            .clipShape(Circle())
                     }
+                    
+                    
                 }
             }
-            .padding(.horizontal)
+            .padding()
+            .frame(maxWidth: 260)
+     
+            .background(.thinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .transition(
+                .opacity.combined(with: .scale(scale: 0.95))
+            )
         }
-        .frame(height: 44)
+        .zIndex(200)
+    }
+
+    private func dismiss() {
+        withAnimation(.easeOut(duration: 0.2)) {
+            isPresented = false
+        }
     }
 }
 
@@ -54,7 +107,8 @@ struct RoutineView: View {
     @State private var currentAudioURL: URL?
     @State private var currentPartTitle: String = ""
     @State private var videoManager = VideoPlayerModel()
-    @State private var currentPartIndex: Int? = 1
+    @State private var currentPartIndex: Int? = 0
+    @State private var showingPartPicker: Bool = false
     
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Routine.title) var routines: [Routine]
@@ -66,8 +120,22 @@ struct RoutineView: View {
            
             backgroundGradient.ignoresSafeArea(.all)
             
-          
-         
+            
+            if showingPartPicker {
+                PartPickerOverlay(
+                    parts: routine.parts,
+                    currentOrder: currentPartIndex ?? 0,
+                    isPresented: $showingPartPicker
+                ) { index in
+                    withAnimation(.easeInOut) {
+                        currentPartIndex = index
+                    }
+                }
+                
+                
+            }
+            
+
             
             VStack {
                
@@ -81,18 +149,47 @@ struct RoutineView: View {
                                 .enumerated()),
                             id: \.offset
                         ) { index, part in
-
-                            PartView(
-                                part: part,
-                                manager: videoManager,
-                                onPlayVideo: onPlayVideo,
-                                onPlayAudio: onPlayAudio,
-                                onUnlinkVideo: onUnlinkVideo,
-                                onVideoPicked: onVideoPicked
-                            )
-                            .frame(width: UIScreen.main.bounds.width)
-                            // To scroll to
-                            .id(index)
+                            VStack(spacing: 0) {
+                                Button {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        showingPartPicker = true
+                                    }
+                                   
+                                } label: {
+                                    // MARK: -  Part Title
+                                    usageTitle(title: "\(part.order). \(part.title)")
+                                        .padding(1)
+                                        .font(.caption)
+                                        
+                                        
+                                        
+                            
+                                        
+                                      
+                                }
+                                .buttonStyle(NavButtonStyle())
+                              
+                               
+                               
+                               
+       
+                                .padding()
+                              
+                                PartView(
+                                    part: part,
+                                    manager: videoManager,
+                                    onPlayVideo: onPlayVideo,
+                                    onPlayAudio: onPlayAudio,
+                                    onUnlinkVideo: onUnlinkVideo,
+                                    onVideoPicked: onVideoPicked
+                                )
+                                .frame(width: UIScreen.main.bounds.width)
+                                // To scroll to
+                                .id(index)
+                                
+                                
+                                
+                            }
                         }
                     }
                 }
@@ -104,6 +201,7 @@ struct RoutineView: View {
                 
                 
             }
+        
             .toolbar(playerIsExpanded || videoManager.isFullScreen ? .hidden : .visible, for: .tabBar)
             .ignoresSafeArea(.container, edges: playerIsExpanded ? .bottom : [])
             .alert("No Access", isPresented: $videoManager.showingAccessAlert) {
@@ -155,6 +253,8 @@ struct RoutineView: View {
       
         // If this routine no longer exists, dismiss this view
         
+        
+      
         .onChange(of: routines) { _,_ in
                    
                     if !routines.contains(where: { $0.id == routine.id }) {
@@ -210,6 +310,7 @@ struct RoutineView: View {
     }
 
     // Part view's PhotoPicker
+    
     private func onVideoPicked(_ item: PhotosPickerItem, _ part: Part) {
         videoManager.validateAndAssignVideo(
             for: item,

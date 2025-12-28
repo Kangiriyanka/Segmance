@@ -112,20 +112,20 @@ struct RoutineContainerView: View {
                                     
                                     
                                     HStack(spacing: 4) {
-                                        Text("Create more later by tapping the ") +
-                                        Text(Image(systemName: "plus.circle"))
-                                        +
-                                        Text("button above.")
-                                            .foregroundStyle(.secondary)
+                                        Group {
+                                            Text("Create routines your way ")
+                                          
+                                                .foregroundStyle(.secondary)
+                                        }.padding(5)
                                         
                                         
                                     }
-                                    .padding(.horizontal, 11)
+                                    
                                     .multilineTextAlignment(.leading)
                                 
                                     .frame(maxWidth: .infinity)
                                     .font(.subheadline)
-                                    Button(routines.isEmpty ? "Create first routine" : "Create a routine") {
+                                    Button(routines.isEmpty ? "Create First Routine" : "Create A Routine") {
                                         showingUploadRoutineSheet.toggle()
                                     }
                                     .padding()

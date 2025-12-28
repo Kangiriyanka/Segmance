@@ -68,7 +68,7 @@ struct MoveTypeView: View {
                                 }
                                 Button("Cancel", role: .cancel) {}
                             } message: {
-                                Text("Deleting this move type will erase all associated moves. Are you sure?")
+                                Text("Deleting this move type will delete all associated moves. Are you sure?")
                             }
                         }
                     }
